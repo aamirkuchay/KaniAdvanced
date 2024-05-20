@@ -3,8 +3,8 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from './common/Loader/index.js';
 import PageTitle from './components/PageTitle.js';
-import SignIn from './pages/Authentication/SignIn.js';
-import SignUp from './pages/Authentication/SignUp.js';
+import SignIn from './pages/Authentication/SignIn.jsx';
+import SignUp from './pages/Authentication/SignUp.jsx';
 import Calendar from './pages/Calendar.js';
 import Chart from './pages/Chart.js';
 import ECommerce from './pages/Dashboard/ECommerce.js';
