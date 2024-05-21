@@ -16,7 +16,7 @@ import Settings from './pages/Settings.js';
 import Tables from './pages/Tables.js';
 import Alerts from './pages/UiElements/Alerts.js';
 import Buttons from './pages/UiElements/Buttons.js';
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx" 
+import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx" 
 function App() {
   const [loading, setLoading] = useState(true);
   const { pathname } = useLocation();
@@ -34,7 +34,15 @@ function App() {
   ) : (
     <>
       <Routes>
-
+      <Route
+            path="/auth/signin"
+            element={
+              <>
+                <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <SignIn />
+              </>
+            }
+          />
 
         <Route element={<PrivateRoute/>}>
           <Route
@@ -140,15 +148,7 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/auth/signin"
-            element={
-              <>
-                <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                <SignIn />
-              </>
-            }
-          />
+         
           <Route
             path="/auth/signup"
             element={
