@@ -9,9 +9,7 @@
     "preview": "vite preview"
   },
   "author": {
-    "name": "TailAdmin",
-    "email": "hello@tailadmin.com",
-    "url": "https://tailadmin.com"
+    "name": "Aste"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
