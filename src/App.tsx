@@ -9,6 +9,7 @@ import Calendar from './pages/Calendar.js';
 import Chart from './pages/Chart.js';
 import ECommerce from './pages/Dashboard/ECommerce.js';
 import Material from './components/Material/Material.jsx';
+import AddProduct from './components/Products/AddProduct.jsx';
 import FormLayout from './pages/Form/FormLayout.js';
 import Profile from './pages/Profile.js';
 import Settings from './pages/Settings.js';
@@ -60,6 +61,19 @@ function App() {
             </>
           }
         />
+       {/*  Products realted routes  */}
+
+       <Route
+          path="/product/addProduct"
+          element={
+            <>
+              <PageTitle title="Add Material" />
+              <AddProduct />
+            </>
+          }
+        />
+
+
         <Route
           path="/material/addMaterial"
           element={
