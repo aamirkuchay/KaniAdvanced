@@ -1,8 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { signInFailure, signInSuccess, signinStart } from '../../redux/Slice/UserSlice';
 
 
 const SignIn = () => {
+  const dispatch= useDispatch();
+
+  const user = useSelector((state)=>state.user)
+  const [formData, setformData] = useState({
+    email:"",
+    password:"",
+  })
+
+  const handleSubmit=async(e)=>{
+    e.preventDefault()
+    if(!email||!password){
+      throw new Error("message","Please Fill All the Fields")
+    }
+    try {
+      dispatch(signinStart())
+      const res = await fetch("",{
+        method:"POST",
+        headers:{
+          "Content-type":"application/json"
+
+        },
+        body:formData
+      })
+      const data = await res.json();
+      dispatch(signInSuccess())
+      console.log(data);
+      
+    } catch (error) {
+      dispatch(signInFailure())
+      console.log(error);
+    }
+  }
+  console.log(formData,"signin");
   return (
     <>
 
@@ -18,13 +53,18 @@ const SignIn = () => {
                 Sign In to Kani
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
                   </label>
                   <div className="relative">
                     <input
+                    onChange={(e)=>setformData({
+                      ...formData,
+                      email: e.target.value
+
+                    })}
                       type="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -52,10 +92,15 @@ const SignIn = () => {
 
                 <div className="mb-6">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Re-type Password
+                    Password
                   </label>
                   <div className="relative">
                     <input
+                    required
+                    onChange={(e)=>setformData({
+                      ...formData,
+                      password:e.target.value
+                    })}
                       type="password"
                       placeholder="6+ Characters, 1 Capital letter"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
