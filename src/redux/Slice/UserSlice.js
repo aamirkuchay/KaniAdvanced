@@ -1,5 +1,6 @@
+import { createSlice } from "@reduxjs/toolkit";
 
-const { createSlice } = require("@reduxjs/toolkit");
+
 
 const initialState={
     currentUser:null,
@@ -30,4 +31,4 @@ const userSlice = createSlice({
 })
 
 export const {signinStart,signInSuccess,signInFailure}=userSlice.actions
-export default userSlice.reducer
+export default userSlice.reducer;
