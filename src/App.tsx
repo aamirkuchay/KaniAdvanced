@@ -24,6 +24,7 @@ import Style from './components/Configurator/Style.jsx';
 import Currency from './components/Configurator/Currency.jsx';
 import Unit from './components/Configurator/Unit.jsx';
 import ProductGroup from './components/Configurator/ProductGroup.jsx';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -41,6 +42,7 @@ function App() {
     <Loader />
   ) : (
     <>
+      
       <Routes>
         <Route
           path="/auth/signin"
@@ -53,6 +55,7 @@ function App() {
         />
 
         <Route element={<PrivateRoute />}>
+        
           <Route
             index
             element={
@@ -232,6 +235,7 @@ function App() {
           }
         />
       </Routes>
+       
     </>
   );
 }
