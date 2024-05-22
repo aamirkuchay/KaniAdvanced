@@ -19,7 +19,6 @@ import Buttons from './pages/UiElements/Buttons.js';
 import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 import Budget from './components/Configurator/Budget.jsx';
 import Currency from './components/Configurator/Currency.jsx';
-import Unit from './components/Configurator/Unit.jsx';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -162,6 +161,8 @@ function App() {
             }
           />
         </Route>
+
+        {/* configurator */}
         <Route
           path="/configurator/addbudget"
           element={
@@ -172,20 +173,20 @@ function App() {
           }
         />
         <Route
+          path="/configurator/addSize"
+          element={
+            <>
+              <PageTitle title="Budget" />
+              <Size />
+            </>
+          }
+        />
+        <Route
           path="/configurator/addcurrency"
           element={
             <>
               <PageTitle title="Currency" />
               <Currency />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/addunit"
-          element={
-            <>
-              <PageTitle title="Unit" />
-              <Unit />
             </>
           }
         />
