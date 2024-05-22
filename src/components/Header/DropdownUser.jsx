@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 
 const DropdownUser = () => {
 
-  const { currentUser } = useSelector((state) => state.persisted.user);
-  console.log(currentUser);
+  const { currentUser } = useSelector((state) => state?.persisted?.user);
+  //console.log(currentUser);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
@@ -48,8 +48,8 @@ const DropdownUser = () => {
         to="#"
       >
         <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black dark:text-white">
-            {currentUser.user.username}
+          <span className="block text-sm font-medium text-black capitalize dark:text-white">
+            {currentUser?.user?.username}
           </span>
           <span className="block text-xs">Admin</span>
         </span>

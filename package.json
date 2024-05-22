@@ -31,7 +31,7 @@
     "redux-persist": "^6.0.0",
     "sort-by": "^0.0.2"
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:8081",
   "devDependencies": {
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",

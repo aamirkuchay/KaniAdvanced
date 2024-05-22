@@ -2,61 +2,60 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useNavigation } from 'react-router-dom';
 import { signInFailure, signInSuccess, signinStart } from '../../redux/Slice/UserSlice';
+import { SIGNIN_URL } from '../../Constants/utils';
 
 
 const SignIn = () => {
   const navigate = useNavigate()
-  const dispatch= useDispatch();
-  const { currentUser } = useSelector((state) => state.persisted.user);
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state?.persisted?.user);
 
   const [formData, setformData] = useState({
-    username:"",
-    password:"",
+    username: "",
+    password: "",
   })
 
-  const handleSubmit=async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if(!formData.username||!formData.password){
-      throw new Error("message","Please Fill All the Fields")
+    if (!formData.username || !formData.password) {
+      throw new Error("message", "Please Fill All the Fields")
     }
     try {
       dispatch(signinStart())
-      const res = await fetch("http://localhost:8081/api/v1/auth/signin",{
-        method:"POST",
-        headers:{
-          "Content-type":"application/json"
+      const res = await fetch(SIGNIN_URL, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
 
         },
         body: JSON.stringify(formData),
       })
       const data = await res.json();
-      console.log(data,"dataaaa");
+      // console.log(data, "dataaaa");
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate("/");
-      
 
-        console.log(currentUser, "mujhepatahai");
-        /* window.location.reload(); */
-        /*  console.log(currentUser, "currentlaga"); */
+
+        //console.log(currentUser, "mujhepatahai");
+
       } else {
-        console.log("invaliddddmessage");
+
         seterror("invalid credentials");
       }
-      
-      
+
+
     } catch (error) {
       dispatch(signInFailure())
       console.log(error);
     }
   }
-  console.log(formData,"signin");
-console.log(currentUser,"current");
+
   return (
     <>
 
 
-      <div className="rounded-lg border border-stroke w-2/4 mx-auto my-10 bg-white shadow-md dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-lg border border-stroke lg:w-2/4   mx-auto my-10 bg-white shadow-md dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
 
 
@@ -74,12 +73,12 @@ console.log(currentUser,"current");
                   </label>
                   <div className="relative">
                     <input
-                    value={formData.username}
-                    onChange={(e)=>setformData({
-                      ...formData,
-                      username: e.target.value
+                      value={formData.username}
+                      onChange={(e) => setformData({
+                        ...formData,
+                        username: e.target.value
 
-                    })}
+                      })}
                       type="text"
                       placeholder="Enter your Username"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -111,12 +110,12 @@ console.log(currentUser,"current");
                   </label>
                   <div className="relative">
                     <input
-                    required
-                          value={formData.password}
-                    onChange={(e)=>setformData({
-                      ...formData,
-                      password:e.target.value
-                    })}
+                      required
+                      value={formData.password}
+                      onChange={(e) => setformData({
+                        ...formData,
+                        password: e.target.value
+                      })}
                       type="password"
                       placeholder="6+ Characters, 1 Capital letter"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -148,7 +147,7 @@ console.log(currentUser,"current");
 
                 <div className="mb-5">
                   <button
-                  onSubmit={handleSubmit}
+                    onSubmit={handleSubmit}
                     type="submit"
                     value="Sign In"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
