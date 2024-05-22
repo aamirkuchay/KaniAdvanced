@@ -1,13 +1,12 @@
 import React from 'react'
-import DefaultLayout from '../../layout/DefaultLayout';
+import DefaultLayout from '../../layout/DefaultLayout'
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
-
-const Currency = () => {
+const Unit = () => {
     return (
         <DefaultLayout>
-            <Breadcrumb pageName="Configurator/Add Currency" />
+            <Breadcrumb pageName="Configurator/Add Unit" />
             <div>
 
                 <Formik
@@ -37,7 +36,7 @@ const Currency = () => {
                                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                     <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                                         <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
-                                            Add Currency
+                                            Add Unit
                                         </h3>
                                     </div>
                                     <form action="#">
@@ -45,10 +44,10 @@ const Currency = () => {
 
                                             <div className="mb-4.5 flex flex-wrap gap-6">
                                                 <div className="flex-1 min-w-[300px]">
-                                                    <label className="mb-2.5 block text-black dark:text-white"> Currency</label>
+                                                    <label className="mb-2.5 block text-black dark:text-white"> Unit</label>
                                                     <input
                                                         type="text"
-                                                        placeholder="Enter currency"
+                                                        placeholder="Enter Unit"
                                                         className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                                     />
                                                 </div>
@@ -58,7 +57,7 @@ const Currency = () => {
 
 
                                             <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                                                Add Currency
+                                                Add Unit
                                             </button>
                                         </div>
 
@@ -69,7 +68,7 @@ const Currency = () => {
                                     <div class="container mx-auto px-4 sm:px-8">
                                         <div class="py-8">
                                             <div>
-                                                <h2 class="text-2xl font-semibold leading-tight">View Currencies</h2>
+                                                <h2 class="text-2xl font-semibold leading-tight">View Units</h2>
                                             </div>
                                             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                                                 <div
@@ -347,4 +346,4 @@ const Currency = () => {
     )
 }
 
-export default Currency
+export default Unit
