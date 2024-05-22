@@ -18,7 +18,12 @@ import Alerts from './pages/UiElements/Alerts.js';
 import Buttons from './pages/UiElements/Buttons.js';
 import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 import Budget from './components/Configurator/Budget.jsx';
+import Size from './components/Configurator/Size.jsx';
+import Design from './components/Configurator/Design.jsx';
+import Style from './components/Configurator/Style.jsx';
 import Currency from './components/Configurator/Currency.jsx';
+import Unit from './components/Configurator/Unit.jsx';
+import ProductGroup from './components/Configurator/ProductGroup.jsx';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -176,17 +181,53 @@ function App() {
           path="/configurator/addSize"
           element={
             <>
-              <PageTitle title="Budget" />
+              <PageTitle title="Size" />
               <Size />
             </>
           }
         />
+           <Route
+          path="/configurator/adddesign"
+          element={
+            <>
+              <PageTitle title="Size" />
+              <Design />
+            </>
+          }
+        />
         <Route
-          path="/configurator/addcurrency"
+          path="/configurator/addStyle"
+          element={
+            <>
+              <PageTitle title="Style" />
+              <Style />
+            </>
+          }
+        />
+        <Route
+          path="/configurator/addCurrency"
           element={
             <>
               <PageTitle title="Currency" />
               <Currency />
+            </>
+          }
+        />
+        <Route
+          path="/configurator/addunit"
+          element={
+            <>
+              <PageTitle title="Unit" />
+              <Unit />
+            </>
+          }
+        />
+         <Route
+          path="/configurator/addproductgroup"
+          element={
+            <>
+              <PageTitle title="Add Product Group" />
+              <ProductGroup />
             </>
           }
         />
