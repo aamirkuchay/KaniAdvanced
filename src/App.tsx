@@ -16,7 +16,10 @@ import Settings from './pages/Settings.js';
 import Tables from './pages/Tables.js';
 import Alerts from './pages/UiElements/Alerts.js';
 import Buttons from './pages/UiElements/Buttons.js';
-import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx" 
+import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
+import Budget from './components/Configurator/Budget.jsx';
+import Currency from './components/Configurator/Currency.jsx';
+
 function App() {
   const [loading, setLoading] = useState(true);
   const { pathname } = useLocation();
@@ -34,17 +37,17 @@ function App() {
   ) : (
     <>
       <Routes>
-      <Route
-            path="/auth/signin"
-            element={
-              <>
-                <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                <SignIn />
-              </>
-            }
-          />
+        <Route
+          path="/auth/signin"
+          element={
+            <>
+              <PageTitle title="Signin " />
+              <SignIn />
+            </>
+          }
+        />
 
-        <Route element={<PrivateRoute/>}>
+        <Route element={<PrivateRoute />}>
           <Route
             index
             element={
@@ -83,7 +86,6 @@ function App() {
               </>
             }
           />
-
 
           <Route
             path="/material/addMaterial"
@@ -148,17 +150,35 @@ function App() {
               </>
             }
           />
-         
+
           <Route
             path="/auth/signup"
             element={
               <>
-                <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Signup" />
                 <SignUp />
               </>
             }
           />
         </Route>
+        <Route
+          path="/configurator/addbudget"
+          element={
+            <>
+              <PageTitle title="Budget" />
+              <Budget />
+            </>
+          }
+        />
+        <Route
+          path="/configurator/addcurrency"
+          element={
+            <>
+              <PageTitle title="Currency" />
+              <Currency />
+            </>
+          }
+        />
       </Routes>
     </>
   );
