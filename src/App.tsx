@@ -19,6 +19,10 @@ import Buttons from './pages/UiElements/Buttons.js';
 import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 import Budget from './components/Configurator/Budget.jsx';
 import Currency from './components/Configurator/Currency.jsx';
+import Size from './components/Configurator/Size.jsx';
+import Design from './components/Configurator/Design.jsx';
+import Style from './components/Configurator/Style.jsx';
+import ProductGroup from './components/Configurator/ProductGroup.jsx';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -161,6 +165,8 @@ function App() {
             }
           />
         </Route>
+
+        {/* configurator */}
         <Route
           path="/configurator/addbudget"
           element={
@@ -171,11 +177,47 @@ function App() {
           }
         />
         <Route
+          path="/configurator/addSize"
+          element={
+            <>
+              <PageTitle title="Budget" />
+              <Size />
+            </>
+          }
+        />
+        <Route
           path="/configurator/addcurrency"
           element={
             <>
               <PageTitle title="Currency" />
               <Currency />
+            </>
+          }
+        />
+         <Route
+          path="/configurator/adddesign"
+          element={
+            <>
+              <PageTitle title="Design" />
+              <Design/>
+            </>
+          }
+        />
+         <Route
+          path="/configurator/addstyle"
+          element={
+            <>
+              <PageTitle title="Style" />
+              <Style />
+            </>
+          }
+        />
+         <Route
+          path="/configurator/addproductgroup"
+          element={
+            <>
+              <PageTitle title="Currency" />
+              <ProductGroup />
             </>
           }
         />
