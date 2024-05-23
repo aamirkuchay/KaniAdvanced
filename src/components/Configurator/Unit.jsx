@@ -27,7 +27,8 @@ const Unit = () => {
         getUnits(pagination.currentPage);
     }, []);
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (e, id) => {
+        e.preventDefault();
         try {
             const response = await fetch(`${DELETE_UNIT_URL}${id}`, {
                 method: 'DELETE',
@@ -50,12 +51,14 @@ const Unit = () => {
         }
     };
 
-    const handleUpdate = (item) => {
+    const handleUpdate = (e, item) => {
+        e.preventDefault();
         setEdit(true);
         setCurrentUnit(item);
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+
         try {
             const url = edit ? `${UPDATE_UNIT_URL}/${currentUnit.id}` : ADD_UNIT_URL;
             const method = edit ? "PUT" : "POST";
