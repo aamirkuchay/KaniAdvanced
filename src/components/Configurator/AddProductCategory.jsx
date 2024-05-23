@@ -42,11 +42,11 @@ const AddProductCategory = () => {
                             <div className="p-6.5">
                                 <div className="mb-4.5 flex flex-wrap gap-6">
                                     <div className="flex-1 min-w-[300px]">
-                                        <label className="mb-2.5 block text-black dark:text-white">Name</label>
+                                        <label className="mb-2.5 block text-black dark:text-white">Product Catagory Name</label>
                                         <input
                                             type="text"
                                             name="name"
-                                            placeholder="Name"
+                                            placeholder="Add Product Catagory "
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.name}

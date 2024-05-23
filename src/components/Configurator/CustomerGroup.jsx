@@ -40,11 +40,11 @@ const CustomerGroup = () => {
                             <div className="p-6.5">
                                 <div className="mb-4.5 flex flex-wrap gap-6">
                                     <div className="flex-1 min-w-[300px]">
-                                        <label className="mb-2.5 block text-black dark:text-white">CustomerGroup Name</label>
+                                        <label className="mb-2.5 block text-black dark:text-white">Customer Group Name</label>
                                         <input
                                             type="text"
                                             name="customergroup"
-                                            placeholder="CustomerGroup"
+                                            placeholder="Add Customer Group"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.customergroup}

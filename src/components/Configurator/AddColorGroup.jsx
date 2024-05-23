@@ -46,7 +46,7 @@ const AddColorGroup = () => {
                                         <input
                                             type="text"
                                             name="colorgroup"
-                                            placeholder="colorgroup"
+                                            placeholder="Add Color Group"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.colorgroup}
