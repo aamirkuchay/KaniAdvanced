@@ -29,6 +29,7 @@ import AddProductCategory from './components/Configurator/AddProductCategory.jsx
 import CustomerGroup from './components/Configurator/CustomerGroup.jsx';
 
 import AddEmb from './components/Emb/AddEmb';
+import ViewEmb from './components/Emb/ViewEmb';
 
 
 import AddCustomer from './components/Customer/AddCustomer';
@@ -278,13 +279,23 @@ function App() {
         />
 
              {/* seperate routes */}
-
+             
              <Route
           path="/Weaver/addWeaverEmb"
           element={
             <>
               <PageTitle title="Add Weaver Emb" />
               <AddEmb />
+            </>
+          }
+        />
+
+<Route
+          path="/Weaver/viewWeaverEmb"
+          element={
+            <>
+              <PageTitle title="View Weaver Emb" />
+              <ViewEmb />
             </>
           }
         />
