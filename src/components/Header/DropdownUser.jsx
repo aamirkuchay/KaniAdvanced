@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserOne from '../../images/user/user-01.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { signoutSuccess } from '../../redux/Slice/UserSlice';
+import { FaCircleUser } from "react-icons/fa6";
 
 const DropdownUser = () => {
   const navigate = useNavigate();
-  const dispatch= useDispatch();
+  const dispatch = useDispatch();
 
   const { currentUser } = useSelector((state) => state?.persisted?.user);
   //console.log(currentUser);
@@ -41,12 +42,12 @@ const DropdownUser = () => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
-  const handleLogout=()=>{
+  const handleLogout = () => {
     try {
       dispatch(signoutSuccess());
       navigate("/auth/signin")
     } catch (error) {
-      
+
     }
   }
 
@@ -65,8 +66,9 @@ const DropdownUser = () => {
           <span className="block text-xs">{currentUser?.user?.authorities[0]?.authority.split('_').pop()}</span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
+        <span className="h-12 w-12 rounded-full mt-1">
+          {/* <img src={UserOne} alt="User" /> */}
+          <FaCircleUser size={45} />
         </span>
 
         <svg
@@ -167,7 +169,7 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button  onClick={handleLogout} className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button onClick={handleLogout} className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <svg
             className="fill-current"
             width="22"
