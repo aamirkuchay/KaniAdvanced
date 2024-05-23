@@ -76,6 +76,9 @@ const Unit = () => {
                         if (!values.name) {
                             errors.name = 'Required';
                         }
+                         if(values.name===" "){
+                            errors.name="UnitName Should not Be Empty"
+                        }
                         return errors;
                     }}
                     onSubmit={handleSubmit}
@@ -113,7 +116,7 @@ const Unit = () => {
                     )}
                 </Formik>
 
-                
+
             </div>
 
 

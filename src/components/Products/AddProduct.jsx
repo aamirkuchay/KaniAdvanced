@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DefaultLayout from '../../layout/DefaultLayout'
 import { ErrorMessage, Form, Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
-
+import useColorMode from '../../hooks/useColorMode';
 import ReactSelect from 'react-select';
 
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 const AddProduct = () => {
+
+
+
 
     const [formData, setformData] = useState({
 
@@ -30,53 +33,68 @@ const AddProduct = () => {
         { value: 'BrandB', label: 'Brand B' },
         { value: 'BrandC', label: 'Brand C' }
     ];
-    const formik = useFormik({
-        initialValues: {
-            productGroup:"",
-            colorGroup:"",
-            productCategory:"",
-            hsnCode:"",
-            designName:"",
-            colorName:"",
-            style:"",
-            size:"",
-            productId:"",
-            barcode:"",
-            productDescription:"",
-            weave:"",
-        },
-        validationSchema : Yup.object({
-       
-            productGroup: Yup.string().required('Required'),
-            colorGroup: Yup.string().required('Required'),
-            productCategory: Yup.string().required('Required'),
-            hsnCode: Yup.string().required('Required'),
-            designName: Yup.string().required('Required'),
-            colorName: Yup.string().required('Required'),
-            style: Yup.string().required('Required'),
-            size: Yup.string().required('Required'),
-            productId: Yup.string().required('Required'),
-            barcode: Yup.string().required('Required'),
-            productDescription: Yup.string().required('Required'),
-            weaver: Yup.string().required('Required')
-        }),
-        onSubmit: (values) => {
-          console.log(values);
-        },
-      });
+
 
     const changeTextColor = () => {
         setIsOptionSelected(true);
     };
-     
+    // const [colorMode, setColorMode] = useState('light');
+
+    // const [currentColorMode] = useColorMode(); // Use the useColorMode hook here
+    // useEffect(() => {
+    //     setColorMode(currentColorMode);
+    // }, []);
+
+    // const customStyles = {
+    //     control: (provided) => ({
+    //         ...provided,
+    //         backgroundColor: 'dark' ? '#1f2937' : 'white',
+    //         borderColor: colorMode === 'dark' ? '#4b5563' : '#d1d5db',
+    //         color: colorMode === 'dark' ? '#fff' : '#000',
+    //     }),
+    //     // Define other styles as needed
+    // };
+    const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+        console.log(values);
+    };
+
 
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Products / AddProducts" />
             <div>
+                <Formik
+                    initialValues={{
+                        productGroup: "",
+                        colorGroup: "",
+                        productCategory: "",
+                        hsnCode: "",
+                        designName: "",
+                        colorName: "",
+                        style: "",
+                        size: "",
+                        productId: "",
+                        barcode: "",
+                        productDescription: "",
+                        weave: "",
+                    }}
 
-             
-                        
+                    validate={values => {
+                        const errors = {};
+                        if (!values.name) {
+                            errors.name = 'Required';
+                        }
+                        if (values.name === " ") {
+                            errors.name = "UnitName Should not Be Empty"
+                        }
+                        return errors;
+                    }}
+                    onSubmit={handleSubmit}
+                >
+
+                    {({ isSubmitting }) => (
+                        <Form>
+
                             <div className="flex flex-col gap-9">
                                 {/* <!-- Contact Form --> */}
                                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -85,77 +103,82 @@ const AddProduct = () => {
                                             Add Product
                                         </h3>
                                     </div>
-                                    <form onSubmit={formik.handleSubmit} className="space-y-4">
+
+
+
+                                  
                                         <div className="p-6.5">
                                             <div className="mb-4.5 flex flex-wrap gap-6">
-                                            <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> Product Group </label>
-                                                <div className="  bg-white dark:bg-form-input">
-                                                <ReactSelect
-                                                        value={selectedOption}
-                                                        onChange={(option) => {
-                                                            setSelectedOption(option);
-                                                            changeTextColor();
-                                                        }}
-                                                        options={productgrp}
-                                                        classNamePrefix="react-select"
-                                                        placeholder="Product Group"
-                                                    />
-                                                    <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
-                                                        <svg className="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <g opacity="0.8">
-                                                                <path fillRule="evenodd" clipRule="evenodd" d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z" fill=""></path>
-                                                            </g>
-                                                        </svg>
-                                                    </span>
+                                                <div className="flex-1 min-w-[300px]">
+                                                    <label className="mb-2.5 block text-black dark:text-white"> Product Group </label>
+                                                    <div className="  bg-white dark:bg-form-input">
+                                                        <ReactSelect
+                                                        name='productGroup'
+                                                            value={selectedOption}
+                                                            onChange={(option) => {
+                                                                setSelectedOption(option);
+                                                                changeTextColor();
+                                                            }}
+                                                            options={productgrp}
+                                                            classNamePrefix="react-select"
+                                                           
+                                                            placeholder="Product Group"
+                                                        />
+                                                        <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
+                                                            <svg className="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <g opacity="0.8">
+                                                                    <path fillRule="evenodd" clipRule="evenodd" d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z" fill=""></path>
+                                                                </g>
+                                                            </svg>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> Color Group </label>
-                                                <div className=" z-20 bg-transparent dark:bg-form-input">
-                                                <ReactSelect
-                                                        value={selectedOption}
-                                                        onChange={(option) => {
-                                                            setSelectedOption(option);
-                                                            changeTextColor();
-                                                        }}
-                                                        options={productgrp}
-                                                        classNamePrefix="react-select"
-                                                        placeholder="Weaver Code"
-                                                    />
-                                                    <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
-                                                        <svg className="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <g opacity="0.8">
-                                                                <path fillRule="evenodd" clipRule="evenodd" d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z" fill=""></path>
-                                                            </g>
-                                                        </svg>
-                                                    </span>
+                                                <div className="flex-1 min-w-[300px]">
+                                                    <label className="mb-2.5 block text-black dark:text-white"> Color Group </label>
+                                                    <div className=" z-20 bg-transparent dark:bg-form-input">
+                                                        <ReactSelect
+                                                            value={selectedOption}
+                                                            onChange={(option) => {
+                                                                setSelectedOption(option);
+                                                                changeTextColor();
+                                                            }}
+                                                            options={productgrp}
+                                                            classNamePrefix="react-select"
+                                                            placeholder="Weaver Code"
+                                                        />
+                                                        <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
+                                                            <svg className="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <g opacity="0.8">
+                                                                    <path fillRule="evenodd" clipRule="evenodd" d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z" fill=""></path>
+                                                                </g>
+                                                            </svg>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                             <div className="mb-4.5 flex flex-wrap gap-6">
-                                            <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> Product Category </label>
-                                                <div className=" z-20 bg-transparent dark:bg-form-input">
-                                                <ReactSelect
-                                                        value={selectedOption}
-                                                        onChange={(option) => {
-                                                            setSelectedOption(option);
-                                                            changeTextColor();
-                                                        }}
-                                                        options={productgrp}
-                                                        classNamePrefix="react-select"
-                                                        placeholder="Weaver Code"
-                                                    />
-                                                    <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
-                                                        <svg className="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <g opacity="0.8">
-                                                                <path fillRule="evenodd" clipRule="evenodd" d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z" fill=""></path>
-                                                            </g>
-                                                        </svg>
-                                                    </span>
+                                                <div className="flex-1 min-w-[300px]">
+                                                    <label className="mb-2.5 block text-black dark:text-white"> Product Category </label>
+                                                    <div className=" z-20 bg-transparent dark:bg-form-input">
+                                                        <ReactSelect
+                                                            value={selectedOption}
+                                                            onChange={(option) => {
+                                                                setSelectedOption(option);
+                                                                changeTextColor();
+                                                            }}
+                                                            options={productgrp}
+                                                            classNamePrefix="react-select"
+                                                            placeholder="Weaver Code"
+                                                        />
+                                                        <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
+                                                            <svg className="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <g opacity="0.8">
+                                                                    <path fillRule="evenodd" clipRule="evenodd" d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z" fill=""></path>
+                                                                </g>
+                                                            </svg>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
                                                 <div className="flex-1 min-w-[300px]">
                                                     <label className="mb-2.5 block text-black dark:text-white"> HSN Code</label>
                                                     <input
@@ -304,7 +327,7 @@ const AddProduct = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Weaver/Embroider </label>
                                                 <div className=" z-20 bg-transparent dark:bg-form-input">
-                                                <ReactSelect
+                                                    <ReactSelect
                                                         value={selectedOption}
                                                         onChange={(option) => {
                                                             setSelectedOption(option);
@@ -337,6 +360,8 @@ const AddProduct = () => {
 
 
                                                     <ReactSelect
+                                                        className=' dark:bg-slate-700'
+
                                                         value={selectedOption}
                                                         onChange={(option) => {
                                                             setSelectedOption(option);
@@ -348,7 +373,7 @@ const AddProduct = () => {
                                                     />
 
 
-                                                    
+
                                                 </div>
                                             </div>
 
@@ -367,14 +392,16 @@ const AddProduct = () => {
                                                 Add Product
                                             </button>
                                         </div>
-                                    </form>
+                                   
 
                                 </div>
                             </div>
+                        </Form>
+                    )}
 
-                        
-                  
-                
+
+                </Formik>
+
             </div>
         </DefaultLayout>
     )
