@@ -24,6 +24,10 @@ import Style from './components/Configurator/Style.jsx';
 import Currency from './components/Configurator/Currency.jsx';
 import Unit from './components/Configurator/Unit.jsx';
 import ProductGroup from './components/Configurator/ProductGroup.jsx';
+import AddColorGroup from './components/Configurator/AddColorGroup.jsx';
+import AddProductCategory from './components/Configurator/AddProductCategory.jsx';
+
+
 import { ToastContainer } from 'react-toastify';
 
 function App() {
@@ -231,6 +235,24 @@ function App() {
             <>
               <PageTitle title="Add Product Group" />
               <ProductGroup />
+            </>
+          }
+        />
+          <Route
+          path="/configurator/addcolorgroup"
+          element={
+            <>
+              <PageTitle title="Add Color Group" />
+              <AddColorGroup />
+            </>
+          }
+        />
+          <Route
+          path="/configurator/addproductcategory"
+          element={
+            <>
+              <PageTitle title="Add Product Category" />
+              <AddProductCategory />
             </>
           }
         />
