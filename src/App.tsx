@@ -26,6 +26,7 @@ import Unit from './components/Configurator/Unit.jsx';
 import ProductGroup from './components/Configurator/ProductGroup.jsx';
 import AddColorGroup from './components/Configurator/AddColorGroup.jsx';
 import AddProductCategory from './components/Configurator/AddProductCategory.jsx';
+import CustomerGroup from './components/Configurator/CustomerGroup.jsx';
 
 
 import { ToastContainer } from 'react-toastify';
@@ -253,6 +254,15 @@ function App() {
             <>
               <PageTitle title="Add Product Category" />
               <AddProductCategory />
+            </>
+          }
+        />
+            <Route
+          path="/configurator/addcustomergroup"
+          element={
+            <>
+              <PageTitle title="Add Customer Group" />
+              <CustomerGroup />
             </>
           }
         />
