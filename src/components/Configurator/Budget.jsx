@@ -1,13 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Breadcrumb from '../Breadcrumbs/Breadcrumb'
 import DefaultLayout from '../../layout/DefaultLayout'
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import ReactSelect from 'react-select';
+import flatpickr from 'flatpickr';
 
 const Budget = () => {
 
     const [selectedOption, setSelectedOption] = useState('');
     const [isOptionSelected, setIsOptionSelected] = useState('');
+    useEffect(() => {
+        // Init flatpickr
+        flatpickr('.form-datepicker', {
+            mode: 'single',
+            static: true,
+            monthSelectorType: 'static',
+            dateFormat: 'M j, Y',
+            prevArrow:
+                '<svg className="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
+            nextArrow:
+                '<svg className="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',
+        });
+    }, []);
 
     const weaveremb = [
         { value: 'BrandA', label: 'Brand A' },
@@ -127,7 +141,7 @@ const Budget = () => {
                                                     <input
                                                         type="date"
                                                         placeholder="Enter your first name"
-                                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                                        className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                                     />
                                                 </div>
                                             </div>
@@ -138,7 +152,7 @@ const Budget = () => {
                                                     <input
                                                         type="date"
                                                         placeholder="Enter To Date"
-                                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                                        className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                                     />
                                                 </div>
                                                 <div className="flex-1 min-w-[300px]">
@@ -156,7 +170,7 @@ const Budget = () => {
                                                     <input
                                                         type="date"
                                                         placeholder="Enter To Date"
-                                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                                        className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                                     />
                                                 </div>
 

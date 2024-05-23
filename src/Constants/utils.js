@@ -4,6 +4,8 @@ export const SIGNIN_URL = `${BASE_URL}/api/v1/auth/signin`;
 //Unit Url's
 export const ADD_UNIT_URL = `${BASE_URL}/unit/addUnit`;
 export const GET_UNIT_URL = `${BASE_URL}/unit/getUnits`;
+export const UPDATE_UNIT_URL = `${BASE_URL}/unit/updateUnit`;
+export const DELETE_UNIT_URL = `${BASE_URL}/unit/deleteUnit/`;
 
 export const options = {
     position: "bottom-center",
