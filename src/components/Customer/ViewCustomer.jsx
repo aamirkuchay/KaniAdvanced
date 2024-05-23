@@ -1,11 +1,11 @@
 import React from 'react'
 
-const AddEmb = () => {
+const ViewCustomer = () => {
   return (
     <div>
-      <h1>hey</h1>
+      
     </div>
   )
 }
 
-export default AddEmb
+export default ViewCustomer

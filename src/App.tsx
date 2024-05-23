@@ -28,8 +28,18 @@ import AddColorGroup from './components/Configurator/AddColorGroup.jsx';
 import AddProductCategory from './components/Configurator/AddProductCategory.jsx';
 import CustomerGroup from './components/Configurator/CustomerGroup.jsx';
 
+import AddEmb from './components/Emb/AddEmb';
 
-import { ToastContainer } from 'react-toastify';
+
+import AddCustomer from './components/Customer/AddCustomer';
+import ViewCustomer from './components/Customer/ViewCustomer';
+
+
+
+
+
+
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -266,6 +276,45 @@ function App() {
             </>
           }
         />
+
+             {/* seperate routes */}
+
+             <Route
+          path="/Weaver/addWeaverEmb"
+          element={
+            <>
+              <PageTitle title="Add Weaver Emb" />
+              <AddEmb />
+            </>
+          }
+        />
+
+
+
+
+
+
+<Route
+          path="/customer/addCustomer"
+          element={
+            <>
+              <PageTitle title="Add Weaver Emb" />
+              <AddCustomer />
+            </>
+          }
+        />
+        <Route
+          path="/customer/viewCustomer"
+          element={
+            <>
+              <PageTitle title="Add Weaver Emb" />
+              <ViewCustomer />
+            </>
+          }
+        />
+
+
+
       </Routes>
        
     </>
