@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ADD_UNIT_URL, GET_UNIT_URL, UPDATE_UNIT_URL, DELETE_UNIT_URL } from '../../Constants/utils';
+import { ADD_UNIT_URL, GET_UNIT_URL, UPDATE_UNIT_URL, DELETE_UNIT_URL } from '../Constants/utils';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -17,8 +17,9 @@ const useUnits = () => {
     });
 
     useEffect(() => {
-        fetchUnits(pagination.currentPage);
-    }, [pagination.currentPage]);
+        console.log(pagination)
+        fetchUnits(pagination?.currentPage || 1);
+    }, [pagination?.currentPage]);
 
     const fetchUnits = useCallback(async (page) => {
         const config = {
@@ -32,6 +33,7 @@ const useUnits = () => {
             }
         };
         await handleFetch(config, (data) => {
+            console.log("data", data)
             setUnits(data.pagUnitList);
             setPagination({
                 totalItems: data.totalItems,
@@ -105,6 +107,7 @@ const useUnits = () => {
     };
 
     const handlePageChange = (newPage) => {
+
         setPagination((prev) => ({ ...prev, currentPage: newPage }));
     };
 
