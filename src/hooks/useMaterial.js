@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { ADD_UNIT_URL, GET_UNIT_URL, UPDATE_UNIT_URL, DELETE_UNIT_URL } from "../Constants/utils";
 
-const useUnits = () => {
+const useMaterial = () => {
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
+    const [material, setMaterial] = useState([]);
     const [units, setUnits] = useState([]);
     const [edit, setEdit] = useState(false);
-    const [currentUnit, setCurrentUnit] = useState({ name: '' });
+    const [currentMaterial, setCurrentMaterial] = useState({ name: '' });
 
     const [pagination, setPagination] = useState({
         totalItems: 0,
@@ -31,12 +32,13 @@ const useUnits = () => {
                 }
             });
             const data = await response.json();
-            setUnits(data.content);
+
+            setUnits(data.pagUnitList);
             setPagination({
-                totalItems: data.totalElements,
-                pagUnitList: data.content,
+                totalItems: data.totalItems,
+                pagUnitList: data.pagUnitList,
                 totalPages: data.totalPages,
-                currentPage: data.number + 1,
+                currentPage: data.currentPage,
             });
         } catch (error) {
             console.error(error);
@@ -44,29 +46,29 @@ const useUnits = () => {
         }
     };
 
-    const handleDelete = async (e, id) => {
-        e.preventDefault();
-        try {
-            const response = await fetch(`${DELETE_UNIT_URL}${id}`, {
-                method: 'DELETE',
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
-            });
+    // const handleDelete = async (e, id) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await fetch(`${DELETE_UNIT_URL}${id}`, {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Authorization": `Bearer ${token}`
+    //             }
+    //         });
 
-            if (response.ok) {
-                toast.success('Unit deleted successfully');
-                getUnits(pagination.currentPage); // Fetch updated units
-            } else {
-                const data = await response.json();
-                toast.error(`${data.errorMessage}`);
-            }
-        } catch (error) {
-            console.error(error);
-            toast.error("An error occurred");
-        }
-    };
+    //         if (response.ok) {
+    //             toast.success('Unit deleted successfully');
+    //             getUnits(pagination.currentPage); // Fetch updated units
+    //         } else {
+    //             const data = await response.json();
+    //             toast.error(`${data.errorMessage}`);
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //         toast.error("An error occurred");
+    //     }
+    // };
 
     const handleUpdate = (e, item) => {
         e.preventDefault();
@@ -88,8 +90,9 @@ const useUnits = () => {
                 body: JSON.stringify(values)
             });
 
-            const data = await response.json();
 
+            const data = await response.json();
+            console.log(data)
             if (response.ok) {
                 toast.success(`Unit ${edit ? 'updated' : 'added'} successfully`);
                 resetForm();
@@ -100,7 +103,7 @@ const useUnits = () => {
                 toast.error(`${data.errorMessage}`);
             }
         } catch (error) {
-            console.error(error, response);
+            console.log(error)
             toast.error("An error occurred");
         } finally {
             setSubmitting(false);
@@ -109,13 +112,13 @@ const useUnits = () => {
 
     const handlePageChange = (newPage) => {
         setPagination((prev) => ({ ...prev, currentPage: newPage }));
-        getUnits(newPage - 1); // API is 0-indexed for pages
+        getUnits(newPage);
     };
 
     return {
-        units,
+        material,
         edit,
-        currentUnit,
+        currentMaterial,
         pagination,
         handleDelete,
         handleUpdate,
@@ -124,4 +127,4 @@ const useUnits = () => {
     };
 };
 
-export default useUnits;
+export default useMaterial;

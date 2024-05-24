@@ -2,8 +2,6 @@ import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import ViewTable from './ViewTable';
 import Pagination from '../Pagination/Pagination';
 import useUnits from '../../hooks/useUnits'; // Adjust the import path as needed
@@ -66,7 +64,6 @@ const Unit = () => {
                                         <>
                                             <ViewTable units={units} totalItems={pagination.totalItems} title={'Units'} handleDelete={handleDelete} handleUpdate={handleUpdate} />
                                             <Pagination
-                                                totalItems={pagination.totalItems}
                                                 totalPages={pagination.totalPages}
                                                 currentPage={pagination.currentPage}
                                                 handlePageChange={handlePageChange}
