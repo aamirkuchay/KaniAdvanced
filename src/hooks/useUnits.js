@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
-import { ADD_UNIT_URL, GET_UNIT_URL, UPDATE_UNIT_URL, DELETE_UNIT_URL } from '../Constants/utils';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { ADD_UNIT_URL, GET_UNIT_URL, UPDATE_UNIT_URL, DELETE_UNIT_URL } from "../Constants/utils";
 
 const useUnits = () => {
     const { currentUser } = useSelector((state) => state?.persisted?.user);
@@ -9,6 +9,7 @@ const useUnits = () => {
     const [units, setUnits] = useState([]);
     const [edit, setEdit] = useState(false);
     const [currentUnit, setCurrentUnit] = useState({ name: '' });
+
     const [pagination, setPagination] = useState({
         totalItems: 0,
         pagUnitList: [],
@@ -17,23 +18,19 @@ const useUnits = () => {
     });
 
     useEffect(() => {
-        console.log(pagination)
-        fetchUnits(pagination?.currentPage || 1);
-    }, [pagination?.currentPage]);
+        getUnits(pagination.currentPage);
+    }, []);
 
-    const fetchUnits = useCallback(async (page) => {
-        const config = {
-            url: `${GET_UNIT_URL}?page=${page}`,
-            options: {
+    const getUnits = async (page) => {
+        try {
+            const response = await fetch(`${GET_UNIT_URL}?page=${page}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 }
-            }
-        };
-        await handleFetch(config, (data) => {
-            console.log("data", data)
+            });
+            const data = await response.json();
             setUnits(data.pagUnitList);
             setPagination({
                 totalItems: data.totalItems,
@@ -41,74 +38,79 @@ const useUnits = () => {
                 totalPages: data.totalPages,
                 currentPage: data.currentPage,
             });
-        }, "Failed to fetch units");
-    }, [token]);
-
-    const handleFetch = async (config, onSuccess, errorMessage) => {
-        try {
-            const response = await fetch(config.url, config.options);
-            const data = await response.json();
-
-            if (response.ok) {
-                onSuccess(data);
-            } else {
-                toast.error(`${data.errorMessage}`);
-            }
         } catch (error) {
             console.error(error);
-            toast.error(errorMessage || "An error occurred");
+            toast.error("Failed to fetch units");
         }
     };
 
-    const handleDelete = async (id) => {
-        const config = {
-            url: `${DELETE_UNIT_URL}${id}`,
-            options: {
+    const handleDelete = async (e, id) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`${DELETE_UNIT_URL}${id}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 }
+            });
+
+            if (response.ok) {
+                toast.success('Unit deleted successfully');
+                getUnits(pagination.currentPage); // Fetch updated units
+            } else {
+                const data = await response.json();
+                toast.error(`${data.errorMessage}`);
             }
-        };
-        await handleFetch(config, () => {
-            toast.success('Unit deleted successfully');
-            fetchUnits(pagination.currentPage); // Fetch updated units
-        }, "Failed to delete unit");
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred");
+        }
     };
 
-    const handleUpdate = (item) => {
+    const handleUpdate = (e, item) => {
+        e.preventDefault();
         setEdit(true);
         setCurrentUnit(item);
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        const url = edit ? `${UPDATE_UNIT_URL}/${currentUnit.id}` : ADD_UNIT_URL;
-        const method = edit ? "PUT" : "POST";
-        const config = {
-            url: url,
-            options: {
+        try {
+            const url = edit ? `${UPDATE_UNIT_URL}/${currentUnit.id}` : ADD_UNIT_URL;
+            const method = edit ? "PUT" : "POST";
+
+            const response = await fetch(url, {
                 method: method,
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(values)
+            });
+
+
+            const data = await response.json();
+            console.log(data)
+            if (response.ok) {
+                toast.success(`Unit ${edit ? 'updated' : 'added'} successfully`);
+                resetForm();
+                setEdit(false);
+                setCurrentUnit({ name: '' });
+                getUnits(pagination.currentPage); // Fetch updated units
+            } else {
+                toast.error(`${data.errorMessage}`);
             }
-        };
-        await handleFetch(config, () => {
-            toast.success(`Unit ${edit ? 'updated' : 'added'} successfully`);
-            resetForm();
-            setEdit(false);
-            setCurrentUnit({ name: '' });
-            fetchUnits(pagination.currentPage); // Fetch updated units
-        }, `Failed to ${edit ? 'update' : 'add'} unit`);
-        setSubmitting(false);
+        } catch (error) {
+            console.log(error)
+            toast.error("An error occurred");
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     const handlePageChange = (newPage) => {
-
         setPagination((prev) => ({ ...prev, currentPage: newPage }));
+        getUnits(newPage);
     };
 
     return {

@@ -1,14 +1,13 @@
-import React, { lazy, useEffect, useState } from 'react';
+import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { ADD_UNIT_URL, GET_UNIT_URL, UPDATE_UNIT_URL, DELETE_UNIT_URL } from "../../Constants/utils";
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const ViewTable = lazy(() => import('./ViewTable'));
+import ViewTable from './ViewTable';
 import Pagination from '../Pagination/Pagination';
-import useUnits from '../../hooks/useUnits';
+import useUnits from '../../hooks/useUnits'; // Adjust the import path as needed
+
 const Unit = () => {
     const {
         units,
