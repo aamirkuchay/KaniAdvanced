@@ -62,7 +62,7 @@ const ViewTable = ({ title, units, totalItems, handleDelete, handleUpdate }) => 
                                                 <div className="ml-3">
                                                     <p className="text-gray-900 whitespace-no-wrap">
 
-                                                    </p>
+                                                    </p> 
                                                     <p className="text-gray-600 whitespace-no-wrap">{index + 1}</p>
                                                 </div>
                                             </div>

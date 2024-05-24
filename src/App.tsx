@@ -27,6 +27,7 @@ import ProductGroup from './components/Configurator/ProductGroup.jsx';
 import AddColorGroup from './components/Configurator/AddColorGroup.jsx';
 import AddProductCategory from './components/Configurator/AddProductCategory.jsx';
 import CustomerGroup from './components/Configurator/CustomerGroup.jsx';
+import Location from './components/Configurator/Location.jsx';
 
 import AddEmb from './components/Emb/AddEmb';
 import ViewEmb from './components/Emb/ViewEmb';
@@ -309,6 +310,16 @@ function App() {
             </>
           }
         />
+         <Route
+          path="/configurator/location"
+          element={
+            <>
+              <PageTitle title="Add Customer Group" />
+              <Location />
+            </>
+          }
+        />
+
       </Routes>
     </>
   );
