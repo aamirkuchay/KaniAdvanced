@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import ViewTable from './ViewTable';
 import Pagination from '../Pagination/Pagination';
 import useUnits from '../../hooks/useUnits'; // Adjust the import path as needed
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { fetchlocation } from '../../redux/Slice/LocationSlice';
+import { fetchunit } from '../../redux/Slice/UnitSlice';
 
 const Unit = () => {
     const state = useSelector((state) => state);
-    const {currentUser}= state.persisted.user
-    console.log(currentUser,"hey");
+    const { currentUser } = state.persisted.user
+    console.log(currentUser, "hey");
     const dispatch = useDispatch();
     useEffect(() => {
-    
+
         dispatch(fetchunit(currentUser.token))
         dispatch(fetchlocation(currentUser.token))
     }, [])
-    
-    console.log(state,"state");
+
+    console.log(state, "state");
     const {
         units,
         edit,

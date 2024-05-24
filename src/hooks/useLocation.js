@@ -20,7 +20,7 @@ const useLocation = () => {
         totalItems: 0,
         data: [],
         totalPages: 0,
-        currentPage: 0,
+        currentPage: 1,
     });
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const useLocation = () => {
 
             if (response.ok) {
                 toast.success('Location deleted successfully');
-                getLocation(pagination.currentPage - 1); // Fetch updated Location
+                getLocation(pagination.currentPage); // Fetch updated Location
             } else {
                 const data = await response.json();
                 toast.error(`${data.errorMessage}`);
@@ -106,7 +106,7 @@ const useLocation = () => {
                     gstin: "",
                     pinCode: "",
                 });
-                getLocation(pagination.currentPage - 1); // Fetch updated Location
+                getLocation(pagination.currentPage); // Fetch updated Location
             } else {
                 toast.error(`${data.errorMessage}`);
             }
@@ -119,8 +119,9 @@ const useLocation = () => {
     };
 
     const handlePageChange = (newPage) => {
+
         setPagination((prev) => ({ ...prev, currentPage: newPage }));
-        getLocation(newPage - 1); // API is 0-indexed for pages
+        getLocation(newPage); // API is 0-indexed for pages
     };
 
     return {
