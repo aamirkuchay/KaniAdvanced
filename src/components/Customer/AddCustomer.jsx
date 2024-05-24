@@ -138,8 +138,8 @@ const AddCustomer = () => {
                                         <label className="mb-2.5 block text-black dark:text-white">Customer Group</label>
                                         <ReactSelect
                                             name="customerGroup"
-                                            value={productgrp.find(option => option.value === formik.values.customerGroup)}
-                                            onChange={(option) => formik.setFieldValue('customerGroup', option.value)}
+                                            value={productgrp.find(option => option === option)}
+                                            onChange={(option) => formik.setFieldValue('customerGroup', option)}
                                             onBlur={formik.handleBlur}
                                             options={productgrp}
                                             styles={customStyles}
@@ -343,7 +343,7 @@ const AddCustomer = () => {
                         </div>
                         
 
-                        <div className="p-4 space-y-4 flex flex-col items-center md:space-y-0 md:flex-row md:justify-center md:items-center ml-31">
+                        <div className="p-4 space-y-4 flex flex-col items-center md:space-y-0 md:flex-row md:justify-center md:items-center ">
                         <form className="md:flex-1 md:px-4">
             <div>
                 <p className="flex-none text-left pt-7">Retail Location</p>
@@ -360,12 +360,12 @@ const AddCustomer = () => {
                                         ) : null}
                 </label>
                 <label className="flex items-center">
-                    <input type="radio" 
-                    name="retailLocation" 
-                    value="DElhi"
-                    checked={formik.values.retailLocation === 'Delhi'}
-                   onChange={handleRadioChange}
-                      />
+                    <input type="radio"
+                     name="retailLocation"
+                     value="Delhi"
+                     checked={formik.values.retailLocation === 'Delhi'}
+                    onChange={handleRadioChange}
+ />
                     <span className="ml-1">Delhi</span>
                     {formik.touched.retailLocation && formik.errors.retailLocation ? (
                                             <div className="text-red-600 text-sm">{formik.errors.retailLocation}</div>
@@ -391,8 +391,9 @@ const AddCustomer = () => {
             <label className="flex items-center">
                 <input type="radio" name="website"
                  value="Subscribed"
-                 checked={formik.values.retailLocation === 'Subscribed'}
-                onChange={handleRadioChangeWebsite} />
+                 checked={formik.values.website === 'Subscribed'}
+                 onChange={handleRadioChangeWebsite} />
+                 
                 <span className="ml-1">Subscribed</span>
                 {formik.touched.website && formik.errors.website ? (
                                             <div className="text-red-600 text-sm">{formik.errors.website}</div>
@@ -418,7 +419,7 @@ const AddCustomer = () => {
             <label className="flex items-center">
                 <input type="radio" name="social"
                  value="Interaction" 
-                 checked={formik.values.website === 'Interaction'}
+                 checked={formik.values.social === 'Interaction'}
                  onChange={handleRadioChangeSocial}
                  />
                 <span className="ml-1">Interaction</span>
@@ -429,7 +430,7 @@ const AddCustomer = () => {
             <label className="flex items-center">
                 <input type="radio" name="social" 
                 value="Purchased"
-                checked={formik.values.website === 'Purchased'}
+                checked={formik.values.social === 'Purchased'}
                  onChange={handleRadioChangeSocial}
                 />
                  {formik.touched.social && formik.errors.social ? (
@@ -441,14 +442,14 @@ const AddCustomer = () => {
     </form>
 </div>
 
-<div className="p-4 space-y-4 flex flex-col items-center md:space-y-0 md:flex-row md:justify-center md:items-center ml-31">
+<div className="p-4 space-y-4 flex flex-col items-center md:space-y-0 md:flex-row md:justify-center md:items-center ">
     <form className="md:flex-1 md:px-4">
         <div>
             <p className="flex-none text-left pt-7">Event</p>
             <label className="flex items-center">
                 <input type="radio" name="event"
                  value="Domestic"
-                 checked={formik.values.website === 'Domestic'}
+                 checked={formik.values.event === 'Domestic'}
                  onChange={handleRadioChangeEvent}
                  />
                  {formik.touched.event && formik.errors.event ? (
@@ -457,8 +458,8 @@ const AddCustomer = () => {
                 <span className="ml-1">Domestic</span>
             </label>
             <label className="flex items-center">
-                <input type="radio" name="event" value="International"
-                  checked={formik.values.website === 'International'}
+                <input type="radio" name="event" value="International" 
+                  checked={formik.values.event === 'International'}
                   onChange={handleRadioChangeEvent}
                 />
                   {formik.touched.event && formik.errors.event ? (
@@ -506,11 +507,11 @@ const AddCustomer = () => {
 
                 <div className="mb-4.5 flex flex-wrap gap-6">
                                     <div className="flex-1 min-w-[300px]">
-                                        <label className="mb-2.5 block text-black dark:text-white">Discount Offered%</label>
+                                        <label className="mb-2.5 block text-black dark:text-white">Discount Offered(%) </label>
                                         <input
                                             type="text"
                                             name="discountOffered"
-                                            placeholder="Discount Offered%"
+                                            placeholder="Discount Offered(%)"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.discountOffered}
