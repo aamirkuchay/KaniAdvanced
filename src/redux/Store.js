@@ -2,7 +2,8 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from 'redux-persist/lib/storage';
 import userReducer from './Slice/UserSlice';
 import { persistReducer, persistStore } from 'redux-persist';
-
+import UnitReducer from "./Slice/UnitSlice"
+import LocationReducer from "./Slice/LocationSlice";
 // Persist config
 const persistConfig = {
   key: 'root',
@@ -22,7 +23,11 @@ const persistedReducer = persistReducer(
 const rootReducer = combineReducers({
   persisted: persistedReducer,
   // Add non-persisted reducers here
-  nonPersisted: (state = {}, action) => state,
+  nonPersisted: combineReducers({
+    unit: UnitReducer,
+    location: LocationReducer,
+   
+  }),
 });
 
 export const store = configureStore({
