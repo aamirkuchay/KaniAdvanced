@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import ReactSelect from 'react-select';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 
-const AddProduct = () => {
+const Material = () => {
     const [selectedOption, setSelectedOption] = useState(null);
 
     const productgrp = [
@@ -135,7 +135,7 @@ const AddProduct = () => {
                                 </div>
 
                                 <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                                    Add Product
+                                    Add Material
                                 </button>
                             </div>
                         </form>
@@ -146,4 +146,4 @@ const AddProduct = () => {
     );
 };
 
-export default AddProduct;
+export default Material;
