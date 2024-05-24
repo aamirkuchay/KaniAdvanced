@@ -14,7 +14,7 @@ const useUnits = () => {
         totalItems: 0,
         pagUnitList: [],
         totalPages: 0,
-        currentPage: 1,
+        currentPage: 0,
     });
 
     useEffect(() => {
@@ -57,7 +57,7 @@ const useUnits = () => {
 
             if (response.ok) {
                 toast.success('Unit deleted successfully');
-                getUnits(pagination.currentPage); // Fetch updated units
+                getUnits(pagination.currentPage - 1); // Fetch updated units
             } else {
                 const data = await response.json();
                 toast.error(`${data.errorMessage}`);
@@ -95,7 +95,7 @@ const useUnits = () => {
                 resetForm();
                 setEdit(false);
                 setCurrentUnit({ name: '' });
-                getUnits(pagination.currentPage); // Fetch updated units
+                getUnits(pagination.currentPage - 1); // Fetch updated units
             } else {
                 toast.error(`${data.errorMessage}`);
             }
