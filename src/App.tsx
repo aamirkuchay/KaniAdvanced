@@ -29,17 +29,11 @@ import AddProductCategory from './components/Configurator/AddProductCategory.jsx
 import CustomerGroup from './components/Configurator/CustomerGroup.jsx';
 
 import AddEmb from './components/Emb/AddEmb';
-
+import ViewEmb from './components/Emb/ViewEmb';
 
 import AddCustomer from './components/Customer/AddCustomer';
 import ViewCustomer from './components/Customer/ViewCustomer';
-
-
-
-
-
-
-
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -57,7 +51,6 @@ function App() {
     <Loader />
   ) : (
     <>
-      
       <Routes>
         <Route
           path="/auth/signin"
@@ -70,7 +63,6 @@ function App() {
         />
 
         <Route element={<PrivateRoute />}>
-        
           <Route
             index
             element={
@@ -204,7 +196,7 @@ function App() {
             </>
           }
         />
-           <Route
+        <Route
           path="/configurator/adddesign"
           element={
             <>
@@ -240,7 +232,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/configurator/addproductgroup"
           element={
             <>
@@ -249,7 +241,7 @@ function App() {
             </>
           }
         />
-          <Route
+        <Route
           path="/configurator/addcolorgroup"
           element={
             <>
@@ -258,7 +250,7 @@ function App() {
             </>
           }
         />
-          <Route
+        <Route
           path="/configurator/addproductcategory"
           element={
             <>
@@ -267,7 +259,7 @@ function App() {
             </>
           }
         />
-            <Route
+        <Route
           path="/configurator/addcustomergroup"
           element={
             <>
@@ -277,9 +269,9 @@ function App() {
           }
         />
 
-             {/* seperate routes */}
+        {/* seperate routes */}
 
-             <Route
+        <Route
           path="/Weaver/addWeaverEmb"
           element={
             <>
@@ -289,12 +281,17 @@ function App() {
           }
         />
 
+        <Route
+          path="/Weaver/viewWeaverEmb"
+          element={
+            <>
+              <PageTitle title="View Weaver Emb" />
+              <ViewEmb />
+            </>
+          }
+        />
 
-
-
-
-
-<Route
+        <Route
           path="/customer/addCustomer"
           element={
             <>
@@ -312,11 +309,7 @@ function App() {
             </>
           }
         />
-
-
-
       </Routes>
-       
     </>
   );
 }
