@@ -7,7 +7,7 @@ const MaterialTable = ({ totalItems, title, data, handleUpdate, handleDelete }) 
     return (
         <div className="container mx-auto px-4 sm:px-8">
             <div className="pt-5">
-                <div className='flex justify-between'>
+                <div className='flex justify-between'>  
                     <h2 className="text-2xl font-semibold leading-tight text-center">View {title} </h2>
                     <p
                         className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium 

@@ -28,7 +28,7 @@ const Material = () => {
         material,
         edit,
         currentMaterial,
-        pagination,
+        pagination, 
         handleDelete,
         handleUpdate,
         handleSubmit,

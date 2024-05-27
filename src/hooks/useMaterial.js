@@ -26,7 +26,7 @@ const useMaterial = () => {
         data: [],
         totalPages: 0,
         currentPage: 1,
-    });
+    });  
 
     useEffect(() => {
         getMaterial(pagination.currentPage || 1);
