@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import ViewTable from './ViewTable';
 import Pagination from '../Pagination/Pagination';
 import useUnits from '../../hooks/useUnits'; // Adjust the import path as needed
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchunit } from '../../redux/Slice/UnitSlice';
+import { fetchlocation } from '../../redux/Slice/LocationSlice';
 
 const Unit = () => {
     const state = useSelector((state) => state);

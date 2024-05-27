@@ -13,6 +13,17 @@ export const GET_LOCATION_URL = `${BASE_URL}/location/all`;
 export const UPDATE_LOCATION_URL = `${BASE_URL}/location/update`;
 export const DELETE_LOCATION_URL = `${BASE_URL}/location/delete/`;
 
+// Supplier Urls's
+export const ADD_SUPPLIER_URL = `${BASE_URL}/supplier/addSupplier`;
+export const GET_SUPPLIER_URL = `${BASE_URL}/supplier/viewAll`;
+export const UPDATE_SUPPLIER_URL = `${BASE_URL}/supplier/updateSupplier`;
+export const DELETE_SUPPLIER_URL = `${BASE_URL}/supplier/deleteSupplier/`;
+
+
+
+
+
+
 export const options = {
     position: "bottom-center",
     autoClose: 3000,

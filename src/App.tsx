@@ -28,12 +28,16 @@ import AddColorGroup from './components/Configurator/AddColorGroup.jsx';
 import AddProductCategory from './components/Configurator/AddProductCategory.jsx';
 import CustomerGroup from './components/Configurator/CustomerGroup.jsx';
 import Location from './components/Configurator/Location.jsx';
+import Supplier from './components/Configurator/Supplier.jsx';
+
 
 import AddEmb from './components/Emb/AddEmb';
 import ViewEmb from './components/Emb/ViewEmb';
 
 import AddCustomer from './components/Customer/AddCustomer';
 import ViewCustomer from './components/Customer/ViewCustomer';
+
+
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -206,6 +210,15 @@ function App() {
             </>
           }
         />
+         <Route
+          path="/configurator/suplier"
+          element={
+            <>
+              <PageTitle title="Size" />
+              <Supplier />
+            </>
+          }
+        />
         <Route
           path="/configurator/addStyle"
           element={
@@ -316,6 +329,15 @@ function App() {
             <>
               <PageTitle title="Add Customer Group" />
               <Location />
+            </>
+          }
+        />
+        <Route
+          path="/configurator/addunit"
+          element={
+            <>
+              <PageTitle title="Add Customer Group" />
+              <Unit />
             </>
           }
         />
