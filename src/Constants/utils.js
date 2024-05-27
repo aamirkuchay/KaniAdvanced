@@ -5,12 +5,14 @@ export const SIGNIN_URL = `${BASE_URL}/api/v1/auth/signin`;
 export const ADD_UNIT_URL = `${BASE_URL}/unit/addUnit`;
 export const GET_UNIT_URL = `${BASE_URL}/unit`;
 export const UPDATE_UNIT_URL = `${BASE_URL}/unit/updateUnit`;
+export const VIEW_ALL_UNITS = `${BASE_URL}/unit/viewAll`;
 export const DELETE_UNIT_URL = `${BASE_URL}/unit/deleteUnit/`;
 
 //Location Url's
 export const ADD_LOCATION_URL = `${BASE_URL}/location/add`;
 export const GET_LOCATION_URL = `${BASE_URL}/location/all`;
 export const UPDATE_LOCATION_URL = `${BASE_URL}/location/update`;
+export const VIEW_ALL_LOCATIONS = `${BASE_URL}/location/viewAll`;
 export const DELETE_LOCATION_URL = `${BASE_URL}/location/delete/`;
 
 // Supplier Urls's
