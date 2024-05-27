@@ -11,16 +11,16 @@ import { fetchlocation } from '../../redux/Slice/LocationSlice';
 
 const Unit = () => {
     const state = useSelector((state) => state);
-    const {currentUser}= state.persisted.user
-    console.log(currentUser,"hey");
+    const { currentUser } = state.persisted.user
+    console.log(currentUser, "hey");
     const dispatch = useDispatch();
     useEffect(() => {
-    
+
         dispatch(fetchunit(currentUser.token))
         dispatch(fetchlocation(currentUser.token))
     }, [])
-    
-    console.log(state,"state");
+
+    console.log(state, "state");
     const {
         units,
         edit,
