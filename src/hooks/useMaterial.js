@@ -67,12 +67,11 @@ const useMaterial = () => {
                     "Authorization": `Bearer ${token}`
                 }
             });
-
+            const data = await response.json();
             if (response.ok) {
-                toast.success('Material deleted successfully');
+                toast.success(`${data.message}`);
                 getMaterial(pagination.currentPage); // Fetch updated Material
             } else {
-                const data = await response.json();
                 toast.error(`${data.errorMessage}`);
             }
         } catch (error) {
@@ -88,6 +87,7 @@ const useMaterial = () => {
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+        console.log("try.....", values);
         try {
             const url = edit ? `${UPDATE_MATERIAL_URL}/${currentMaterial.id}` : ADD_MATERIAL_URL;
             const method = edit ? "PUT" : "POST";
