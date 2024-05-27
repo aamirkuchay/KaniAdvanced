@@ -1,30 +1,40 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { ADD_UNIT_URL, GET_UNIT_URL, UPDATE_UNIT_URL, DELETE_UNIT_URL } from "../Constants/utils";
+import { ADD_MATERIAL_URL, DELETE_MATERIAL_URL, GET_MATERIAL_URL, UPDATE_MATERIAL_URL } from '../Constants/utils';
+import { fetchunit } from '../redux/Slice/UnitSlice';
 
 const useMaterial = () => {
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
     const [material, setMaterial] = useState([]);
-    const [units, setUnits] = useState([]);
     const [edit, setEdit] = useState(false);
-    const [currentMaterial, setCurrentMaterial] = useState({ name: '' });
+    const [currentMaterial, setCurrentMaterial] = useState({ description: '', unit: {}, grade: '' });
+    const dispatch = useDispatch();
+
+
+    useEffect(() => {
+        dispatch(fetchunit(token))
+    }, [])
+
+
+
+
 
     const [pagination, setPagination] = useState({
         totalItems: 0,
-        pagUnitList: [],
+        data: [],
         totalPages: 0,
         currentPage: 1,
     });
 
     useEffect(() => {
-        getUnits(pagination.currentPage);
+        getMaterial(pagination.currentPage || 1);
     }, []);
 
-    const getUnits = async (page) => {
+    const getMaterial = async (page) => {
         try {
-            const response = await fetch(`${GET_UNIT_URL}?page=${page}`, {
+            const response = await fetch(`${GET_MATERIAL_URL}?page=${page}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -32,53 +42,54 @@ const useMaterial = () => {
                 }
             });
             const data = await response.json();
+            console.log(data)
 
-            setUnits(data.pagUnitList);
+            setMaterial(data?.content);
             setPagination({
-                totalItems: data.totalItems,
-                pagUnitList: data.pagUnitList,
-                totalPages: data.totalPages,
-                currentPage: data.currentPage,
+                totalItems: data?.totalElements,
+                data: data?.content,
+                totalPages: data?.totalPages,
+                currentPage: data?.number + 1,
             });
         } catch (error) {
             console.error(error);
-            toast.error("Failed to fetch units");
+            toast.error("Failed to fetch Material");
         }
     };
 
-    // const handleDelete = async (e, id) => {
-    //     e.preventDefault();
-    //     try {
-    //         const response = await fetch(`${DELETE_UNIT_URL}${id}`, {
-    //             method: 'DELETE',
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
+    const handleDelete = async (e, id) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`${DELETE_MATERIAL_URL}${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
 
-    //         if (response.ok) {
-    //             toast.success('Unit deleted successfully');
-    //             getUnits(pagination.currentPage); // Fetch updated units
-    //         } else {
-    //             const data = await response.json();
-    //             toast.error(`${data.errorMessage}`);
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //         toast.error("An error occurred");
-    //     }
-    // };
+            if (response.ok) {
+                toast.success('Material deleted successfully');
+                getMaterial(pagination.currentPage); // Fetch updated Material
+            } else {
+                const data = await response.json();
+                toast.error(`${data.errorMessage}`);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred");
+        }
+    };
 
     const handleUpdate = (e, item) => {
         e.preventDefault();
         setEdit(true);
-        setCurrentUnit(item);
+        setCurrentMaterial(item);
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            const url = edit ? `${UPDATE_UNIT_URL}/${currentUnit.id}` : ADD_UNIT_URL;
+            const url = edit ? `${UPDATE_MATERIAL_URL}/${currentMaterial.id}` : ADD_MATERIAL_URL;
             const method = edit ? "PUT" : "POST";
 
             const response = await fetch(url, {
@@ -92,13 +103,13 @@ const useMaterial = () => {
 
 
             const data = await response.json();
-            console.log(data)
+            //  console.log(data)
             if (response.ok) {
-                toast.success(`Unit ${edit ? 'updated' : 'added'} successfully`);
+                toast.success(`Material ${edit ? 'updated' : 'added'} successfully`);
                 resetForm();
                 setEdit(false);
-                setCurrentUnit({ name: '' });
-                getUnits(pagination.currentPage); // Fetch updated units
+                setCurrentMaterial({ description: '', unit: { id: '', name: '' }, grade: '' });
+                getMaterial(pagination.currentPage || 1); // Fetch updated Material
             } else {
                 toast.error(`${data.errorMessage}`);
             }
@@ -112,7 +123,7 @@ const useMaterial = () => {
 
     const handlePageChange = (newPage) => {
         setPagination((prev) => ({ ...prev, currentPage: newPage }));
-        getUnits(newPage);
+        getMaterial(newPage);
     };
 
     return {

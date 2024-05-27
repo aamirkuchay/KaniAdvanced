@@ -2,7 +2,7 @@ import React from 'react';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 const ViewTable = ({ title, units, totalItems, handleDelete, handleUpdate }) => {
-    if (totalItems < 1) return (<><hr className='text-slate-300' /><h3 className='text-slate-400 text-2xl text-center py-5'>No {title} Available</h3></>);
+    if (totalItems < 1) return (<><hr className='text-slate-300' /><p className='text-slate-400 text-2xl text-center py-5'>No {title} Available</p></>);
 
     // Function to generate table headers dynamically
     const renderTableHeaders = () => {
