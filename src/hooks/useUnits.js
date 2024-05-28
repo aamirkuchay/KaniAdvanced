@@ -36,8 +36,7 @@ const useUnits = () => {
                 totalItems: data.totalElements,
                 pagUnitList: data.content,
                 totalPages: data.totalPages,
-                currentPage: data.content.length === 1 ? 1 : pagination.currentPage,
-
+                currentPage: data.number + 1,
             });
         } catch (error) {
             console.error(error);

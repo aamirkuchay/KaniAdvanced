@@ -25,7 +25,7 @@ const useMaterial = () => {
         totalItems: 0,
         data: [],
         totalPages: 0,
-        currentPage: data.content.length === 1 ? 1 : pagination.currentPage,
+        currentPage: 1,
     });
 
     useEffect(() => {
@@ -70,7 +70,7 @@ const useMaterial = () => {
             const data = await response.json();
             if (response.ok) {
                 toast.success(`${data.message}`);
-                getMaterial(pagination.data.length < 1 ? pagination.currentPage - 1 : pagination.currentPage); // Fetch updated Material
+                getMaterial(pagination.currentPage); // Fetch updated Material
             } else {
                 toast.error(`${data.errorMessage}`);
             }

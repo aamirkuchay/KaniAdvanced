@@ -8,10 +8,13 @@ import useMaterial from '../../hooks/useMaterial';
 import { useSelector } from 'react-redux';
 import Pagination from '../Pagination/Pagination';
 import MaterialTable from './MaterialTable';
+import useColorMode from '../../hooks/useColorMode'; // Importing the useColorMode hook
 
 const Material = () => {
     const units = useSelector(state => state?.nonPersisted?.unit);
     const [options, setOptions] = useState([]);
+    const [colorMode] = useColorMode();
+
 
     useEffect(() => {
         if (units.data) {
@@ -49,6 +52,8 @@ const Material = () => {
             ...provided,
             minHeight: '50px',
             fontSize: '16px',
+            backgroundColor: colorMode === 'dark' ? '#333' : '#fff',
+            color: colorMode === 'dark' ? '#fff' : '#333',
         }),
         valueContainer: (provided) => ({
             ...provided,
@@ -57,12 +62,20 @@ const Material = () => {
         input: (provided) => ({
             ...provided,
             fontSize: '16px',
+            color: colorMode === 'dark' ? '#fff' : '#333',
         }),
         singleValue: (provided) => ({
             ...provided,
             fontSize: '16px',
+            color: colorMode === 'dark' ? '#fff' : '#333',
         }),
     };
+
+    useEffect(() => {
+        console.log("Color mode changed:", colorMode);
+
+    }, [colorMode]);
+
 
     return (
         <DefaultLayout>
@@ -103,7 +116,7 @@ const Material = () => {
                                                     value={options.find(option => option.value === values.unit?.id) || null}
                                                     onChange={(option) => setFieldValue('unit', option ? option.unitObject : null)}
                                                     options={options}
-                                                    styles={customStyles}
+                                                    styles={customStyles} // Pass custom styles here
                                                     className="bg-white dark:bg-form-input"
                                                     classNamePrefix="react-select"
                                                     placeholder="Select Unit"
