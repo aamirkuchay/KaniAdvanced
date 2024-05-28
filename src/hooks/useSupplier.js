@@ -43,7 +43,7 @@ const useSupplier = () => {
             setSupplier(data.content);
             setPagination({
                 totalItems: data.totalElements,
-                pagUnitList: data.content,
+                data: data.content,
                 totalPages: data.totalPages,
                 currentPage: data.number + 1,
             });
@@ -66,7 +66,7 @@ const useSupplier = () => {
 
             if (response.ok) {
                 toast.success('Supplier deleted successfully');
-                getSupplier(pagination.currentPage - 1); // Fetch updated Supplier
+                getSupplier(pagination.currentPage ); // Fetch updated Supplier
             } else {
                 const data = await response.json();
                 toast.error(`${data.errorMessage}`);

@@ -4,6 +4,10 @@ import userReducer from './Slice/UserSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 import UnitReducer from "./Slice/UnitSlice"
 import LocationReducer from "./Slice/LocationSlice";
+import MaterialReducer from "./Slice/MaterialSlice";
+import SupplierReducer from "./Slice/SupplierSlice";
+
+
 // Persist config
 const persistConfig = {
   key: 'root',
@@ -26,6 +30,8 @@ const rootReducer = combineReducers({
   nonPersisted: combineReducers({
     unit: UnitReducer,
     location: LocationReducer,
+    material: MaterialReducer,
+    supplier:SupplierReducer
    
   }),
 });

@@ -18,6 +18,8 @@ import Alerts from './pages/UiElements/Alerts.js';
 import Buttons from './pages/UiElements/Buttons.js';
 import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 import Budget from './components/Configurator/Budget.jsx';
+
+
 import Size from './components/Configurator/Size.jsx';
 import Design from './components/Configurator/Design.jsx';
 import Style from './components/Configurator/Style.jsx';
@@ -33,6 +35,10 @@ import Supplier from './components/Configurator/Supplier.jsx';
 
 import AddEmb from './components/Emb/AddEmb';
 import ViewEmb from './components/Emb/ViewEmb';
+import MaterialPo from './components/PuchaseOrder/MaterialPo';
+
+
+
 
 import AddCustomer from './components/Customer/AddCustomer';
 import ViewCustomer from './components/Customer/ViewCustomer';
@@ -341,6 +347,20 @@ function App() {
             </>
           }
         />
+
+
+
+        {/* purchase orders */}
+        <Route
+          path="/material/addmaterialpo"
+          element={
+            <>
+              <PageTitle title="Add Customer Group" />
+              <MaterialPo />
+            </>
+          }
+        />
+
 
       </Routes>
     </>

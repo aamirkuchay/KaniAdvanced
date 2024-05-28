@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
-export const fetchlocation = createAsyncThunk(
-  "fetchlocation",
+export const fetchmaterial = createAsyncThunk(
+  "fetchmaterial",
   async (accessToken) => {
-    const response = await fetch("http://localhost:8081/location/viewAll", {
+    const response = await fetch("http://localhost:8081/material/viewAll", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -13,8 +13,8 @@ export const fetchlocation = createAsyncThunk(
   }
 );
 
-const locationSLice = createSlice({
-  name: "location",
+const materialSlice = createSlice({
+  name: "material",
   initialState: {
     loading: false,
     data: null,
@@ -22,18 +22,18 @@ const locationSLice = createSlice({
   },
   //returned data is in action.payload
   extraReducers: (builder) => {
-    builder.addCase(fetchlocation.fulfilled, (state, action) => {
+    builder.addCase(fetchmaterial.fulfilled, (state, action) => {
       state.loading = false;
       state.data = action.payload;
       state.error = false;
     });
-    builder.addCase(fetchlocation.pending, (state, action) => {
+    builder.addCase(fetchmaterial.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(fetchlocation.rejected, (state, action) => {
+    builder.addCase(fetchmaterial.rejected, (state, action) => {
       state.loading = true;
       state.error = action.payload;
     });
   },
 });
-export default locationSLice.reducer;
+export default materialSlice.reducer;

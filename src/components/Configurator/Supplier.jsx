@@ -116,7 +116,7 @@ const Supplier = () => {
 
                                         <div className="mb-4.5 flex flex-wrap gap-6">
 
-                                        <div className="flex-1 min-w-[300px]">
+                                            <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Name</label>
                                                 <Field
                                                     type="text"
@@ -210,7 +210,7 @@ const Supplier = () => {
                                         </div>
 
 
-          
+
 
 
 
@@ -230,7 +230,13 @@ const Supplier = () => {
                                     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                         <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                                             <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
-                                                <ViewTable units={Supplier} totalItems={pagination.totalItems} title={'Supplier'} handleDelete={handleDelete} handleUpdate={handleUpdate} />
+                                                <ViewTable units={Supplier.map(s => ({
+                                                    id: s.id,
+                                                    name: s.name,
+                                                    contact: s.phoneNumber,
+                                                    SupplierCode:s.supplierCode
+                                                    // Only include the first three columns here
+                                                }))} totalItems={pagination.totalItems} title={'Supplier'} handleDelete={handleDelete} handleUpdate={handleUpdate} />
                                                 <Pagination
                                                     totalPages={pagination.totalPages}
                                                     currentPage={pagination.currentPage}
