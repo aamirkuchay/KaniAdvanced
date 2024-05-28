@@ -63,12 +63,20 @@ const useSupplier = () => {
                     "Authorization": `Bearer ${token}`
                 }
             });
-
+            const data = await response.json();
             if (response.ok) {
-                toast.success('Supplier deleted successfully');
-                getSupplier(pagination.currentPage ); // Fetch updated Supplier
+                toast.success(`Supplier Deleted Successfully `);
+
+                // Check if the current page becomes empty
+                const isCurrentPageEmpty = Supplier.length === 1;
+
+                if (isCurrentPageEmpty && pagination.currentPage > 1) {
+                    const previousPage = pagination.currentPage - 1;
+                    handlePageChange(previousPage);
+                } else {
+                    getSupplier(pagination.currentPage);
+                }
             } else {
-                const data = await response.json();
                 toast.error(`${data.errorMessage}`);
             }
         } catch (error) {
@@ -84,7 +92,7 @@ const useSupplier = () => {
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        console.log(values,"from use");
+        console.log(values, "from use");
         try {
             const url = edit ? `${UPDATE_SUPPLIER_URL}/${currentSupplier.id}` : ADD_SUPPLIER_URL;
             const method = edit ? "PUT" : "POST";
@@ -113,7 +121,7 @@ const useSupplier = () => {
                     ifscCode: "",
                     emailId: ""
                 });
-                getSupplier(pagination.currentPage ); // Fetch updated Supplier
+                getSupplier(pagination.currentPage); // Fetch updated Supplier
             } else {
                 toast.error(`${data.errorMessage}`);
             }

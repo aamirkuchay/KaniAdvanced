@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -8,14 +8,15 @@ import useMaterial from '../../hooks/useMaterial';
 import { useSelector } from 'react-redux';
 import Pagination from '../Pagination/Pagination';
 import MaterialTable from './MaterialTable';
-
+import { customStyles } from '../../Constants/utils';
 const Material = () => {
     const units = useSelector(state => state?.nonPersisted?.unit);
     const [options, setOptions] = useState([]);
 
+
     useEffect(() => {
         if (units.data) {
-            const formattedOptions = units?.data?.map(unit => ({
+            const formattedOptions = units.data.map(unit => ({
                 value: unit.id,
                 label: unit.name,
                 unitObject: unit
@@ -35,35 +36,17 @@ const Material = () => {
         handlePageChange
     } = useMaterial();
 
-
     const validationSchema = Yup.object({
-        unit: Yup.object().shape({
-            id: Yup.string().required('Required'),
-            name: Yup.string().required('Required')
-        }).required('Required'),
-        description: Yup.string().required('Required'),
-        grade: Yup.string().required('Required'),
+        unit: Yup.object({
+            id: Yup.string().required('Field is Empty'),
+            name: Yup.string().required('Field is Empty')
+        }).required('Field is Empty').nullable(),
+        description: Yup.string().required('Field is Empty'),
+        grade: Yup.string().required('Field is Empty'),
     });
 
-    const customStyles = {
-        control: (provided) => ({
-            ...provided,
-            minHeight: '50px',
-            fontSize: '16px',
-        }),
-        valueContainer: (provided) => ({
-            ...provided,
-            padding: '10px 14px',
-        }),
-        input: (provided) => ({
-            ...provided,
-            fontSize: '16px',
-        }),
-        singleValue: (provided) => ({
-            ...provided,
-            fontSize: '16px',
-        }),
-    };
+
+
 
     return (
         <DefaultLayout>
@@ -101,15 +84,15 @@ const Material = () => {
                                                 <label className="mb-2.5 block text-black dark:text-white">Unit</label>
                                                 <ReactSelect
                                                     name="unit"
-                                                    value={options.find(option => option.value === values.unit.id)}
-                                                    onChange={(option) => setFieldValue('unit', option.unitObject)}
+                                                    value={options.find(option => option.value === values.unit?.id) || null}
+                                                    onChange={(option) => setFieldValue('unit', option ? option.unitObject : null)}
                                                     options={options}
-                                                    styles={customStyles}
+                                                    styles={customStyles} // Pass custom styles here
                                                     className="bg-white dark:bg-form-input"
                                                     classNamePrefix="react-select"
                                                     placeholder="Select Unit"
                                                 />
-                                                <ErrorMessage name="unit" component="div" className="text-red-600 text-sm" />
+                                                <ErrorMessage name="unit.id" component="div" className="text-red-600 text-sm" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">Grade</label>

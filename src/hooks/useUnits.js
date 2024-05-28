@@ -56,10 +56,18 @@ const useUnits = () => {
             });
 
             if (response.ok) {
-                toast.success('Unit deleted successfully');
-                getUnits(pagination.currentPage); // Fetch updated units
+                toast.success(`Unit Deleted successfully`);
+
+                // Check if the current page becomes empty
+                const isCurrentPageEmpty = units.length === 1;
+
+                if (isCurrentPageEmpty && pagination.currentPage > 1) {
+                    const previousPage = pagination.currentPage - 1;
+                    handlePageChange(previousPage);
+                } else {
+                    getUnits(pagination.currentPage);
+                }
             } else {
-                const data = await response.json();
                 toast.error(`${data.errorMessage}`);
             }
         } catch (error) {

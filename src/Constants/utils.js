@@ -5,12 +5,14 @@ export const SIGNIN_URL = `${BASE_URL}/api/v1/auth/signin`;
 export const ADD_UNIT_URL = `${BASE_URL}/unit/addUnit`;
 export const GET_UNIT_URL = `${BASE_URL}/unit`;
 export const UPDATE_UNIT_URL = `${BASE_URL}/unit/updateUnit`;
+export const VIEW_ALL_UNITS = `${BASE_URL}/unit/viewAll`;
 export const DELETE_UNIT_URL = `${BASE_URL}/unit/deleteUnit/`;
 
 //Location Url's
 export const ADD_LOCATION_URL = `${BASE_URL}/location/add`;
 export const GET_LOCATION_URL = `${BASE_URL}/location/all`;
 export const UPDATE_LOCATION_URL = `${BASE_URL}/location/update`;
+export const VIEW_ALL_LOCATIONS = `${BASE_URL}/location/viewAll`;
 export const DELETE_LOCATION_URL = `${BASE_URL}/location/delete/`;
 
 // Supplier Urls's
@@ -38,8 +40,8 @@ export const DELETE_MATERIALPO_URL = `${BASE_URL}/purchaseOrder/`;
 
 
 export const options = {
-    position: "bottom-center",
-    autoClose: 3000,
+    position: "top-center",
+    autoClose: 1500,
     hideProgressBar: false,
     newestOnTop: false,
     closeOnClick: true,
@@ -49,3 +51,27 @@ export const options = {
     draggable: true,
     pauseOnHover: true
 };
+
+//React-select customStyles function
+
+export const customStyles = {
+    control: (provided) => ({
+        ...provided,
+        minHeight: '50px',
+        fontSize: '16px',
+    }),
+    valueContainer: (provided) => ({
+        ...provided,
+        padding: '10px 14px',
+    }),
+    input: (provided) => ({
+        ...provided,
+        fontSize: '16px',
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        fontSize: '16px',
+    }),
+};
+
+

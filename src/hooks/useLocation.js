@@ -61,11 +61,20 @@ const useLocation = () => {
                 }
             });
 
+            const data = await response.json();
             if (response.ok) {
-                toast.success('Location deleted successfully');
-                getLocation(pagination.currentPage); // Fetch updated Location
+                toast.success(`Location Deleted Successfully !!`);
+
+                // Check if the current page becomes empty
+                const isCurrentPageEmpty = location.length === 1;
+
+                if (isCurrentPageEmpty && pagination.currentPage > 1) {
+                    const previousPage = pagination.currentPage - 1;
+                    handlePageChange(previousPage);
+                } else {
+                    getLocation(pagination.currentPage);
+                }
             } else {
-                const data = await response.json();
                 toast.error(`${data.errorMessage}`);
             }
         } catch (error) {
