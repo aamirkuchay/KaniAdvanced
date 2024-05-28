@@ -8,12 +8,10 @@ import useMaterial from '../../hooks/useMaterial';
 import { useSelector } from 'react-redux';
 import Pagination from '../Pagination/Pagination';
 import MaterialTable from './MaterialTable';
-import useColorMode from '../../hooks/useColorMode'; // Importing the useColorMode hook
-
+import { customStyles } from '../../Constants/utils';
 const Material = () => {
     const units = useSelector(state => state?.nonPersisted?.unit);
     const [options, setOptions] = useState([]);
-    const [colorMode] = useColorMode();
 
 
     useEffect(() => {
@@ -47,34 +45,7 @@ const Material = () => {
         grade: Yup.string().required('Field is Empty'),
     });
 
-    const customStyles = {
-        control: (provided) => ({
-            ...provided,
-            minHeight: '50px',
-            fontSize: '16px',
-            backgroundColor: colorMode === 'dark' ? '#333' : '#fff',
-            color: colorMode === 'dark' ? '#fff' : '#333',
-        }),
-        valueContainer: (provided) => ({
-            ...provided,
-            padding: '10px 14px',
-        }),
-        input: (provided) => ({
-            ...provided,
-            fontSize: '16px',
-            color: colorMode === 'dark' ? '#fff' : '#333',
-        }),
-        singleValue: (provided) => ({
-            ...provided,
-            fontSize: '16px',
-            color: colorMode === 'dark' ? '#fff' : '#333',
-        }),
-    };
 
-    useEffect(() => {
-        console.log("Color mode changed:", colorMode);
-
-    }, [colorMode]);
 
 
     return (

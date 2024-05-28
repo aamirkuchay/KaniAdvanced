@@ -56,7 +56,6 @@ const useMaterial = () => {
             toast.error("Failed to fetch Material");
         }
     };
-
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
@@ -70,7 +69,16 @@ const useMaterial = () => {
             const data = await response.json();
             if (response.ok) {
                 toast.success(`${data.message}`);
-                getMaterial(pagination.currentPage); // Fetch updated Material
+
+                // Check if the current page becomes empty
+                const isCurrentPageEmpty = material.length === 1;
+
+                if (isCurrentPageEmpty && pagination.currentPage > 1) {
+                    const previousPage = pagination.currentPage - 1;
+                    handlePageChange(previousPage);
+                } else {
+                    getMaterial(pagination.currentPage);
+                }
             } else {
                 toast.error(`${data.errorMessage}`);
             }
@@ -79,6 +87,30 @@ const useMaterial = () => {
             toast.error("An error occurred");
         }
     };
+
+
+    // const handleDelete = async (e, id) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await fetch(`${DELETE_MATERIAL_URL}${id}`, {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Authorization": `Bearer ${token}`
+    //             }
+    //         });
+    //         const data = await response.json();
+    //         if (response.ok) {
+    //             toast.success(`${data.message}`);
+    //             getMaterial(pagination.currentPage); // Fetch updated Material
+    //         } else {
+    //             toast.error(`${data.errorMessage}`);
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //         toast.error("An error occurred");
+    //     }
+    // };
 
     const handleUpdate = (e, item) => {
         e.preventDefault();
