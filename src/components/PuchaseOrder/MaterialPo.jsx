@@ -170,12 +170,7 @@ const MaterialPo = () => {
                         if (!values.supplierId) {
                             errors.supplierId = 'Required';
                         }
-                        if (!values.date) {
-                            errors.date = 'Required';
-                        }
-                        if (!values.dateSelected) {
-                            errors.date = 'Required';
-                        }
+                      
                        
                        
                         return errors;
