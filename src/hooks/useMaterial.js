@@ -25,7 +25,7 @@ const useMaterial = () => {
         totalItems: 0,
         data: [],
         totalPages: 0,
-        currentPage: 1,
+        currentPage: data.content.length === 1 ? 1 : pagination.currentPage,
     });
 
     useEffect(() => {
@@ -70,7 +70,7 @@ const useMaterial = () => {
             const data = await response.json();
             if (response.ok) {
                 toast.success(`${data.message}`);
-                getMaterial(pagination.currentPage); // Fetch updated Material
+                getMaterial(pagination.data.length < 1 ? pagination.currentPage - 1 : pagination.currentPage); // Fetch updated Material
             } else {
                 toast.error(`${data.errorMessage}`);
             }
@@ -87,7 +87,6 @@ const useMaterial = () => {
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        console.log("try.....", values);
         try {
             const url = edit ? `${UPDATE_MATERIAL_URL}/${currentMaterial.id}` : ADD_MATERIAL_URL;
             const method = edit ? "PUT" : "POST";

@@ -36,7 +36,8 @@ const useUnits = () => {
                 totalItems: data.totalElements,
                 pagUnitList: data.content,
                 totalPages: data.totalPages,
-                currentPage: data.number + 1,
+                currentPage: data.content.length === 1 ? 1 : pagination.currentPage,
+
             });
         } catch (error) {
             console.error(error);
@@ -57,6 +58,7 @@ const useUnits = () => {
 
             if (response.ok) {
                 toast.success('Unit deleted successfully');
+                console.log(pagination.data)
                 getUnits(pagination.currentPage); // Fetch updated units
             } else {
                 const data = await response.json();

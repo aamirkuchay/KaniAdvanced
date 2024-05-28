@@ -34,8 +34,8 @@ export const DELETE_MATERIAL_URL = `${BASE_URL}/material/delete/`;
 
 
 export const options = {
-    position: "bottom-center",
-    autoClose: 3000,
+    position: "top-center",
+    autoClose: 1500,
     hideProgressBar: false,
     newestOnTop: false,
     closeOnClick: true,
@@ -45,3 +45,27 @@ export const options = {
     draggable: true,
     pauseOnHover: true
 };
+
+//React-select customStyles function
+
+export const customStyles = {
+    control: (provided) => ({
+        ...provided,
+        minHeight: '50px',
+        fontSize: '16px',
+    }),
+    valueContainer: (provided) => ({
+        ...provided,
+        padding: '10px 14px',
+    }),
+    input: (provided) => ({
+        ...provided,
+        fontSize: '16px',
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        fontSize: '16px',
+    }),
+};
+
+
