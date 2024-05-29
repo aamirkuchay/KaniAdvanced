@@ -42,7 +42,7 @@ const ViewMaterialPo = () => {
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 w-[100px] md:py-2 md:px-1 text-xs md:text-md rounded"
                         onClick={() => handleViewMaterialPos(item.materialPos)}
                     >
-                        View Material POs
+                        View Material
                     </button>
                 </td>
                 <td className="px-5 py-5  border-b border-gray-200  text-sm">
@@ -57,11 +57,11 @@ const ViewMaterialPo = () => {
 
     return (
         <DefaultLayout>
-            <Breadcrumb pageName="Weaver/Embroider / Add Weaver-Embroider" />
+            <Breadcrumb pageName="Material/ View Material PO" />
             <div className="container mx-auto px-4 sm:px-8 bg-white dark:bg-slate-900">
                 <div className="pt-5">
                     <div className='flex justify-between'>
-                        <h2 className="text-2xl font-semibold leading-tight text-center">View Material Po</h2>
+                        <h2 className="text-2xl font-semibold leading-tight text-center">VIEW PURCHASE ORDER</h2>
                         <p
                             className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium 
                             bg-success text-success  dark:bg-white dark:text-slate-800`}
