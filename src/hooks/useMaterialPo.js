@@ -54,10 +54,10 @@ const useMaterialPo = () => {
     useEffect(() => {
         ViewMaterialPo(pagination.currentPage);
     }, []);
-    const ViewMaterialPo=async()=>{
+    const ViewMaterialPo=async(page)=>{
         try {
             
-            const response = await fetch(GET_MATERIALPO_URL, {
+            const response = await fetch(`${GET_MATERIALPO_URL}?page=${page}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

@@ -14,7 +14,7 @@ const useUnits = () => {
         totalItems: 0,
         pagUnitList: [],
         totalPages: 0,
-        currentPage: 1,
+        currentPage: 0,
     });
 
     useEffect(() => {
