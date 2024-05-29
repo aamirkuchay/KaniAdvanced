@@ -6,13 +6,14 @@ import MaterialPoModal from '../../hooks/MaterialPoModal';  // Import the modal 
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Pagination from '../Pagination/Pagination';
 const ViewMaterialPo = () => {
+
     const { materialPo, ViewMaterialPo, handleDelete, pagination, handlePageChange } = useMaterialPo();
     const [showModal, setShowModal] = useState(false);
     const [selectedMaterialPos, setSelectedMaterialPos] = useState([]);
 
     useEffect(() => {
         ViewMaterialPo();
-    }, [ViewMaterialPo]);
+    }, []);
 
     const handleViewMaterialPos = (materialPos) => {
         setSelectedMaterialPos(materialPos);
@@ -20,7 +21,7 @@ const ViewMaterialPo = () => {
     };
 
     const renderTableRows = () => {
-        if (!materialPo || !materialPo.content) return null;
+        if (!materialPo || !materialPo.content) return;
 
         return materialPo.content.map((item, index) => (
             <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
@@ -61,17 +62,19 @@ const ViewMaterialPo = () => {
             <div className="container mx-auto px-4 sm:px-8 bg-white dark:bg-slate-800">
                 <div className="pt-5">
                     <div className='flex justify-between'>
-                        <h2 className="text-2xl font-semibold leading-tight ">VIEW PURCHASE ORDER</h2>
+                        <h2 className="text-xl font-semibold leading-tight  ">VIEW PURCHASE ORDER</h2>
                         <p
                             className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium 
                             bg-success text-success  dark:bg-white dark:text-slate-800`}
                         >
-                            Total {materialPo && materialPo.content ? materialPo.
+                            Total PO: {materialPo && materialPo.content ? materialPo.
                                 totalElements : 0}
                         </p>
                     </div>
-                    <div className="-mx-29  md:mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-                        <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
+                    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                        <div
+                            className="inline-block min-w-full shadow-md rounded-lg overflow-hidden"
+                        >
                             <table className="min-w-full leading-normal">
                                 <thead>
                                     <tr className='bg-slate-300 dark:bg-slate-700 dark:text-white'>
@@ -100,16 +103,19 @@ const ViewMaterialPo = () => {
                                 <tbody>
                                     {renderTableRows()}
                                 </tbody>
-                                <Pagination
-                                    totalPages={pagination.totalPages}
-                                    currentPage={pagination.currentPage}
-                                    handlePageChange={handlePageChange}
-                                />
+
                             </table>
                         </div>
+
+                        <Pagination
+                            totalPages={pagination.totalPages}
+                            currentPage={pagination.currentPage}
+                            handlePageChange={handlePageChange}
+                        />
                     </div>
                 </div>
             </div>
+
             <MaterialPoModal
                 show={showModal}
                 onClose={() => setShowModal(false)}
