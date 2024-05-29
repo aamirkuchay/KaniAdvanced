@@ -6,7 +6,7 @@ import MaterialPoModal from '../../hooks/MaterialPoModal';  // Import the modal 
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Pagination from '../Pagination/Pagination';
 const ViewMaterialPo = () => {
-    const { materialPo, ViewMaterialPo,handleDelete,pagination,handlePageChange } = useMaterialPo();
+    const { materialPo, ViewMaterialPo, handleDelete, pagination, handlePageChange } = useMaterialPo();
     const [showModal, setShowModal] = useState(false);
     const [selectedMaterialPos, setSelectedMaterialPos] = useState([]);
 
@@ -58,16 +58,16 @@ const ViewMaterialPo = () => {
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Material/ View Material PO" />
-            <div className="container mx-auto px-4 sm:px-8 bg-white dark:bg-slate-900">
+            <div className="container mx-auto px-4 sm:px-8 bg-white dark:bg-slate-800">
                 <div className="pt-5">
                     <div className='flex justify-between'>
-                        <h2 className="text-2xl font-semibold leading-tight text-center">VIEW PURCHASE ORDER</h2>
+                        <h2 className="text-2xl font-semibold leading-tight ">VIEW PURCHASE ORDER</h2>
                         <p
                             className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium 
                             bg-success text-success  dark:bg-white dark:text-slate-800`}
                         >
                             Total {materialPo && materialPo.content ? materialPo.
-totalElements: 0}
+                                totalElements : 0}
                         </p>
                     </div>
                     <div className="-mx-29  md:mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -75,21 +75,36 @@ totalElements: 0}
                             <table className="min-w-full leading-normal">
                                 <thead>
                                     <tr className='bg-slate-300 dark:bg-slate-700 dark:text-white'>
-                                        <th>Location</th>
-                                        <th>Supplier</th>
-                                        <th>Date</th>
-                                        <th>Material POs</th>
-                                        <th>Action</th>
+                                        <th
+
+                                            className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                        >Location</th>
+                                        <th
+
+                                            className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                        >Supplier</th>
+                                        <th
+
+                                            className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                        >Date</th>
+                                        <th
+
+                                            className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                        >Material POs</th>
+                                        <th
+
+                                            className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                        >Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {renderTableRows()}
                                 </tbody>
                                 <Pagination
-                                                    totalPages={pagination.totalPages}
-                                                    currentPage={pagination.currentPage}
-                                                    handlePageChange={handlePageChange}
-                                                />
+                                    totalPages={pagination.totalPages}
+                                    currentPage={pagination.currentPage}
+                                    handlePageChange={handlePageChange}
+                                />
                             </table>
                         </div>
                     </div>

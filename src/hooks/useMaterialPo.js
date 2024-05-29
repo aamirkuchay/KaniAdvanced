@@ -107,7 +107,7 @@ const useMaterialPo = () => {
                     const previousPage = pagination.currentPage - 1;
                     handlePageChange(previousPage);
                 } else {
-                    getLocation(pagination.currentPage);
+                    ViewMaterialPo(pagination.currentPage);
                 }
             } else {
                 toast.error(`${data.errorMessage}`);
