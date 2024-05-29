@@ -55,19 +55,31 @@ export const options = {
 //React-select customStyles function
 
 
-
-
 export const customStyles = (theme) => ({
-    control: (provided) => ({
+    control: (provided, state) => ({
         ...provided,
         minHeight: '50px',
         fontSize: '16px',
         backgroundColor: theme === 'dark' ? '#1D2A39' : '#fff',
         color: theme === 'dark' ? '#fff' : '#000',
+        border: `1.5px solid ${theme === 'dark' ? '#3D4D60' : '#E5E5E5'}`, // Border color based on theme
+        borderRadius: '4px', // Assuming the same rounded border
+        boxShadow: 'none', // Remove any default box shadow
+        '&:hover': {
+            borderColor: state.isFocused ? '#3B82F6' : theme === 'dark' ? '#3D4D60' : '#E5E5E5', // Hover border color
+        },
+        '&:focus': {
+            borderColor: state.isFocused ? '#3B82F6' : theme === 'dark' ? '#3D4D60' : '#E5E5E5', // Focus border color
+        },
+        '&:active': {
+            borderColor: state.isFocused ? '#3B82F6' : theme === 'dark' ? '#3D4D60' : '#E5E5E5', // Active border color
+        },
     }),
     valueContainer: (provided) => ({
         ...provided,
-        padding: '10px 14px',
+        padding: '10px 10px',
+        // zIndex: 9999,
+
     }),
     input: (provided) => ({
         ...provided,
@@ -82,6 +94,12 @@ export const customStyles = (theme) => ({
     menu: (provided) => ({
         ...provided,
         backgroundColor: theme === 'dark' ? '#1D2A39' : '#fff',
+        zIndex: 99999,
+    }),
+    option: (provided, state) => ({
+        ...provided,
+        backgroundColor: state.isFocused ? (theme === 'dark' ? '#000' : '#f0f0f0') : 'transparent',
+        color: state.isFocused ? (theme === 'dark' ? '#fff' : '#000') : (theme === 'dark' ? '#fff' : '#000'),
     }),
 });
 

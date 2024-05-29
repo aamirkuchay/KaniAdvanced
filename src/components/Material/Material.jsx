@@ -74,7 +74,7 @@ const Material = () => {
                                     </div>
                                     <div className="p-6.5">
                                         <div className="mb-6">
-                                            <label className="mb-2.5 block text-black dark:text-white">Product Description</label>
+                                            <label className="mb-2.5 block text-black dark:text-white">Description</label>
                                             <Field
                                                 as="textarea"
                                                 rows={3}
