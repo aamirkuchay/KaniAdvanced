@@ -233,8 +233,15 @@ const Supplier = () => {
                                                 <ViewTable units={Supplier.map(s => ({
                                                     id: s.id,
                                                     name: s.name,
-                                                    contact: s.phoneNumber,
-                                                    SupplierCode:s.supplierCode
+                                                    phoneNumber:s.phoneNumber,
+                                                    supplierCode: s.supplierCode,
+                                                    address: s.address,
+                                                    bankName: s.bankName,
+                                                    accountNo: s.accountNo,
+                                                    ifscCode: s.ifscCode,
+                                                    emailId: s.emailId,
+                                                   
+                                                  
                                                     // Only include the first three columns here
                                                 }))} totalItems={pagination.totalItems} title={'Supplier'} handleDelete={handleDelete} handleUpdate={handleUpdate} />
                                                 <Pagination
