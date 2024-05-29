@@ -8,10 +8,15 @@ import useMaterial from '../../hooks/useMaterial';
 import { useSelector } from 'react-redux';
 import Pagination from '../Pagination/Pagination';
 import MaterialTable from './MaterialTable';
-import { customStyles } from '../../Constants/utils';
+import { customStyles as createCustomStyles } from '../../Constants/utils';
 const Material = () => {
     const units = useSelector(state => state?.nonPersisted?.unit);
+    const theme = useSelector(state => state?.persisted?.theme)
     const [options, setOptions] = useState([]);
+    // useEffect(() => {
+    //     console.log(theme)
+    // }, [])
+
 
 
     useEffect(() => {
@@ -29,7 +34,7 @@ const Material = () => {
         material,
         edit,
         currentMaterial,
-        pagination, 
+        pagination,
         handleDelete,
         handleUpdate,
         handleSubmit,
@@ -45,7 +50,7 @@ const Material = () => {
         grade: Yup.string().required('Field is Empty'),
     });
 
-
+    const customStyles = createCustomStyles(theme?.mode);
 
 
     return (

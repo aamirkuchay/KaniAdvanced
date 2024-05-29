@@ -6,6 +6,7 @@ import UnitReducer from "./Slice/UnitSlice"
 import LocationReducer from "./Slice/LocationSlice";
 import MaterialReducer from "./Slice/MaterialSlice";
 import SupplierReducer from "./Slice/SupplierSlice";
+import ThemeSlice from "./Slice/ThemeSlice";
 
 
 // Persist config
@@ -20,6 +21,7 @@ const persistedReducer = persistReducer(
   persistConfig,
   combineReducers({
     user: userReducer,
+    theme: ThemeSlice,
   })
 );
 
@@ -31,8 +33,8 @@ const rootReducer = combineReducers({
     unit: UnitReducer,
     location: LocationReducer,
     material: MaterialReducer,
-    supplier:SupplierReducer
-   
+    supplier: SupplierReducer
+
   }),
 });
 

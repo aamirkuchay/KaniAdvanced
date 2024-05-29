@@ -54,11 +54,16 @@ export const options = {
 
 //React-select customStyles function
 
-export const customStyles = {
+
+
+
+export const customStyles = (theme) => ({
     control: (provided) => ({
         ...provided,
         minHeight: '50px',
         fontSize: '16px',
+        backgroundColor: theme === 'dark' ? '#1D2A39' : '#fff',
+        color: theme === 'dark' ? '#fff' : '#000',
     }),
     valueContainer: (provided) => ({
         ...provided,
@@ -67,11 +72,18 @@ export const customStyles = {
     input: (provided) => ({
         ...provided,
         fontSize: '16px',
+        color: theme === 'dark' ? '#fff' : '#000',
     }),
     singleValue: (provided) => ({
         ...provided,
         fontSize: '16px',
+        color: theme === 'dark' ? '#fff' : '#000',
     }),
-};
+    menu: (provided) => ({
+        ...provided,
+        backgroundColor: theme === 'dark' ? '#1D2A39' : '#fff',
+    }),
+});
+
 
 

@@ -7,12 +7,13 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import flatpickr from 'flatpickr';
 import { useSelector } from 'react-redux';
 import useMaterialPo from '../../hooks/useMaterialPo';
-
+import { customStyles as createCustomStyles } from '../../Constants/utils';
 const MaterialPo = () => {
     const location = useSelector(state => state?.nonPersisted?.location);
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
+    const theme = useSelector(state => state?.persisted?.theme);
     const material = useSelector(state => state?.nonPersisted?.material);
-    const [materialPos, setMaterialPos] = useState([{  materialId: null, quantity: '', costPerGram: '', totalPrice: '' }]);
+    const [materialPos, setMaterialPos] = useState([{ materialId: null, quantity: '', costPerGram: '', totalPrice: '' }]);
 
     const [locationSel, setLocationSel] = useState([]);
     const [supplierSel, setSupplierSel] = useState([]);
@@ -57,13 +58,13 @@ const MaterialPo = () => {
                 static: true,
                 monthSelectorType: 'static',
                 dateFormat: 'Y-m-d\\TH:i:S.Z', // Display format
-              
+
                 prevArrow:
                     '<svg className="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
                 nextArrow:
                     '<svg className="fill-current" width="7" height="11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',
                 onChange: (selectedDates, dateStr) => {
-                   
+
                     setDateSelected(dateStr.split('T')[0]); // Update the date for display
                 },
             });
@@ -71,7 +72,7 @@ const MaterialPo = () => {
     }, [flatpickrRef.current]);
 
     const addRow = () => {
-        setMaterialPos([...materialPos, {  materialId: null, quantity: '', costPerGram: '', totalPrice: '' }]);
+        setMaterialPos([...materialPos, { materialId: null, quantity: '', costPerGram: '', totalPrice: '' }]);
     };
 
     const deleteRow = (index, setFieldValue) => {
@@ -97,57 +98,39 @@ const MaterialPo = () => {
         setFieldValue(`materialPos[${index}].costPerGram`, value);
         setFieldValue(`materialPos[${index}].totalPrice`, newMaterialPos[index].totalPrice);
     };
-    const customStyles = {
-        control: (provided, state) => ({
-            ...provided,
-            minHeight: '50px', // Set the minimum height here
-            height: '50px',
-        }),
-        valueContainer: (provided, state) => ({
-            ...provided,
-            height: '50px',
-            padding: '0 6px'
-        }),
-        input: (provided, state) => ({
-            ...provided,
-            margin: '0',
-            padding: '0'
-        }),
-        indicatorsContainer: (provided, state) => ({
-            ...provided,
-            height: '50px'
-        })
-    };
-    const customStyle = {
-        control: (provided, state) => ({
-            ...provided,
-            minHeight: '50px', // Set the minimum height here
-            height: '50px',
-            width:'190px'
-        }),
-        valueContainer: (provided, state) => ({
-            ...provided,
-            height: '50px',
-            padding: '0 6px',
-            width:'50px'
-        }),
-        input: (provided, state) => ({
-            ...provided,
-            margin: '0',
-            padding: '0',
-            width:'50px'
-        }),
-        indicatorsContainer: (provided, state) => ({
-            ...provided,
-            height: '50px',
-            width:'30px'
-        }),
-        menu: (provided, state) => ({
-            ...provided,
-            
-            width:'190px'
-        })
-    };
+    const customStyles = createCustomStyles(theme?.mode);
+
+
+    // const customStyle = {
+    //     control: (provided, state) => ({
+    //         ...provided,
+    //         minHeight: '50px', // Set the minimum height here
+    //         height: '50px',
+    //         width: '190px'
+    //     }),
+    //     valueContainer: (provided, state) => ({
+    //         ...provided,
+    //         height: '50px',
+    //         padding: '0 6px',
+    //         width: '50px'
+    //     }),
+    //     input: (provided, state) => ({
+    //         ...provided,
+    //         margin: '0',
+    //         padding: '0',
+    //         width: '50px'
+    //     }),
+    //     indicatorsContainer: (provided, state) => ({
+    //         ...provided,
+    //         height: '50px',
+    //         width: '30px'
+    //     }),
+    //     menu: (provided, state) => ({
+    //         ...provided,
+
+    //         width: '190px'
+    //     })
+    // };
 
     return (
         <DefaultLayout>
@@ -170,9 +153,9 @@ const MaterialPo = () => {
                         if (!values.supplierId) {
                             errors.supplierId = 'Required';
                         }
-                      
-                       
-                       
+
+
+
                         return errors;
                     }}
                     onSubmit={(values, actions) => {
@@ -267,7 +250,7 @@ const MaterialPo = () => {
                                                         <tr key={row.id}>
                                                             <td>
                                                                 <ReactSelect
-                                                                   
+
                                                                     value={materialSel.find(option => option.value === row.materialId)}
                                                                     onChange={(option) => {
                                                                         const newMaterialPos = [...materialPos];
@@ -278,7 +261,7 @@ const MaterialPo = () => {
                                                                     classNamePrefix="react-select"
                                                                     options={materialSel}
                                                                     placeholder="Select Material"
-                                                                    styles={customStyle}
+                                                                    styles={customStyles}
                                                                 />
                                                             </td>
                                                             <td>
