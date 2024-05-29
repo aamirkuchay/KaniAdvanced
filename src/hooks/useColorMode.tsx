@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import useLocalStorage from './useLocalStorage';
+import { useDispatch } from 'react-redux';
+import { toggleThemeMode } from '../redux/Slice/ThemeSlice.js';
 
 const useColorMode = () => {
+  const dispatch = useDispatch();
   const [colorMode, setColorMode] = useLocalStorage('color-theme', 'light');
 
   useEffect(() => {
@@ -12,6 +15,7 @@ const useColorMode = () => {
       ? bodyClass.add(className)
       : bodyClass.remove(className);
   }, [colorMode]);
+  dispatch(toggleThemeMode(colorMode));
 
   return [colorMode, setColorMode];
 };
