@@ -13,11 +13,6 @@ const Material = () => {
     const units = useSelector(state => state?.nonPersisted?.unit);
     const theme = useSelector(state => state?.persisted?.theme)
     const [options, setOptions] = useState([]);
-    // useEffect(() => {
-    //     console.log(theme)
-    // }, [])
-
-
 
     useEffect(() => {
         if (units.data) {

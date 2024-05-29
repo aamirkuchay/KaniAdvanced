@@ -8,17 +8,20 @@ import flatpickr from 'flatpickr';
 import { useSelector } from 'react-redux';
 import useMaterialPo from '../../hooks/useMaterialPo';
 import { customStyles as createCustomStyles } from '../../Constants/utils';
+
 const MaterialPo = () => {
     const location = useSelector(state => state?.nonPersisted?.location);
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
     const theme = useSelector(state => state?.persisted?.theme);
     const material = useSelector(state => state?.nonPersisted?.material);
     const [materialPos, setMaterialPos] = useState([{ materialId: null, quantity: '', costPerGram: '', totalPrice: '' }]);
+    const [submitted, setSubmitted] = useState(false);
 
     const [locationSel, setLocationSel] = useState([]);
     const [supplierSel, setSupplierSel] = useState([]);
     const [materialSel, setMaterialSel] = useState([]);
     const [dateSelected, setDateSelected] = useState('');
+    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         if (location.data) {
@@ -99,46 +102,13 @@ const MaterialPo = () => {
         setFieldValue(`materialPos[${index}].totalPrice`, newMaterialPos[index].totalPrice);
     };
     const customStyles = createCustomStyles(theme?.mode);
-
-
-    // const customStyle = {
-    //     control: (provided, state) => ({
-    //         ...provided,
-    //         minHeight: '50px', // Set the minimum height here
-    //         height: '50px',
-    //         width: '190px'
-    //     }),
-    //     valueContainer: (provided, state) => ({
-    //         ...provided,
-    //         height: '50px',
-    //         padding: '0 6px',
-    //         width: '50px'
-    //     }),
-    //     input: (provided, state) => ({
-    //         ...provided,
-    //         margin: '0',
-    //         padding: '0',
-    //         width: '50px'
-    //     }),
-    //     indicatorsContainer: (provided, state) => ({
-    //         ...provided,
-    //         height: '50px',
-    //         width: '30px'
-    //     }),
-    //     menu: (provided, state) => ({
-    //         ...provided,
-
-    //         width: '190px'
-    //     })
-    // };
-
     return (
         <DefaultLayout>
-            <Breadcrumb pageName="Weaver/Embroider / Add Weaver-Embroider" />
+            <Breadcrumb pageName="Material/Material PO" />
             <div>
                 <Formik
                     initialValues={{
-                        date: null,
+                        date: "",
                         locationId: "",
                         supplierId: "",
                         status: "",
@@ -148,17 +118,53 @@ const MaterialPo = () => {
                         const errors = {};
 
                         if (!values.locationId) {
-                            errors.locationId = 'Required';
+                            errors.locationId = 'Field is required';
                         }
                         if (!values.supplierId) {
-                            errors.supplierId = 'Required';
+                            errors.supplierId = 'Field is required';
                         }
-
-
-
+                        if (!dateSelected) {
+                            errors.date = 'Field is required';
+                        }
+                        if (values.materialPos.length === 0) {
+                            errors.materialPos = 'At least one material item is required';
+                        } else {
+                            // Iterate through each material item and validate its fields
+                            values.materialPos.forEach((materialItem, index) => {
+                                if (!materialItem.materialId) {
+                                    if (!errors.materialPos) {
+                                        errors.materialPos = [];
+                                    }
+                                    if (!errors.materialPos[index]) {
+                                        errors.materialPos[index] = {};
+                                    }
+                                    errors.materialPos[index].materialId = 'Material is required';
+                                }
+                                if (!materialItem.quantity || isNaN(materialItem.quantity) || materialItem.quantity <= 0) {
+                                    if (!errors.materialPos) {
+                                        errors.materialPos = [];
+                                    }
+                                    if (!errors.materialPos[index]) {
+                                        errors.materialPos[index] = {};
+                                    }
+                                    errors.materialPos[index].quantity = 'Required';
+                                }
+                                if (!materialItem.costPerGram || isNaN(materialItem.costPerGram) || materialItem.costPerGram <= 0) {
+                                    if (!errors.materialPos) {
+                                        errors.materialPos = [];
+                                    }
+                                    if (!errors.materialPos[index]) {
+                                        errors.materialPos[index] = {};
+                                    }
+                                    errors.materialPos[index].costPerGram = 'Required';
+                                }
+                            });
+                        }
                         return errors;
                     }}
+
                     onSubmit={(values, actions) => {
+                        setSubmitted(true);
                         values.date = dateSelected;
                         handleSubmit(values, actions);
                     }}
@@ -169,7 +175,7 @@ const MaterialPo = () => {
                                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                     <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                                         <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
-                                            ADD PURCHASE ORDER
+                                            CREATE MATERIAL PO
                                         </h3>
                                     </div>
                                     <div className="p-6.5">
@@ -177,12 +183,12 @@ const MaterialPo = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Date</label>
                                                 <input
-                                                placeholder='Select A Date'
+                                                    placeholder='Select A Date'
                                                     type="text"
                                                     name='date'
                                                     ref={flatpickrRef}
                                                     value={dateSelected.split('T')[0]}
-                                                    className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                                    className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                                 />
                                                 <ErrorMessage name="date" component="div" className="text-red-500" />
                                             </div>
@@ -220,96 +226,113 @@ const MaterialPo = () => {
                                                     type="text"
                                                     name="status"
                                                     placeholder="Status"
-                                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:focus:border-primary"
+                                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition dark:text-white focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:focus:border-primary"
                                                 />
                                                 <ErrorMessage name="status" component="div" className="text-red-500" />
                                             </div>
                                         </div>
 
-                                        <div className='text-center mt-12'>
-                                            <h2 className='text-2xl'>Material Po's</h2>
-                                        </div>
-                                        <div className='text-end'>
-                                            <button type='button' onClick={addRow}>
-                                                <IoMdAdd size={34} />
+                                        <div className="flex justify-between mt-15">
+                                            <h2 className='text-2xl font-semibold leading-tight text-center'>
+                                                Material Items
+                                            </h2>
+
+
+                                            <button
+                                                type="button"
+                                                onClick={addRow}
+                                                className="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                                            >
+                                                <IoMdAdd className="mr-2" size={20} />
+                                                Add Row
                                             </button>
                                         </div>
-
-                                        <div className=" md:overflow-hidden">
-                                            <table className="table-fixed  md:overflow-hidden">
-                                                <thead>
-                                                    <tr>
-                                                        <th className="w-1/4   py-2">Material</th>
-                                                        <th className="w-1/4  py-2">Quantity</th>
-                                                        <th className="w-1/5  py-2">Cost Per Gram</th>
-                                                        <th className="w-1/5  py-2">Total Price</th>
-                                                        <th className="w-1/6  py-2">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {materialPos.map((row, index) => (
-                                                        <tr key={row.id}>
-                                                            <td>
-                                                                <ReactSelect
-
-                                                                    value={materialSel.find(option => option.value === row.materialId)}
-                                                                    onChange={(option) => {
-                                                                        const newMaterialPos = [...materialPos];
-                                                                        newMaterialPos[index].materialId = option.value;
-                                                                        setMaterialPos(newMaterialPos);
-                                                                        setFieldValue(`materialPos[${index}].materialId`, option.value);
-                                                                    }}
-                                                                    classNamePrefix="react-select"
-                                                                    options={materialSel}
-                                                                    placeholder="Select Material"
-                                                                    styles={customStyles}
-                                                                />
-                                                            </td>
-                                                            <td>
-                                                                <Field
-                                                                    type="text"
-                                                                    name={`materialPos[${index}].quantity`}
-                                                                    placeholder="Quantity"
-                                                                    className="w-full rounded  border-[1.5px] border-stroke bg-transparent py-3 px-5  text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-slate-700 dark:focus:border-primary dark:text-white"
-                                                                    onChange={(e) => handleQuantityChange(setFieldValue, index, e.target.value)}
-                                                                />
-                                                                <ErrorMessage name={`materialPos[${index}].quantity`} component="div" className="text-red-500" />
-                                                            </td>
-                                                            <td>
-                                                                <Field
-                                                                    type="text"
-                                                                    name={`materialPos[${index}].costPerGram`}
-                                                                    placeholder="Cost Per Gram"
-                                                                    className="w-full rounded border-[1.5px]  dark:text-white border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:focus:border-primary"
-                                                                    onChange={(e) => handleCostPerGramChange(setFieldValue, index, e.target.value)}
-                                                                />
-                                                                <ErrorMessage name={`materialPos[${index}].costPerGram`} component="div" className="text-red-500" />
-                                                            </td>
-                                                            <td>
-                                                                <Field
-                                                                    type="text"
-                                                                    name={`materialPos[${index}].totalPrice`}
-                                                                    placeholder="Total Price"
-                                                                    className="w-full rounded border-[1.5px]  dark:text-white border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:focus:border-primary"
-                                                                    readOnly
-                                                                />
-                                                                <ErrorMessage name={`materialPos[${index}].totalPrice`} component="div" className="text-red-500" />
-                                                            </td>
-                                                            <td>
-                                                                {materialPos.length > 1 && (
-                                                                    <button type='button' onClick={() => deleteRow(index, setFieldValue)}>
-                                                                        <IoMdTrash size={24} />
-                                                                    </button>
-                                                                )}
-                                                            </td>
+                                        <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4   ">
+                                            <div
+                                                className="inline-block min-w-full shadow-md rounded-lg"
+                                            >
+                                                <table className="min-w-full leading-normal shadow-md rounded-lg  ">
+                                                    <thead>
+                                                        <tr className='bg-slate-300 dark:bg-slate-700 dark:text-white'>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Material</th>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Quantity</th>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Cost per Gram</th>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Total Price</th>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
                                                         </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        {materialPos.map((material, index) => (
+                                                            <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
+                                                                <td className="px-2 py-5 border-b border-gray-200 text-sm min-w-[300px] ">
+                                                                    <ReactSelect
+                                                                        name={`materialPos[${index}].materialId`}
+                                                                        value={materialSel.find(option => option.value === material.materialId)}
+                                                                        onChange={(option) => {
+                                                                            const newMaterialPos = [...materialPos];
+                                                                            newMaterialPos[index].materialId = option.value;
+                                                                            setMaterialPos(newMaterialPos);
+                                                                            setFieldValue(`materialPos[${index}].materialId`, option.value);
+                                                                        }}
+                                                                        options={materialSel}
+                                                                        classNamePrefix="react-select"
+                                                                        placeholder="Select Material"
+                                                                        styles={customStyles}
+                                                                    />
+
+                                                                    <ErrorMessage name={`materialPos[${index}].materialId`} component="div" className="text-red-500" />
+
+                                                                </td>
+                                                                <td className="px-2 py-5 border-b border-gray-200 text-sm min-w-[150px]">
+                                                                    <Field
+                                                                        type="number"
+                                                                        name={`materialPos[${index}].quantity`}
+                                                                        placeholder="Quantity"
+                                                                        value={material.quantity}
+                                                                        onChange={(e) => handleQuantityChange(setFieldValue, index, e.target.value)}
+                                                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition dark:text-white focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:focus:border-primary"
+                                                                    />
+                                                                    <ErrorMessage name={`materialPos[${index}].quantity`} component="div" className="text-red-500" />
+
+                                                                </td>
+                                                                <td className="px-2 py-5 border-b border-gray-200 text-sm min-w-[150px]">
+                                                                    <Field
+                                                                        type="number"
+                                                                        name={`materialPos[${index}].costPerGram`}
+                                                                        placeholder="Cost per Gram"
+                                                                        value={material.costPerGram}
+                                                                        onChange={(e) => handleCostPerGramChange(setFieldValue, index, e.target.value)}
+                                                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition dark:text-white focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:focus:border-primary"
+                                                                    />
+                                                                    <ErrorMessage name={`materialPos[${index}].costPerGram`} component="div" className="text-red-500" />
+
+                                                                </td>
+                                                                <td className="px-2 py-5 border-b border-gray-200 text-sm min-w-[150px]">
+                                                                    <Field
+                                                                        type="number"
+                                                                        name={`materialPos[${index}].totalPrice`}
+                                                                        placeholder="Total Price"
+                                                                        value={material.totalPrice}
+                                                                        readOnly
+                                                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition dark:text-white focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:focus:border-primary"
+                                                                    />
+                                                                </td>
+                                                                <td className="px-2 py-5 border-b border-gray-200 text-sm">
+                                                                    <div className="flex">
+                                                                        <IoMdTrash size={17} className='text-red-500 hover:text-red-700 mx-2 cursor-pointer' onClick={() => deleteRow(index, setFieldValue)} title='Delete Row' />
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
+
                                         <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                                            Add Material
+                                            {edit ? "Update Material PO" : "Add Material PO"}
                                         </button>
+
                                     </div>
                                 </div>
                             </div>

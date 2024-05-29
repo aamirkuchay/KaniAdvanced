@@ -18,7 +18,7 @@ const useMaterialPo = () => {
     }, [dispatch, token]);
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-   
+        console.log(values)
         try {
             const response = await fetch(ADD_MATERIALPO_URL, {
                 method: "POST",
@@ -31,7 +31,7 @@ const useMaterialPo = () => {
 
             const data = await response.json();
             if (response.ok) {
-                toast.success(`Material added successfully`);
+                toast.success(`Material Purchase added successfully`);
                 resetForm();
             } else {
                 toast.error(`${data.errorMessage}`);
