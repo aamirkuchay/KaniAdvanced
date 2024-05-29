@@ -289,7 +289,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                               Add Material
                             </NavLink>
                           </li>
-                          <li>
+                          {/* <li>
                             <NavLink
                               to="/material/viewmaterialPo"
                               className={({ isActive }) =>
@@ -297,9 +297,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              View material PO
+                              View Material PO
                             </NavLink>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                       {/* <!-- Dropdown Menu End --> */}
@@ -407,7 +407,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         }}
                       >
                         <PiRecycleBold size={24} />
-                       Purchase
+                        Purchase
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
                             }`}
@@ -443,14 +443,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             </NavLink>
                           </li>
                           <li>
-                          <NavLink
+                            <NavLink
                               to="/material/viewmaterialPo"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                 (isActive && '!text-white')
                               }
                             >
-                              View material PO
+                              View Material PO
                             </NavLink>
                           </li>
                         </ul>
@@ -753,7 +753,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         }}
                       >
                         <FaUser size={22} />
-                     Customer
+                        Customer
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
                             }`}
@@ -807,9 +807,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 }}
               </SidebarLinkGroup>
 
-                {/* weaver embroider  */}
+              {/* weaver embroider  */}
 
-                <SidebarLinkGroup
+              <SidebarLinkGroup
                 activeCondition={
                   pathname === '/forms' || pathname.includes('forms')
                 }
@@ -831,7 +831,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         }}
                       >
                         <PiRecycleBold size={24} />
-                      Weaver /Embroider
+                        Weaver /Embroider
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
                             }`}
@@ -886,8 +886,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               </SidebarLinkGroup>
 
 
-            
-           
+
+
 
 
 
@@ -916,7 +916,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         }}
                       >
                         <FaJediOrder size={24} />
-                    Order
+                        Order
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
                             }`}
@@ -980,10 +980,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   );
                 }}
               </SidebarLinkGroup>
-            {/* user */}
+              {/* user */}
 
 
-            <SidebarLinkGroup
+              <SidebarLinkGroup
                 activeCondition={
                   pathname === '/forms' || pathname.includes('forms')
                 }
@@ -1005,7 +1005,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         }}
                       >
                         <FaUserPlus size={24} />
-                      User
+                        User
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
                             }`}
