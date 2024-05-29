@@ -291,13 +291,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                           </li>
                           <li>
                             <NavLink
-                              to="/forms/form-layout"
+                              to="/material/viewmaterialPo"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                 (isActive && '!text-white')
                               }
                             >
-                              View material
+                              View material PO
                             </NavLink>
                           </li>
                         </ul>
@@ -443,14 +443,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             </NavLink>
                           </li>
                           <li>
-                            <NavLink
-                              to="/forms/form-layout"
+                          <NavLink
+                              to="/material/viewmaterialPo"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                 (isActive && '!text-white')
                               }
                             >
-                              View material
+                              View material PO
                             </NavLink>
                           </li>
                         </ul>

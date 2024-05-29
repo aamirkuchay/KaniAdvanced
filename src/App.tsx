@@ -36,6 +36,7 @@ import Supplier from './components/Configurator/Supplier.jsx';
 import AddEmb from './components/Emb/AddEmb';
 import ViewEmb from './components/Emb/ViewEmb';
 import MaterialPo from './components/PuchaseOrder/MaterialPo';
+import ViewMaterialPo from './components/PuchaseOrder/ViewMaterialPo';
 
 
 
@@ -360,6 +361,16 @@ function App() {
             </>
           }
         />
+            <Route
+          path="/material/viewmaterialPo"
+          element={
+            <>
+              <PageTitle title="Add Customer Group" />
+              <ViewMaterialPo />
+            </>
+          }
+        />
+    
 
 
       </Routes>
