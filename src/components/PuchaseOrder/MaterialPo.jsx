@@ -128,7 +128,7 @@ const MaterialPo = () => {
         valueContainer: (provided, state) => ({
             ...provided,
             height: '50px',
-            padding: '0 6px',
+            padding: '0 6px', 
             width:'50px'
         }),
         input: (provided, state) => ({
@@ -194,6 +194,7 @@ const MaterialPo = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Date</label>
                                                 <input
+                                                placeholder='Select A Date'
                                                     type="text"
                                                     name='date'
                                                     ref={flatpickrRef}
@@ -251,8 +252,8 @@ const MaterialPo = () => {
                                             </button>
                                         </div>
 
-                                        <div className="w-full">
-                                            <table className="table-fixed w-full">
+                                        <div className=" md:overflow-hidden">
+                                            <table className="table-fixed  md:overflow-hidden">
                                                 <thead>
                                                     <tr>
                                                         <th className="w-1/4   py-2">Material</th>
@@ -286,7 +287,7 @@ const MaterialPo = () => {
                                                                     type="text"
                                                                     name={`materialPos[${index}].quantity`}
                                                                     placeholder="Quantity"
-                                                                    className="w-full rounded  border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-slate-700 dark:focus:border-primary dark:text-white"
+                                                                    className="w-full rounded  border-[1.5px] border-stroke bg-transparent py-3 px-5  text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-slate-700 dark:focus:border-primary dark:text-white"
                                                                     onChange={(e) => handleQuantityChange(setFieldValue, index, e.target.value)}
                                                                 />
                                                                 <ErrorMessage name={`materialPos[${index}].quantity`} component="div" className="text-red-500" />
