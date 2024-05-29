@@ -7,6 +7,14 @@ import { fetchsupplier } from '../redux/Slice/SupplierSlice';
 import { fetchmaterial } from '../redux/Slice/MaterialSlice';
 
 const useMaterialPo = () => {
+    const [pagination, setPagination] = useState({
+        totalItems: 0,
+        pagUnitList: [],
+        totalPages: 0,
+        currentPage: 1,
+    });
+
+    const [materialPo, setmaterialPo] = useState()
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
     const dispatch = useDispatch();
@@ -18,7 +26,7 @@ const useMaterialPo = () => {
     }, [dispatch, token]);
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        console.log(values)
+   
         try {
             const response = await fetch(ADD_MATERIALPO_URL, {
                 method: "POST",
@@ -31,8 +39,8 @@ const useMaterialPo = () => {
 
             const data = await response.json();
             if (response.ok) {
-                toast.success(`Material Purchase added successfully`);
                 resetForm();
+                toast.success(`Material Po added successfully`);
             } else {
                 toast.error(`${data.errorMessage}`);
             }
@@ -43,8 +51,78 @@ const useMaterialPo = () => {
             setSubmitting(false);
         }
     };
+    useEffect(() => {
+        ViewMaterialPo(pagination.currentPage);
+    }, []);
+    const ViewMaterialPo=async()=>{
+        try {
+            
+            const response = await fetch(GET_MATERIALPO_URL, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                
+            });
 
-    return { handleSubmit };
+            const data = await response.json();
+           
+            if (response.ok) {
+                setmaterialPo(data)
+                setPagination({
+                    totalItems: data.totalElements,
+                    pagUnitList: data.content,
+                    totalPages: data.totalPages,
+                    currentPage: data.number + 1,
+                });
+            } else {
+                toast.error(`${data.errorMessage}`);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred");
+        }
+    }
+    const handleDelete = async (e, id) => {
+        
+        e.preventDefault();
+        try {
+            const response = await fetch(`${DELETE_MATERIALPO_URL}${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                toast.success(`Material Po Deleted Successfully !!`);
+
+                // Check if the current page becomes empty
+                const isCurrentPageEmpty = location.length === 1;
+
+                if (isCurrentPageEmpty && pagination.currentPage > 1) {
+                    const previousPage = pagination.currentPage - 1;
+                    handlePageChange(previousPage);
+                } else {
+                    getLocation(pagination.currentPage);
+                }
+            } else {
+                toast.error(`${data.errorMessage}`);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred");
+        }
+    };
+    const handlePageChange = (newPage) => {
+        setPagination((prev) => ({ ...prev, currentPage: newPage }));
+        ViewMaterialPo(newPage); // API is 0-indexed for pages
+    };
+
+    return { handleSubmit ,ViewMaterialPo,materialPo,handleDelete,pagination,handlePageChange};
 };
 
 export default useMaterialPo;
