@@ -37,6 +37,7 @@ import AddEmb from './components/Emb/AddEmb';
 import ViewEmb from './components/Emb/ViewEmb';
 import MaterialPo from './components/PuchaseOrder/MaterialPo';
 import ViewMaterialPo from './components/PuchaseOrder/ViewMaterialPo';
+import UpdateMaterialPo from './components/PuchaseOrder/UpdateMaterialPo.jsx';
 
 
 
@@ -367,6 +368,15 @@ function App() {
             <>
               <PageTitle title="Add Customer Group" />
               <ViewMaterialPo />
+            </>
+          }
+        />
+            <Route
+          path="/material/updatematerialPo"
+          element={
+            <>
+              <PageTitle title="Update Customer Group" />
+              <UpdateMaterialPo />
             </>
           }
         />

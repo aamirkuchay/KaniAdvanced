@@ -5,6 +5,7 @@ import useMaterialPo from '../../hooks/useMaterialPo';
 import MaterialPoModal from '../../hooks/MaterialPoModal';  // Import the modal component
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Pagination from '../Pagination/Pagination';
+import { Link } from 'react-router-dom';
 const ViewMaterialPo = () => {
 
     const { materialPo, ViewMaterialPo, handleDelete, pagination, handleUpdate, handlePageChange } = useMaterialPo();
@@ -48,7 +49,10 @@ const ViewMaterialPo = () => {
                 </td>
                 <td className="px-5 py-5  border-b border-gray-200  text-sm">
                     <p className="flex text-gray-900 whitespace-no-wrap">
+                      
                         <FiEdit size={17} className='text-teal-500 hover:text-teal-700 mx-2' onClick={(e) => handleUpdate(e, item)} title='Edit Material PO' />  |
+                        
+                   
                         <FiTrash2 size={17} className='text-red-500  hover:text-red-700 mx-2' onClick={(e) => handleDelete(e, item?.id)} title='Delete Material PO' />
                     </p>
                 </td>
