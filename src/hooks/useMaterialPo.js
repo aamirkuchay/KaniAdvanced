@@ -5,8 +5,15 @@ import { ADD_MATERIALPO_URL, DELETE_MATERIALPO_URL, GET_MATERIALPO_URL, UPDATE_M
 import { fetchlocation } from '../redux/Slice/LocationSlice';
 import { fetchsupplier } from '../redux/Slice/SupplierSlice';
 import { fetchmaterial } from '../redux/Slice/MaterialSlice';
+import { useNavigate } from 'react-router-dom';
 
 const useMaterialPo = () => {
+    const [edit, setEdit] = useState(false);
+    const [materialPo, setMaterialPo] = useState([]);
+    const { currentUser } = useSelector((state) => state?.persisted?.user);
+    const { token } = currentUser;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [pagination, setPagination] = useState({
         totalItems: 0,
@@ -14,11 +21,6 @@ const useMaterialPo = () => {
         totalPages: 0,
         currentPage: 1,
     });
-
-    const [materialPo, setMaterialPo] = useState()
-    const { currentUser } = useSelector((state) => state?.persisted?.user);
-    const { token } = currentUser;
-    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchlocation(token));
@@ -71,7 +73,7 @@ const useMaterialPo = () => {
             const data = await response.json();
 
             if (response.ok) {
-                setMaterialPo(data);
+                setMaterialPo(data.content);
                 setPagination({
                     totalItems: data.totalElements,
                     data: data.content,
@@ -109,7 +111,7 @@ const useMaterialPo = () => {
                 toast.success(`Material Po Deleted Successfully !!`);
 
                 // Check if the current page becomes empty
-                const isCurrentPageEmpty = location.length === 1;
+                const isCurrentPageEmpty = materialPo.length === 1;
 
                 if (isCurrentPageEmpty && pagination.currentPage > 1) {
                     const previousPage = pagination.currentPage - 1;
@@ -125,8 +127,13 @@ const useMaterialPo = () => {
             toast.error("An error occurred");
         }
     };
+    const handleUpdate = (e, item) => {
+        e.preventDefault();
+        setEdit(true);
+        navigate('/material/addmaterialpo', { state: { item } });
+    };
 
-    return { handleSubmit, ViewMaterialPo, materialPo, handleDelete, pagination, handlePageChange };
+    return { handleSubmit, ViewMaterialPo, edit, setEdit, materialPo, handleUpdate, handleDelete, pagination, handlePageChange };
 };
 
 export default useMaterialPo;

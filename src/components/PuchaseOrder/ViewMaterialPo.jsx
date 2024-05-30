@@ -7,7 +7,7 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Pagination from '../Pagination/Pagination';
 const ViewMaterialPo = () => {
 
-    const { materialPo, ViewMaterialPo, handleDelete, pagination, handlePageChange } = useMaterialPo();
+    const { materialPo, ViewMaterialPo, handleDelete, pagination, handleUpdate, handlePageChange } = useMaterialPo();
     const [showModal, setShowModal] = useState(false);
     const [selectedMaterialPos, setSelectedMaterialPos] = useState([]);
 
@@ -21,9 +21,9 @@ const ViewMaterialPo = () => {
     };
 
     const renderTableRows = () => {
-        if (!materialPo || !materialPo.content) return;
+        if (!materialPo || !materialPo) return;
 
-        return materialPo.content.map((item, index) => (
+        return materialPo.map((item, index) => (
             <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
@@ -67,8 +67,8 @@ const ViewMaterialPo = () => {
                             className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium 
                             bg-success text-success  dark:bg-white dark:text-slate-800`}
                         >
-                            Total PO: {materialPo && materialPo.content ? materialPo.
-                                totalElements : 0}
+                            Total PO: {pagination.totalItems}
+
                         </p>
                     </div>
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
