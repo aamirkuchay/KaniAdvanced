@@ -15,9 +15,9 @@ const UpdateMaterialPo = () => {
     const navigate = useNavigate();
     const item = location.state?.item;
 
-    console.log(item,"update");
+    console.log(item, "update");
 
-  const itemId=item.id
+    const itemId = item.id
     const locations = useSelector(state => state?.nonPersisted?.location);
     const suppliers = useSelector(state => state?.nonPersisted?.supplier);
     const theme = useSelector(state => state?.persisted?.theme);
@@ -169,7 +169,8 @@ const UpdateMaterialPo = () => {
                     // }}
                     onSubmit={(values, actions) => {
                         console.log("iam sumitted");
-                        handleUpdateSubmit(values,itemId, actions);
+                        handleUpdateSubmit(values, itemId, actions);
+                        console.log(values, "final setup");
                         setSubmitted(true);
                         values.date = dateSelected;
                     }}
@@ -249,7 +250,7 @@ const UpdateMaterialPo = () => {
                                                                 options={materialSel}
                                                                 styles={customStyles}
                                                                 component={ReactSelect}
-                                                                value={ material.material.description} // Set the selected value
+                                                                value={materialPos[index].materialId} // Set the selected value
                                                                 placeholder={material.material.description}
                                                                 onChange={option => setFieldValue(`materialPos[${index}].materialId`, option.value)}
                                                             />
@@ -291,7 +292,7 @@ const UpdateMaterialPo = () => {
                                                         </div>
                                                     </div>
                                                 ))}
-                                                 <div className="mt-4">
+                                                <div className="mt-4">
                                                     <button type="button" className="flex items-center text-blue-500" onClick={addRow}>
                                                         <IoMdAdd className="mr-2 w-5 h-5" />
                                                         Add Material
