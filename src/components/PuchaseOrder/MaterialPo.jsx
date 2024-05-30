@@ -124,7 +124,7 @@ const MaterialPo = () => {
                         values.date = dateSelected;
                         handleSubmit(values, actions).then(() => {
                             setDateSelected('');
-                            setMaterialPos([{ materialId: null, quantity: '', costPerGram: '', totalPrice: '' }]);
+                            setMaterialPos([{ materialId: '', quantity: '', costPerGram: '', totalPrice: '' }]);
                             actions.resetForm({
                                 values: initialValues
                             });

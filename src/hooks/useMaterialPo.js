@@ -44,6 +44,8 @@ const useMaterialPo = () => {
             if (response.ok) {
                 resetForm();
                 toast.success(`Material Po added successfully`);
+                navigate('/material/viewmaterialPo');
+
             } else {
                 toast.error(`${data.errorMessage}`);
             }
