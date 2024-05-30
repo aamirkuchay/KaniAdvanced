@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const useMaterialPo = () => {
     const [edit, setEdit] = useState(false);
     const [materialPo, setMaterialPo] = useState([]);
+    const [itemm, setitemm] = useState({})
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
     const dispatch = useDispatch();
@@ -110,7 +111,7 @@ const useMaterialPo = () => {
 
             const data = await response.json();
             if (response.ok) {
-                toast.success(`Material Po Deleted Successfully`);
+                toast.success(`Material Po Deleted Successfully !!`);
 
                 // Check if the current page becomes empty
                 const isCurrentPageEmpty = materialPo.length === 1;
@@ -130,12 +131,51 @@ const useMaterialPo = () => {
         }
     };
     const handleUpdate = (e, item) => {
+        console.log(item,"onupdate");
         e.preventDefault();
         setEdit(true);
-        navigate('/material/addmaterialpo', { state: { item } });
+        if (item && item.id) {
+            setitemm(item);
+            navigate('/material/updatematerialPo', { state: { item } });
+        } else {
+            // Handle the case when the item or its ID is missing
+            console.error("Item or its ID is missing");
+        }
+       
     };
 
-    return { handleSubmit, ViewMaterialPo, edit, setEdit, materialPo, handleUpdate, handleDelete, pagination, handlePageChange };
+    const handleUpdateSubmit = async (values,itemId, { setSubmitting, resetForm }) => {
+        console.log(itemId,"for iddddddd");
+
+        try {
+            const url =  `${UPDATE_MATERIALPO_URL}/${itemId}` ;
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(values)
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                resetForm();
+                toast.success(`Material Po UPDATED successfully`);
+                // navigate('/material/viewmaterialPo');
+
+            } else {
+                toast.error(`${data.errorMessage}`);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred");
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    return { handleSubmit, ViewMaterialPo, edit, setEdit, materialPo, handleUpdate, handleDelete, pagination, handlePageChange,handleUpdateSubmit };
 };
 
 export default useMaterialPo;
