@@ -179,7 +179,6 @@ const MaterialPo = () => {
                                             <div className="flex-1 min-w-[300px]">
 
 
-                                                <ErrorMessage name="date" component="div" className="text-red-500" />
                                             </div>
                                         </div>
 
