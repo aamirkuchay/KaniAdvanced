@@ -110,7 +110,7 @@ const useMaterialPo = () => {
 
             const data = await response.json();
             if (response.ok) {
-                toast.success(`Material Po Deleted Successfully !!`);
+                toast.success(`Material Po Deleted Successfully`);
 
                 // Check if the current page becomes empty
                 const isCurrentPageEmpty = materialPo.length === 1;
