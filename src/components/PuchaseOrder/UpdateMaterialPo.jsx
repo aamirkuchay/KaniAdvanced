@@ -76,16 +76,23 @@ const UpdateMaterialPo = () => {
     };
 
     const handleFieldChange = (setFieldValue, index, field, value) => {
+        console.log(value, "selected");
         const newMaterialPos = [...materialPos];
-        newMaterialPos[index][field] = value;
+        if (field === 'materialId') {
+            newMaterialPos[index].material = { id: value };
+            newMaterialPos[index].materialId = value;
+        } else {
+            newMaterialPos[index][field] = value;
+        }
+
         if (field === 'quantity' || field === 'costPerGram') {
             newMaterialPos[index].totalPrice = newMaterialPos[index].quantity * newMaterialPos[index].costPerGram;
         }
-        console.log(index, field, value);
         setMaterialPos(newMaterialPos);
         setFieldValue(`materialPos[${index}].${field}`, value);
         setFieldValue(`materialPos[${index}].totalPrice`, newMaterialPos[index].totalPrice);
     };
+    console.log(materialPos, "after setttttttt");
 
     const addRow = (setValues, values) => {
         const defaultMaterialId = materialSel.length > 0 ? materialSel[0].value : '';
@@ -125,6 +132,8 @@ const UpdateMaterialPo = () => {
     const handleData = (values, actions) => {
         console.log(values, actions, "dataonsubmit")
     }
+    console.log(materialSel, "heyyyyy");
+    console.log(materialPos, "hello");
 
     return (
         <DefaultLayout>
@@ -255,7 +264,9 @@ const UpdateMaterialPo = () => {
                                                                     <div className="flex-1 min-w-[300px]">
                                                                         <ReactSelect
                                                                             name={`materialPos[${index}].materialId`}
-                                                                            value={materialSel.find(option => option.value === item.material.id || item.materialId)}
+                                                                            value={materialSel.find(option => option.
+                                                                                materialObject.id  
+                                                                                ===item.material.id)}
                                                                             onChange={option => handleFieldChange(setFieldValue, index, 'materialId', option.value)}
                                                                             options={materialSel}
                                                                             styles={customStyles}
