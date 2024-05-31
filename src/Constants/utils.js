@@ -31,6 +31,7 @@ export const DELETE_MATERIAL_URL = `${BASE_URL}/material/delete/`;
 // material po
 
 export const ADD_MATERIALPO_URL = `${BASE_URL}/purchaseOrder`;
+export const GET_MATERIALPO_BY_ID_URL = `${BASE_URL}/purchaseOrder`;
 export const GET_MATERIALPO_URL = `${BASE_URL}/purchaseOrder`;
 export const UPDATE_MATERIALPO_URL = `${BASE_URL}/purchaseOrder/updatePurchase`;
 export const DELETE_MATERIALPO_URL = `${BASE_URL}/purchaseOrder/`;

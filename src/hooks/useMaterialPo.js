@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { ADD_MATERIALPO_URL, DELETE_MATERIALPO_URL, GET_MATERIALPO_URL, UPDATE_MATERIALPO_URL } from '../Constants/utils';
+import { ADD_MATERIALPO_URL, DELETE_MATERIALPO_URL, GET_MATERIALPO_BY_ID_URL, GET_MATERIALPO_URL, UPDATE_MATERIALPO_URL } from '../Constants/utils';
 import { fetchlocation } from '../redux/Slice/LocationSlice';
 import { fetchsupplier } from '../redux/Slice/SupplierSlice';
 import { fetchmaterial } from '../redux/Slice/MaterialSlice';
@@ -15,6 +15,7 @@ const useMaterialPo = () => {
     const { token } = currentUser;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [currentMaterial, setCurrentMaterial] = useState({});
 
     const [pagination, setPagination] = useState({
         totalItems: 0,
@@ -22,6 +23,7 @@ const useMaterialPo = () => {
         totalPages: 0,
         currentPage: 1,
     });
+
 
     useEffect(() => {
         dispatch(fetchlocation(token));
@@ -92,6 +94,33 @@ const useMaterialPo = () => {
             toast.error("An error occurred");
         }
     }
+
+    const GetMaterialPoById = async (id) => {
+        try {
+
+            const response = await fetch(`${GET_MATERIALPO_BY_ID_URL}/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log("get MAterial data", data)
+                setCurrentMaterial(data);
+
+            } else {
+                toast.error(`${data.errorMessage}`);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred");
+        }
+    }
     const handlePageChange = (newPage) => {
         setPagination((prev) => ({ ...prev, currentPage: newPage }));
         ViewMaterialPo(newPage); // API is 0-indexed for pages
@@ -131,24 +160,23 @@ const useMaterialPo = () => {
         }
     };
     const handleUpdate = (e, item) => {
-        console.log(item,"onupdate");
+        //console.log(item,"onupdate");
         e.preventDefault();
         setEdit(true);
         if (item && item.id) {
             setitemm(item);
-            navigate('/material/updatematerialPo', { state: { item } });
+            navigate(`/material/updatematerialPo/${item.id}`);
         } else {
             // Handle the case when the item or its ID is missing
             console.error("Item or its ID is missing");
         }
-       
+
     };
 
-    const handleUpdateSubmit = async (values,itemId, { setSubmitting, resetForm }) => {
-        console.log(itemId,"for iddddddd");
+    const handleUpdateSubmit = async (values, { setSubmitting, resetForm }) => {
 
         try {
-            const url =  `${UPDATE_MATERIALPO_URL}/${itemId}` ;
+            const url = `${UPDATE_MATERIALPO_URL}/${values.id}`;
             const response = await fetch(url, {
                 method: "PUT",
                 headers: {
@@ -161,8 +189,8 @@ const useMaterialPo = () => {
             const data = await response.json();
             if (response.ok) {
                 resetForm();
-                toast.success(`Material Po UPDATED successfully`);
-                // navigate('/material/viewmaterialPo');
+                toast.success(`Material Po Updated successfully`);
+                navigate('/material/viewmaterialPo');
 
             } else {
                 toast.error(`${data.errorMessage}`);
@@ -173,9 +201,10 @@ const useMaterialPo = () => {
         } finally {
             setSubmitting(false);
         }
+
     };
 
-    return { handleSubmit, ViewMaterialPo, edit, setEdit, materialPo, handleUpdate, handleDelete, pagination, handlePageChange,handleUpdateSubmit };
+    return { handleSubmit, ViewMaterialPo, edit, setEdit, materialPo, GetMaterialPoById, currentMaterial, handleUpdate, handleDelete, pagination, handlePageChange, handleUpdateSubmit };
 };
 
 export default useMaterialPo;

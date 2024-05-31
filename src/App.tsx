@@ -19,7 +19,6 @@ import Buttons from './pages/UiElements/Buttons.js';
 import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 import Budget from './components/Configurator/Budget.jsx';
 
-
 import Size from './components/Configurator/Size.jsx';
 import Design from './components/Configurator/Design.jsx';
 import Style from './components/Configurator/Style.jsx';
@@ -32,19 +31,14 @@ import CustomerGroup from './components/Configurator/CustomerGroup.jsx';
 import Location from './components/Configurator/Location.jsx';
 import Supplier from './components/Configurator/Supplier.jsx';
 
-
 import AddEmb from './components/Emb/AddEmb';
 import ViewEmb from './components/Emb/ViewEmb';
 import MaterialPo from './components/PuchaseOrder/MaterialPo';
 import ViewMaterialPo from './components/PuchaseOrder/ViewMaterialPo';
 import UpdateMaterialPo from './components/PuchaseOrder/UpdateMaterialPo.jsx';
 
-
-
-
 import AddCustomer from './components/Customer/AddCustomer';
 import ViewCustomer from './components/Customer/ViewCustomer';
-
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -218,7 +212,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/configurator/suplier"
           element={
             <>
@@ -331,7 +325,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/configurator/location"
           element={
             <>
@@ -350,8 +344,6 @@ function App() {
           }
         />
 
-
-
         {/* purchase orders */}
         <Route
           path="/material/addmaterialpo"
@@ -362,7 +354,7 @@ function App() {
             </>
           }
         />
-            <Route
+        <Route
           path="/material/viewmaterialPo"
           element={
             <>
@@ -371,8 +363,8 @@ function App() {
             </>
           }
         />
-            <Route
-          path="/material/updatematerialPo"
+        <Route
+          path="/material/updatematerialPo/:id"
           element={
             <>
               <PageTitle title="Update Customer Group" />
@@ -380,9 +372,6 @@ function App() {
             </>
           }
         />
-    
-
-
       </Routes>
     </>
   );
