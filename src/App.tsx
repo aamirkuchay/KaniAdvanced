@@ -70,12 +70,21 @@ function App() {
         />
 
         <Route element={<PrivateRoute />}>
+        <Route
+            path="/chart"
+            element={
+              <>
+                <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <Chart />
+              </>
+            }
+          />
           <Route
             index
             element={
               <>
                 <PageTitle title="Dashboard" />
-                <ECommerce />
+                <Chart />
               </>
             }
           />
@@ -145,15 +154,7 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/chart"
-            element={
-              <>
-                <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                <Chart />
-              </>
-            }
-          />
+         
           <Route
             path="/ui/alerts"
             element={
