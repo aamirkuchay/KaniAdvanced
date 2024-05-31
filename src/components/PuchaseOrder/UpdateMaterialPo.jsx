@@ -315,7 +315,7 @@ const UpdateMaterialPo = () => {
                                             </div>
                                         </div>
                                         <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                                            Update Material PO
+                                            Update Purchase Order
                                         </button>
                                     </div>
                                 </div>
