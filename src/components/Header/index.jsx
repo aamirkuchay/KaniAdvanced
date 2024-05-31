@@ -56,7 +56,7 @@ const Header = (props) => {
         <div className="hidden sm:block">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
             <div className="relative">
-              <h3 className='uppercase font-bold tracking-[10px]'>Kani Application</h3>
+              <h3 className='uppercase font-bold text-2xl  leading-tight text-center tracking-[10px]'>Kani Application</h3>
 
               {/* <button className="absolute left-0 top-1/2 -translate-y-1/2">
                 <svg
