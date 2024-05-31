@@ -36,7 +36,9 @@ export const GET_MATERIALPO_URL = `${BASE_URL}/purchaseOrder`;
 export const UPDATE_MATERIALPO_URL = `${BASE_URL}/purchaseOrder/updatePurchase`;
 export const DELETE_MATERIALPO_URL = `${BASE_URL}/purchaseOrder/`;
 
+//signup
 
+export const SIGNUPURL = `${BASE_URL}/api/v1/auth/signup`;
 
 
 

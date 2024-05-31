@@ -71,6 +71,15 @@ function App() {
 
         <Route element={<PrivateRoute />}>
         <Route
+          path="/auth/signup"
+          element={
+            <>
+              <PageTitle title="AddUser " />
+              <SignUp />
+            </>
+          }
+        />
+        <Route
             path="/chart"
             element={
               <>
