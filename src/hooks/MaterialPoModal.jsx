@@ -14,9 +14,9 @@ const MaterialPoModal = ({ show, onClose, materialPos }) => {
                     <div className="overflow-x-auto">
                         <table className="min-w-full leading-normal">
                             <thead className='bg-white'>
-                            <tr className='px-5 py-3 bg-white dark:bg-slate-700 dark:text-white'>
+                                <tr className='px-5 py-3 bg-white dark:bg-slate-700 dark:text-white'>
                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        ID
+                                        SNO
                                     </th>
                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         Cost/ Gram
@@ -39,7 +39,7 @@ const MaterialPoModal = ({ show, onClose, materialPos }) => {
                                 {materialPos.map((po, idx) => (
                                     <tr key={idx} className='bg-white'>
                                         <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                                            {po.id}
+                                            {idx + 1}
                                         </td>
                                         <td className="px-5 py-5 border-b border-gray-200 text-sm">
                                             {po.costPerGram}
