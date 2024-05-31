@@ -4,19 +4,19 @@ const MaterialPoModal = ({ show, onClose, materialPos }) => {
     if (!show) return null;
 
     return (
-        <div className="fixed z-50 inset-0 overflow-y-auto flex items-center md:mt-12 md:ml-[190px] justify-center">
+        <div className="fixed z-9999 inset-0 overflow-y-auto flex items-center justify-center ">
             <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={onClose}></div>
-            <div className="bg-slate-300 dark:bg-slate-800 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-[600px] sm:ml-4 z-50">
-                <div className=" py-5 sm:px-6 ">
-                    <h3 className="text-lg leading-6 font-bold text-gray-900 text-center bg-slate-100 h-12 dark:bg-slate-600 ">Material POs</h3>
+            <div className="bg-slate-300 dark:bg-slate-800 rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-3xl w-full sm:ml-4 z-50">
+                <div className="py-5 sm:px-6">
+                    <h3 className="text-lg py-2 leading-6 font-bold text-gray-900 text-center bg-slate-100 h-12 dark:bg-slate-600">Material POs</h3>
                 </div>
                 <div className="px-4 py-5 sm:px-6 overflow-y-auto max-h-80">
                     <div className="overflow-x-auto">
                         <table className="min-w-full leading-normal">
                             <thead className='bg-white'>
-                            <tr className='px-5 py-3 bg-white dark:bg-slate-700 dark:text-white'>
+                                <tr className='px-5 py-3 bg-white dark:bg-slate-700 dark:text-white'>
                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        ID
+                                        SNO
                                     </th>
                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         Cost/ Gram
@@ -39,7 +39,7 @@ const MaterialPoModal = ({ show, onClose, materialPos }) => {
                                 {materialPos.map((po, idx) => (
                                     <tr key={idx} className='bg-white'>
                                         <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                                            {po.id}
+                                            {idx + 1}
                                         </td>
                                         <td className="px-5 py-5 border-b border-gray-200 text-sm">
                                             {po.costPerGram}
