@@ -293,7 +293,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              Add Material PO
+                              Add Purchase
                             </NavLink>
                           </li>
                           <li>
@@ -304,7 +304,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              View Material PO
+                              View Purchase
                             </NavLink>
                           </li>
 
