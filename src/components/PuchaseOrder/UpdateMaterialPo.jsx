@@ -76,12 +76,18 @@ const UpdateMaterialPo = () => {
     };
 
     const handleFieldChange = (setFieldValue, index, field, value) => {
+        console.log(value, "selected");
         const newMaterialPos = [...materialPos];
-        newMaterialPos[index][field] = value;
+        if (field === 'materialId') {
+            newMaterialPos[index].material = { id: value };
+            newMaterialPos[index].materialId = value;
+        } else {
+            newMaterialPos[index][field] = value;
+        }
+
         if (field === 'quantity' || field === 'costPerGram') {
             newMaterialPos[index].totalPrice = newMaterialPos[index].quantity * newMaterialPos[index].costPerGram;
         }
-        console.log(index, field, value);
         setMaterialPos(newMaterialPos);
         setFieldValue(`materialPos[${index}].${field}`, value);
         setFieldValue(`materialPos[${index}].totalPrice`, newMaterialPos[index].totalPrice);
@@ -122,9 +128,7 @@ const UpdateMaterialPo = () => {
         )
     });
 
-    const handleData = (values, actions) => {
-        console.log(values, actions, "dataonsubmit")
-    }
+
 
     return (
         <DefaultLayout>
@@ -150,9 +154,9 @@ const UpdateMaterialPo = () => {
                         // Convert materialPos items to the desired format
                         values.materialPos = values?.materialPos?.map(item => ({
                             materialId: parseInt(item?.material?.id || item.materialId, 10),
-                            quantity: parseInt(item.quantity, 10),
-                            costPerGram: parseInt(item.costPerGram, 10),
-                            totalPrice: parseInt(item.totalPrice, 10)
+                            quantity: parseFloat(item.quantity, 10),
+                            costPerGram: parseFloat(item.costPerGram, 10),
+                            totalPrice: parseFloat(item.totalPrice.toFixed(2), 10)
                         }));
 
 
@@ -255,7 +259,7 @@ const UpdateMaterialPo = () => {
                                                                     <div className="flex-1 min-w-[300px]">
                                                                         <ReactSelect
                                                                             name={`materialPos[${index}].materialId`}
-                                                                            value={materialSel.find(option => option.value === item.material.id || item.materialId)}
+                                                                            value={materialSel.find(option => option.materialObject.id === item.material.id)}
                                                                             onChange={option => handleFieldChange(setFieldValue, index, 'materialId', option.value)}
                                                                             options={materialSel}
                                                                             styles={customStyles}
