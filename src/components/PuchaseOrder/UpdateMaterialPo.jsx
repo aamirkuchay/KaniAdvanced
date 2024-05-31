@@ -10,7 +10,7 @@ import useMaterialPo from '../../hooks/useMaterialPo';
 import { customStyles as createCustomStyles } from '../../Constants/utils';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const UpdateMaterialPo = () => {
     const { handleUpdate, edit, currentMaterial, GetMaterialPoById, handleUpdateSubmit } = useMaterialPo();
@@ -19,7 +19,6 @@ const UpdateMaterialPo = () => {
     useEffect(() => {
         GetMaterialPoById(id);
     }, [id]);
-
 
     const location = useSelector(state => state?.nonPersisted?.location);
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
@@ -36,15 +35,13 @@ const UpdateMaterialPo = () => {
     useEffect(() => {
         if (currentMaterial) {
             setMaterialPos(currentMaterial.materialPos);
-            setDateSelected(currentMaterial?.date?.split('T')[0])
+            setDateSelected(currentMaterial?.date?.split('T')[0]);
             setFormikInitialValues({
-                //  date: currentMaterial?.date?.split('T')[0],
                 locationId: currentMaterial?.location?.id,
                 supplierId: currentMaterial?.supplier?.id,
                 status: currentMaterial.status,
                 materialPos: currentMaterial.materialPos,
             });
-
         }
     }, [currentMaterial]);
 
@@ -84,12 +81,11 @@ const UpdateMaterialPo = () => {
         if (field === 'quantity' || field === 'costPerGram') {
             newMaterialPos[index].totalPrice = newMaterialPos[index].quantity * newMaterialPos[index].costPerGram;
         }
+        console.log(index, field, value);
         setMaterialPos(newMaterialPos);
         setFieldValue(`materialPos[${index}].${field}`, value);
         setFieldValue(`materialPos[${index}].totalPrice`, newMaterialPos[index].totalPrice);
     };
-
-
 
     const addRow = (setValues, values) => {
         const defaultMaterialId = materialSel.length > 0 ? materialSel[0].value : '';
@@ -97,6 +93,7 @@ const UpdateMaterialPo = () => {
         setMaterialPos(newMaterialPos);
         setValues({ ...values, materialPos: newMaterialPos });
     };
+
     const deleteRow = (index, setValues, values) => {
         const newMaterialPos = values.materialPos.filter((_, rowIndex) => rowIndex !== index);
         setMaterialPos(newMaterialPos);
@@ -124,6 +121,7 @@ const UpdateMaterialPo = () => {
             })
         )
     });
+
     const handleData = (values, actions) => {
         console.log(values, actions, "dataonsubmit")
     }
@@ -157,7 +155,6 @@ const UpdateMaterialPo = () => {
                             totalPrice: parseInt(item.totalPrice, 10)
                         }));
 
-                        console.log(values, "sdfghjkl");
 
                         handleUpdateSubmit({ ...values, id: id }, actions);
                     }}
@@ -258,7 +255,7 @@ const UpdateMaterialPo = () => {
                                                                     <div className="flex-1 min-w-[300px]">
                                                                         <ReactSelect
                                                                             name={`materialPos[${index}].materialId`}
-                                                                            value={materialSel.find(option => option.value === item.material.id)}
+                                                                            value={materialSel.find(option => option.value === item.material.id || item.materialId)}
                                                                             onChange={option => handleFieldChange(setFieldValue, index, 'materialId', option.value)}
                                                                             options={materialSel}
                                                                             styles={customStyles}
