@@ -347,7 +347,7 @@ function App() {
 
         {/* purchase orders */}
         <Route
-          path="/material/addmaterialpo"
+          path="/material/addPurchase"
           element={
             <>
               <PageTitle title="Add Customer Group" />
@@ -356,7 +356,7 @@ function App() {
           }
         />
         <Route
-          path="/material/viewmaterialPo"
+          path="/material/viewPurchase"
           element={
             <>
               <PageTitle title="Add Customer Group" />
