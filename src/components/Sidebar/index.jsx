@@ -1228,17 +1228,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                           }`}
                       >
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                          <li>
-                            <NavLink
-                              to="/auth/signin"
-                              className={({ isActive }) =>
-                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
-                                (isActive && '!text-white')
-                              }
-                            >
-                              Sign In
-                            </NavLink>
-                          </li>
+                      
                           <li>
                             <NavLink
                               to="/auth/signup"
@@ -1247,7 +1237,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              Sign Up
+                              Add User
                             </NavLink>
                           </li>
                         </ul>
