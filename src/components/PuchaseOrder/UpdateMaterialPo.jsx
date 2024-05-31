@@ -129,15 +129,7 @@ const UpdateMaterialPo = () => {
         )
     });
 
-<<<<<<< HEAD
-    const handleData = (values, actions) => {
-        console.log(values, actions, "dataonsubmit")
-    }
-    console.log(materialSel, "heyyyyy");
-    console.log(materialPos, "hello");
-=======
 
->>>>>>> 54951288d1bd3fa3a06ed5a9a81b8d8fb5cf16ee
 
     return (
         <DefaultLayout>
@@ -268,13 +260,7 @@ const UpdateMaterialPo = () => {
                                                                     <div className="flex-1 min-w-[300px]">
                                                                         <ReactSelect
                                                                             name={`materialPos[${index}].materialId`}
-<<<<<<< HEAD
-                                                                            value={materialSel.find(option => option.
-                                                                                materialObject.id  
-                                                                                ===item.material.id)}
-=======
                                                                             value={materialSel.find(option => option.materialObject.id === item.material.id)}
->>>>>>> 54951288d1bd3fa3a06ed5a9a81b8d8fb5cf16ee
                                                                             onChange={option => handleFieldChange(setFieldValue, index, 'materialId', option.value)}
                                                                             options={materialSel}
                                                                             styles={customStyles}
