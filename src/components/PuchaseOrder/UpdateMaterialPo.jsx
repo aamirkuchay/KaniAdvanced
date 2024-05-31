@@ -129,11 +129,15 @@ const UpdateMaterialPo = () => {
         )
     });
 
+<<<<<<< HEAD
     const handleData = (values, actions) => {
         console.log(values, actions, "dataonsubmit")
     }
     console.log(materialSel, "heyyyyy");
     console.log(materialPos, "hello");
+=======
+
+>>>>>>> 54951288d1bd3fa3a06ed5a9a81b8d8fb5cf16ee
 
     return (
         <DefaultLayout>
@@ -159,9 +163,9 @@ const UpdateMaterialPo = () => {
                         // Convert materialPos items to the desired format
                         values.materialPos = values?.materialPos?.map(item => ({
                             materialId: parseInt(item?.material?.id || item.materialId, 10),
-                            quantity: parseInt(item.quantity, 10),
-                            costPerGram: parseInt(item.costPerGram, 10),
-                            totalPrice: parseInt(item.totalPrice, 10)
+                            quantity: parseFloat(item.quantity, 10),
+                            costPerGram: parseFloat(item.costPerGram, 10),
+                            totalPrice: parseFloat(item.totalPrice.toFixed(2), 10)
                         }));
 
 
@@ -264,9 +268,13 @@ const UpdateMaterialPo = () => {
                                                                     <div className="flex-1 min-w-[300px]">
                                                                         <ReactSelect
                                                                             name={`materialPos[${index}].materialId`}
+<<<<<<< HEAD
                                                                             value={materialSel.find(option => option.
                                                                                 materialObject.id  
                                                                                 ===item.material.id)}
+=======
+                                                                            value={materialSel.find(option => option.materialObject.id === item.material.id)}
+>>>>>>> 54951288d1bd3fa3a06ed5a9a81b8d8fb5cf16ee
                                                                             onChange={option => handleFieldChange(setFieldValue, index, 'materialId', option.value)}
                                                                             options={materialSel}
                                                                             styles={customStyles}
