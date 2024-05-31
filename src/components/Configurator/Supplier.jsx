@@ -236,7 +236,10 @@ const Supplier = () => {
                                                     phoneNumber: s.phoneNumber,
                                                     supplierCode: s.supplierCode,
                                                     address: s.address,
-
+                                                    bankName: s.bankName,
+                                                    accountNo: s.accountNo,
+                                                    ifscCode: s.ifscCode,
+                                                    emailId: s.emailId,
 
 
                                                     // Only include the first three columns here
