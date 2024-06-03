@@ -52,6 +52,12 @@ const MaterialTable = ({ totalItems, title, data, handleUpdate, handleDelete }) 
 
                                         className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                                     >
+                                        Material Type
+                                    </th>
+                                    <th
+
+                                        className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                    >
                                         Actions
                                     </th>
 
@@ -71,6 +77,9 @@ const MaterialTable = ({ totalItems, title, data, handleUpdate, handleDelete }) 
                                         </td>
                                         <td className="px-5 py-5 border-b border-gray-200  text-sm">
                                             <p className="text-gray-900 whitespace-no-wrap">{item.unit.name}</p>
+                                        </td>
+                                        <td className="px-5 py-5 border-b border-gray-200  text-sm">
+                                            <p className="text-gray-900 whitespace-no-wrap">{item.materialType}</p>
                                         </td>
                                         <td className="px-5 py-5  border-b border-gray-200  text-sm">
                                             <p className="flex text-gray-900 whitespace-no-wrap">

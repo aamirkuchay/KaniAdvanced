@@ -9,24 +9,25 @@ const useMaterial = () => {
     const { token } = currentUser;
     const [material, setMaterial] = useState([]);
     const [edit, setEdit] = useState(false);
-    const [currentMaterial, setCurrentMaterial] = useState({ description: '', unit: {}, grade: '' });
+    const [currentMaterial, setCurrentMaterial] = useState({ description: '', unit: {}, grade: '', materialType: null });
     const dispatch = useDispatch();
-
 
     useEffect(() => {
         dispatch(fetchunit(token))
-    }, [])
+    }, []);
 
-
-
-
+    const seloptions = [
+        { value: 'RAW', label: 'RAW' },
+        { value: 'SEMIFINISHED', label: 'SEMI FINISHED' },
+        { value: 'FINISHED', label: 'FINISHED' }
+    ];
 
     const [pagination, setPagination] = useState({
         totalItems: 0,
         data: [],
         totalPages: 0,
         currentPage: 1,
-    });  
+    });
 
     useEffect(() => {
         getMaterial(pagination.currentPage || 1);
@@ -56,6 +57,7 @@ const useMaterial = () => {
             toast.error("Failed to fetch Material");
         }
     };
+
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
@@ -88,37 +90,17 @@ const useMaterial = () => {
         }
     };
 
-
-    // const handleDelete = async (e, id) => {
-    //     e.preventDefault();
-    //     try {
-    //         const response = await fetch(`${DELETE_MATERIAL_URL}${id}`, {
-    //             method: 'DELETE',
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
-    //         const data = await response.json();
-    //         if (response.ok) {
-    //             toast.success(`${data.message}`);
-    //             getMaterial(pagination.currentPage); // Fetch updated Material
-    //         } else {
-    //             toast.error(`${data.errorMessage}`);
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //         toast.error("An error occurred");
-    //     }
-    // };
-
     const handleUpdate = (e, item) => {
         e.preventDefault();
         setEdit(true);
-        setCurrentMaterial(item);
+        setCurrentMaterial({
+            ...item,
+            materialType: seloptions.find(option => option.value === item.materialType) || null
+        });
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+      
         try {
             const url = edit ? `${UPDATE_MATERIAL_URL}/${currentMaterial.id}` : ADD_MATERIAL_URL;
             const method = edit ? "PUT" : "POST";
@@ -129,9 +111,11 @@ const useMaterial = () => {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify(values)
+                body: JSON.stringify({
+                    ...values,
+                    materialType: values.materialType.value
+                })
             });
-
 
             const data = await response.json();
             //  console.log(data)
@@ -139,7 +123,7 @@ const useMaterial = () => {
                 toast.success(`Material ${edit ? 'updated' : 'added'} successfully`);
                 resetForm();
                 setEdit(false);
-                setCurrentMaterial({ description: '', unit: { id: '', name: '' }, grade: '' });
+                setCurrentMaterial({ description: '', unit: { id: '', name: '' }, grade: '', materialType: null });
                 getMaterial(pagination.currentPage || 1); // Fetch updated Material
             } else {
                 toast.error(`${data.errorMessage}`);
@@ -166,6 +150,7 @@ const useMaterial = () => {
         handleUpdate,
         handleSubmit,
         handlePageChange,
+        seloptions
     };
 };
 

@@ -9,9 +9,10 @@ import { useSelector } from 'react-redux';
 import Pagination from '../Pagination/Pagination';
 import MaterialTable from './MaterialTable';
 import { customStyles as createCustomStyles } from '../../Constants/utils';
+
 const Material = () => {
     const units = useSelector(state => state?.nonPersisted?.unit);
-    const theme = useSelector(state => state?.persisted?.theme)
+    const theme = useSelector(state => state?.persisted?.theme);
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
@@ -19,7 +20,7 @@ const Material = () => {
             const formattedOptions = units.data.map(unit => ({
                 value: unit.id,
                 label: unit.name,
-                unitObject: unit
+                unitObject: unit,
             }));
             setOptions(formattedOptions);
         }
@@ -33,7 +34,8 @@ const Material = () => {
         handleDelete,
         handleUpdate,
         handleSubmit,
-        handlePageChange
+        handlePageChange,
+        seloptions
     } = useMaterial();
 
     const validationSchema = Yup.object({
@@ -43,10 +45,10 @@ const Material = () => {
         }).required('Field is Empty').nullable(),
         description: Yup.string().required('Field is Empty'),
         grade: Yup.string().required('Field is Empty'),
+        materialType: Yup.object().required('Field is Empty').nullable(),
     });
 
     const customStyles = createCustomStyles(theme?.mode);
-
 
     return (
         <DefaultLayout>
@@ -95,6 +97,20 @@ const Material = () => {
                                                 <ErrorMessage name="unit.id" component="div" className="text-red-600 text-sm" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
+                                                <label className="mb-2.5 block text-black dark:text-white">Material Type</label>
+                                                <ReactSelect
+                                                    name="materialType"
+                                                    value={seloptions.find(option => option.value === values.materialType?.value) || null}
+                                                    onChange={(option) => setFieldValue('materialType', option)}
+                                                    options={seloptions}
+                                                    styles={customStyles} // Pass custom styles here
+                                                    className="bg-white dark:bg-form-input"
+                                                    classNamePrefix="react-select"
+                                                    placeholder="Select Material Type"
+                                                />
+                                                <ErrorMessage name="materialType" component="div" className="text-red-600 text-sm" />
+                                            </div>
+                                            <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">Grade</label>
                                                 <Field
                                                     type="text"
@@ -133,4 +149,4 @@ const Material = () => {
     );
 };
 
-export default Material;    
+export default Material;
