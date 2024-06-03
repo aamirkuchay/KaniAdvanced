@@ -262,7 +262,7 @@ const Supplier = () => {
                 </Formik>
 
             </div>
-        </DefaultLayout >
+        </DefaultLayout>
     )
 }
 
