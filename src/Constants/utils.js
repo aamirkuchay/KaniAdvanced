@@ -41,6 +41,13 @@ export const DELETE_MATERIALPO_URL = `${BASE_URL}/purchaseOrder/`;
 
 export const SIGNUPURL = `${BASE_URL}/api/v1/auth/signup`;
 
+//color url's
+export const ADD_COLOR_URL = `${BASE_URL}/colors`
+export const DELETE_COLOR_URL = `${BASE_URL}/colors`
+export const UPDATE_COLOR_URL = `${BASE_URL}/colors`
+export const GET_COLOR_URL = `${BASE_URL}/colors`
+
+
 
 
 export const options = {
