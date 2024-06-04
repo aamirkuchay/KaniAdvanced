@@ -47,11 +47,12 @@ const useSupplier = () => {
     });
 
     useEffect(() => {
-        getSupplier(pagination.currentPage);
+        getSupplier(pagination.currentPage || 1);
     }, []);
 
     const getSupplier = async (page) => {
         try {
+            console.log(GET_SUPPLIER_URL,"urll");
             const response = await fetch(`${GET_SUPPLIER_URL}?page=${page}`, {
                 method: "GET",
                 headers: {
@@ -60,12 +61,14 @@ const useSupplier = () => {
                 }
             });
             const data = await response.json();
+            console.log(data,"logggggggggggggggg");
+            console.log(response,"response");
             setSupplier(data.content);
             setPagination({
                 totalItems: data.totalElements,
                 data: data.content,
                 totalPages: data.totalPages,
-                currentPage: data.number + 1,
+                currentPage: data.number+1,
             });
         } catch (error) {
             console.error(error);
@@ -157,10 +160,42 @@ const useSupplier = () => {
         // Here you can submit the formData to your API
         setSubmitting(false);
     };
+    const handleUpdateSubmit = async (values, { setSubmitting, resetForm }) => {
+
+
+        try {
+            const url = `${UPDATE_MATERIALPO_URL}/${values.id}`;
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(values)
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+              
+                toast.success(`Material Po Updated successfully`);
+                navigate('/supplier/view');
+
+            } else {
+                toast.error(`${data.errorMessage}`);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred");
+        } finally {
+            setSubmitting(false);
+        }
+
+    };
+
 
     const handlePageChange = (newPage) => {
         setPagination((prev) => ({ ...prev, currentPage: newPage }));
-        getSupplier(newPage - 1); // API is 0-indexed for pages
+        getSupplier(newPage-1 ); // API is 0-indexed for pages
     };
 
     return {
@@ -173,9 +208,11 @@ const useSupplier = () => {
         handleDelete,
         handleUpdate,
         handleSubmit,
+       
         handlePageChange,
         seloptions,
-        groups
+        groups,
+        handleUpdateSubmit
     };
 };
 

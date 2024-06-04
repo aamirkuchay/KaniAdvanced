@@ -7,9 +7,10 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Pagination from '../Pagination/Pagination';
 import { Link } from 'react-router-dom';
 import useSupplier from '../../hooks/useSupplier';
+import { ErrorMessage, Field } from 'formik';
 const ViewSupplier = () => {
 
-  const { Supplier, getSupplier, handleDelete, pagination, handleUpdate, handlePageChange,GetSupplierById } = useSupplier();
+  const { Supplier, getSupplier, handleDelete, pagination, handleUpdate, handlePageChange, GetSupplierById } = useSupplier();
   const [showModal, setShowModal] = useState(false);
   const [selectedMaterialPos, setSelectedMaterialPos] = useState([]);
 
@@ -21,7 +22,7 @@ const ViewSupplier = () => {
     setSelectedMaterialPos(materialPos);
     setShowModal(true);
   };
-  console.log(Supplier,"came hereeeeeeeeeee");
+  console.log(Supplier, "came hereeeeeeeeeee");
 
   const renderTableRows = () => {
     if (!Supplier || !Supplier) return;
@@ -30,26 +31,26 @@ const ViewSupplier = () => {
       <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
         <td className="px-5 py-5 border-b border-gray-200 text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-          {index+1}
+            {index + 1}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-          { item.name}
+            {item.name}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-          { item.phoneNumber}
+            {item.phoneNumber}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 text-sm">
-          <p className="text-gray-900 whitespace-no-wrap"> { item.address}</p>
+          <p className="text-gray-900 whitespace-no-wrap"> {item.address}</p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 text-sm">
-          <p className="text-gray-900 whitespace-no-wrap"> { item.supplierCode}</p>
+          <p className="text-gray-900 whitespace-no-wrap"> {item.supplierCode}</p>
         </td>
-       
+
         <td className="px-5 py-5  border-b border-gray-200  text-sm">
           <p className="flex text-gray-900 whitespace-no-wrap">
 
@@ -68,6 +69,17 @@ const ViewSupplier = () => {
       <Breadcrumb pageName="Supplier / View Supplier" />
       <div className="container mx-auto px-4 sm:px-8 bg-white dark:bg-slate-800">
         <div className="pt-5">
+          <div className="flex justify-center items-center p-3">
+            
+            <input
+              type="text"
+              name="search"
+              placeholder="Search A Keyword"
+              className="w-[300px] rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+            />
+            <button className='w-[80px] h-12 rounded-lg bg-blue-700 text-white dark:bg-blue-600 dark:text-slate-300  ml-4'>Search</button>
+
+          </div>
           <div className='flex justify-between'>
             <h2 className="text-xl font-semibold leading-tight  ">VIEW SUPPLIER</h2>
             <p
@@ -127,7 +139,7 @@ const ViewSupplier = () => {
         </div>
       </div>
 
-      
+
     </DefaultLayout>
   );
 };

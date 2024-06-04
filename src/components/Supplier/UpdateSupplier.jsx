@@ -8,7 +8,7 @@ import useSupplier from '../../hooks/useSupplier';
 import { customStyles as createCustomStyles } from '../../Constants/utils';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'; // Import useParams
-import { ADD_SUPPLIER_URL } from "../../Constants/utils";
+import { UPDATE_SUPPLIER_URL } from "../../Constants/utils";
 import { toast } from 'react-toastify';
 
 const UpdateSupplier = () => {
@@ -34,6 +34,7 @@ const UpdateSupplier = () => {
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
+        console.log("Captured id from URL: ", id); // Log the captured id from URL
         const fetchData = async () => {
             const supplierData = await GetSupplierById(id);
             
@@ -51,7 +52,6 @@ const UpdateSupplier = () => {
                 });
 
                 setRows(supplierData.groupTypes && supplierData.groupTypes.map(group => ({
-                   
                     selectedOption1: groups.find(g => g.value === group.groupTypeName),
                     selectedOption3: group.workers.map(worker => ({ value: worker.workerCode, label: worker.workerCode })),
                     numOfLooms: group.noOfLooms
@@ -59,9 +59,9 @@ const UpdateSupplier = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [id]); // Add id as a dependency
 
-    const handleSubmit = async (values, { setSubmitting }) => {
+    const handleUpdateSubmit = async (values, { setSubmitting }) => {
         const formData = {
             ...values,
             supplierType: values.supplierType?.value,
@@ -73,7 +73,7 @@ const UpdateSupplier = () => {
         };
 
         try {
-            const url = `${ADD_SUPPLIER_URL}/${id}`; // Adjust the URL if needed
+            const url = `${UPDATE_SUPPLIER_URL}/${id}`; // Adjust the URL if needed
             const method = "PUT"; // Use PUT method for updating
 
             const response = await fetch(url, {
@@ -161,7 +161,7 @@ const UpdateSupplier = () => {
                         }
                         return errors;
                     }}
-                    onSubmit={handleSubmit}
+                    onSubmit={handleUpdateSubmit}
                 >
                     {({ setFieldValue, values }) => (
                         <Form>
@@ -177,7 +177,7 @@ const UpdateSupplier = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">Supplier Code</label>
                                                 <Field
-                                                readOnly
+                                                    readOnly
                                                     type="text"
                                                     name="supplierCode"
                                                     placeholder="Enter Supplier Code"
@@ -195,8 +195,10 @@ const UpdateSupplier = () => {
                                                 />
                                                 <ErrorMessage name="name" component="div" className="text-red-500" />
                                             </div>
+                                        </div>
+                                        <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white">Phone</label>
+                                                <label className="mb-2.5 block text-black dark:text-white">Phone Number</label>
                                                 <Field
                                                     type="text"
                                                     name="phoneNumber"
@@ -205,17 +207,40 @@ const UpdateSupplier = () => {
                                                 />
                                                 <ErrorMessage name="phoneNumber" component="div" className="text-red-500" />
                                             </div>
+                                            <div className="flex-1 min-w-[300px]">
+                                                <label className="mb-2.5 block text-black dark:text-white">Supplier Type</label>
+                                                <ReactSelect
+                                                    name="supplierType"
+                                                    options={seloptions}
+                                                    value={values.supplierType}
+                                                    onChange={(selectedOption) => setFieldValue('supplierType', selectedOption)}
+                                                    placeholder="Select Supplier Type"
+                                                    styles={customStyles}
+                                                />
+                                                <ErrorMessage name="supplierType" component="div" className="text-red-500" />
+                                            </div>
                                         </div>
-                                        <div className="mb-4.5">
-                                            <label className="mb-2.5 block text-black dark:text-white">Address</label>
-                                            <Field
-                                                as="textarea"
-                                                rows="6"
-                                                name="address"
-                                                placeholder="Enter Address"
-                                                className="w-full resize-none rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
-                                            />
-                                            <ErrorMessage name="address" component="div" className="text-red-500" />
+                                        <div className="mb-4.5 flex flex-wrap gap-6">
+                                            <div className="flex-1 min-w-[300px]">
+                                                <label className="mb-2.5 block text-black dark:text-white">Address</label>
+                                                <Field
+                                                    type="text"
+                                                    name="address"
+                                                    placeholder="Enter Address"
+                                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                                                />
+                                                <ErrorMessage name="address" component="div" className="text-red-500" />
+                                            </div>
+                                            <div className="flex-1 min-w-[300px]">
+                                                <label className="mb-2.5 block text-black dark:text-white">Email Id</label>
+                                                <Field
+                                                    type="email"
+                                                    name="emailId"
+                                                    placeholder="Enter Email Id"
+                                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                                                />
+                                                <ErrorMessage name="emailId" component="div" className="text-red-500" />
+                                            </div>
                                         </div>
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
@@ -249,93 +274,84 @@ const UpdateSupplier = () => {
                                                 <ErrorMessage name="ifscCode" component="div" className="text-red-500" />
                                             </div>
                                         </div>
-                                        <div className="mb-4.5">
-                                            <label className="mb-2.5 block text-black dark:text-white">Email ID</label>
-                                            <Field
-                                                type="text"
-                                                name="emailId"
-                                                placeholder="Enter Email ID"
-                                                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
-                                            />
-                                            <ErrorMessage name="emailId" component="div" className="text-red-500" />
-                                        </div>
-                                        <div className="mb-4.5">
-                                            <label className="mb-2.5 block text-black dark:text-white">Supplier Type</label>
-                                            <ReactSelect
-                                                styles={customStyles}
-                                                options={seloptions}
-                                                value={values.supplierType}
-                                                onChange={(option) => setFieldValue('supplierType', option)}
-                                            />
-                                            <ErrorMessage name="supplierType" component="div" className="text-red-500" />
-                                        </div>
-                                        <div className="mb-4.5">
-                                            <label className="mb-2.5 block text-black dark:text-white">Groups</label>
+                                        <div className="mb-6.5">
+                                            <label className="mb-2.5 block text-black dark:text-white">
+                                                Group Types
+                                                <button
+                                                    type="button"
+                                                    onClick={addRow}
+                                                    className="ml-2 p-2 text-green-500 hover:text-green-700"
+                                                >
+                                                    <IoMdAdd size={24} />
+                                                </button>
+                                            </label>
                                             {rows.map((row, index) => (
-                                                <div key={row.id} className="flex flex-wrap gap-4 mb-4.5">
-                                                    <div className="flex-1 min-w-[200px]">
-                                                        <ReactSelect
-                                                            styles={customStyles}
-                                                            options={groups}
-                                                            value={row.selectedOption1}
-                                                            onChange={(option) => {
-                                                                const updatedRows = [...rows];
-                                                                updatedRows[index].selectedOption1 = option;
-                                                                setRows(updatedRows);
-                                                            }}
-                                                        />
-                                                    </div>
-                                                    <div className="flex-1 min-w-[200px]">
-                                                        <Field
-                                                            type="number"
-                                                            name={`numOfLooms${index}`}
-                                                            placeholder="Enter Number of Looms"
-                                                            value={row.numOfLooms}
-                                                            onChange={(e) => {
-                                                                const updatedRows = [...rows];
-                                                                updatedRows[index].numOfLooms = parseInt(e.target.value, 10);
-                                                                setRows(updatedRows);
-                                                            }}
-                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
-                                                        />
-                                                    </div>
-                                                    <div className="flex-1 min-w-[200px]">
-                                                        <ReactSelect
-                                                            styles={workerSelectStyles}
-                                                            isMulti
-                                                            options={generateWorkerOptions(row.selectedOption1?.value, values.supplierCode, row.numOfLooms)}
-                                                            value={row.selectedOption3}
-                                                            onChange={(option) => {
-                                                                const updatedRows = [...rows];
-                                                                updatedRows[index].selectedOption3 = option;
-                                                                setRows(updatedRows);
-                                                            }}
-                                                        />
-                                                    </div>
+                                                <div key={index} className="mb-4 flex items-center gap-4">
+                                                    <ReactSelect
+                                                        name={`groupTypes.${index}.selectedOption1`}
+                                                        options={groups}
+                                                        value={row.selectedOption1}
+                                                        onChange={selectedOption => {
+                                                            const updatedRows = [...rows];
+                                                            updatedRows[index].selectedOption1 = selectedOption;
+                                                            updatedRows[index].selectedOption3 = [];
+                                                            setRows(updatedRows);
+                                                        }}
+                                                        placeholder="Select Group Type"
+                                                        styles={customStyles}
+                                                    />
+                                                    <Field
+                                                        type="number"
+                                                        name={`groupTypes.${index}.numOfLooms`}
+                                                        placeholder="Enter Number of Looms"
+                                                        value={row.numOfLooms}
+                                                        onChange={e => {
+                                                            const updatedRows = [...rows];
+                                                            updatedRows[index].numOfLooms = e.target.value;
+                                                            updatedRows[index].selectedOption3 = generateWorkerOptions(
+                                                                row.selectedOption1.value,
+                                                                values.supplierCode,
+                                                                e.target.value
+                                                            );
+                                                            setRows(updatedRows);
+                                                        }}
+                                                        className=" rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                                                    />
+                                                    <ReactSelect
+                                                        name={`groupTypes.${index}.selectedOption3`}
+                                                        options={generateWorkerOptions(
+                                                            row.selectedOption1?.value,
+                                                            values.supplierCode,
+                                                            row.numOfLooms
+                                                        )}
+                                                        value={row.selectedOption3}
+                                                        onChange={selectedOptions => {
+                                                            const updatedRows = [...rows];
+                                                            updatedRows[index].selectedOption3 = selectedOptions;
+                                                            setRows(updatedRows);
+                                                        }}
+                                                        isMulti
+                                                        placeholder="Select Workers"
+                                                        styles={workerSelectStyles}
+                                                    />
                                                     <button
                                                         type="button"
                                                         onClick={() => deleteRow(index)}
-                                                        className="text-red-500"
+                                                        className="text-red-500 hover:text-red-700"
                                                     >
                                                         <IoMdTrash size={24} />
                                                     </button>
                                                 </div>
                                             ))}
+                                        </div>
+                                        <div>
                                             <button
-                                                type="button"
-                                                onClick={addRow}
-                                                className="flex items-center text-primary hover:text-primarydark"
+                                                type="submit"
+                                                className="w-full rounded bg-primary py-3 px-5 text-white transition hover:bg-opacity-90"
                                             >
-                                                <IoMdAdd size={24} />
-                                                <span className="ml-2">Add Group</span>
+                                                Update Supplier
                                             </button>
                                         </div>
-                                        <button
-                                            type="submit"
-                                            className="flex justify-center items-center w-full rounded bg-primary py-3 px-5 text-white hover:bg-primarydark"
-                                        >
-                                            Update Supplier
-                                        </button>
                                     </div>
                                 </div>
                             </div>
