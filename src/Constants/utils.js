@@ -18,6 +18,7 @@ export const DELETE_LOCATION_URL = `${BASE_URL}/location/delete/`;
 // Supplier Urls's
 export const ADD_SUPPLIER_URL = `${BASE_URL}/supplier/addSupplier`;
 export const GET_SUPPLIER_URL = `${BASE_URL}/supplier/viewAll`;
+export const GET_SUPPLIER_ID_URL = `${BASE_URL}/supplier/getSupplier`;
 export const UPDATE_SUPPLIER_URL = `${BASE_URL}/supplier/updateSupplier`;
 export const DELETE_SUPPLIER_URL = `${BASE_URL}/supplier/deleteSupplier/`;
 

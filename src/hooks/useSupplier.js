@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { GET_SUPPLIER_URL, DELETE_SUPPLIER_URL, UPDATE_SUPPLIER_URL, ADD_SUPPLIER_URL } from "../Constants/utils";
+import { GET_SUPPLIER_URL, DELETE_SUPPLIER_URL, GET_SUPPLIER_ID_URL, UPDATE_SUPPLIER_URL, ADD_SUPPLIER_URL } from "../Constants/utils";
+import { useNavigate } from 'react-router-dom';
 
 const useSupplier = () => {
+    const navigate = useNavigate();
+    const [rows, setRows] = useState([{ id: Date.now(), selectedOption1: null, selectedOption2: null, selectedOption3: [], numOfLooms: 0 }]);
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
     const [Supplier, setSupplier] = useState([]);
@@ -11,6 +14,7 @@ const useSupplier = () => {
     const [currentSupplier, setCurrentSupplier] = useState({
         name: "",
         phoneNumber: "",
+        supplierType: "",
         supplierCode: "",
         address: "",
         bankName: "",
@@ -18,6 +22,22 @@ const useSupplier = () => {
         ifscCode: "",
         emailId: ""
     });
+
+    const seloptions = [
+        { value: 'PRODUCT', label: 'PRODUCT' },
+        { value: 'MATERIAL', label: 'MATERIAL' },
+    ];
+
+    const groups = [
+        { value: 'ContemporaryPashmina', label: 'Contemporary Pashmina' },
+        { value: 'PashminaEmbroidery', label: 'Pashmina Embroidery' },
+        { value: 'Kani', label: 'Kani' },
+        { value: 'ContemporaryWool', label: 'Contemporary Wool' },
+        { value: 'WoolEmbroidery', label: 'Wool Embroidery' },
+        { value: 'PapierMache', label: 'Papier Mache' },
+        { value: 'Cotton', label: 'Cotton' },
+        { value: 'PapierMache', label: 'Papier Mache' }
+    ];
 
     const [pagination, setPagination] = useState({
         totalItems: 0,
@@ -85,52 +105,57 @@ const useSupplier = () => {
         }
     };
 
-    const handleUpdate = (e, item) => {
-        e.preventDefault();
-        setEdit(true);
-        setCurrentSupplier(item);
-    };
-
-    const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        console.log(values, "from use");
+    const GetSupplierById = async (id) => {
         try {
-            const url = edit ? `${UPDATE_SUPPLIER_URL}/${currentSupplier.id}` : ADD_SUPPLIER_URL;
-            const method = edit ? "PUT" : "POST";
-
-            const response = await fetch(url, {
-                method: method,
+            const response = await fetch(`${GET_SUPPLIER_ID_URL}/${id}`, {
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify(values)
             });
 
             const data = await response.json();
+
             if (response.ok) {
-                toast.success(`Supplier ${edit ? 'updated' : 'added'} successfully`);
-                resetForm();
-                setEdit(false);
-                setCurrentSupplier({
-                    name: "",
-                    phoneNumber: "",
-                    supplierCode: "",
-                    address: "",
-                    bankName: "",
-                    accountNo: "",
-                    ifscCode: "",
-                    emailId: ""
-                });
-                getSupplier(pagination.currentPage); // Fetch updated Supplier
+                console.log("get Material data", data);
+                setCurrentSupplier(data);
+                return data; // Return the fetched data
             } else {
                 toast.error(`${data.errorMessage}`);
+                return null;
             }
         } catch (error) {
-            console.error(error, response);
+            console.error(error);
             toast.error("An error occurred");
-        } finally {
-            setSubmitting(false);
+            return null;
         }
+    };
+
+    const handleUpdate = (e, item) => {
+        console.log(item, "on update");
+        e.preventDefault();
+        setEdit(true);
+        if (item && item.id) {
+            navigate(`/supplier/updateSupplier/${item.id}`);
+        } else {
+            console.error("Item or its ID is missing");
+        }
+    };
+
+    const handleSubmit = (values, rows) => {
+        const formData = {
+            ...values,
+            supplierType: values.supplierType?.value,
+            groupTypes: rows.map(row => ({
+                groupTypeName: row.selectedOption1.value,
+                noOfLooms: row.numOfLooms,
+                workers: row.selectedOption3.map(worker => ({ workerCode: worker.value }))
+            }))
+        };
+        console.log(JSON.stringify(formData, null, 2));
+        // Here you can submit the formData to your API
+        setSubmitting(false);
     };
 
     const handlePageChange = (newPage) => {
@@ -142,11 +167,15 @@ const useSupplier = () => {
         Supplier,
         edit,
         currentSupplier,
+        GetSupplierById,
         pagination,
+        getSupplier,
         handleDelete,
         handleUpdate,
         handleSubmit,
         handlePageChange,
+        seloptions,
+        groups
     };
 };
 

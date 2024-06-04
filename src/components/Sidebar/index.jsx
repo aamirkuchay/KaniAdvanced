@@ -809,7 +809,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
               {/* weaver embroider  */}
 
-              {/* <SidebarLinkGroup
+              <SidebarLinkGroup
                 activeCondition={
                   pathname === '/forms' || pathname.includes('forms')
                 }
@@ -831,7 +831,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         }}
                       >
                         <PiRecycleBold size={24} />
-                        Weaver /Embroider
+                        Supplier
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
                             }`}
@@ -857,24 +857,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <NavLink
-                              to="/Weaver/addWeaverEmb"
+                              to="/supplier/add"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                 (isActive && '!text-white')
                               }
                             >
-                              Add Weaver /Embroider
+                              Add Supplier
                             </NavLink>
                           </li>
                           <li>
                             <NavLink
-                              to="/Weaver/viewWeaverEmb"
+                              to="/supplier/view"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                 (isActive && '!text-white')
                               }
                             >
-                              View Weaver /Embroider
+                              View Supplier
                             </NavLink>
                           </li>
                         </ul>
@@ -883,7 +883,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     </React.Fragment>
                   );
                 }}
-              </SidebarLinkGroup> */}
+              </SidebarLinkGroup>
 
 
 

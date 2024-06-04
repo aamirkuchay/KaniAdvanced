@@ -31,8 +31,13 @@ import CustomerGroup from './components/Configurator/CustomerGroup.jsx';
 import Location from './components/Configurator/Location.jsx';
 import Supplier from './components/Configurator/Supplier.jsx';
 
-import AddEmb from './components/Emb/AddEmb';
-import ViewEmb from './components/Emb/ViewEmb';
+import AddSupplier from './components/Supplier/AddSupplier.jsx';
+import ViewSupplier from './components/Supplier/ViewSupplier.jsx';
+import UpdateSupplier from './components/Supplier/UpdateSupplier.jsx';
+
+
+
+
 import MaterialPo from './components/PuchaseOrder/MaterialPo';
 import ViewMaterialPo from './components/PuchaseOrder/ViewMaterialPo';
 import UpdateMaterialPo from './components/PuchaseOrder/UpdateMaterialPo.jsx';
@@ -298,21 +303,21 @@ function App() {
         {/* seperate routes */}
 
         <Route
-          path="/Weaver/addWeaverEmb"
+          path="/supplier/add"
           element={
             <>
               <PageTitle title="Add Weaver Emb" />
-              <AddEmb />
+              <AddSupplier />
             </>
           }
         />
 
         <Route
-          path="/Weaver/viewWeaverEmb"
+          path="/supplier/view"
           element={
             <>
               <PageTitle title="View Weaver Emb" />
-              <ViewEmb />
+              <ViewSupplier />
             </>
           }
         />
@@ -379,6 +384,15 @@ function App() {
             <>
               <PageTitle title="Update Customer Group" />
               <UpdateMaterialPo />
+            </>
+          }
+        />
+         <Route
+          path="/supplier/updateSupplier/:id"
+          element={
+            <>
+              <PageTitle title="Update Customer Group" />
+              <UpdateSupplier />
             </>
           }
         />
