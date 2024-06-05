@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { VIEW_ALL_LOCATIONS } from "../../Constants/utils";
 
 
 export const fetchlocation = createAsyncThunk(
   "fetchlocation",
   async (accessToken) => {
-    const response = await fetch("http://localhost:8081/location/viewAll", {
+    const response = await fetch(VIEW_ALL_LOCATIONS, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

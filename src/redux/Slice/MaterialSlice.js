@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { VIEW_ALL_MATERIAL_URL } from "../../Constants/utils";
 
 
 export const fetchmaterial = createAsyncThunk(
   "fetchmaterial",
   async (accessToken) => {
-    const response = await fetch("http://localhost:8081/material/viewAll", {
+    const response = await fetch(VIEW_ALL_MATERIAL_URL, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
