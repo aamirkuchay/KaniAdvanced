@@ -22,7 +22,7 @@ const ViewSupplier = () => {
     setSelectedMaterialPos(materialPos);
     setShowModal(true);
   };
-  console.log(Supplier, "came hereeeeeeeeeee");
+
 
   const renderTableRows = () => {
     if (!Supplier || !Supplier) return;
@@ -80,7 +80,7 @@ const ViewSupplier = () => {
             <button className='w-[80px] h-12 rounded-lg bg-blue-700 text-white dark:bg-blue-600 dark:text-slate-300  ml-4'>Search</button>
 
           </div>
-          <div className='flex justify-between'>
+          <div className='flex justify-between mt-10'>
             <h2 className="text-xl font-semibold leading-tight  ">VIEW SUPPLIER</h2>
             <p
               className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium 

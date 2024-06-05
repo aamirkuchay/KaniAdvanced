@@ -23,12 +23,13 @@ const UpdateSupplier = () => {
             ...provided,
             ...customStyles.control,
             backgroundColor: customStyles.control.backgroundColor,
-            border: "1px light gray",
-            maxHeight: "80px",
+
+            maxHeight: "90px",
             overflow: "auto",
             marginLeft: "10px"
         }),
     };
+
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
     const [rows, setRows] = useState([]);
@@ -37,7 +38,7 @@ const UpdateSupplier = () => {
         console.log("Captured id from URL: ", id); // Log the captured id from URL
         const fetchData = async () => {
             const supplierData = await GetSupplierById(id);
-            
+
             if (supplierData) {
                 setInitialValues({
                     name: supplierData?.name,
@@ -89,6 +90,7 @@ const UpdateSupplier = () => {
 
             if (response.ok) {
                 toast.success(`Supplier updated successfully`);
+
             } else {
                 toast.error(`${data.errorMessage}`);
             }
@@ -208,20 +210,6 @@ const UpdateSupplier = () => {
                                                 <ErrorMessage name="phoneNumber" component="div" className="text-red-500" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white">Supplier Type</label>
-                                                <ReactSelect
-                                                    name="supplierType"
-                                                    options={seloptions}
-                                                    value={values.supplierType}
-                                                    onChange={(selectedOption) => setFieldValue('supplierType', selectedOption)}
-                                                    placeholder="Select Supplier Type"
-                                                    styles={customStyles}
-                                                />
-                                                <ErrorMessage name="supplierType" component="div" className="text-red-500" />
-                                            </div>
-                                        </div>
-                                        <div className="mb-4.5 flex flex-wrap gap-6">
-                                            <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">Address</label>
                                                 <Field
                                                     type="text"
@@ -230,16 +218,6 @@ const UpdateSupplier = () => {
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
                                                 />
                                                 <ErrorMessage name="address" component="div" className="text-red-500" />
-                                            </div>
-                                            <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white">Email Id</label>
-                                                <Field
-                                                    type="email"
-                                                    name="emailId"
-                                                    placeholder="Enter Email Id"
-                                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
-                                                />
-                                                <ErrorMessage name="emailId" component="div" className="text-red-500" />
                                             </div>
                                         </div>
                                         <div className="mb-4.5 flex flex-wrap gap-6">
@@ -263,6 +241,8 @@ const UpdateSupplier = () => {
                                                 />
                                                 <ErrorMessage name="accountNo" component="div" className="text-red-500" />
                                             </div>
+                                        </div>
+                                        <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">IFSC Code</label>
                                                 <Field
@@ -273,81 +253,127 @@ const UpdateSupplier = () => {
                                                 />
                                                 <ErrorMessage name="ifscCode" component="div" className="text-red-500" />
                                             </div>
+                                            <div className="flex-1 min-w-[300px]">
+                                                <label className="mb-2.5 block text-black dark:text-white">Email ID</label>
+                                                <Field
+                                                    type="email"
+                                                    name="emailId"
+                                                    placeholder="Enter Email ID"
+                                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                                                />
+                                                <ErrorMessage name="emailId" component="div" className="text-red-500" />
+                                            </div>
                                         </div>
-                                        <div className="mb-6.5">
-                                            <label className="mb-2.5 block text-black dark:text-white">
-                                                Group Types
-                                                <button
-                                                    type="button"
-                                                    onClick={addRow}
-                                                    className="ml-2 p-2 text-green-500 hover:text-green-700"
-                                                >
-                                                    <IoMdAdd size={24} />
-                                                </button>
-                                            </label>
-                                            {rows.map((row, index) => (
-                                                <div key={index} className="mb-4 flex items-center gap-4">
-                                                    <ReactSelect
-                                                        name={`groupTypes.${index}.selectedOption1`}
-                                                        options={groups}
-                                                        value={row.selectedOption1}
-                                                        onChange={selectedOption => {
-                                                            const updatedRows = [...rows];
-                                                            updatedRows[index].selectedOption1 = selectedOption;
-                                                            updatedRows[index].selectedOption3 = [];
-                                                            setRows(updatedRows);
-                                                        }}
-                                                        placeholder="Select Group Type"
-                                                        styles={customStyles}
-                                                    />
-                                                    <Field
-                                                        type="number"
-                                                        name={`groupTypes.${index}.numOfLooms`}
-                                                        placeholder="Enter Number of Looms"
-                                                        value={row.numOfLooms}
-                                                        onChange={e => {
-                                                            const updatedRows = [...rows];
-                                                            updatedRows[index].numOfLooms = e.target.value;
-                                                            updatedRows[index].selectedOption3 = generateWorkerOptions(
-                                                                row.selectedOption1.value,
-                                                                values.supplierCode,
-                                                                e.target.value
-                                                            );
-                                                            setRows(updatedRows);
-                                                        }}
-                                                        className=" rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
-                                                    />
-                                                    <ReactSelect
-                                                        name={`groupTypes.${index}.selectedOption3`}
-                                                        options={generateWorkerOptions(
-                                                            row.selectedOption1?.value,
-                                                            values.supplierCode,
-                                                            row.numOfLooms
-                                                        )}
-                                                        value={row.selectedOption3}
-                                                        onChange={selectedOptions => {
-                                                            const updatedRows = [...rows];
-                                                            updatedRows[index].selectedOption3 = selectedOptions;
-                                                            setRows(updatedRows);
-                                                        }}
-                                                        isMulti
-                                                        placeholder="Select Workers"
-                                                        styles={workerSelectStyles}
-                                                    />
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => deleteRow(index)}
-                                                        className="text-red-500 hover:text-red-700"
-                                                    >
-                                                        <IoMdTrash size={24} />
-                                                    </button>
-                                                </div>
-                                            ))}
+                                        <div className="mb-4.5">
+                                            <label className="mb-2.5 block text-black dark:text-white">Supplier Type</label>
+                                            <ReactSelect
+                                                isDisabled
+                                                name="supplierType"
+                                                options={seloptions}
+                                                styles={customStyles}
+                                                value={values.supplierType}
+                                                onChange={option => setFieldValue('supplierType', option)}
+                                                placeholder="Select Supplier Type"
+                                            />
                                         </div>
-                                        <div>
+                                        <div className="flex flex-wrap gap-3">
+                                            <button
+                                                type="button"
+                                                className="flex items-center gap-1.5 text-primary"
+                                                onClick={addRow}
+                                            >
+                                                <IoMdAdd size={16} />
+                                                Add Group Type
+                                            </button>
+                                        </div>
+                                        <div className="overflow-x-scroll md:overflow-x-visible  md:overflow-y-visible -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
+                                            <div className="min-w-full shadow-md rounded-lg">
+                                                <table className="min-w-full">
+                                                    <thead>
+                                                        <tr className='px-5 py-3 bg-slate-300 dark:bg-slate-700 dark:text-white'>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" style={{ minWidth: '250px' }}>Group Type</th>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Number of Looms</th>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Workers</th>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {rows.map((row, index) => (
+                                                            <tr key={index}>
+                                                                <td className="px-2 py-2 border-b">
+                                                                    <ReactSelect
+                                                                        name={`rows[${index}].selectedOption1`}
+                                                                        options={groups}
+                                                                        styles={customStyles}
+                                                                        value={row.selectedOption1}
+                                                                        onChange={option => {
+                                                                            const updatedRows = [...rows];
+                                                                            updatedRows[index].selectedOption1 = option;
+                                                                            setRows(updatedRows);
+                                                                        }}
+                                                                        placeholder="Select Group Type"
+                                                                    />
+                                                                </td>
+                                                                <td className="px-4 py-2 border-b">
+                                                                    <Field
+                                                                        name={`rows[${index}].numOfLooms`}
+                                                                        type="number"
+                                                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                                                                        value={row.numOfLooms}
+                                                                        onChange={e => {
+                                                                            const updatedRows = [...rows];
+                                                                            updatedRows[index].numOfLooms = parseInt(e.target.value);
+                                                                            updatedRows[index].selectedOption3 = generateWorkerOptions(
+                                                                                updatedRows[index].selectedOption1?.label || '',
+                                                                                values.supplierCode,
+                                                                                updatedRows[index].numOfLooms
+                                                                            );
+                                                                            setRows(updatedRows);
+                                                                        }}
+                                                                    />
+                                                                </td>
+                                                                <td className="px-1 py-2 border-b">
+                                                                    <ReactSelect
+                                                                        isMulti
+                                                                        name={`rows[${index}].selectedOption3`}
+                                                                        options={generateWorkerOptions(
+                                                                            row.selectedOption1?.label || '',
+                                                                            values.supplierCode,
+                                                                            row.numOfLooms
+                                                                        )}
+                                                                        styles={workerSelectStyles}
+                                                                        value={row.selectedOption3}
+                                                                        onChange={option => {
+                                                                            const updatedRows = [...rows];
+                                                                            updatedRows[index].selectedOption3 = option;
+                                                                            setRows(updatedRows);
+                                                                        }}
+                                                                        placeholder="Select Workers"
+                                                                        components={{ DropdownIndicator: () => null, ClearIndicator: () => null }}
+                                                                    />
+                                                                </td>
+                                                                <td className="px-4 py-2 border-b">
+                                                                    <button
+                                                                        type="button"
+                                                                        className="flex items-center gap-1.5 text-red-600"
+                                                                        onClick={() => deleteRow(index)}
+                                                                    >
+                                                                        <IoMdTrash size={16} />
+                                                                        Remove
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="mt-4 text-center">
                                             <button
                                                 type="submit"
-                                                className="w-full rounded bg-primary py-3 px-5 text-white transition hover:bg-opacity-90"
+                                                className="rounded bg-primary px-6 py-2 text-white transition hover:bg-opacity-80"
                                             >
                                                 Update Supplier
                                             </button>
