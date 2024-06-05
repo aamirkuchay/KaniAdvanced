@@ -7,7 +7,6 @@ import SignIn from './pages/Authentication/SignIn.jsx';
 import SignUp from './pages/Authentication/SignUp.jsx';
 import Calendar from './pages/Calendar.js';
 import Chart from './pages/Chart.js';
-import ECommerce from './pages/Dashboard/ECommerce.js';
 import Material from './components/Material/Material.jsx';
 import AddProduct from './components/Products/AddProduct.jsx';
 import FormLayout from './pages/Form/FormLayout.js';
@@ -35,15 +34,14 @@ import AddSupplier from './components/Supplier/AddSupplier.jsx';
 import ViewSupplier from './components/Supplier/ViewSupplier.jsx';
 import UpdateSupplier from './components/Supplier/UpdateSupplier.jsx';
 
-
-
-
 import MaterialPo from './components/PuchaseOrder/MaterialPo';
 import ViewMaterialPo from './components/PuchaseOrder/ViewMaterialPo';
 import UpdateMaterialPo from './components/PuchaseOrder/UpdateMaterialPo.jsx';
 
 import AddCustomer from './components/Customer/AddCustomer';
 import ViewCustomer from './components/Customer/ViewCustomer';
+
+import CreateMaterialInventory from './components/Inventory/CreateMaterialInventory.jsx';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -75,16 +73,16 @@ function App() {
         />
 
         <Route element={<PrivateRoute />}>
-        <Route
-          path="/auth/signup"
-          element={
-            <>
-              <PageTitle title="AddUser " />
-              <SignUp />
-            </>
-          }
-        />
-        <Route
+          <Route
+            path="/auth/signup"
+            element={
+              <>
+                <PageTitle title="AddUser " />
+                <SignUp />
+              </>
+            }
+          />
+          <Route
             path="/chart"
             element={
               <>
@@ -168,7 +166,7 @@ function App() {
               </>
             }
           />
-         
+
           <Route
             path="/ui/alerts"
             element={
@@ -387,12 +385,21 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/supplier/updateSupplier/:id"
           element={
             <>
               <PageTitle title="Update Customer Group" />
               <UpdateSupplier />
+            </>
+          }
+        />
+        <Route
+          path="/inventory/addMaterialInventory"
+          element={
+            <>
+              <PageTitle title="Inventory" />
+              <CreateMaterialInventory />
             </>
           }
         />

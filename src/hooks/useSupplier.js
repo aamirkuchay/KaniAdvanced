@@ -119,7 +119,7 @@ const useSupplier = () => {
             });
 
             const data = await response.json();
-
+            console.log(data + "xsdfghjkl")
             if (response.ok) {
                 console.log("get Material data", data);
                 setCurrentSupplier(data);

@@ -18,6 +18,7 @@ export const DELETE_LOCATION_URL = `${BASE_URL}/location/delete/`;
 // Supplier Urls's
 export const ADD_SUPPLIER_URL = `${BASE_URL}/supplier/addSupplier`;
 export const GET_SUPPLIER_URL = `${BASE_URL}/supplier/viewAll`;
+export const VIEW_ALL_SUPPLIER_URL = `${BASE_URL}/supplier/getAll`;
 export const GET_SUPPLIER_ID_URL = `${BASE_URL}/supplier/getSupplier`;
 export const UPDATE_SUPPLIER_URL = `${BASE_URL}/supplier/updateSupplier`;
 export const DELETE_SUPPLIER_URL = `${BASE_URL}/supplier/deleteSupplier/`;
@@ -26,6 +27,7 @@ export const DELETE_SUPPLIER_URL = `${BASE_URL}/supplier/deleteSupplier/`;
 //Material Url's
 export const ADD_MATERIAL_URL = `${BASE_URL}/material/add`;
 export const GET_MATERIAL_URL = `${BASE_URL}/material/getAll`;
+export const VIEW_ALL_MATERIAL_URL = `${BASE_URL}/material/viewAll`;
 export const UPDATE_MATERIAL_URL = `${BASE_URL}/material/update`;
 export const DELETE_MATERIAL_URL = `${BASE_URL}/material/delete/`;
 
