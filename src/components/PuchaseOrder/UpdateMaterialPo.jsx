@@ -19,19 +19,20 @@ const UpdateMaterialPo = () => {
     useEffect(() => {
         GetMaterialPoById(id);
     }, [id]);
-
+    
     const location = useSelector(state => state?.nonPersisted?.location);
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
     const theme = useSelector(state => state?.persisted?.theme);
     const material = useSelector(state => state?.nonPersisted?.material);
-
+    const [statusSel, setStatusSel] = useState([]);
+    
     const [materialPos, setMaterialPos] = useState([]);
     const [locationSel, setLocationSel] = useState([]);
     const [supplierSel, setSupplierSel] = useState([]);
     const [materialSel, setMaterialSel] = useState([]);
     const flatpickrRef = useRef(null);
     const [dateSelected, setDateSelected] = useState('');
-
+    
     useEffect(() => {
         if (currentMaterial) {
             setMaterialPos(currentMaterial.materialPos);
@@ -39,17 +40,27 @@ const UpdateMaterialPo = () => {
             setFormikInitialValues({
                 locationId: currentMaterial?.location?.id,
                 supplierId: currentMaterial?.supplier?.id,
-                status: currentMaterial.status,
+                status: currentMaterial?.status,
                 materialPos: currentMaterial.materialPos,
             });
         }
     }, [currentMaterial]);
+    console.log(currentMaterial.status,"supraaaaaaaaaaaaaaa");
 
     useEffect(() => {
         setLocationSel(formatOptions(location.data, 'address', 'id', 'locationObject'));
         setSupplierSel(formatOptions(supplier.data, 'name', 'id', 'supplierObject'));
         setMaterialSel(formatOptions(material.data, 'description', 'id', 'materialObject'));
+        setStatusSel(formatStatusOptions());
     }, [location, material, supplier]);
+    const formatStatusOptions = () => {
+        // Define the status options
+        return [
+         
+            { value: 'approved', label: 'Approved' },
+            { value: 'rejected', label: 'Rejected' },
+        ];
+    };
 
     useEffect(() => {
         if (flatpickrRef.current) {
@@ -212,7 +223,14 @@ const UpdateMaterialPo = () => {
                                                 <ErrorMessage name="supplierId" component="div" className="text-red-500" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
-
+                                            <label className="mb-2.5 block text-black dark:text-white"> Status</label>
+                                            <ReactSelect
+                                                    value={statusSel.find(option => option.value === values.status)}
+                                                    onChange={selectedOption => setFieldValue('status', selectedOption.value)}
+                                                    options={statusSel}
+                                                    styles={customStyles}
+                                                />
+                                                <ErrorMessage name="supplierId" component="div" className="text-red-500" />
                                             </div>
                                         </div>
 
