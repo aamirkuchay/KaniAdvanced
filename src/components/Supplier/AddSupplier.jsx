@@ -154,12 +154,7 @@ const AddSupplier = () => {
                         if (!values.ifscCode) {
                             errors.ifscCode = 'Required';
                         }
-                        if (!values.workers) {
-                            errors.workers = 'Required';
-                        }
-                        if (!values.group) {
-                            errors.group = 'Required';
-                        }
+                      
                         if (!values.emailId) {
                             errors.emailId = 'Required';
                         }
@@ -367,7 +362,7 @@ const AddSupplier = () => {
                                             )}
                                         
                                         <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                                            Add Product
+                                            Add Supplier
                                         </button>
                                     </div>
                                 </div>
