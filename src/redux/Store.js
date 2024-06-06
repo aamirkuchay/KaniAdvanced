@@ -6,6 +6,10 @@ import UnitReducer from "./Slice/UnitSlice"
 import LocationReducer from "./Slice/LocationSlice";
 import MaterialReducer from "./Slice/MaterialSlice";
 import SupplierReducer from "./Slice/SupplierSlice";
+import ColorReducer from "./Slice/ColorGroupSlice";
+
+
+
 import ThemeSlice from "./Slice/ThemeSlice";
 
 
@@ -33,7 +37,8 @@ const rootReducer = combineReducers({
     unit: UnitReducer,
     location: LocationReducer,
     material: MaterialReducer,
-    supplier: SupplierReducer
+    supplier: SupplierReducer,
+    color:ColorReducer
 
   }),
 });

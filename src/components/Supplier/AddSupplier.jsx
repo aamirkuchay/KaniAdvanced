@@ -141,12 +141,24 @@ const AddSupplier = () => {
                         }
                         if (!values.accountNo) {
                             errors.accountNo = 'Required';
+
                         }
+                        if (!values.supplierType) {
+                            errors.supplierType = 'Required';
+
+                        }
+                        
                         if (values.accountNo<10) {
                             errors.accountNo = 'Required';
                         }
                         if (!values.ifscCode) {
                             errors.ifscCode = 'Required';
+                        }
+                        if (!values.workers) {
+                            errors.workers = 'Required';
+                        }
+                        if (!values.group) {
+                            errors.group = 'Required';
                         }
                         if (!values.emailId) {
                             errors.emailId = 'Required';
@@ -288,6 +300,7 @@ const AddSupplier = () => {
                                                                     <tr key={row.id}>
                                                                         <td>
                                                                             <ReactSelect
+                                                                            name='group'
                                                                                 value={row.selectedOption1}
                                                                                 onChange={(option) => {
                                                                                     const newRows = [...rows];
@@ -296,9 +309,10 @@ const AddSupplier = () => {
                                                                                 }}
                                                                                 classNamePrefix="react-select"
                                                                                 options={groups}
-                                                                                placeholder="Weaver Code"
+                                                                                placeholder="Group Name"
                                                                                 styles={customStyles}
                                                                             />
+                                                                              <ErrorMessage name="group" component="div" className="text-red-500" />
                                                                         </td>
                                                                         <td>
                                                                             <Field
@@ -321,6 +335,7 @@ const AddSupplier = () => {
                                                                         </td>
                                                                         <td>
                                                                             <ReactSelect
+                                                                            name='workers'
                                                                                 value={row.selectedOption3}
                                                                                 onChange={(option) => {
                                                                                     const newRows = [...rows];
@@ -334,6 +349,7 @@ const AddSupplier = () => {
                                                                                 isMulti
                                                                                 components={{ DropdownIndicator: () => null, ClearIndicator: () => null }}
                                                                             />
+                                                                              <ErrorMessage name="workers" component="div" className="text-red-500" />
                                                                         </td>
                                                                         <td>
                                                                             {rows.length > 1 && (

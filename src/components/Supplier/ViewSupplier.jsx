@@ -28,19 +28,19 @@ const ViewSupplier = () => {
   };
 
   const filteredSupplier = Supplier?.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
-
+console.log(filteredSupplier,"filteredddddddddddddd");
   const renderTableRows = () => {
     if (!filteredSupplier || !filteredSupplier.length) return (
       <tr>
         <td colSpan="6" className="text-center">No results found</td>
       </tr>
     );
-
+let i=1;
     return filteredSupplier.map((item, index) => (
       <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
         <td className="px-5 py-5 border-b border-gray-200 text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-            {index + 1}
+            {i++}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 text-sm">

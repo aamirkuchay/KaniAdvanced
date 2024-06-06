@@ -52,6 +52,7 @@ const UpdateSupplier = () => {
                     supplierType: seloptions.find(option => option.value === supplierData.supplierType),
                 });
 
+                // Initialize the rows state only when component mounts
                 setRows(supplierData.groupTypes && supplierData.groupTypes.map(group => ({
                     selectedOption1: groups.find(g => g.value === group.groupTypeName),
                     selectedOption3: group.workers.map(worker => ({ value: worker.workerCode, label: worker.workerCode })),
@@ -59,9 +60,19 @@ const UpdateSupplier = () => {
                 })));
             }
         };
-        fetchData();
-    }, [id]); // Add id as a dependency
 
+        fetchData();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const addRow = () => {
+        setRows([...rows, { id: Date.now(), selectedOption1: null, selectedOption3: [], numOfLooms: 0 }]);
+    };
+
+    const deleteRow = (index) => {
+        setRows(rows.filter((_, rowIndex) => rowIndex !== index));
+    };
     const handleUpdateSubmit = async (values, { setSubmitting }) => {
         const formData = {
             ...values,
@@ -102,13 +113,6 @@ const UpdateSupplier = () => {
         }
     };
 
-    const addRow = () => {
-        setRows([...rows, { id: Date.now(), selectedOption1: null, selectedOption3: [], numOfLooms: 0 }]);
-    };
-
-    const deleteRow = (index) => {
-        setRows(rows.filter((_, rowIndex) => rowIndex !== index));
-    };
 
     const generateWorkerOptions = (groupName, supplierCode, numOfLooms) => {
         const workerOptions = [];
