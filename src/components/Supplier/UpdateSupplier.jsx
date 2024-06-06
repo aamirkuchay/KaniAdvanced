@@ -7,11 +7,13 @@ import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import useSupplier from '../../hooks/useSupplier';
 import { customStyles as createCustomStyles } from '../../Constants/utils';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'; // Import useParams
+import { redirect, useNavigate, useParams } from 'react-router-dom'; // Import useParams
 import { UPDATE_SUPPLIER_URL } from "../../Constants/utils";
 import { toast } from 'react-toastify';
 
 const UpdateSupplier = () => {
+
+    const navigate = useNavigate();
     const { seloptions, groups, GetSupplierById, currentSupplier } = useSupplier();
     const { id } = useParams();
     const [initialValues, setInitialValues] = useState(null);
@@ -101,6 +103,7 @@ const UpdateSupplier = () => {
 
             if (response.ok) {
                 toast.success(`Supplier updated successfully`);
+                navigate("/supplier/view");
 
             } else {
                 toast.error(`${data.errorMessage}`);

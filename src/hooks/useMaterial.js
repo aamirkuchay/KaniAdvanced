@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { ADD_MATERIAL_URL, DELETE_MATERIAL_URL, GET_MATERIAL_URL, UPDATE_MATERIAL_URL } from '../Constants/utils';
 import { fetchunit } from '../redux/Slice/UnitSlice';
+import { fetchcolorGroup } from '../redux/Slice/ColorGroupSlice';
 
 const useMaterial = () => {
     const { currentUser } = useSelector((state) => state?.persisted?.user);
@@ -14,6 +15,7 @@ const useMaterial = () => {
 
     useEffect(() => {
         dispatch(fetchunit(token))
+        dispatch(fetchcolorGroup(token))
     }, []);
 
     const seloptions = [

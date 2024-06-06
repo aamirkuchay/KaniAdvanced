@@ -14,7 +14,14 @@ const Material = () => {
     
     const units = useSelector(state => state?.nonPersisted?.unit);
     const theme = useSelector(state => state?.persisted?.theme);
+    const colorGroup = useSelector(state => state?.nonPersisted?.color);
+
+
+    console.log(colorGroup,"heyyyyy");
+
+
     const [options, setOptions] = useState([]);
+    const [colorOption, setcolorOption] = useState([])
 
     useEffect(() => {
         if (units.data) {
@@ -24,6 +31,16 @@ const Material = () => {
                 unitObject: unit,
             }));
             setOptions(formattedOptions);
+        }
+    }, [units.data]);
+    useEffect(() => {
+        if (colorGroup.data) {
+            const formattedcolorOptions = colorGroup.data.content.map(color => ({
+                value: color.id,
+                label: color.colorName,
+                unitObject: color,
+            }));
+            setcolorOption(formattedcolorOptions);
         }
     }, [units.data]);
 
@@ -110,6 +127,20 @@ const Material = () => {
                                                     placeholder="Select Material Type"
                                                 />
                                                 <ErrorMessage name="materialType" component="div" className="text-red-600 text-sm" />
+                                            </div>
+                                            <div className="flex-1 min-w-[300px]">
+                                                <label className="mb-2.5 block text-black dark:text-white">Unit</label>
+                                                <ReactSelect
+                                                    name="colors"
+                                                    value={options.find(option => option.value === values.unit?.id) || null}
+                                                    onChange={(option) => setFieldValue('unit', option ? option.unitObject : null)}
+                                                    options={options}
+                                                    styles={customStyles} // Pass custom styles here
+                                                    className="bg-white dark:bg-form-input"
+                                                    classNamePrefix="react-select"
+                                                    placeholder="Select Unit"
+                                                />
+                                                <ErrorMessage name="unit.id" component="div" className="text-red-600 text-sm" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">Grade</label>
