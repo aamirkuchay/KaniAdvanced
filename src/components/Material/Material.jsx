@@ -35,14 +35,14 @@ const Material = () => {
     }, [units.data]);
     useEffect(() => {
         if (colorGroup.data) {
-            const formattedcolorOptions = colorGroup.data.content.map(color => ({
-                value: color.id,
-                label: color.colorName,
-                unitObject: color,
+            const formattedcolorOptions = colorGroup?.data?.content?.map(color => ({
+                value: color?.id,
+                label: color?.colorName,
+                colorObject: color,
             }));
             setcolorOption(formattedcolorOptions);
         }
-    }, [units.data]);
+    }, [colorGroup.data]);
 
     const {
         material,
@@ -61,6 +61,10 @@ const Material = () => {
             id: Yup.string().required('Field is Empty'),
             name: Yup.string().required('Field is Empty')
         }).required('Field is Empty').nullable(),
+        // colors: Yup.object({
+        //     id: Yup.string().required('Field is Empty'),
+        //     name: Yup.string().required('Field is Empty')
+        // }).required('Field is Empty').nullable(),
         description: Yup.string().required('Field is Empty'),
         grade: Yup.string().required('Field is Empty'),
         materialType: Yup.object().required('Field is Empty').nullable(),
@@ -129,18 +133,18 @@ const Material = () => {
                                                 <ErrorMessage name="materialType" component="div" className="text-red-600 text-sm" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white">Unit</label>
+                                                <label className="mb-2.5 block text-black dark:text-white">Color Group</label>
                                                 <ReactSelect
                                                     name="colors"
-                                                    value={options.find(option => option.value === values.unit?.id) || null}
-                                                    onChange={(option) => setFieldValue('unit', option ? option.unitObject : null)}
-                                                    options={options}
+                                                    value={colorOption.find(option => option.value === values.colors?.id) || null}
+                                                    onChange={(option) => setFieldValue('colors', option ? option.colorObject : null)}
+                                                    options={colorOption}
                                                     styles={customStyles} // Pass custom styles here
                                                     className="bg-white dark:bg-form-input"
                                                     classNamePrefix="react-select"
-                                                    placeholder="Select Unit"
+                                                    placeholder="Select Color Group"
                                                 />
-                                                <ErrorMessage name="unit.id" component="div" className="text-red-600 text-sm" />
+                                                <ErrorMessage name="colors" component="div" className="text-red-600 text-sm" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">Grade</label>

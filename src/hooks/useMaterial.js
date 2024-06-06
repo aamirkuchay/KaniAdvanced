@@ -10,7 +10,7 @@ const useMaterial = () => {
     const { token } = currentUser;
     const [material, setMaterial] = useState([]);
     const [edit, setEdit] = useState(false);
-    const [currentMaterial, setCurrentMaterial] = useState({ description: '', unit: {}, grade: '', materialType: null });
+    const [currentMaterial, setCurrentMaterial] = useState({ description: '', unit: {},colors:{}, grade: '', materialType: null });
     const dispatch = useDispatch();
 
     useEffect(() => {
