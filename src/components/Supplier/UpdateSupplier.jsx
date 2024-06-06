@@ -70,9 +70,9 @@ const UpdateSupplier = () => {
     }, []);
 
     const addRow = () => {
-        setRows([...rows, { id: Date.now(), selectedOption1: null, selectedOption3: [], numOfLooms: 0, readonly: false }]);
+        const newRow = { id: Date.now(), selectedOption1: null, selectedOption3: [], numOfLooms: 0, readonly: false };
+        setRows([...rows, newRow]);
     };
-
     const deleteRow = (index) => {
         setRows(rows.filter((_, rowIndex) => rowIndex !== index));
     };
@@ -119,13 +119,26 @@ const UpdateSupplier = () => {
     };
 
 
-    const generateWorkerOptions = (groupName, supplierCode, numOfLooms) => {
+    const generateWorkerOptions = (groupName, supplierCode, numOfLooms = 1) => {
         const workerOptions = [];
         for (let i = 1; i <= numOfLooms; i++) {
             const label = `${groupName.slice(0, 3).toUpperCase()}-${supplierCode.slice(0, 5)}-${String(i).padStart(3, '0')}`;
             workerOptions.push({ value: label, label });
         }
         return workerOptions;
+    };
+    const handleGroupChange = (index, option) => {
+        const newRows = [...rows];
+        newRows[index].selectedOption1 = option;
+        newRows[index].selectedOption3 = generateWorkerOptions(option.label, initialValues.supplierCode, newRows[index].numOfLooms);
+        setRows(newRows);
+    };
+
+    const handleLoomsChange = (index, numOfLooms) => {
+        const newRows = [...rows];
+        newRows[index].numOfLooms = numOfLooms;
+        newRows[index].selectedOption3 = generateWorkerOptions(newRows[index].selectedOption1?.label, initialValues.supplierCode, numOfLooms);
+        setRows(newRows);
     };
 
     if (!initialValues) {
@@ -297,79 +310,72 @@ const UpdateSupplier = () => {
                                             className="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                                         >
                                             <IoMdAdd className="mr-2" size={20} />
-                                                    Add Row
+                                            Add Row
                                         </button>
                                     </div>
                                     <div className="overflow-x-scroll md:overflow-x-visible  md:overflow-y-visible -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
                                         <div className="min-w-full shadow-md rounded-lg">
-                                        <table className="min-w-full">
+                                            <table className="min-w-full">
                                                 <thead>
-                                                <tr className='px-5 py-3 bg-slate-300 dark:bg-slate-700 dark:text-white'>
-                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" style={{ minWidth: '250px' }}>Group Type</th>
-                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Number of Looms</th>
-                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Workers</th>
-                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
-                                                        </tr>
+                                                    <tr className='px-5 py-3 bg-slate-300 dark:bg-slate-700 dark:text-white'>
+                                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" style={{ minWidth: '250px' }}>Group Type</th>
+                                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Number of Looms</th>
+                                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Workers</th>
+                                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {rows.map((row, index) => (
-                                                        <tr key={index}>
-                                                           <td className="px-2 py-2 border-b">
-                                                                <ReactSelect
-                                                                    styles={workerSelectStyles}
-                                                                    options={groups}
-                                                                    value={row.selectedOption1}
-                                                                    onChange={option => {
-                                                                        const newRows = [...rows];
-                                                                        newRows[index].selectedOption1 = option;
-                                                                        newRows[index].selectedOption3 = [];
-                                                                        setRows(newRows);
-                                                                    }}
-                                                                    isDisabled={row.readonly}
-                                                                />
-                                                            </td>
-                                                            <td className="px-2 py-2 border-b">
-                                                                <Field
-                                                                    type="number"
-                                                                    name={`rows[${index}].numOfLooms`}
-                                                                    value={row.numOfLooms}
-                                                                    onChange={e => {
-                                                                        const newRows = [...rows];
-                                                                        newRows[index].numOfLooms = e.target.value;
-                                                                        setRows(newRows);
-                                                                    }}
-                                                                    disabled={row.readonly}
-                                                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
-                                                                />
-                                                            </td>
-                                                            <td className="px-2 py-2 border-b">
-                                                                <ReactSelect
-                                                                    styles={workerSelectStyles}
-                                                                    options={row.selectedOption1 ? generateWorkerOptions(row.selectedOption1.label, values.supplierCode, row.numOfLooms) : []}
-                                                                    value={row.selectedOption3}
-                                                                    isMulti
-                                                                    onChange={option => {
-                                                                        const newRows = [...rows];
-                                                                        newRows[index].selectedOption3 = option;
-                                                                        setRows(newRows);
-                                                                    }}
-                                                                    isDisabled={row.readonly}
-                                                                />
-                                                            </td>
-                                                            <td className="px-2 py-2 border-b">
-                                                                {!row.readonly && (
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => deleteRow(index)}
-                                                                        className="text-red-500 hover:text-red-700"
-                                                                    >
-                                                                        <IoMdTrash size={20} />
-                                                                    </button>
-                                                                )}
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
+    {rows.map((row, index) => (
+        <tr key={index}>
+            <td className="px-2 py-2 border-b">
+                <ReactSelect
+                    styles={workerSelectStyles}
+                    options={groups}
+                    value={row.selectedOption1}
+                    onChange={option => handleGroupChange(index, option)}
+                    isDisabled={row.readonly}
+                />
+            </td>
+            <td className="px-2 py-2 border-b">
+                <Field
+                    type="number"
+                    name={`rows[${index}].numOfLooms`}
+                    value={row.numOfLooms}
+                    onChange={e => handleLoomsChange(index, e.target.value)}
+                    disabled={row.readonly}
+                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                />
+            </td>
+            <td className="px-2 py-2 border-b">
+                <ReactSelect
+                    styles={workerSelectStyles}
+                    options={row.selectedOption1 ? generateWorkerOptions(row.selectedOption1.label, initialValues.supplierCode, row.numOfLooms) : []}
+                    value={row.selectedOption3}
+                    isMulti
+                    onChange={option => {
+                        const newRows = [...rows];
+                        newRows[index].selectedOption3 = option;
+                        setRows(newRows);
+                    }}
+                    isDisabled={row.readonly}
+                />
+            </td>
+            <td className="px-2 py-2 border-b">
+                {!row.readonly && (
+                    <button
+                        type="button"
+                        onClick={() => deleteRow(index)}
+                        className="text-red-500 hover:text-red-700"
+                    >
+                        <IoMdTrash size={20} />
+                    </button>
+                )}
+            </td>
+        </tr>
+    ))}
+</tbody>
+
+
                                             </table>
                                         </div>
 
