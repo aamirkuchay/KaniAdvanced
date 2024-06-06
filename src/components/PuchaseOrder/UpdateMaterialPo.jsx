@@ -19,20 +19,20 @@ const UpdateMaterialPo = () => {
     useEffect(() => {
         GetMaterialPoById(id);
     }, [id]);
-    
+
     const location = useSelector(state => state?.nonPersisted?.location);
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
     const theme = useSelector(state => state?.persisted?.theme);
     const material = useSelector(state => state?.nonPersisted?.material);
     const [statusSel, setStatusSel] = useState([]);
-    
+
     const [materialPos, setMaterialPos] = useState([]);
     const [locationSel, setLocationSel] = useState([]);
     const [supplierSel, setSupplierSel] = useState([]);
     const [materialSel, setMaterialSel] = useState([]);
     const flatpickrRef = useRef(null);
     const [dateSelected, setDateSelected] = useState('');
-    
+
     useEffect(() => {
         if (currentMaterial) {
             setMaterialPos(currentMaterial.materialPos);
@@ -45,7 +45,7 @@ const UpdateMaterialPo = () => {
             });
         }
     }, [currentMaterial]);
-    console.log(currentMaterial.status,"supraaaaaaaaaaaaaaa");
+    console.log(currentMaterial.status, "supraaaaaaaaaaaaaaa");
 
     useEffect(() => {
         setLocationSel(formatOptions(location.data, 'address', 'id', 'locationObject'));
@@ -56,7 +56,7 @@ const UpdateMaterialPo = () => {
     const formatStatusOptions = () => {
         // Define the status options
         return [
-         
+
             { value: 'approved', label: 'Approved' },
             { value: 'rejected', label: 'Rejected' },
         ];
@@ -223,13 +223,19 @@ const UpdateMaterialPo = () => {
                                                 <ErrorMessage name="supplierId" component="div" className="text-red-500" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
-                                            <label className="mb-2.5 block text-black dark:text-white"> Status</label>
-                                            <ReactSelect
-                                                    value={statusSel.find(option => option.value === values.status)}
-                                                    onChange={selectedOption => setFieldValue('status', selectedOption.value)}
-                                                    options={statusSel}
-                                                    styles={customStyles}
-                                                />
+                                                <label className="mb-2.5 block text-black dark:text-white"> Status</label>
+                                                <Field name="status">
+                                                    {({ field }) => (
+                                                        <ReactSelect
+                                                            {...field}
+                                                            options={statusSel}
+                                                            onChange={option => setFieldValue('status', option.value)}
+                                                            styles={customStyles}
+                                                            value={statusSel?.find(option => option.value === field.value)}
+                                                            isDisabled={field.value === 'approved'} // Disable dropdown when status is 'approved'
+                                                        />
+                                                    )}
+                                                </Field>
                                                 <ErrorMessage name="supplierId" component="div" className="text-red-500" />
                                             </div>
                                         </div>
