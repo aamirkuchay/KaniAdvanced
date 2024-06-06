@@ -356,6 +356,7 @@ const UpdateSupplier = () => {
                                                                         const newRows = [...rows];
                                                                         newRows[index].selectedOption3 = option;
                                                                         setRows(newRows);
+                                                                        
                                                                     }}
                                                                     isDisabled={row.readonly}
                                                                     components={{ DropdownIndicator: () => null, ClearIndicator: () => null }}
