@@ -392,16 +392,16 @@ const UpdateSupplier = () => {
                                             </table>
                                         </div>
 
+                                <button
+                                    type="submit"
+                                    className="bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark w-[800px] mt-3 ml-5 mr-10"
+                                >
+                                    Update Supplier
+                                </button>
                                     </div>
                                 </div>
                                     )
                                 }
-                                <button
-                                    type="submit"
-                                    className="bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark"
-                                >
-                                    Update Supplier
-                                </button>
                             </div>
                         </Form>
                     )}
