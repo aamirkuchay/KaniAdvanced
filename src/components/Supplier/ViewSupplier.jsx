@@ -35,9 +35,8 @@ console.log(filteredSupplier,"filteredddddddddddddd");
         <td colSpan="6" className="text-center">No results found</td>
       </tr>
     );
-    const itemsPerPage = pagination.itemsPerPage || 10; // Assuming 10 items per page if not specified
-    const currentPage = pagination.currentPage || 1;
-    const startingSerialNumber = (currentPage - 1) * itemsPerPage + 1;
+  
+    const startingSerialNumber = (pagination.currentPage - 1) * pagination.itemsPerPage + 1;
     return filteredSupplier.map((item, index) => (
       <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
         <td className="px-5 py-5 border-b border-gray-200 text-sm">

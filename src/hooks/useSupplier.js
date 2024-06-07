@@ -11,6 +11,7 @@ const useSupplier = () => {
     const { token } = currentUser;
     const [Supplier, setSupplier] = useState([]);
     const [edit, setEdit] = useState(false);
+    
     const [currentSupplier, setCurrentSupplier] = useState({
         name: "",
         phoneNumber: "",
@@ -44,6 +45,7 @@ const useSupplier = () => {
         data: [],
         totalPages: 0,
         currentPage: 1,
+        itemsPerPage: 0
     });
 
     useEffect(() => {
@@ -68,7 +70,8 @@ const useSupplier = () => {
                 totalItems: data.totalElements,
                 data: data.content,
                 totalPages: data.totalPages,
-                currentPage: data.number + 1,
+                currentPage: data.number+1 ,
+                itemsPerPage: data.size,
             });
         } catch (error) {
             console.error(error);
