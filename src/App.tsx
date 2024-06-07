@@ -42,6 +42,10 @@ import AddCustomer from './components/Customer/AddCustomer';
 import ViewCustomer from './components/Customer/ViewCustomer';
 
 import CreateMaterialInventory from './components/Inventory/CreateMaterialInventory.jsx';
+import ViewMaterialInventory from './components/Inventory/ViewMaterialInventory.jsx';
+import UpdateInventoryMaterial from './components/Inventory/UpdateInventoryMaterial.jsx';
+
+
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -400,6 +404,33 @@ function App() {
             <>
               <PageTitle title="Inventory" />
               <CreateMaterialInventory />
+            </>
+          }
+        />
+          <Route
+          path="/inventory/viewMaterialInventory"
+          element={
+            <>
+              <PageTitle title="Inventory" />
+              <ViewMaterialInventory />
+            </>
+          }
+        />         
+         <Route
+          path="/inventory/viewMaterialInventory"
+          element={
+            <>
+              <PageTitle title="Inventory" />
+              <ViewMaterialInventory />
+            </>
+          }
+        />
+        <Route
+          path="/inventory/updateInventoryMaterial/:id"
+          element={
+            <>
+              <PageTitle title="Update Customer Group" />
+              <UpdateInventoryMaterial />
             </>
           }
         />
