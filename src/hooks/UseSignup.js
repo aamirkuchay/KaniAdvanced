@@ -15,11 +15,11 @@ const useSignup = () => {
         password: ""
     });
 
- 
 
 
 
-   
+
+
 
 
 
@@ -29,21 +29,25 @@ const useSignup = () => {
         console.log(values, "from use");
         try {
             const url = SIGNUPURL;
-            const method =  "POST";
+            const method = "POST";
 
             const response = await fetch(url, {
+                headers: {
+                    "content-type": "application/json"
+                },
                 method: method,
-                
-                body:JSON.stringify(values)
+
+
+                body: JSON.stringify(values)
             });
 
             const data = await response.json();
             if (response.ok) {
                 toast.success("User Added Successfully");
                 navigate("/auth/signin")
-              
-               
-            
+
+
+
             } else {
                 toast.error(`${data.errorMessage}`);
             }
@@ -55,12 +59,12 @@ const useSignup = () => {
         }
     };
 
-  
+
 
     return {
-      
-        handleSubmit,FormData
-    
+
+        handleSubmit, FormData
+
     };
 };
 

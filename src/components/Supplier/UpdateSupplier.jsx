@@ -354,7 +354,7 @@ const UpdateSupplier = () => {
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {rows.map((row, index) => (
+                                                                {rows.map((row, index) => ( 
                                                                     <tr key={index}>
                                                                         <td className="px-2 py-2 border-b">
                                                                             <ReactSelect
