@@ -293,7 +293,7 @@ const UpdateSupplier = () => {
                                                 isDisabled
                                                     styles={customStyles}
                                                     options={seloptions}
-                                                    value={values.supplierType}
+                                                    value={values?.supplierType}
                                                     onChange={option => setFieldValue('supplierType', option)}
                                                 />
                                             </div>

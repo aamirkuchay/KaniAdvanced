@@ -48,7 +48,7 @@ const AddSupplier = () => {
             ...values,
             supplierType: values.supplierType?.value,
             groupTypes: rows.map(row => ({
-                groupTypeName: row.selectedOption1.value,
+                groupTypeName: row.selectedOption1?.value||row.selectedOption2?.value,
                 noOfLooms: row.numOfLooms,
                 workers: row.selectedOption3.map(worker => ({ workerCode: worker.value }))
             }))
