@@ -273,13 +273,20 @@ const AddSupplier = () => {
 
                                             {values.supplierType?.value === "PRODUCT" && (
                                                 <>
-                                                    <div className='text-center '>
+                                                    <div className='text-center flex justify-between'>
                                                         <h2 className='text-2xl'>Groups</h2>
-                                                    </div>
+
                                                     <div className='text-end'>
-                                                        <button type='button' onClick={addRow}>
-                                                            <IoMdAdd size={34} />
-                                                        </button>
+                                                    <button
+                                            type="button"
+                                            onClick={addRow}
+                                            className="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                                        >
+                                            <IoMdAdd className="mr-2" size={20} />
+                                            Add Row
+                                        </button>
+
+                                                    </div>
                                                     </div>
                                                     <div className="overflow-x-scroll md:overflow-x-visible  md:overflow-y-visible -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
                                         <div className="min-w-full shadow-md rounded-lg">
