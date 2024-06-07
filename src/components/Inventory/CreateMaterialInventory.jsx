@@ -8,7 +8,7 @@ import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchlocation } from '../../redux/Slice/LocationSlice';
 import { fetchmaterial } from '../../redux/Slice/MaterialSlice'; // Import fetchmaterial
-import Flatpickr from 'react-flatpickr';
+
 import useInventoryMaterial from '../../hooks/useInventoryMaterial';
 
 const CreateMaterialInventory = () => {

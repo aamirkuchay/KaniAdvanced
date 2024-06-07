@@ -307,7 +307,7 @@ const UpdateSupplier = () => {
 
 
                                 {
-                                    (values?.supplierType.value==="PRODUCT")&&(
+                                    (values?.supplierType.value==="PRODUCT")&&(  
 
                                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                     <div className=" flex justify-between border-b border-stroke py-4 px-6.5 dark:border-strokedark ">
