@@ -28,6 +28,11 @@ const ViewMaterialPo = () => {
             <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
+                        {index + 1}
+                    </p>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                    <p className="text-gray-900 whitespace-no-wrap">
                         {item.location.address}, {item.location.city}, {item.location.pinCode}
                     </p>
                 </td>
@@ -82,6 +87,11 @@ const ViewMaterialPo = () => {
                             <table className="min-w-full leading-normal">
                                 <thead>
                                     <tr className='bg-slate-300 dark:bg-slate-700 dark:text-white'>
+                                        <th
+
+                                            className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                        >SNO</th>
+
                                         <th
 
                                             className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
