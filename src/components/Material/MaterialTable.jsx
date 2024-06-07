@@ -1,13 +1,13 @@
 import React from 'react'
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 
-const MaterialTable = ({ totalItems, title, data, handleUpdate, handleDelete }) => {
+const MaterialTable = ({ totalItems, title, data, handleUpdate, handleDelete, pagination }) => {
     if (totalItems < 1) return (<><hr className='text-slate-300' /><p className='text-slate-400 text-2xl text-center py-5'>No {title} Available</p></>);
-
+    const startingSerialNumber = (pagination.currentPage - 1) * pagination.itemsPerPage + 1;
     return (
         <div className="container mx-auto px-4 sm:px-8">
             <div className="pt-5">
-                <div className='flex justify-between'>  
+                <div className='flex justify-between'>
                     <h2 className="text-2xl font-semibold leading-tight text-center">View {title} </h2>
                     <p
                         className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium 
@@ -67,7 +67,7 @@ const MaterialTable = ({ totalItems, title, data, handleUpdate, handleDelete }) 
                                 {data?.map((item, index) => (
                                     <tr key={item.id} className='bg-white dark:bg-slate-700 dark:text-white px-5 py-3'>
                                         <td className="px-5 py-5 border-b border-gray-200  text-sm">
-                                            <p className="text-gray-900 whitespace-no-wrap">{index + 1}</p>
+                                            <p className="text-gray-900 whitespace-no-wrap">{startingSerialNumber + index}</p>
                                         </td>
                                         <td className="px-5 py-5 border-b border-gray-200  text-sm">
                                             <p className="text-gray-900 whitespace-no-wrap">{item.description}</p>

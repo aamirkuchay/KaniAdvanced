@@ -10,7 +10,7 @@ const useMaterial = () => {
     const { token } = currentUser;
     const [material, setMaterial] = useState([]);
     const [edit, setEdit] = useState(false);
-    const [currentMaterial, setCurrentMaterial] = useState({ description: '', unit: {},colors:{}, grade: '', materialType: null });
+    const [currentMaterial, setCurrentMaterial] = useState({ description: '', unit: {}, colors: {}, grade: '', materialType: null });
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -29,6 +29,7 @@ const useMaterial = () => {
         data: [],
         totalPages: 0,
         currentPage: 1,
+        itemsPerPage: 0
     });
 
     useEffect(() => {
@@ -53,6 +54,7 @@ const useMaterial = () => {
                 data: data?.content,
                 totalPages: data?.totalPages,
                 currentPage: data?.number + 1,
+                itemsPerPage: data.size
             });
         } catch (error) {
             console.error(error);
@@ -102,7 +104,7 @@ const useMaterial = () => {
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-      
+
         try {
             const url = edit ? `${UPDATE_MATERIAL_URL}/${currentMaterial.id}` : ADD_MATERIAL_URL;
             const method = edit ? "PUT" : "POST";
