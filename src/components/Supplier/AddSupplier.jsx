@@ -9,7 +9,9 @@ import { customStyles as createCustomStyles } from '../../Constants/utils';
 import { useSelector } from 'react-redux';
 import {  ADD_SUPPLIER_URL } from "../../Constants/utils"
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const AddSupplier = () => {
+    const navigate = useNavigate();
     const {
         seloptions,
         groups
@@ -73,7 +75,9 @@ const AddSupplier = () => {
             console.log(data, "Response data"); // Log the response data for debugging
     
             if (response.ok) {
+
                 toast.success(`Supplier added successfully`);
+                navigate("/supplier/view")
                 // Call resetForm and setCurrentSupplier with proper state updates
             } else {
                 toast.error(`${data.errorMessage}`);
@@ -257,7 +261,7 @@ const AddSupplier = () => {
                                                 />
                                                 <ErrorMessage name="accountNo" component="div" className="text-red-500" />
                                             </div>
-                                            <div className="flex-1 min-w-[300px]">
+                                            <div className="min-w-[320px] sm:min-w-[400px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">IFSC Code</label>
                                                 <Field
                                                     type="text"
