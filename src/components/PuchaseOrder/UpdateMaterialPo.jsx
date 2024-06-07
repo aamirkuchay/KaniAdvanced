@@ -57,8 +57,8 @@ const UpdateMaterialPo = () => {
         // Define the status options
         return [
 
-            { value: 'approved', label: 'Approved' },
-            { value: 'rejected', label: 'Rejected' },
+            { value: 'Approved', label: 'Approved' },
+            { value: 'Rejected', label: 'Rejected' },
         ];
     };
 
@@ -232,7 +232,7 @@ const UpdateMaterialPo = () => {
                                                             onChange={option => setFieldValue('status', option.value)}
                                                             styles={customStyles}
                                                             value={statusSel?.find(option => option.value === field.value)}
-                                                            isDisabled={field.value === 'approved'} // Disable dropdown when status is 'approved'
+                                                            isDisabled={field.value === 'Approved'} // Disable dropdown when status is 'Approved'
                                                         />
                                                     )}
                                                 </Field>
