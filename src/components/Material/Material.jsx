@@ -11,13 +11,13 @@ import MaterialTable from './MaterialTable';
 import { customStyles as createCustomStyles } from '../../Constants/utils';
 
 const Material = () => {
-    
+
     const units = useSelector(state => state?.nonPersisted?.unit);
     const theme = useSelector(state => state?.persisted?.theme);
     const colorGroup = useSelector(state => state?.nonPersisted?.color);
 
 
-    console.log(colorGroup,"heyyyyy");
+    console.log(colorGroup, "heyyyyy");
 
 
     const [options, setOptions] = useState([]);
@@ -166,7 +166,7 @@ const Material = () => {
                                     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                         <div className="border-b border-stroke py-4 px-2 dark:border-strokedark">
                                             <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
-                                                <MaterialTable data={material} totalItems={pagination.totalItems} title={'Material'} handleDelete={handleDelete} handleUpdate={handleUpdate} />
+                                                <MaterialTable data={material} totalItems={pagination.totalItems} title={'Material'} handleDelete={handleDelete} handleUpdate={handleUpdate} pagination={pagination} />
                                                 <Pagination
                                                     totalPages={pagination?.totalPages}
                                                     currentPage={pagination?.currentPage}
