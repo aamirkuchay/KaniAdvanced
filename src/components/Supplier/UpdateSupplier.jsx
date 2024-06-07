@@ -290,6 +290,7 @@ const UpdateSupplier = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">Supplier Type</label>
                                                 <ReactSelect
+                                                isDisabled
                                                     styles={customStyles}
                                                     options={seloptions}
                                                     value={values.supplierType}

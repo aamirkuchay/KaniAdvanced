@@ -147,10 +147,7 @@ const AddSupplier = () => {
                             errors.accountNo = 'Required';
 
                         }
-                        if (!values.supplierType) {
-                            errors.supplierType = 'Required';
-
-                        }
+          
                         
                         if (values.accountNo<10) {
                             errors.accountNo = 'Required';
