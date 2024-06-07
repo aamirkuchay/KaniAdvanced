@@ -19,7 +19,7 @@ const UpdateMaterialPo = () => {
     useEffect(() => {
         GetMaterialPoById(id);
     }, [id]);
-
+    const [initialStatus, setInitialStatus] = useState('');
     const location = useSelector(state => state?.nonPersisted?.location);
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
     const theme = useSelector(state => state?.persisted?.theme);
@@ -37,6 +37,7 @@ const UpdateMaterialPo = () => {
         if (currentMaterial) {
             setMaterialPos(currentMaterial.materialPos);
             setDateSelected(currentMaterial?.date?.split('T')[0]);
+            setInitialStatus(currentMaterial?.status);
             setFormikInitialValues({
                 locationId: currentMaterial?.location?.id,
                 supplierId: currentMaterial?.supplier?.id,
@@ -222,6 +223,7 @@ const UpdateMaterialPo = () => {
                                                 />
                                                 <ErrorMessage name="supplierId" component="div" className="text-red-500" />
                                             </div>
+                                            
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Status</label>
                                                 <Field name="status">
@@ -232,11 +234,11 @@ const UpdateMaterialPo = () => {
                                                             onChange={option => setFieldValue('status', option.value)}
                                                             styles={customStyles}
                                                             value={statusSel?.find(option => option.value === field.value)}
-                                                            isDisabled={field.value === 'Approved'} // Disable dropdown when status is 'Approved'
+                                                            isDisabled={initialStatus === 'Approved'} // Disable dropdown if the initial status is 'Approved'
                                                         />
                                                     )}
                                                 </Field>
-                                                <ErrorMessage name="supplierId" component="div" className="text-red-500" />
+                                                <ErrorMessage name="status" component="div" className="text-red-500" />
                                             </div>
                                         </div>
 
