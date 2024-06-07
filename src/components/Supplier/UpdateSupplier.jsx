@@ -17,6 +17,7 @@ const UpdateSupplier = () => {
     const { seloptions, groups, GetSupplierById, currentSupplier } = useSupplier();
     const { id } = useParams();
     const [initialValues, setInitialValues] = useState(null);
+    const [supplierType, setsupplierType] = useState()
     const theme = useSelector(state => state?.persisted?.theme);
     const customStyles = createCustomStyles(theme?.mode);
     const workerSelectStyles = {
@@ -188,6 +189,7 @@ const UpdateSupplier = () => {
                     onSubmit={handleUpdateSubmit}
                 >
                     {({ setFieldValue, values }) => (
+                       
                         <Form>
                             <div className="flex flex-col gap-9">
                                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -199,6 +201,7 @@ const UpdateSupplier = () => {
                                     <div className="p-6.5">
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
+                                         
                                                 <label className="mb-2.5 block text-black dark:text-white">Supplier Code</label>
                                                 <Field
                                                     readOnly
@@ -285,9 +288,8 @@ const UpdateSupplier = () => {
                                                 />
                                                 <ErrorMessage name="ifscCode" component="div" className="text-red-500" />
                                             </div>
-                                        </div>
-                                        <div className="mb-4.5 flex flex-wrap gap-6">
-                                            <div className="flex-1 min-w-[300px]">
+                                        <div className="min-w-[320px] sm:min-w-[400px]">
+                                       
                                                 <label className="mb-2.5 block text-black dark:text-white">Supplier Type</label>
                                                 <ReactSelect
                                                 isDisabled
@@ -295,11 +297,18 @@ const UpdateSupplier = () => {
                                                     options={seloptions}
                                                     value={values?.supplierType}
                                                     onChange={option => setFieldValue('supplierType', option)}
-                                                />
-                                            </div>
+                                                    />
+                                                   
+                                        
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
+
+
+                                {
+                                    (values?.supplierType.value==="PRODUCT")&&(
+
                                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                     <div className=" flex justify-between border-b border-stroke py-4 px-6.5 dark:border-strokedark ">
                                         <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
@@ -385,6 +394,8 @@ const UpdateSupplier = () => {
 
                                     </div>
                                 </div>
+                                    )
+                                }
                                 <button
                                     type="submit"
                                     className="bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark"

@@ -281,20 +281,21 @@ const AddSupplier = () => {
                                                             <IoMdAdd size={34} />
                                                         </button>
                                                     </div>
-                                                    <div className="w-full">
+                                                    <div className="overflow-x-scroll md:overflow-x-visible  md:overflow-y-visible -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
+                                        <div className="min-w-full shadow-md rounded-lg">
                                                         <table className="table-fixed w-full">
                                                             <thead>
-                                                                <tr>
-                                                                    <th className="w-1/2 px-4 py-2">Group</th>
-                                                                    <th className="w-1/4 px-4 py-2">No of Looms</th>
-                                                                    <th className="w-1/4 px-4 py-2">Workers</th>
-                                                                    <th className="w-1/4 px-4 py-2">Action</th>
+                                                            <tr className='px-5 py-3 bg-slate-300 dark:bg-slate-700 dark:text-white'>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" style={{ minWidth: '250px' }}>Group</th>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No of Looms</th>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Workers</th>
+                                                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 {rows.map((row, index) => (
                                                                     <tr key={row.id}>
-                                                                        <td>
+                                                                     <td className="px-2 py-2 border-b">
                                                                             <ReactSelect
                                                                             name='group'
                                                                                 value={row.selectedOption1}
@@ -310,7 +311,7 @@ const AddSupplier = () => {
                                                                             />
                                                                               <ErrorMessage name="group" component="div" className="text-red-500" />
                                                                         </td>
-                                                                        <td>
+                                                                        <td className="px-2 py-2 border-b">
                                                                             <Field
                                                                                 type="number"
                                                                                 name={`rows[${index}].numOfLooms`}
@@ -329,7 +330,7 @@ const AddSupplier = () => {
                                                                                 }}
                                                                             />
                                                                         </td>
-                                                                        <td>
+                                                                        <td className="px-2 py-2 border-b">
                                                                             <ReactSelect
                                                                             name='workers'
                                                                                 value={row.selectedOption3}
@@ -347,7 +348,7 @@ const AddSupplier = () => {
                                                                             />
                                                                               <ErrorMessage name="workers" component="div" className="text-red-500" />
                                                                         </td>
-                                                                        <td>
+                                                                        <td className="px-2 py-2 border-b">
                                                                             {rows.length > 1 && (
                                                                                 <button type='button' onClick={() => deleteRow(index)}>
                                                                                     <IoMdTrash size={24} />
@@ -358,6 +359,7 @@ const AddSupplier = () => {
                                                                 ))}
                                                             </tbody>
                                                         </table>
+                                                        </div>
                                                     </div>
                                                 </>
                                             )}
