@@ -1,11 +1,14 @@
 import React from 'react';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
-const ViewTable = ({ title, units, totalItems, handleDelete, handleUpdate }) => {
+const ViewTable = ({ title, units, totalItems, handleDelete, handleUpdate,pagination }) => {
     if (totalItems < 1) return (<><hr className='text-slate-300' /><p className='text-slate-400 text-2xl text-center py-5'>No {title} Available</p></>);
 
     // Function to generate table headers dynamically
+    console.log(pagination.itemsPerPage + 1,"heyyy");
+    const startingSerialNumber = (pagination.currentPage - 1) * pagination.itemsPerPage + 1;
     const renderTableHeaders = () => {
+
         if (!units || units.length === 0) return null;
         const headers = Object.keys(units[0]).map(header => header === 'id' ? 'Sno' : header);
         return headers.map((header, index) => (
@@ -28,9 +31,11 @@ const ViewTable = ({ title, units, totalItems, handleDelete, handleUpdate }) => 
     // Function to generate table rows dynamically
     // Function to generate table rows dynamically
     const renderTableRows = () => {
+
+
         if (!units || units.length === 0) return null;
         return units.map((item, rowIndex) => {
-            const updatedItem = { ...item, id: rowIndex + 1 }; // Update id value with index + 1
+            const updatedItem = { ...item, id:startingSerialNumber + rowIndex }; // Update id value with index + 1
             return (
                 <tr key={rowIndex} className='bg-white dark:bg-slate-700 dark:text-white'>
                     {Object.values(updatedItem).map((value, colIndex) => (

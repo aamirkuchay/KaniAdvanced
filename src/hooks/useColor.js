@@ -9,12 +9,15 @@ const useColors = () => {
     const [colors, setColors] = useState([]);
     const [edit, setEdit] = useState(false);
     const [currentColor, setCurrentColor] = useState({ colorName: '' });
-
+    
     const [pagination, setPagination] = useState({
         totalItems: 0,
         data: [],
         totalPages: 0,
         currentPage: 1,
+        itemsPerPage:0
+        
+
     });
 
     useEffect(() => {
@@ -37,6 +40,7 @@ const useColors = () => {
                 data: data.content,
                 totalPages: data.totalPages,
                 currentPage: data.number + 1,
+                itemsPerPage:data.size
             });
         } catch (error) {
             console.error(error);

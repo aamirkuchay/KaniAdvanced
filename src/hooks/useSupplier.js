@@ -63,7 +63,7 @@ const useSupplier = () => {
                 }
             });
             const data = await response.json();
-            console.log(data, "logggggggggggggggg");
+           
            
             setSupplier(data.content);
             setPagination({
