@@ -16,6 +16,7 @@ const ViewMaterialPo = () => {
         ViewMaterialPo();
     }, []);
 
+
     const handleViewMaterialPos = (materialPos) => {
         setSelectedMaterialPos(materialPos);
         setShowModal(true);
@@ -23,9 +24,8 @@ const ViewMaterialPo = () => {
 
     const renderTableRows = () => {
         if (!materialPo || !materialPo) return;
-        const itemsPerPage = pagination.itemsPerPage || 10; // Assuming 10 items per page if not specified
-        const currentPage = pagination.currentPage || 1;
-        const startingSerialNumber = (currentPage - 1) * itemsPerPage + 1;
+
+        const startingSerialNumber = (pagination.currentPage - 1) * pagination.itemsPerPage + 1;
 
         return materialPo.map((item, index) => (
             <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>

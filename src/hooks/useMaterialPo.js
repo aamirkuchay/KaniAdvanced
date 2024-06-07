@@ -22,6 +22,7 @@ const useMaterialPo = () => {
         data: [],
         totalPages: 0,
         currentPage: 1,
+        itemsPerPage: 0
     });
 
 
@@ -84,6 +85,7 @@ const useMaterialPo = () => {
                     data: data.content,
                     totalPages: data.totalPages,
                     currentPage: data.number + 1,
+                    itemsPerPage: data.size,
                 });
 
             } else {
