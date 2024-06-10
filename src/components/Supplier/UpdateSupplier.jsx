@@ -28,7 +28,7 @@ const UpdateSupplier = () => {
             backgroundColor: customStyles.control.backgroundColor,
 
             maxHeight: "90px",
-            zIndex: 9999,
+        
             overflow: "auto",
             marginLeft: "10px"
         }),
