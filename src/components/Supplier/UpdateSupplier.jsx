@@ -357,7 +357,7 @@ const UpdateSupplier = () => {
                                                                     <tr key={index}>
                                                                         <td className="px-2 py-2 border-b">
                                                                             <ReactSelect
-                                                                                styles={workerSelectStyles}
+                                                                                styles={customStyles}
                                                                                 options={groups}
                                                                                 value={row.selectedOption1}
                                                                                 onChange={option => handleGroupChange(index, option)}
