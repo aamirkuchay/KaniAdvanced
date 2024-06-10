@@ -86,10 +86,10 @@ const UpdateSupplier = () => {
         const formData = {
             ...values,
             supplierType: values.supplierType?.value,
-            groupTypes: rows.map(row => ({
-                groupTypeName: row.selectedOption1.value,
-                noOfLooms: row.numOfLooms,
-                workers: row.selectedOption3.map(worker => ({ workerCode: worker.value }))
+            groupTypes: rows?.map(row => ({
+                groupTypeName: row?.selectedOption1?.value,
+                noOfLooms: row?.numOfLooms,
+                workers: row?.selectedOption3?.map(worker => ({ workerCode: worker.value }))
             }))
         };
 
@@ -411,15 +411,15 @@ const UpdateSupplier = () => {
                                                     </div>
 
                                                 </div>
+                                            </div>
+                                        )
+                                    }
                                                 <button
                                                     type="submit"
                                                     className="bg-primary w-[300px] sm:w-[650px] sm:ml-[100px] mb-4 text-white py-2 px-4 rounded hover:bg-primary-dark  mt-3 ml-5 mr-10 z-[3000]"
                                                 >
                                                     Update Supplier
                                                 </button>
-                                            </div>
-                                        )
-                                    }
 
                                 </div>
 

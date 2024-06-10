@@ -152,11 +152,11 @@ const useSupplier = () => {
     const handleSubmit = (values, rows) => {
         const formData = {
             ...values,
-            supplierType: values.supplierType?.value,
-            groupTypes: rows.map(row => ({
-                groupTypeName: row.selectedOption1.value,
-                noOfLooms: row.numOfLooms,
-                workers: row.selectedOption3.map(worker => ({ workerCode: worker.value }))
+            supplierType: values?.supplierType?.value,
+            groupTypes: rows?.map(row => ({
+                groupTypeName: row?.selectedOption1.value,
+                noOfLooms: row?.numOfLooms,
+                workers: row?.selectedOption3.map(worker => ({ workerCode: worker.value }))
             }))
         };
         console.log(JSON.stringify(formData, null, 2));
