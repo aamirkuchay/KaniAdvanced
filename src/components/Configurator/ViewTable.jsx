@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
-const ViewTable = ({ title, units, totalItems, handleDelete, handleUpdate,pagination }) => {
+const ViewTable = ({ title, units, totalItems, handleDelete, handleUpdate,pagination,searchvalue }) => {
     if (totalItems < 1) return (<><hr className='text-slate-300' /><p className='text-slate-400 text-2xl text-center py-5'>No {title} Available</p></>);
 
     // Function to generate table headers dynamically
@@ -57,6 +57,8 @@ const ViewTable = ({ title, units, totalItems, handleDelete, handleUpdate,pagina
 
     return (
         <div className="container mx-auto px-4 sm:px-8">
+
+                    
             <div className="pt-5">
                 <div className='flex justify-between'>
                     <h2 className="text-2xl font-semibold leading-tight text-center">View {title} </h2>

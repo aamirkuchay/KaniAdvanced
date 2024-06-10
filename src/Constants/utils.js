@@ -3,7 +3,7 @@ export const SIGNIN_URL = `${BASE_URL}/api/v1/auth/signin`;
 
 //Unit Url's
 export const ADD_UNIT_URL = `${BASE_URL}/unit/addUnit`;
-export const GET_UNIT_URL = `${BASE_URL}/unit`;
+export const GET_UNIT_URL = `${BASE_URL}/unit/search`;
 export const UPDATE_UNIT_URL = `${BASE_URL}/unit/updateUnit`;
 export const VIEW_ALL_UNITS = `${BASE_URL}/unit/viewAll`;
 export const DELETE_UNIT_URL = `${BASE_URL}/unit/deleteUnit/`;

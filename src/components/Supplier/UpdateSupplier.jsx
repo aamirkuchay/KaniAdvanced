@@ -28,8 +28,13 @@ const UpdateSupplier = () => {
             backgroundColor: customStyles.control.backgroundColor,
 
             maxHeight: "90px",
+            zIndex: 9999,
             overflow: "auto",
             marginLeft: "10px"
+        }),
+        menu: (provided) => ({
+            ...provided,
+            zIndex: 9999, // Ensure dropdown is above other elements
         }),
     };
 
@@ -302,8 +307,123 @@ const UpdateSupplier = () => {
                                             </div>
                                         </div>
                                     </div>
+
+
+
+
+
+
+
+
+
+                                    {
+                                        (values?.supplierType.value === "PRODUCT") && (
+
+                                            <div className="overflow-hidden w-[350px] sm:w-full ml-3 sm:ml-0 md:overflow-x-visible  md:overflow-y-visible  rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                                                <div className=" flex justify-between border-b border-stroke py-4 px-6.5 dark:border-strokedark ">
+                                                    <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
+                                                        Group Types
+                                                    </h3>
+                                                    <button
+                                                        type="button"
+                                                        onClick={addRow}
+                                                        className="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                                                    >
+                                                        <IoMdAdd className="mr-2" size={20} />
+                                                        Add Row
+                                                    </button>
+
+
+
+
+
+
+
+
+                                                </div>
+                                                <div className="overflow-x-scroll  mr-4 md:overflow-x-visible  md:overflow-y-visible -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
+                                                    <div className="min-w-[400px] ml-3 mr-3 shadow-md rounded-lg">
+                                                        <table className="min-w-full">
+                                                            <thead>
+                                                                <tr className='px-5 py-3 bg-slate-300 dark:bg-slate-700 dark:text-white'>
+                                                                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" style={{ minWidth: '250px' }}>Group Type</th>
+                                                                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Number of Looms</th>
+                                                                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Workers</th>
+                                                                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {rows.map((row, index) => ( 
+                                                                    <tr key={index}>
+                                                                        <td className="px-2 py-2 border-b">
+                                                                            <ReactSelect
+                                                                                styles={workerSelectStyles}
+                                                                                options={groups}
+                                                                                value={row.selectedOption1}
+                                                                                onChange={option => handleGroupChange(index, option)}
+                                                                                isDisabled={row.readonly}
+                                                                            />
+                                                                        </td>
+                                                                        <td className="px-2 py-2 border-b">
+                                                                            <Field
+                                                                                type="number"
+                                                                                name={`rows[${index}].numOfLooms`}
+                                                                                value={row.numOfLooms}
+                                                                                onChange={e => handleLoomsChange(index, e.target.value)}
+                                                                                disabled={row.readonly}
+                                                                                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                                                                            />
+                                                                        </td>
+                                                                        <td className="px-2 py-2 border-b">
+                                                                            <ReactSelect
+                                                                                styles={workerSelectStyles}
+                                                                                options={row.selectedOption1 ? generateWorkerOptions(row.selectedOption1.label, initialValues.supplierCode, row.numOfLooms) : []}
+                                                                                value={row.selectedOption3}
+                                                                                isMulti
+                                                                                onChange={option => {
+                                                                                    const newRows = [...rows];
+                                                                                    newRows[index].selectedOption3 = option;
+                                                                                    setRows(newRows);
+
+                                                                                }}
+                                                                                isDisabled={row.readonly}
+                                                                                components={{ DropdownIndicator: () => null, ClearIndicator: () => null }}
+
+                                                                            />
+                                                                        </td>
+                                                                        <td className="px-2 py-2 border-b">
+                                                                            {!row.readonly && (
+                                                                                <button
+                                                                                    type="button"
+                                                                                    onClick={() => deleteRow(index)}
+                                                                                    className="text-red-500 hover:text-red-700"
+                                                                                >
+                                                                                    <IoMdTrash size={20} />
+                                                                                </button>
+                                                                            )}
+                                                                        </td>
+                                                                    </tr>
+                                                                ))}
+                                                            </tbody>
+
+
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+                                                    <button
+                                                        type="submit"
+                                                        className="bg-primary w-[300px] sm:w-[650px] sm:ml-[100px] mb-4 text-white py-2 px-4 rounded hover:bg-primary-dark  mt-3 ml-5 mr-10 z-[3000]"
+                                                    >
+                                                        Update Supplier
+                                                    </button>
+                                            </div>
+                                        )
+                                    }
+
                                 </div>
 
+<<<<<<< HEAD
 
                                 {
                                     (values?.supplierType.value === "PRODUCT") && (
@@ -401,6 +521,8 @@ const UpdateSupplier = () => {
                                         </div>
                                     )
                                 }
+=======
+>>>>>>> 324775e482c773f9d541b18e21a653f651f034b6
                             </div>
                         </Form>
                     )}
