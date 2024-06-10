@@ -62,7 +62,7 @@ const useUnits = (searchValue) => {
             });
 
             if (response.ok) {
-                toast.success(`Unit Deleted successfully`);
+                toast.success(`Unit Deleted successfully`);   
 
                 const isCurrentPageEmpty = units.length === 1;
 
