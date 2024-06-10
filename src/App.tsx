@@ -45,8 +45,6 @@ import CreateMaterialInventory from './components/Inventory/CreateMaterialInvent
 import ViewMaterialInventory from './components/Inventory/ViewMaterialInventory.jsx';
 import UpdateInventoryMaterial from './components/Inventory/UpdateInventoryMaterial.jsx';
 
-
-
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -407,16 +405,8 @@ function App() {
             </>
           }
         />
-          <Route
-          path="/inventory/viewMaterialInventory"
-          element={
-            <>
-              <PageTitle title="Inventory" />
-              <ViewMaterialInventory />
-            </>
-          }
-        />         
-         <Route
+
+        <Route
           path="/inventory/viewMaterialInventory"
           element={
             <>

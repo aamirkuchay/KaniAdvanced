@@ -7,19 +7,25 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 // import Pagination from '../Pagination/Pagination';
 import { Link } from 'react-router-dom';
 import useInventoryMaterial from '../../hooks/useInventoryMaterial';
+import Pagination from '../Pagination/Pagination';
 
 const ViewMaterialinventoryMaterial = () => {
-    const { inventoryMaterial,ViewInventory,handleUpdate} = useInventoryMaterial();
+    const { inventoryMaterial, ViewInventory, handleDelete, handleUpdate, handlePageChange, pagination } = useInventoryMaterial();
 
     useEffect(() => {
         ViewInventory();
     }, []);
-console.log(inventoryMaterial)
     const renderTableRows = () => {
         if (!inventoryMaterial || !inventoryMaterial) return;
+        const startingSerialNumber = (pagination.currentPage - 1) * pagination.itemsPerPage + 1;
 
         return inventoryMaterial.map((item, index) => (
             <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
+                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                    <p className="text-gray-900 whitespace-no-wrap">
+                        {startingSerialNumber + index}
+                    </p>
+                </td>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
                         {item.location.address}
@@ -49,8 +55,8 @@ console.log(inventoryMaterial)
                         <FiTrash2 size={17} className='text-red-500  hover:text-red-700 mx-2' onClick={(e) => handleDelete(e, item?.id)} title='Delete Material PO' />
                     </p>
                 </td>
-               
-               
+
+
             </tr>
         ));
     };
@@ -61,21 +67,23 @@ console.log(inventoryMaterial)
             <div className="container mx-auto px-4 sm:px-8 bg-white dark:bg-slate-800">
                 <div className="pt-5">
                     <div className='flex justify-between'>
-                        <h2 className="text-xl font-semibold leading-tight  ">VIEW Material inventory</h2>
-                        {/* <p className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium bg-success text-success dark:bg-white dark:text-slate-800`}>
+                        <h2 className="text-xl font-semibold leading-tight  ">View Material inventory</h2>
+                        <p className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium bg-success text-success dark:bg-white dark:text-slate-800`}>
                             Total PO: {pagination.totalItems}
-                        </p> */}
+                        </p>
                     </div>
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                         <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
                             <table className="min-w-full leading-normal">
                                 <thead>
                                     <tr className='bg-slate-300 dark:bg-slate-700 dark:text-white'>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">SNO</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Location</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Material</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Quantity</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Minimum Quantity</th>
-                                        
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,7 +91,7 @@ console.log(inventoryMaterial)
                                 </tbody>
                             </table>
                         </div>
-                        {/* <Pagination totalPages={pagination.totalPages} currentPage={pagination.currentPage} handlePageChange={handlePageChange} /> */}
+                        <Pagination totalPages={pagination.totalPages} currentPage={pagination.currentPage} handlePageChange={handlePageChange} />
                     </div>
                 </div>
             </div>

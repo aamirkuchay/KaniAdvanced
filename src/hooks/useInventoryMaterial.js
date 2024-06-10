@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { ADD_INVENTORY_URL,GET_INVENTORY_URL,UPDATE_INVENTORY_URL } from '../Constants/utils';
+import { ADD_INVENTORY_URL, DELETE_INVENTORY_URL, GET_INVENTORYBYID_URL, GET_INVENTORY_URL, UPDATE_INVENTORY_URL } from '../Constants/utils';
 import { fetchunit } from '../redux/Slice/UnitSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,8 @@ const useInventoryMaterial = () => {
     const navigate = useNavigate();
     const [inventoryMaterial, setInventoryMaterial] = useState([]);
     const [edit, setEdit] = useState(false);
+    const [inventoryItem, setInventoryItem] = useState(null);
+
     const [currentInventory, setCurrentInventory] = useState({
         id: 0,
         material: {
@@ -36,24 +38,17 @@ const useInventoryMaterial = () => {
         consumedQuantity: 0,
         minimum: 0
     });
-    // const [pagination, setPagination] = useState({
-    //     totalItems: 0,
-    //     data: [],
-    //     totalPages: 0,
-    //     currentPage: 1,
-    // });
+    const [pagination, setPagination] = useState({
+        totalItems: 0,
+        data: [],
+        totalPages: 0,
+        currentPage: 1,
+        itemsPerPage: 0
+    });
 
-   
-
-    // useEffect(() => {
-    //     dispatch(fetchunit(token));
-    //     getMaterial(pagination.currentPage);
-    // }, [dispatch, token, pagination.currentPage]);
-
-    const ViewInventory = async (page) => {
-        
+    const fetchInventoryItem = async (id) => {
         try {
-            const response = await fetch(`${GET_INVENTORY_URL}?page=${page||1}`, {
+            const response = await fetch(`${GET_INVENTORYBYID_URL}/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -61,59 +56,72 @@ const useInventoryMaterial = () => {
                 }
             });
             const data = await response.json();
-            console.log(data,"cam from hook");
-            setInventoryMaterial(data?.content);
-            // setPagination({
-            //     totalItems: data?.totalElements,
-            //     data: data?.content,
-            //     totalPages: data?.totalPages,
-            //     currentPage: data?.number + 1,
-            // });
+            setInventoryItem(data);
         } catch (error) {
-            console.error(error);
-            toast.error("Failed to fetch material");
+            console.error('Error fetching inventory item:', error);
         }
     };
 
-    // const handleDelete = async (e, id) => {
-    //     e.preventDefault();
-    //     try {
-    //         const response = await fetch(`${DELETE_MATERIAL_URL}${id}`, {
-    //             method: 'DELETE',
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
-    //         const data = await response.json();
-    //         if (response.ok) {
-    //             toast.success(data.message);
-    //             const isCurrentPageEmpty = inventoryMaterial.length === 1;
-    //             if (isCurrentPageEmpty && pagination.currentPage > 1) {
-    //                 const previousPage = pagination.currentPage - 1;
-    //                 handlePageChange(previousPage);
-    //             } else {
-    //                 getMaterial(pagination.currentPage);
-    //             }
-    //         } else {
-    //             toast.error(data.errorMessage);
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //         toast.error("An error occurred");
-    //     }
-    // };
 
-    // const handleUpdate = (e, item) => {
-    //     e.preventDefault();
-    //     setEdit(true);
-    //     setCurrentInventory({
-    //         ...item,
-    //         materialType: seloptions.find(option => option.value === item.materialType) || null
-    //     });
-    // };
+
+
+    const ViewInventory = async (page) => {
+
+        try {
+            const response = await fetch(`${GET_INVENTORY_URL}?page=${page || 1}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            setInventoryMaterial(data?.content);
+            setPagination({
+                totalItems: data?.totalElements,
+                data: data?.content,
+                totalPages: data?.totalPages,
+                currentPage: data?.number + 1,
+                itemsPerPage: data.size
+            });
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to fetch Inventory");
+        }
+    };
+
+    const handleDelete = async (e, id) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`${DELETE_INVENTORY_URL}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            if (response.ok) {
+                toast.success(data.message);
+                const isCurrentPageEmpty = inventoryMaterial.length === 1;
+                if (isCurrentPageEmpty && pagination.currentPage > 1) {
+                    const previousPage = pagination.currentPage - 1;
+                    handlePageChange(previousPage);
+                } else {
+                    ViewInventory(pagination.currentPage);
+                }
+            } else {
+                toast.error(data.errorMessage);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred");
+        }
+    };
+
+
     const handleUpdate = (e, item) => {
-        console.log(item,"onupdate");
+        console.log(item, "onupdate");
         e.preventDefault();
         // setEdit(true);
         if (item && item.id) {
@@ -127,9 +135,9 @@ const useInventoryMaterial = () => {
     };
     const handleUpdateSubmit = async (values, { setSubmitting, resetForm }) => {
 
-
         try {
-            const url = `${ UPDATE_INVENTORY_URL}/${values.id}`;
+            const url = `${UPDATE_INVENTORY_URL}/${values.id}`;
+            setSubmitting(true)
             const response = await fetch(url, {
                 method: "PUT",
                 headers: {
@@ -142,8 +150,8 @@ const useInventoryMaterial = () => {
             const data = await response.json();
             if (response.ok) {
                 resetForm();
-                toast.success(`Material Po Updated successfully`);
-                navigate('/material/viewPurchase');
+                toast.success(`Inventory Updated successfully`);
+                navigate('/inventory/viewMaterialInventory');
 
             } else {
                 toast.error(`${data.errorMessage}`);
@@ -159,12 +167,9 @@ const useInventoryMaterial = () => {
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
 
-
-
-         console.log(values)
         try {
-            const url =  ADD_INVENTORY_URL;
-            const method =  "POST";
+            const url = ADD_INVENTORY_URL;
+            const method = "POST";
 
             const response = await fetch(url, {
                 method: method,
@@ -176,32 +181,21 @@ const useInventoryMaterial = () => {
                     id: currentInventory.id,
                     material: {
                         id: values.materialId,
-                        // unit: {
-                        //     id: values.material.unit.id,
-                        //     name: values.material.unit.name
-                        // },
-                    //     description: values.material.description,
-                    //     grade: values.material.grade,
-                    //     materialType: values.material.materialType
+
                     },
                     location: {
                         id: values.locationId,
-                        // address: values.location.address,
-                        // city: values.location.city,
-                        // state: values.location.state,
-                        // gstin: values.location.gstin,
-                        // pinCode: values.location.pinCode
+
                     },
                     quantity: values.quantity,
                     // consumedQuantity: values.consumedQuantity,
-                    minimum:values.minimum
+                    minimum: values.minimum
                 })
             });
 
             const data = await response.json();
-            console.log(data,"ressssssssssss");
             if (response.ok) {
-                toast.success(`Material ${edit ? 'updated' : 'added'} successfully`);
+                toast.success(`Material Inventory ${edit ? 'updated' : 'added'} successfully`);
                 resetForm();
                 setEdit(false);
                 setCurrentInventory({
@@ -225,7 +219,7 @@ const useInventoryMaterial = () => {
                     consumedQuantity: 0,
                     minimum: 0
                 });
-                // getMaterial(pagination.currentPage || 1);
+                ViewInventory(pagination.currentPage || 1);
             } else {
                 toast.error(data.errorMessage);
             }
@@ -235,24 +229,25 @@ const useInventoryMaterial = () => {
         } finally {
             setSubmitting(false);
         }
-     };
+    };
 
-    // const handlePageChange = (newPage) => {
-    //     setPagination((prev) => ({ ...prev, currentPage: newPage }));
-    //     getMaterial(newPage);
-    // };
+    const handlePageChange = (newPage) => {
+        setPagination((prev) => ({ ...prev, currentPage: newPage }));
+        ViewInventory(newPage);
+    };
 
     return {
         ViewInventory,
         inventoryMaterial,
-        // edit,
         currentInventory,
-        // pagination,
-        // handleDelete,
-         handleUpdateSubmit,
+        inventoryItem,
+        setInventoryItem,
+        pagination,
+        handleDelete,
+        handleUpdateSubmit,
         handleSubmit,
-        // handlePageChange,
-        // seloptions,
+        fetchInventoryItem,
+        handlePageChange,
         handleUpdate
     };
 };

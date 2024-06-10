@@ -17,7 +17,6 @@ const Material = () => {
     const colorGroup = useSelector(state => state?.nonPersisted?.color);
 
 
-    console.log(colorGroup, "heyyyyy");
 
 
     const [options, setOptions] = useState([]);

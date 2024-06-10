@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup'; // Import Yup for validation
 import { customStyles as createCustomStyles } from '../../Constants/utils';
 import ReactSelect from 'react-select';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchlocation } from '../../redux/Slice/LocationSlice';
-import { fetchmaterial } from '../../redux/Slice/MaterialSlice'; // Import fetchmaterial
-
+import { fetchmaterial } from '../../redux/Slice/MaterialSlice';
 import useInventoryMaterial from '../../hooks/useInventoryMaterial';
 
 const CreateMaterialInventory = () => {
@@ -22,7 +22,6 @@ const CreateMaterialInventory = () => {
   const navigate = useNavigate();
   const item = location.state?.item;
 
-  // const [dateSelected, setDateSelected] = useState(item ? item?.date : '');
   const [locationSel, setLocationSel] = useState([]);
   const [materialSel, setMaterialSel] = useState([]);
   const flatpickrRef = useRef(null);
@@ -51,7 +50,7 @@ const CreateMaterialInventory = () => {
     if (materials.data) {
       const formattedOptions = materials.data.map(material => ({
         value: material.id,
-        label: material.grade, // Adjust based on the actual structure of material object
+        label: material.description, // Adjust based on the actual structure of material object
       }));
       setMaterialSel(formattedOptions);
       console.log('Material Options:', formattedOptions); // Debugging log
@@ -61,15 +60,16 @@ const CreateMaterialInventory = () => {
 
   const {
     inventoryMaterial,
-    // edit,
-    // currentMaterial,
-    // pagination,
-    // handleDelete,
-    // handleUpdate,
-     handleSubmit,
-    // handlePageChange,
-    // seloptions
-} = useInventoryMaterial();
+    handleSubmit,
+  } = useInventoryMaterial();
+
+  // Define validation schema with Yup
+  const validationSchema = Yup.object().shape({
+    locationId: Yup.string().required('Location is required'),
+    materialId: Yup.string().required('Material is required'),
+    quantity: Yup.number().required('Quantity is required').positive('Quantity must be positive').integer('Quantity must be an integer'),
+    minimum: Yup.number().required('Minimum Quantity is required').positive('Minimum Quantity must be positive').integer('Minimum Quantity must be an integer'),
+  });
 
   return (
     <DefaultLayout>
@@ -77,26 +77,16 @@ const CreateMaterialInventory = () => {
       <div>
         <Formik
           initialValues={{
-            // date: dateSelected,
             locationId: item ? item?.location?.id : '',
             materialId: '',
             quantity: '',
-            minimum:0,
+            minimum: 1,
           }}
-          validate={(values) => {
-            const errors = {};
-            if (!values.locationId) {
-              errors.locationId = 'Field is required';
-            }
-            if (!values.materialId) {
-              errors.materialId = 'Field is required';
-            }
-            if (!values.quantity) {
-              errors.quantity = 'Field is required';
-            }
-            return errors;
+          validationSchema={validationSchema} // Add Yup validation schema here
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            handleSubmit(values, { setSubmitting, resetForm });
+            resetForm(); // Reset the form fields after submission
           }}
-           onSubmit={handleSubmit} // Define handleSubmit function if needed
         >
           {({ isSubmitting, values, setFieldValue }) => (
             <Form>
@@ -107,7 +97,7 @@ const CreateMaterialInventory = () => {
                       Create Material Inventory
                     </h3>
                   </div>
-                  <div className="p-6.5 flex flex-wrap gap-6"> 
+                  <div className="p-6.5 flex flex-wrap gap-6">
                     <div className="w-full sm:w-[48%]">
                       <label className="mb-2.5 block text-black dark:text-white">
                         Location
@@ -136,21 +126,7 @@ const CreateMaterialInventory = () => {
                       />
                       <ErrorMessage name="materialId" component="div" className="text-red-500" />
                     </div>
-                    {/* <div className="flex-1 min-w-[200px]">
-                        <label className="mb-2.5 block text-black dark:text-white">Order Date</label>
-                        <Field name="orderDate">
-                          {({ field, form }) => (
-                            <Flatpickr
-                              {...field}
-                              placeholder="Enter Order Date"
-                              options={{ dateFormat: 'Y-m-d' }}
-                              onChange={(date) => form.setFieldValue('orderDate', date[0])}
-                              className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                            />
-                          )}
-                        </Field>
-                        <ErrorMessage name="orderDate" component="div" className="text-red-600 text-sm" />
-                      </div> */}
+
                     <div className="flex-1 min-w-[300px]">
                       <label className="mb-2.5 block text-black dark:text-white">Quantity</label>
                       <Field
@@ -171,14 +147,16 @@ const CreateMaterialInventory = () => {
                       />
                       <ErrorMessage name="minimum" component="div" className="text-red-500" />
                     </div>
+
+                    <button
+                      type="submit"
+                      className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4"
+                      disabled={isSubmitting}
+                    >
+                      Create Material
+                    </button>
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center bg-primary text-white py-2 px-4 rounded focus:outline-none"
-                >
-                  Create Material 
-                </button>
               </div>
             </Form>
           )}
