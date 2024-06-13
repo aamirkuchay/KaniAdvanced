@@ -110,7 +110,7 @@ const AddStockJournel = () => {
       <h1 className='text-center text-white text-2xl mb-6 font-bold'>Source</h1>
       <div className="mb-4.5 flex flex-wrap gap-6">
         <div className="flex-1 min-w-[300px]">
-          <label className="mb-2.5 block text-black dark:text-white">Type</label>
+          <label className="mb-2.5 block text-black dark:text-white"> Source Type</label>
           <ReactSelect
             name="sourceType"
             options={typeValues}
@@ -177,7 +177,7 @@ const AddStockJournel = () => {
       <h1 className='text-center text-white text-2xl mb-6 font-bold'>Destination</h1>
       <div className="mb-4.5 flex flex-wrap gap-6">
         <div className="flex-1 min-w-[300px]">
-          <label className="mb-2.5 block text-black dark:text-white">Type</label>
+          <label className="mb-2.5 block text-black dark:text-white"> Destination Type</label>
           <ReactSelect
             name="destinationType"
             options={typeValues}
@@ -281,7 +281,7 @@ const AddStockJournel = () => {
               <div className="flex flex-wrap gap-9">
                 <div className="flex-1">
                   <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
-                    Add stockJournel
+                    Add Stock Journal
                   </h3>
                 </div>
                 <div className="flex flex-wrap gap-6">
