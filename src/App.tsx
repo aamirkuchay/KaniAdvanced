@@ -45,6 +45,14 @@ import CreateMaterialInventory from './components/Inventory/CreateMaterialInvent
 import ViewMaterialInventory from './components/Inventory/ViewMaterialInventory.jsx';
 import UpdateInventoryMaterial from './components/Inventory/UpdateInventoryMaterial.jsx';
 
+import AddStockJournel from './components/StockJournel/AddStockJournel.jsx';
+import ViewStockJournel from './components/StockJournel/ViewStockJournel.jsx';
+
+
+
+
+AddStockJournel
+
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -416,6 +424,28 @@ function App() {
           }
         />
         <Route
+          path="/stockjournel/add"
+          element={
+            <>
+              <PageTitle title="Update Customer Group" />
+              <AddStockJournel />
+            </>
+          }
+        />
+
+
+<Route
+          path="/stockjournel/view"
+          element={
+            <>
+              <PageTitle title="Update Customer Group" />
+              <ViewStockJournel />
+            </>
+          }
+        />
+
+
+<Route
           path="/inventory/updateInventoryMaterial/:id"
           element={
             <>
@@ -424,7 +454,19 @@ function App() {
             </>
           }
         />
+
+
+
+
+
+
+
+
       </Routes>
+
+
+
+
     </>
   );
 }
