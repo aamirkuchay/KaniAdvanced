@@ -272,7 +272,7 @@ const AddStockJournel = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName={"stockJournel / Add stockJournel"} />
+      <Breadcrumb pageName={"Stock Journal / Add Stock Journal"} />
       <div>
         <Formik
           initialValues={currentstockJournel}
