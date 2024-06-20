@@ -58,6 +58,8 @@ export const DELETE_INVENTORY_URL = `${BASE_URL}/inventory`
 
 
 
+//stock journel url
+export const ADD_STOCKJOURNEL_URL = `${BASE_URL}/stockjournal`
 
 
 

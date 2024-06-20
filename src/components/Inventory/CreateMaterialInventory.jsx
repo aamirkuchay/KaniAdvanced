@@ -43,7 +43,6 @@ const CreateMaterialInventory = () => {
       }));
       setLocationSel(formattedOptions);
     }
-    console.log('Locations:', locations);
   }, [locations]);
 
   useEffect(() => {
@@ -53,9 +52,7 @@ const CreateMaterialInventory = () => {
         label: material.description, // Adjust based on the actual structure of material object
       }));
       setMaterialSel(formattedOptions);
-      console.log('Material Options:', formattedOptions); // Debugging log
     }
-    console.log('Materials:', materials);
   }, [materials]);
 
   const {
@@ -107,7 +104,7 @@ const CreateMaterialInventory = () => {
                         placeholder="Select location..."
                         styles={customStyles}
                         options={locationSel}
-                        value={locationSel.find(option => option.value === values.locationId)}
+                        value={locationSel.find(option => option.value === values.locationId) || ''}
                         onChange={option => setFieldValue('locationId', option.value)}
                       />
                       <ErrorMessage name="locationId" component="div" className="text-red-500" />
@@ -121,7 +118,7 @@ const CreateMaterialInventory = () => {
                         placeholder="Select material..."
                         styles={customStyles}
                         options={materialSel} // Ensure this is populated correctly
-                        value={materialSel.find(option => option.value === values.materialId)}
+                        value={materialSel.find(option => option.value === values.materialId) || ''}
                         onChange={option => setFieldValue('materialId', option.value)}
                       />
                       <ErrorMessage name="materialId" component="div" className="text-red-500" />

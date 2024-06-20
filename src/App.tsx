@@ -424,7 +424,7 @@ function App() {
           }
         />
         <Route
-          path="/stockjournel/add"
+          path="/stockjournal/add"
           element={
             <>
               <PageTitle title="Update Customer Group" />
@@ -435,7 +435,7 @@ function App() {
 
 
 <Route
-          path="/stockjournel/view"
+          path="/stockjournal/view"
           element={
             <>
               <PageTitle title="Update Customer Group" />
