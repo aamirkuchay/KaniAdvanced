@@ -293,7 +293,7 @@ const AddStockJournel = () => {
                   <FormFieldsRight values={values} setFieldValue={setFieldValue} />
                 </div>
                 <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                  Add stockJournel
+                  Add Stock Journal
                 </button>
               </div>
             </Form>
