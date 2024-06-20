@@ -94,14 +94,12 @@ const AddStockJournel = () => {
   const handleSourceTypeChange = (option, setFieldValue) => {
     setSelectedSourceType(option);
     setFieldValue('sourceType', option);
-    // Clear source material if source type changes
     setFieldValue('sourceMaterial', null);
   };
 
   const handleDestinationTypeChange = (option, setFieldValue) => {
     setSelectedDestinationType(option);
     setFieldValue('destinationType', option);
-    // Clear destination material if destination type changes
     setFieldValue('destinationMaterial', null);
   };
 
@@ -168,6 +166,10 @@ const AddStockJournel = () => {
             name="sourcePrice"
             placeholder="Enter Source Price"
             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            onChange={(e) => {
+              setFieldValue('sourcePrice', e.target.value);
+              setFieldValue('destinationPrice', parseFloat(e.target.value) + parseFloat(values.additionalCharges || 0));
+            }}
           />
           <ErrorMessage name="sourcePrice" component="div" className="text-red-600 text-sm" />
         </div>
@@ -238,6 +240,7 @@ const AddStockJournel = () => {
             name="destinationPrice"
             placeholder="Enter Destination Price"
             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            readOnly
           />
           <ErrorMessage name="destinationPrice" component="div" className="text-red-600 text-sm" />
         </div>
@@ -248,6 +251,10 @@ const AddStockJournel = () => {
             name="additionalCharges"
             placeholder="Enter Additional Price"
             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            onChange={(e) => {
+              setFieldValue('additionalCharges', e.target.value);
+              setFieldValue('destinationPrice', parseFloat(values.sourcePrice || 0) + parseFloat(e.target.value));
+            }}
           />
           <ErrorMessage name="additionalCharges" component="div" className="text-red-600 text-sm" />
         </div>
@@ -264,7 +271,7 @@ const AddStockJournel = () => {
       destinationMaterial: { id: values.destinationMaterial.value },
       destinationLocation: { id: values.destinationLocation.value },
       destinationQuantity: values.destinationQuantity,
-      destinationPrice: values.destinationPrice,
+      destinationPrice: parseFloat(values.sourcePrice) + parseFloat(values.additionalCharges),
       additionalCharges: values.additionalCharges,
     };
     handleSubmit(formattedValues);
