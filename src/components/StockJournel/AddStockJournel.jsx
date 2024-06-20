@@ -105,7 +105,7 @@ const AddStockJournel = () => {
     setFieldValue('destinationMaterial', null);
   };
 
-  const FormFieldsLeft = ({ setFieldValue }) => (
+  const FormFieldsLeft = ({ values, setFieldValue }) => (
     <div className="flex-1 min-w-[300px] border border-stroke p-6.5 rounded-sm shadow-default bg-white dark:border-strokedark dark:bg-boxdark">
       <h1 className='text-center text-white text-2xl mb-6 font-bold'>Source</h1>
       <div className="mb-4.5 flex flex-wrap gap-6">
@@ -114,6 +114,7 @@ const AddStockJournel = () => {
           <ReactSelect
             name="sourceType"
             options={typeValues}
+            value={values.sourceType}
             onChange={(option) => handleSourceTypeChange(option, setFieldValue)}
             styles={customStyles}
             className="bg-white dark:bg-form-input"
@@ -127,6 +128,7 @@ const AddStockJournel = () => {
           <ReactSelect
             name="sourceMaterial"
             options={filteredSourceMaterials}
+            value={values.sourceMaterial}
             onChange={(option) => setFieldValue('sourceMaterial', option)}
             styles={customStyles}
             className="bg-white dark:bg-form-input"
@@ -140,6 +142,7 @@ const AddStockJournel = () => {
           <ReactSelect
             name="sourceLocation"
             options={locationOptions}
+            value={values.sourceLocation}
             onChange={(option) => setFieldValue('sourceLocation', option)}
             styles={customStyles}
             className="bg-white dark:bg-form-input"
@@ -172,7 +175,7 @@ const AddStockJournel = () => {
     </div>
   );
 
-  const FormFieldsRight = ({ setFieldValue }) => (
+  const FormFieldsRight = ({ values, setFieldValue }) => (
     <div className="flex-1 min-w-[300px] border border-stroke p-6.5 rounded-sm shadow-default bg-white dark:border-strokedark dark:bg-boxdark">
       <h1 className='text-center text-white text-2xl mb-6 font-bold'>Destination</h1>
       <div className="mb-4.5 flex flex-wrap gap-6">
@@ -181,6 +184,7 @@ const AddStockJournel = () => {
           <ReactSelect
             name="destinationType"
             options={typeValues}
+            value={values.destinationType}
             onChange={(option) => handleDestinationTypeChange(option, setFieldValue)}
             styles={customStyles}
             className="bg-white dark:bg-form-input"
@@ -194,6 +198,7 @@ const AddStockJournel = () => {
           <ReactSelect
             name="destinationMaterial"
             options={filteredDestinationMaterials}
+            value={values.destinationMaterial}
             onChange={(option) => setFieldValue('destinationMaterial', option)}
             styles={customStyles}
             className="bg-white dark:bg-form-input"
@@ -207,6 +212,7 @@ const AddStockJournel = () => {
           <ReactSelect
             name="destinationLocation"
             options={locationOptions}
+            value={values.destinationLocation}
             onChange={(option) => setFieldValue('destinationLocation', option)}
             styles={customStyles}
             className="bg-white dark:bg-form-input"
@@ -251,12 +257,10 @@ const AddStockJournel = () => {
 
   const onSubmit = (values) => {
     const formattedValues = {
-     
       sourceMaterial: { id: values.sourceMaterial.value },
       sourceLocation: { id: values.sourceLocation.value },
       sourceQuantity: values.sourceQuantity,
       sourcePrice: values.sourcePrice,
-      
       destinationMaterial: { id: values.destinationMaterial.value },
       destinationLocation: { id: values.destinationLocation.value },
       destinationQuantity: values.destinationQuantity,
@@ -276,7 +280,7 @@ const AddStockJournel = () => {
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, values }) => (
             <Form>
               <div className="flex flex-wrap gap-9">
                 <div className="flex-1">
@@ -285,8 +289,8 @@ const AddStockJournel = () => {
                   </h3>
                 </div>
                 <div className="flex flex-wrap gap-6">
-                  <FormFieldsLeft setFieldValue={setFieldValue} />
-                  <FormFieldsRight setFieldValue={setFieldValue} />
+                  <FormFieldsLeft values={values} setFieldValue={setFieldValue} />
+                  <FormFieldsRight values={values} setFieldValue={setFieldValue} />
                 </div>
                 <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
                   Add stockJournel
