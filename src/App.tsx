@@ -48,7 +48,7 @@ import UpdateInventoryMaterial from './components/Inventory/UpdateInventoryMater
 import AddStockJournel from './components/StockJournel/AddStockJournel.jsx';
 import ViewStockJournel from './components/StockJournel/ViewStockJournel.jsx';
 
-
+import UpdateStockJournal from './components/StockJournel/UpdateStockJournal.jsx';
 
 
 AddStockJournel
@@ -451,6 +451,18 @@ function App() {
             <>
               <PageTitle title="Update Customer Group" />
               <UpdateInventoryMaterial />
+            </>
+          }
+        />
+
+
+
+<Route
+          path="/stockjournel/updateStockJournal/:id"
+          element={
+            <>
+              <PageTitle title="Update Stock Group" />
+              <UpdateStockJournal />
             </>
           }
         />
