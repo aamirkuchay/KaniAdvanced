@@ -51,7 +51,7 @@ export const GET_COLOR_URL = `${BASE_URL}/colors`
 
 //create Inventory Material
 export const ADD_INVENTORY_URL = `${BASE_URL}/inventory`
-export const GET_INVENTORY_URL = `${BASE_URL}/inventory`
+export const GET_INVENTORY_URL = `${BASE_URL}/inventory/search`
 export const UPDATE_INVENTORY_URL = `${BASE_URL}/inventory`
 export const GET_INVENTORYBYID_URL = `${BASE_URL}/inventory`
 export const DELETE_INVENTORY_URL = `${BASE_URL}/inventory`
