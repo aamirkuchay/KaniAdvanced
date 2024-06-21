@@ -109,35 +109,39 @@ const ViewMaterialInventoryMaterial = () => {
                             Total PO: {pagination.totalItems}
                         </p>
                     </div>
-                    <div className="mb-4.5 flex flex-wrap gap-6">
-                        <div className="flex-1 min-w-[300px]">
-                            <label className="mb-2.5 block text-black dark:text-white">Location</label>
-                            <ReactSelect
-                                name="locationId"
-                                value={locationValue}
-                                onChange={option => setLocationValue(option)}
-                                options={locationSel}
-                                styles={customStyles}
-                                placeholder="Select Location"
-                            />
+                    <div className='items-center justify-center'>
+                        <div className="mb-4.5 flex flex-wrap gap-6 mt-12">
+                            <div className="flex-1 min-w-[300px]">
+                                <label className="mb-2.5 block text-black dark:text-white">Location</label>
+                                <ReactSelect
+                                    name="locationId"
+                                    value={locationValue}
+                                    onChange={option => setLocationValue(option)}
+                                    options={locationSel}
+                                    styles={customStyles}
+                                    placeholder="Select Location"
+                                />
+                            </div>
+                            <div className="flex-1 min-w-[300px]">
+                                <label className="mb-2.5 block text-black dark:text-white">Description</label>
+                                <ReactSelect
+                                    name="description"
+                                    value={descriptionValue}
+                                    onChange={option => setDescriptionValue(option)}
+                                    options={descriptionSel}
+                                    styles={customStyles}
+                                    placeholder="Select Description"
+                                />
+                            </div>
                         </div>
-                        <div className="flex-1 min-w-[300px]">
-                            <label className="mb-2.5 block text-black dark:text-white">Description</label>
-                            <ReactSelect
-                                name="description"
-                                value={descriptionValue}
-                                onChange={option => setDescriptionValue(option)}
-                                options={descriptionSel}
-                                styles={customStyles}
-                                placeholder="Select Description"
-                            />
+                        <div className="flex justify-center">
+                            <button
+                                onClick={handleSearchChange}
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold h-12 w-[300px] rounded"
+                            >
+                                Search
+                            </button>
                         </div>
-                        <button
-                            onClick={handleSearchChange}
-                            className=" bg-blue-500 hover:bg-blue-700 text-white font-bold h-12 mt-9 w-[60px] rounded"
-                        >
-                            Search
-                        </button>
                     </div>
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                         <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
