@@ -255,13 +255,14 @@ console.log(stockId,"stockkkkkkkkkkkkk");
           className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
         /> */}
          <ReactSelect
-                  name="journalStatus"
-                  options={journalStatusOptions}
+                  name="journalStatus"   
+                  options={journalStatusOptions}    
                   value={journalStatusOptions.find(option => option.value === values.journalStatus)}
                   onChange={(option) => setFieldValue('journalStatus', option.value)}
                   styles={customStyles}
                   className="bg-white dark:bg-form-input"
                   classNamePrefix="react-select"
+
                   placeholder="Select Journal Status"
                 />
          <ErrorMessage name="journalStatus" component="div" className="text-red-600 text-sm" />
