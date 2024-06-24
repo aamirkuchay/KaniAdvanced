@@ -134,7 +134,9 @@ const UpdateStockJournal = () => {
   const customStyles = createCustomStyles(theme?.mode);
   const journalStatusOptions = [
     { value: 'Approved', label: 'Approved' },
-    { value: 'Rejected', label: 'Rejected' }
+    { value: 'Rejected', label: 'Rejected' },
+    { value: 'Created', label: 'Created' }
+
   ];
 
   const handleSourceTypeChange = (option, setFieldValue) => {
