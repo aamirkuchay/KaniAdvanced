@@ -64,20 +64,19 @@ const useMaterialPo = () => {
         ViewMaterialPo(pagination.currentPage || 1);
     }, []);
 
-    const ViewMaterialPo = async (page) => {
+    const ViewMaterialPo = async (page, filters = {}) => {
         try {
-
             const response = await fetch(`${GET_MATERIALPO_URL}?page=${page || 1}`, {
-                method: "GET",
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-
+                body: JSON.stringify(filters)
             });
-
+    
             const data = await response.json();
-
+    
             if (response.ok) {
                 setMaterialPo(data.content);
                 setPagination({
@@ -87,7 +86,6 @@ const useMaterialPo = () => {
                     currentPage: data.number + 1,
                     itemsPerPage: data.size,
                 });
-
             } else {
                 toast.error(`${data.errorMessage}`);
             }
@@ -95,7 +93,8 @@ const useMaterialPo = () => {
             console.error(error);
             toast.error("An error occurred");
         }
-    }
+    };
+    
 
     const GetMaterialPoById = async (id) => {
         try {

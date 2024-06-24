@@ -3,7 +3,7 @@ import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Pagination from '../Pagination/Pagination';
-import useStockJournal from '../../hooks/useStockJournel.js';
+import useStockJournal from '../../hooks/useStockJournel';
 
 const ViewStockJournel = () => {
     const { stockJournal, ViewStock, handleDelete, handleUpdate, handlePageChange, pagination } = useStockJournal();

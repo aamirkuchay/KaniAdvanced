@@ -35,7 +35,7 @@ export const DELETE_MATERIAL_URL = `${BASE_URL}/material/delete/`;
 
 export const ADD_MATERIALPO_URL = `${BASE_URL}/purchaseOrder`;
 export const GET_MATERIALPO_BY_ID_URL = `${BASE_URL}/purchaseOrder`;
-export const GET_MATERIALPO_URL = `${BASE_URL}/purchaseOrder`;
+export const GET_MATERIALPO_URL = `${BASE_URL}/purchaseOrder/search`;
 export const UPDATE_MATERIALPO_URL = `${BASE_URL}/purchaseOrder/updatePurchase`;
 export const DELETE_MATERIALPO_URL = `${BASE_URL}/purchaseOrder/`;
 
@@ -51,7 +51,7 @@ export const GET_COLOR_URL = `${BASE_URL}/colors`
 
 //create Inventory Material
 export const ADD_INVENTORY_URL = `${BASE_URL}/inventory`
-export const GET_INVENTORY_URL = `${BASE_URL}/inventory`
+export const GET_INVENTORY_URL = `${BASE_URL}/inventory/search`
 export const UPDATE_INVENTORY_URL = `${BASE_URL}/inventory`
 export const GET_INVENTORYBYID_URL = `${BASE_URL}/inventory`
 export const DELETE_INVENTORY_URL = `${BASE_URL}/inventory`
