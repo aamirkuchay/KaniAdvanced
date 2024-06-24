@@ -201,6 +201,7 @@ const ViewMaterialPo = () => {
                         ref={flatpickrRef}
                         type="text"
                         value={dateSelected}
+                        placeholder='Pick A Date'
                         className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                     <ErrorMessage name="date" component="div" className="text-red-500" />
@@ -211,7 +212,7 @@ const ViewMaterialPo = () => {
         <div className="mt-6 flex justify-center">
             <button
                 type="submit"
-                className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 w-[150px]"
             >
                 Search
             </button>
