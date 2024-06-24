@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { ADD_STOCKJOURNEL_URL ,GET_STOCK_URL} from '../Constants/utils';
+import { ADD_STOCKJOURNEL_URL ,GET_STOCK_URL,UPDATE_STOCK_URL,DELETE_STOCK_URL} from '../Constants/utils';
 import { fetchunit } from '../redux/Slice/UnitSlice';
 import { fetchcolorGroup } from '../redux/Slice/ColorGroupSlice';
 
@@ -137,10 +137,70 @@ const useStockJournel = () => {
         }
     };
 
-    const handleDelete = async (e, id) => {
-        // Implement the delete functionality
-        console.log("Delete item with id:", id);
-    };
+    const handleUpdateSubmit = async (values) => {
+  
+              console.log(values,"jujujuju");
+      try {
+          const url = `${UPDATE_STOCK_URL }/${values?.stockId}`;
+ 
+          const response = await fetch(url, {
+              method: "PUT",
+              headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`
+              },
+              body: JSON.stringify(values)
+          });
+
+          const data = await response.json();
+          if (response.ok) {
+           console.log(data,"coming ");
+          
+              toast.success(`Stock Updated successfully`);
+              // navigate('/inventory/viewMaterialInventory');
+
+          } else {
+              toast.error(`${data.errorMessage}`);
+          }
+      } catch (error) {
+          console.error(error);
+          toast.error("An error occurred");
+      } finally {
+       
+      }
+
+  };
+
+
+
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
+    try {
+        const response = await fetch(`${DELETE_STOCK_URL}/${id}`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        const data = await response.json();
+        if (response.ok) {
+            toast.success(data.message);
+            const isCurrentPageEmpty = stockJournal.length === 1;
+            if (isCurrentPageEmpty && pagination.currentPage > 1) {
+                const previousPage = pagination.currentPage - 1;
+                handlePageChange(previousPage);
+            } else {
+              ViewStock(pagination.currentPage);
+            }
+        } else {
+            toast.error(data.errorMessage);
+        }
+    } catch (error) {
+        console.error(error);
+        toast.error("An error occurred");
+    }
+};
 
     // const handleUpdate = async (e, item) => {
     //     // Implement the update functionality
@@ -170,12 +230,12 @@ const useStockJournel = () => {
     return {
         currentstockJournel,
       
-        handleSubmit,
+         handleSubmit,
         typeValues,
 
 
 
-
+         handleUpdateSubmit,
         ViewStock,
         stockJournal,
         handleDelete,
