@@ -30,7 +30,6 @@ const ViewMaterialPo = () => {
         setSupplierSel(formatOptions(supplier.data, 'name', 'id', 'supplierObject'));
         setStatusSel(formatStatusOptions());
     }, [location, supplier]);
-    console.log(locationSel,"hyeeeeeeeeeeeee");
     
     useEffect(() => {
         if (flatpickrRef.current) {
@@ -66,8 +65,9 @@ const ViewMaterialPo = () => {
     const customStyles = createCustomStyles(theme?.mode);
 
     const handleViewMaterialPos = (materialPos) => {
-        setSelectedMaterialPos(materialPos);
         setShowModal(true);
+        setSelectedMaterialPos(materialPos);
+        console.log("View Material button clicked, materialPos:", materialPos);
     };
 
     const renderTableRows = () => {
@@ -82,11 +82,11 @@ const ViewMaterialPo = () => {
                 </tr>
             );
         }
-    
+
         const startingSerialNumber = (pagination.currentPage - 1) * pagination.itemsPerPage + 1;
-    
+
         return materialPo.map((item, index) => (
-            <tr key={index} className="bg-white dark:bg-slate-700 dark:text-white">
+            <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
                         {startingSerialNumber + index}
@@ -103,28 +103,25 @@ const ViewMaterialPo = () => {
                     </p>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                    <p className="text-gray-900 whitespace-no-wrap">
-                        {new Date(item.date).toLocaleDateString()}
-                    </p>
+                    <p className="text-gray-900 whitespace-no-wrap">{new Date(item.date).toLocaleDateString()}</p>
                 </td>
                 <td className="px-2 py-5 border-b border-gray-200 text-sm md:text-lg">
                     <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 w-[100px] md:py-2 md:px-1 text-xs md:text-md rounded"
-                        onClick={() => handleViewMaterialPos(item.materialPos)}
+                        onClick={() => handleViewMaterialPos(item?.materialPos)}
                     >
                         View Material
                     </button>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
                     <p className="flex text-gray-900 whitespace-no-wrap">
-                        <FiEdit size={17} className="text-teal-500 hover:text-teal-700 mx-2" onClick={(e) => handleUpdate(e, item)} title="Edit Material PO" />  |
-                        <FiTrash2 size={17} className="text-red-500 hover:text-red-700 mx-2" onClick={(e) => handleDelete(e, item?.id)} title="Delete Material PO" />
+                        <FiEdit size={17} className='text-teal-500 hover:text-teal-700 mx-2' onClick={(e) => handleUpdate(e, item)} title='Edit Material PO' />  |
+                        <FiTrash2 size={17} className='text-red-500 hover:text-red-700 mx-2' onClick={(e) => handleDelete(e, item?.id)} title='Delete Material PO' />
                     </p>
                 </td>
             </tr>
         ));
     };
-    
 
     return (
         <DefaultLayout>
@@ -149,13 +146,7 @@ const ViewMaterialPo = () => {
                                 status: "",
                             }}
                             onSubmit={(values, actions) => {
-                                console.log(values,"frommmmmmmmmmmmmm");
-                                
                                 values.date = dateSelected;
-                                // if (!dateSelected) {
-                                //     toast.error("Please select a date");
-                                //     return;
-                                // }
                                 ViewMaterialPo(pagination.currentPage, values);
                             }}
                         >
@@ -163,12 +154,6 @@ const ViewMaterialPo = () => {
                                 <Form>
                                   <div className="flex flex-col gap-9">
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-3">
-        {/* <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
-            <h3 className="text-2xl font-semibold leading-tight text-center">
-                View Purchase Order
-            </h3>
-        </div> */}
-        
         <div className="mb-4.5 flex flex-wrap gap-6">
             <div className="flex-1 min-w-[300px]">
                 <label className="block text-sm font-medium text-gray-700">Location</label>
@@ -269,7 +254,7 @@ const ViewMaterialPo = () => {
                     </div>
 
                     <MaterialPoModal
-                        isOpen={showModal}
+                        show={showModal}
                         onClose={() => setShowModal(false)}
                         materialPos={selectedMaterialPos}
                     />
