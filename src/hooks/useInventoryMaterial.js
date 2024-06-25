@@ -236,9 +236,9 @@ const useInventoryMaterial = () => {
         }
     };
 
-    const handlePageChange = (newPage) => {
-        setPagination((prev) => ({ ...prev, currentPage: newPage }));
-        ViewInventory(newPage, locationValue?.value, descriptionValue?.value);
+    const handlePageChange = (page) => {
+        console.log(page,"pageeeeeeeeeee");
+        ViewInventory(page);
     };
 
     return {
