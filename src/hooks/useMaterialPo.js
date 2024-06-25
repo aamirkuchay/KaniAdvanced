@@ -65,6 +65,7 @@ const useMaterialPo = () => {
     }, []);
 
     const ViewMaterialPo = async (page, filters = {}) => {
+        console.log(filters,"backkkkkkkkk");
         try {
             const response = await fetch(`${GET_MATERIALPO_URL}?page=${page || 1}`, {
                 method: "POST",
