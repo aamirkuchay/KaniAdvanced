@@ -65,11 +65,6 @@ const useStockJournel = () => {
 
 
 
-
-
-
- 
-
     const handleSubmit = async (formattedValues) => {
         console.log(formattedValues,"kikikikiki");
      
@@ -107,23 +102,23 @@ const useStockJournel = () => {
 
 
 
-      const ViewStock = async (page = 1) => {
+      const ViewStock = async (page = 1, filters = {}) => {
+        console.log(filters,"juuuuuuuuuuuu");
         try {
             const response = await fetch(`${GET_STOCK_URL}?page=${page}`, {
-                method: "GET",
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
-                }
+                },
+                body: JSON.stringify(filters)
             });
-
+    
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
+    
             const data = await response.json();
-            console.log("Fetched data: ", data); // Debugging statement
-
             setStockJournal(data?.content);
             setPagination({
                 totalItems: data?.totalElements,
@@ -136,6 +131,7 @@ const useStockJournel = () => {
             toast.error("Failed to fetch Inventory");
         }
     };
+    
 
     const handleUpdateSubmit = async (values) => {
   

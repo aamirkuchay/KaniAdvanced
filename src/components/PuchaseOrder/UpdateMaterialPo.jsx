@@ -28,7 +28,7 @@ const UpdateMaterialPo = () => {
 
     const [materialPos, setMaterialPos] = useState([]);
     const [locationSel, setLocationSel] = useState([]);
-    const [supplierSel, setSupplierSel] = useState([]);
+    const [supplierSel, setSupplierSel] = useState([]); 
     const [materialSel, setMaterialSel] = useState([]);
     const flatpickrRef = useRef(null);
     const [dateSelected, setDateSelected] = useState('');
