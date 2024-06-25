@@ -82,7 +82,7 @@ const useMaterialPo = () => {
                 setMaterialPo(data.content);
                 setPagination({
                     totalItems: data.totalElements,
-                    data: data.content,
+                    // data: data.content,
                     totalPages: data.totalPages,
                     currentPage: data.number + 1,
                     itemsPerPage: data.size,
@@ -123,10 +123,10 @@ const useMaterialPo = () => {
             toast.error("An error occurred");
         }
     }
-    const handlePageChange = (newPage) => {
-        setPagination((prev) => ({ ...prev, currentPage: newPage }));
-        ViewMaterialPo(newPage); // API is 0-indexed for pages
+    const handlePageChange = (page) => {
+        ViewMaterialPo(page);
     };
+    
 
     const handleDelete = async (e, id) => {
 
