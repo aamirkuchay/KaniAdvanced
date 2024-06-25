@@ -155,7 +155,7 @@ const UpdateStockJournal = () => {
   useEffect(() => {
     setInitialStatus(stockJournal?.journalStatus)
    
-  }, [])
+  }, [stockJournal?.journalStatus])
   
 
   const FormFieldsLeft = ({ values, setFieldValue }) => (
