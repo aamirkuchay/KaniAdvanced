@@ -258,7 +258,7 @@ const ViewMaterialPo = () => {
                                     totalPages={pagination.totalPages}
                                     totalItems={pagination.totalItems}
                                     itemsPerPage={pagination.itemsPerPage}
-                                    onPageChange={handlePageChange}
+                                    handlePageChange={handlePageChange}
                                 />
                             </div>
                         </div>
