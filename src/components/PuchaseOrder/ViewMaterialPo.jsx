@@ -24,13 +24,13 @@ const ViewMaterialPo = () => {
     const [supplierSel, setSupplierSel] = useState([]);
     const [statusSel, setStatusSel] = useState([]);
     const [dateSelected, setDateSelected] = useState('');
-    
+
     useEffect(() => {
-        setLocationSel(formatOptions(location.data, 'address', 'id', 'locationObject'));
-        setSupplierSel(formatOptions(supplier.data, 'name', 'id', 'supplierObject'));
+        setLocationSel(formatOptions(location.data, 'address', 'id', 'locationObject', 'Select Location'));
+        setSupplierSel(formatOptions(supplier.data, 'name', 'id', 'supplierObject', 'Select Supplier'));
         setStatusSel(formatStatusOptions());
     }, [location, supplier]);
-    
+
     useEffect(() => {
         if (flatpickrRef.current) {
             flatpickr(flatpickrRef.current, {
@@ -49,17 +49,19 @@ const ViewMaterialPo = () => {
 
     const formatStatusOptions = () => {
         return [
+            { value: '', label: 'Select Status' },
             { value: 'Approved', label: 'Approved' },
             { value: 'Rejected', label: 'Rejected' },
         ];
     };
 
-    const formatOptions = (data, labelKey, valueKey, objectKey) => {
-        return data ? data.map(item => ({
-            value: item[valueKey],
-            label: item[labelKey],
-            [objectKey]: item
-        })) : [];
+    const formatOptions = (data, labelKey, valueKey, objectKey, placeholder) => {
+        return [{ value: '', label: "Select" }]
+            .concat(data ? data.map(item => ({
+                value: item[valueKey],
+                label: item[labelKey],
+                [objectKey]: item
+            })) : []);
     };
 
     const customStyles = createCustomStyles(theme?.mode);
@@ -123,6 +125,17 @@ const ViewMaterialPo = () => {
         ));
     };
 
+    const handleSubmit = (values) => {
+        console.log(values, "logggingggggggg");
+        const filters = {
+            date: dateSelected || undefined,
+            address: values.address || undefined,
+            name: values.name || undefined,
+            status: values.status || undefined,
+        };
+        ViewMaterialPo(pagination.currentPage, filters);
+    };
+
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Material/ View Material PO" />
@@ -145,80 +158,77 @@ const ViewMaterialPo = () => {
                                 name: "",
                                 status: "",
                             }}
-                            onSubmit={(values, actions) => {
-                                values.date = dateSelected;
-                                ViewMaterialPo(pagination.currentPage, values);
-                            }}
+                            onSubmit={handleSubmit}
                         >
                             {({ setFieldValue, values }) => (
                                 <Form>
-                                  <div className="flex flex-col gap-9">
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-3">
-        <div className="mb-4.5 flex flex-wrap gap-6">
-            <div className="flex-1 min-w-[300px]">
-                <label className="block text-sm font-medium text-gray-700">Location</label>
-                <Field
-                    name="address"
-                    component={ReactSelect}
-                    options={locationSel}
-                    styles={customStyles}
-                    placeholder="Select Location"
-                    value={locationSel.find(option => option.label === values.address)}
-                    onChange={option => setFieldValue("address", option.label)}
-                />
-            </div>
+                                    <div className="flex flex-col gap-9">
+                                        <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-3">
+                                            <div className="mb-4.5 flex flex-wrap gap-6">
+                                                <div className="flex-1 min-w-[300px]">
+                                                    <label className="block text-sm font-medium text-gray-700">Location</label>
+                                                    <Field
+                                                        name="address"
+                                                        component={ReactSelect}
+                                                        options={locationSel}
+                                                        styles={customStyles}
+                                                        placeholder="Select Location"
+                                                        value={locationSel.find(option => option.label === values.address)}
+                                                        onChange={option => setFieldValue("address", option?.label === "Select" ? "" : option?.label || '')}
+                                                    />
+                                                </div>
 
-            <div className="flex-1 min-w-[300px]">
-                <label className="block text-sm font-medium text-gray-700">Supplier</label>
-                <Field
-                    name="name"
-                    component={ReactSelect}
-                    options={supplierSel}
-                    styles={customStyles}
-                    placeholder="Select Supplier"
-                    value={supplierSel.find(option => option.label === values.name)}
-                    onChange={option => setFieldValue("name", option?.label)}
-                />
-            </div>
+                                                <div className="flex-1 min-w-[300px]">
+                                                    <label className="block text-sm font-medium text-gray-700">Supplier</label>
+                                                    <Field
+                                                        name="name"
+                                                        component={ReactSelect}
+                                                        options={supplierSel}
+                                                        styles={customStyles}
+                                                        placeholder="Select Supplier"
+                                                        value={supplierSel.find(option => option.label === values.name)}
+                                                        onChange={option => setFieldValue("name", option?.label === "Select" ? "" : option?.label || '')}
+                                                    />
+                                                </div>
 
-            <div className="flex-1 min-w-[300px]">
-                <label className="block text-sm font-medium text-gray-700">Status</label>
-                <Field
-                    name="status"
-                    component={ReactSelect}
-                    options={statusSel}
-                    styles={customStyles}
-                    placeholder="Select Status"
-                    value={statusSel.find(option => option.value === values.status)}
-                    onChange={option => setFieldValue("status", option.value)}
-                />
-            </div>
+                                                <div className="flex-1 min-w-[300px]">
+                                                    <label className="block text-sm font-medium text-gray-700">Status</label>
+                                                    <Field
+                                                        name="status"
+                                                        component={ReactSelect}
+                                                        options={statusSel}
+                                                        styles={customStyles}
+                                                        placeholder="Select Status"
+                                                        value={statusSel.find(option => option.value === values.status)}
+                                                        onChange={option => setFieldValue("status", option?.value || '')}
+                                                    />
+                                                </div>
 
-            <div className="flex-1 min-w-[300px]">
-                <label className="block text-sm font-medium text-gray-700">Date</label>
-                <div className="relative">
-                    <input
-                        ref={flatpickrRef}
-                        type="text"
-                        value={dateSelected}
-                        placeholder='Pick A Date'
-                        className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    />
-                    <ErrorMessage name="date" component="div" className="text-red-500" />
-                </div>
-            </div>
-        </div>
-        
-        <div className="mt-6 flex justify-center">
-            <button
-                type="submit"
-                className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 w-[150px]"
-            >
-                Search
-            </button>
-        </div>
-    </div>
-</div>
+                                                <div className="flex-1 min-w-[300px]">
+                                                    <label className="block text-sm font-medium text-gray-700">Date</label>
+                                                    <div className="relative">
+                                                        <input
+                                                            ref={flatpickrRef}
+                                                            type="text"
+                                                            value={dateSelected}
+                                                            placeholder='Pick A Date'
+                                                            className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                                        />
+                                                        <ErrorMessage name="date" component="div" className="text-red-500" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-6 flex justify-center">
+                                                <button
+                                                    type="submit"
+                                                    className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 w-[150px]"
+                                                >
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </Form>
                             )}
