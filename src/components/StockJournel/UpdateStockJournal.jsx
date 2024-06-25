@@ -281,7 +281,7 @@ const UpdateStockJournal = () => {
             styles={customStyles}
             className="bg-white dark:bg-form-input"
             classNamePrefix="react-select"
-             isDisabled={values.journalStatus == "Approved"}
+             //isDisabled={values.journalStatus == "Approved"}
             placeholder="Select Journal Status"
           />
           <ErrorMessage name="journalStatus" component="div" className="text-red-600 text-sm" />
