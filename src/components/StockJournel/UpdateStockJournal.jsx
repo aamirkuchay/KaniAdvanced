@@ -18,6 +18,7 @@ const UpdateStockJournal = () => {
   const theme = useSelector(state => state?.persisted?.theme);
   const material = useSelector(state => state?.nonPersisted?.material);
   const location = useSelector(state => state?.nonPersisted?.location);
+  const [initialStatus, setInitialStatus] = useState('');
   const { typeValues, handleUpdateSubmit } = useStockJournel();
   const stockId = id;
   const [stockJournal, setStockJournal] = useState(null);
@@ -115,6 +116,7 @@ const UpdateStockJournal = () => {
     fetchStockJournal();
   }, [id, token]);
 
+// console.log(stockJournal.journalStatus,"heyyyyyyyy");
 
 
   const validationSchema = Yup.object({
@@ -150,6 +152,11 @@ const UpdateStockJournal = () => {
     setFieldValue('destinationType', option);
     setFieldValue('destinationMaterial', null);
   };
+  useEffect(() => {
+    setInitialStatus(stockJournal?.journalStatus)
+   
+  }, [])
+  
 
   const FormFieldsLeft = ({ values, setFieldValue }) => (
     <div className="flex-1 min-w-[300px] border border-stroke p-6.5 rounded-sm shadow-default bg-white dark:border-strokedark dark:bg-boxdark">
@@ -281,7 +288,7 @@ const UpdateStockJournal = () => {
             styles={customStyles}
             className="bg-white dark:bg-form-input"
             classNamePrefix="react-select"
-             //isDisabled={values.journalStatus == "Approved"}
+             isDisabled={initialStatus == "Approved"}
             placeholder="Select Journal Status"
           />
           <ErrorMessage name="journalStatus" component="div" className="text-red-600 text-sm" />
