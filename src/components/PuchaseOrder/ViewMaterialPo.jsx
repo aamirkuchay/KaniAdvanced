@@ -107,6 +107,11 @@ const ViewMaterialPo = () => {
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">{new Date(item.date).toLocaleDateString()}</p>
                 </td>
+                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                    <p className="text-gray-900 whitespace-no-wrap">
+                        {item.status}
+                    </p>
+                </td>
                 <td className="px-2 py-5 border-b border-gray-200 text-sm md:text-lg">
                     <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 w-[100px] md:py-2 md:px-1 text-xs md:text-md rounded"
@@ -115,6 +120,7 @@ const ViewMaterialPo = () => {
                         View Material
                     </button>
                 </td>
+               
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
                     <p className="flex text-gray-900 whitespace-no-wrap">
                         <FiEdit size={17} className='text-teal-500 hover:text-teal-700 mx-2' onClick={(e) => handleUpdate(e, item)} title='Edit Material PO' />  |
@@ -244,6 +250,7 @@ const ViewMaterialPo = () => {
                                         <th scope="col" className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Location</th>
                                         <th scope="col" className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Supplier</th>
                                         <th scope="col" className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Date</th>
+                                        <th scope="col" className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Status</th>
                                         <th scope="col" className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Material</th>
                                         <th scope="col" className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
                                     </tr>
