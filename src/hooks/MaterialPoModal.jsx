@@ -37,7 +37,7 @@ const MaterialPoModal = ({ show, onClose, materialPos }) => {
                             </thead>
                             <tbody>
                                 {materialPos.map((po, idx) => (
-                                    <tr key={idx} className='bg-white'>
+                                    <tr key={idx} className=' bg-white dark:bg-slate-700 text-white'>
                                         <td className="px-5 py-5 border-b border-gray-200 text-sm">
                                             {idx + 1}
                                         </td>
