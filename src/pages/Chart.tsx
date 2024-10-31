@@ -11,7 +11,7 @@ const Chart = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="" />
-      <h3 className="text-4xl dark:text-white">Welcome to Kani Application</h3>
+      <h3 className="text-4xl dark:text-white">Dashboard</h3>
       <div className="grid grid-cols-1 gap-4 my-10 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
         <CardDataStats
           title="Total Material Po"
