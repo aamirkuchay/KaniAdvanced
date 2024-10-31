@@ -55,7 +55,7 @@ const useSupplier = () => {
     const getSupplier = async (page) => {
         try {
           
-            const response = await fetch(`${GET_SUPPLIER_URL}?page=${page||0}`, {
+            const response = await fetch(`${GET_SUPPLIER_URL}?page=${page||1}`, {
                 method: "GET",
                 headers: {
                     
