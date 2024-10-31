@@ -6,13 +6,13 @@ const PrivateRoute = () => {
   const { currentUser } = useSelector((state) => state.persisted.user);
 
   useEffect(() => {
+    console.log("heyyyyyyyy");
     if (!currentUser) {
-      console.log("no user");
-      // Optionally, you can log out user from the store or perform any other cleanup if necessary
+      console.log("No user");
+      // Optionally handle cleanup
     }
-  }, [currentUser]);
+  }, []);
 
-  // Redirect to signin if there's no currentUser
   return currentUser ? <Outlet /> : <Navigate to="/auth/signin" />;
 };
 

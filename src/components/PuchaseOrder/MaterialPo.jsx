@@ -186,7 +186,7 @@ const MaterialPo = () => {
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-scroll ">
+                                        <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-scroll sm:overflow-hidden ">
                                             <div
                                                 className="inline-block min-w-full shadow-md rounded-lg "
                                             >
