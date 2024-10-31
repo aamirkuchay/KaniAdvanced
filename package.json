@@ -33,7 +33,7 @@
     "sort-by": "^0.0.2",
     "yup": "^1.4.0"
   },
-  "proxy": "http://localhost:8081",
+  "proxy": "http://localhost:8072",
   "devDependencies": {
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
