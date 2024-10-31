@@ -55,13 +55,15 @@ const useSupplier = () => {
     const getSupplier = async (page) => {
         try {
           
-            const response = await fetch(`${GET_SUPPLIER_URL}?page=${page}`, {
-                method: "GET",
+            const response = await fetch(
+              `${GET_SUPPLIER_URL}?page=${page || 0}`,
+              {
+                method: 'GET',
                 headers: {
-                    
-                    "Authorization": `Bearer ${token}`
-                }
-            });
+                  Authorization: `Bearer ${token}`,
+                },
+              },
+            );
             const data = await response.json();
            
            
