@@ -171,26 +171,26 @@ const MaterialPo = () => {
                                             </div>
                                         </div>
 
-                                        <div className="flex flex-col sm:overflow-x-auto">
+                                        <div className="flex flex-col overflow-x-auto sm:overflow-hidden">
                                             <div className="flex justify-between mt-15">
-                                                <h2 className='text-2xl font-semibold leading-tight text-center'>
+                                                <h2 className='text-xl font-semibold leading-tight text-center'>
                                                     Material PO Items
                                                 </h2>
                                                 <button
                                                     type="button"
                                                     onClick={() => addRow(setValues, values)}
-                                                    className="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                                                    className="flex items-center w-[100px] h-[50px] text-xs px-4 py-2 border border-transparent  font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                                                 >
                                                     <IoMdAdd className="mr-2" size={20} />
                                                     Add Row
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 ">
+                                        <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-scroll ">
                                             <div
                                                 className="inline-block min-w-full shadow-md rounded-lg "
                                             >
-                                                <table className="min-w-full leading-normal">
+                                                <table className="min-w-full leading-normal overflow-auto">
                                                     <thead>
                                                         <tr className='px-5 py-3 bg-slate-300 dark:bg-slate-700 dark:text-white'>
                                                             <th
@@ -301,7 +301,7 @@ const MaterialPo = () => {
 
                                             </div>
                                         </div>
-                                        <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
+                                        <button type="submit" className="flex w-[150px] sm:w-full items-center justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
                                             Save Purchase
                                         </button>
                                     </div>
