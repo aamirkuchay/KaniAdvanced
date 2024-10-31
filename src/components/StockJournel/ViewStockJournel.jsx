@@ -126,7 +126,7 @@ const ViewStockJournel = () => {
                         >
                             {({ setFieldValue, values }) => (
                                 <Form>
-                                    <div className="flex flex-col gap-9">
+                                    <div className="flex flex-col gap-9 mt-8">
                                         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-3">
                                             <div className="mb-4.5 flex flex-wrap gap-6">
                                                 <div className="flex-1 min-w-[300px]">
@@ -210,6 +210,8 @@ const ViewStockJournel = () => {
                             totalPages={pagination.totalPages}
                             currentPage={pagination.currentPage}
                             handlePageChange={handlePageChange}
+                            totalItems={pagination.totalItems}
+                            itemsPerPage={pagination.itemsPerPage}
                         />
                     </div>
                 </div>

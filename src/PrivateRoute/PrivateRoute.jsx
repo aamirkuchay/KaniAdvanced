@@ -1,17 +1,18 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Outlet, Navigate, useLocation } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 
 const PrivateRoute = () => {
   const { currentUser } = useSelector((state) => state.persisted.user);
-  
+
   useEffect(() => {
     if (!currentUser) {
-      window.location.reload();
+      console.log("no user");
+      // Optionally, you can log out user from the store or perform any other cleanup if necessary
     }
   }, [currentUser]);
 
+  // Redirect to signin if there's no currentUser
   return currentUser ? <Outlet /> : <Navigate to="/auth/signin" />;
 };
 

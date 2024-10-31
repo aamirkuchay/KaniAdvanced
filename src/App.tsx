@@ -51,21 +51,28 @@ import ViewStockJournel from './components/StockJournel/ViewStockJournel.jsx';
 import UpdateStockJournal from './components/StockJournel/UpdateStockJournal.jsx';
 
 
-AddStockJournel
 
 import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   const [loading, setLoading] = useState(true);
   const { pathname } = useLocation();
 
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
+ 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
+
+  // useEffect(() => {
+  //   if (!currentUser) {
+  //     // Optionally clear any necessary state
+  //   }
+  // }, [currentUser]);
 
   return loading ? (
     <Loader />
