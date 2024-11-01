@@ -24,7 +24,7 @@
     background: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
     padding: 20px; /* Optional: padding */
     box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
-    backdrop-filter: blur(10px); /* Apply blur to the form background */
+    backdrop-filter: blur(7px); /* Apply blur to the form background */
     border-radius: 10px; /* Optional: rounded corners */
   }
   
