@@ -55,10 +55,15 @@ const useSupplier = () => {
     const getSupplier = async (page) => {
         try {
           
+<<<<<<< HEAD
             const response = await fetch(
               `${GET_SUPPLIER_URL}?page=${page || 0}`,
               {
                 method: 'GET',
+=======
+            const response = await fetch(`${GET_SUPPLIER_URL}?page=${page||1}`,  {
+                method: "GET",
+>>>>>>> fcfa1e12303633f5a7647789fa751010a6ce53d4
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },

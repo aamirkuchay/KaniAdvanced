@@ -14,6 +14,8 @@ import Profile from './pages/Profile.js';
 import Settings from './pages/Settings.js';
 import Tables from './pages/Tables.js';
 import Alerts from './pages/UiElements/Alerts.js';
+import PageNotFOund from './pages/PageNotFOund.jsx';
+
 import Buttons from './pages/UiElements/Buttons.js';
 import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 import Budget from './components/Configurator/Budget.jsx';
@@ -213,263 +215,265 @@ function App() {
               </>
             }
           />
-        </Route>
 
-        {/* configurator */}
-        <Route
-          path="/configurator/addbudget"
-          element={
-            <>
-              <PageTitle title="Budget" />
-              <Budget />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/addSize"
-          element={
-            <>
-              <PageTitle title="Size" />
-              <Size />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/adddesign"
-          element={
-            <>
-              <PageTitle title="Size" />
-              <Design />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/suplier"
-          element={
-            <>
-              <PageTitle title="Size" />
-              <Supplier />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/addStyle"
-          element={
-            <>
-              <PageTitle title="Style" />
-              <Style />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/addCurrency"
-          element={
-            <>
-              <PageTitle title="Currency" />
-              <Currency />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/addunit"
-          element={
-            <>
-              <PageTitle title="Unit" />
-              <Unit />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/addproductgroup"
-          element={
-            <>
-              <PageTitle title="Add Product Group" />
-              <ProductGroup />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/addcolorgroup"
-          element={
-            <>
-              <PageTitle title="Add Color Group" />
-              <AddColorGroup />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/addproductcategory"
-          element={
-            <>
-              <PageTitle title="Add Product Category" />
-              <AddProductCategory />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/addcustomergroup"
-          element={
-            <>
-              <PageTitle title="Add Customer Group" />
-              <CustomerGroup />
-            </>
-          }
-        />
 
-        {/* seperate routes */}
+          {/* configurator */}
+          <Route
+            path="/configurator/addbudget"
+            element={
+              <>
+                <PageTitle title="Budget" />
+                <Budget />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/addSize"
+            element={
+              <>
+                <PageTitle title="Size" />
+                <Size />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/adddesign"
+            element={
+              <>
+                <PageTitle title="Size" />
+                <Design />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/suplier"
+            element={
+              <>
+                <PageTitle title="Size" />
+                <Supplier />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/addStyle"
+            element={
+              <>
+                <PageTitle title="Style" />
+                <Style />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/addCurrency"
+            element={
+              <>
+                <PageTitle title="Currency" />
+                <Currency />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/addunit"
+            element={
+              <>
+                <PageTitle title="Unit" />
+                <Unit />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/addproductgroup"
+            element={
+              <>
+                <PageTitle title="Add Product Group" />
+                <ProductGroup />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/addcolorgroup"
+            element={
+              <>
+                <PageTitle title="Add Color Group" />
+                <AddColorGroup />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/addproductcategory"
+            element={
+              <>
+                <PageTitle title="Add Product Category" />
+                <AddProductCategory />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/addcustomergroup"
+            element={
+              <>
+                <PageTitle title="Add Customer Group" />
+                <CustomerGroup />
+              </>
+            }
+          />
 
-        <Route
-          path="/supplier/add"
-          element={
-            <>
-              <PageTitle title="Add Weaver Emb" />
-              <AddSupplier />
-            </>
-          }
-        />
+          {/* seperate routes */}
 
-        <Route
-          path="/supplier/view"
-          element={
-            <>
-              <PageTitle title="View Weaver Emb" />
-              <ViewSupplier />
-            </>
-          }
-        />
+          <Route
+            path="/supplier/add"
+            element={
+              <>
+                <PageTitle title="Add Weaver Emb" />
+                <AddSupplier />
+              </>
+            }
+          />
 
-        <Route
-          path="/customer/addCustomer"
-          element={
-            <>
-              <PageTitle title="Add Weaver Emb" />
-              <AddCustomer />
-            </>
-          }
-        />
-        <Route
-          path="/customer/viewCustomer"
-          element={
-            <>
-              <PageTitle title="Add Weaver Emb" />
-              <ViewCustomer />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/location"
-          element={
-            <>
-              <PageTitle title="Add Customer Group" />
-              <Location />
-            </>
-          }
-        />
-        <Route
-          path="/configurator/addunit"
-          element={
-            <>
-              <PageTitle title="Add Customer Group" />
-              <Unit />
-            </>
-          }
-        />
+          <Route
+            path="/supplier/view"
+            element={
+              <>
+                <PageTitle title="View Weaver Emb" />
+                <ViewSupplier />
+              </>
+            }
+          />
 
-        {/* purchase orders */}
-        <Route
-          path="/material/addPurchase"
-          element={
-            <>
-              <PageTitle title="Add Customer Group" />
-              <MaterialPo />
-            </>
-          }
-        />
-        <Route
-          path="/material/viewPurchase"
-          element={
-            <>
-              <PageTitle title="Add Customer Group" />
-              <ViewMaterialPo />
-            </>
-          }
-        />
-        <Route
-          path="/material/updatematerialPo/:id"
-          element={
-            <>
-              <PageTitle title="Update Customer Group" />
-              <UpdateMaterialPo />
-            </>
-          }
-        />
-        <Route
-          path="/supplier/updateSupplier/:id"
-          element={
-            <>
-              <PageTitle title="Update Customer Group" />
-              <UpdateSupplier />
-            </>
-          }
-        />
-        <Route
-          path="/inventory/addMaterialInventory"
-          element={
-            <>
-              <PageTitle title="Inventory" />
-              <CreateMaterialInventory />
-            </>
-          }
-        />
+          <Route
+            path="/customer/addCustomer"
+            element={
+              <>
+                <PageTitle title="Add Weaver Emb" />
+                <AddCustomer />
+              </>
+            }
+          />
+          <Route
+            path="/customer/viewCustomer"
+            element={
+              <>
+                <PageTitle title="Add Weaver Emb" />
+                <ViewCustomer />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/location"
+            element={
+              <>
+                <PageTitle title="Add Customer Group" />
+                <Location />
+              </>
+            }
+          />
+          <Route
+            path="/configurator/addunit"
+            element={
+              <>
+                <PageTitle title="Add Customer Group" />
+                <Unit />
+              </>
+            }
+          />
 
-        <Route
-          path="/inventory/viewMaterialInventory"
-          element={
-            <>
-              <PageTitle title="Inventory" />
-              <ViewMaterialInventory />
-            </>
-          }
-        />
-        <Route
-          path="/stockjournal/add"
-          element={
-            <>
-              <PageTitle title="Update Customer Group" />
-              <AddStockJournel />
-            </>
-          }
-        />
+          {/* purchase orders */}
+          <Route
+            path="/material/addPurchase"
+            element={
+              <>
+                <PageTitle title="Add Customer Group" />
+                <MaterialPo />
+              </>
+            }
+          />
+          <Route
+            path="/material/viewPurchase"
+            element={
+              <>
+                <PageTitle title="Add Customer Group" />
+                <ViewMaterialPo />
+              </>
+            }
+          />
+          <Route
+            path="/material/updatematerialPo/:id"
+            element={
+              <>
+                <PageTitle title="Update Customer Group" />
+                <UpdateMaterialPo />
+              </>
+            }
+          />
+          <Route
+            path="/supplier/updateSupplier/:id"
+            element={
+              <>
+                <PageTitle title="Update Customer Group" />
+                <UpdateSupplier />
+              </>
+            }
+          />
+          <Route
+            path="/inventory/addMaterialInventory"
+            element={
+              <>
+                <PageTitle title="Inventory" />
+                <CreateMaterialInventory />
+              </>
+            }
+          />
 
-        <Route
-          path="/stockjournal/view"
-          element={
-            <>
-              <PageTitle title="Update Customer Group" />
-              <ViewStockJournel />
-            </>
-          }
-        />
+          <Route
+            path="/inventory/viewMaterialInventory"
+            element={
+              <>
+                <PageTitle title="Inventory" />
+                <ViewMaterialInventory />
+              </>
+            }
+          />
+          <Route
+            path="/stockjournal/add"
+            element={
+              <>
+                <PageTitle title="Update Customer Group" />
+                <AddStockJournel />
+              </>
+            }
+          />
 
-        <Route
-          path="/inventory/updateInventoryMaterial/:id"
-          element={
-            <>
-              <PageTitle title="Update Customer Group" />
-              <UpdateInventoryMaterial />
-            </>
-          }
-        />
+          <Route
+            path="/stockjournal/view"
+            element={
+              <>
+                <PageTitle title="Update Customer Group" />
+                <ViewStockJournel />
+              </>
+            }
+          />
 
-        <Route
-          path="/stockjournel/updateStockJournal/:id"
-          element={
-            <>
-              <PageTitle title="Update Stock Group" />
-              <UpdateStockJournal />
-            </>
-          }
-        />
+          <Route
+            path="/inventory/updateInventoryMaterial/:id"
+            element={
+              <>
+                <PageTitle title="Update Customer Group" />
+                <UpdateInventoryMaterial />
+              </>
+            }
+          />
+
+          <Route
+            path="/stockjournel/updateStockJournal/:id"
+            element={
+              <>
+                <PageTitle title="Update Stock Group" />
+                <UpdateStockJournal />
+              </>
+            }
+          />
+           <Route path="*" element={<PageNotFOund />} />
+    </Route >
       </Routes>
     </>
   );

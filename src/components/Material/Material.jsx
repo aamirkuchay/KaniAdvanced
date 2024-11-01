@@ -156,9 +156,11 @@ const Material = () => {
                                                 <ErrorMessage name="grade" component="div" className="text-red-600 text-sm" />
                                             </div>
                                         </div>
-                                        <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
+                                        <div className="flex justify-center mt-4 items-center">
+                                        <button type="submit" className="flex w-[300px] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
                                             {edit ? "Update Material" : "Add Material"}
                                         </button>
+                                        </div>
                                     </div>
                                 </div>
                                 {!edit && (

@@ -144,15 +144,16 @@ const CreateMaterialInventory = () => {
                       />
                       <ErrorMessage name="minimum" component="div" className="text-red-500" />
                     </div>
-
+                  </div>
+                    <div className="flex justify-center mt-4 mb-4 items-center">
                     <button
                       type="submit"
-                      className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4"
+                      className="flex w-[300px] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4"
                       disabled={isSubmitting}
                     >
                       Create Material
                     </button>
-                  </div>
+                    </div>
                 </div>
               </div>
             </Form>
