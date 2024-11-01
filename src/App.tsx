@@ -14,6 +14,8 @@ import Profile from './pages/Profile.js';
 import Settings from './pages/Settings.js';
 import Tables from './pages/Tables.js';
 import Alerts from './pages/UiElements/Alerts.js';
+import PageNotFOund from './pages/PageNotFOund.jsx';
+
 import Buttons from './pages/UiElements/Buttons.js';
 import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 import Budget from './components/Configurator/Budget.jsx';
@@ -469,6 +471,7 @@ function App() {
               </>
             }
           />
+           <Route path="*" element={<PageNotFOund />} />
     </Route >
       </Routes>
     </>
