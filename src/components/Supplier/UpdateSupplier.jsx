@@ -175,9 +175,9 @@ const UpdateSupplier = () => {
     setRows(newRows);
   };
 
-  // if (!initialValues) {
-  //     return <div>Loading...</div>;
-  // }
+  if (!initialValues) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <DefaultLayout>
