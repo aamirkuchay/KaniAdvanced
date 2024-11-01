@@ -59,6 +59,7 @@ AddStockJournel;
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -70,9 +71,10 @@ function App() {
   const handleLogout = () => {
     dispatch(signoutSuccess());
     navigate('/auth/signin');
+    toast.success('Logout:Session Expired ');
   };
 
-  useInactivity(5 * 60 * 1000, handleLogout);
+  useInactivity(0.5 * 60 * 1000, handleLogout);
 
   useEffect(() => {
     window.scrollTo(0, 0);
