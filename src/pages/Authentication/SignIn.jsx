@@ -3,62 +3,52 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useNavigation } from 'react-router-dom';
 import { signInFailure, signInSuccess, signinStart } from '../../redux/Slice/UserSlice';
 import { SIGNIN_URL } from '../../Constants/utils';
-
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state?.persisted?.user);
-
+  const [error, setError] = useState('');
   const [formData, setformData] = useState({
-    username: "",
-    password: "",
-  })
+    username: '',
+    password: '',
+  });
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!formData.username || !formData.password) {
-      throw new Error("message", "Please Fill All the Fields")
+      throw new Error('message', 'Please Fill All the Fields');
     }
     try {
-      dispatch(signinStart())
+      dispatch(signinStart());
       const res = await fetch(SIGNIN_URL, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-type": "application/json"
-
+          'Content-type': 'application/json',
         },
         body: JSON.stringify(formData),
-      })
+      });
       const data = await res.json();
-      // console.log(data, "dataaaa");
+      console.log(data, 'dataaaa');
       if (res.ok) {
         dispatch(signInSuccess(data));
-        navigate("/");
-
+        navigate('/');
 
         //console.log(currentUser, "mujhepatahai");
-
       } else {
-
-        seterror("invalid credentials");
+        setError('Invalid Credentials');
       }
-
-
     } catch (error) {
-      dispatch(signInFailure())
+      dispatch(signInFailure());
       console.log(error);
     }
-  }
+  };
 
   return (
     <>
-
-
       <div className="rounded-lg border border-stroke lg:w-2/4   mx-auto my-10 bg-white shadow-md dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
-
-
           <div className="w-full border-stroke dark:border-strokedark xl:w-full xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
               <span className="mb-1.5 block font-medium"></span>
@@ -68,17 +58,43 @@ const SignIn = () => {
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
+                  {error && (
+                    <div
+                      className="flex items-center bg-red-100 border-l-4 border-red-500 text-red-700 p-3 mb-3"
+                      role="alert"
+                    >
+                      <svg
+                        className="w-5 h-5 mr-2 text-red-500"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 8v4m0 4h.01M21 12c0 4.971-4.029 9-9 9s-9-4.029-9-9 4.029-9 9-9 9 4.029 9 9z"
+                        />
+                      </svg>
+                      <div>
+                        <p className="font-bold">{error}</p>
+                      </div>
+                    </div>
+                  )}
+
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Username
                   </label>
                   <div className="relative">
                     <input
                       value={formData.username}
-                      onChange={(e) => setformData({
-                        ...formData,
-                        username: e.target.value
-
-                      })}
+                      onChange={(e) =>
+                        setformData({
+                          ...formData,
+                          username: e.target.value,
+                        })
+                      }
                       type="text"
                       placeholder="Enter your Username"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -112,10 +128,12 @@ const SignIn = () => {
                     <input
                       required
                       value={formData.password}
-                      onChange={(e) => setformData({
-                        ...formData,
-                        password: e.target.value
-                      })}
+                      onChange={(e) =>
+                        setformData({
+                          ...formData,
+                          password: e.target.value,
+                        })
+                      }
                       type="password"
                       placeholder="6+ Characters, 1 Capital letter"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -151,7 +169,9 @@ const SignIn = () => {
                     type="submit"
                     value="Sign In"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                  >Sign in</button>
+                  >
+                    Sign in
+                  </button>
                 </div>
                 {/* 
                 <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
