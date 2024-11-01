@@ -301,9 +301,11 @@ const MaterialPo = () => {
 
                                             </div>
                                         </div>
-                                        <button type="submit" className="flex w-[150px] sm:w-full items-center justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
+                                        <div className="flex justify-center mt-4 items-center">
+                                        <button type="submit" className="flex sm:w-[300px] w-[150px] items-center justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
                                             Save Purchase
                                         </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

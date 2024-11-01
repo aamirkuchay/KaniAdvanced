@@ -59,9 +59,12 @@ const AddColorGroup = () => {
                                                 <ErrorMessage name="colorName" component="div" className="text-red-500" />
                                             </div>
                                         </div>
-                                        <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4" disabled={isSubmitting}>
+
+                                        <div className="flex justify-center mt-4 items-center">
+                                        <button type="submit" className="flex w-[300px] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4" disabled={isSubmitting}>
                                             {edit ? 'Update Color' : 'Create Color'}
                                         </button>
+                                        </div>
                                     </div>
 
                                 </div>
