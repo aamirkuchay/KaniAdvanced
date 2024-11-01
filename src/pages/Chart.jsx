@@ -27,39 +27,42 @@ const Chart = () => {
   useEffect(() => {
 
 
-    const count =async()=>{
+    const count = async () => {
 
       try {
 
-        const response = await fetch(Count,{
-          method:"GET",
-          headers:{
-            "content-type":"Application/json",
+        const response = await fetch(Count, {
+          method: "GET",
+          headers: {
+            "content-type": "Application/json",
             "Authorization": `Bearer ${token}`
           }
         })
 
         const count = await response.json();
-      
+
         setunitCount(count)
-        
+
       } catch (error) {
         console.log(error);
-        
+
       }
 
     }
 
     count();
-   
+
   }, []);
 
-  const units = useSelector((state) => state?.nonPersisted?.unit);
 
+  console.log(unitCount, "heyyyy");
 
 
   // Check if units.data is an array and has length, or default to 0
-
+  const countMapping = {};
+unitCount&&unitCount?.forEach(item => {
+    countMapping[item.tableName] = item.count;
+  });
 
 
 
@@ -71,7 +74,7 @@ const Chart = () => {
         <Link to={"/configurator/addunit"}>
           <CardDataStats
             title="Units"
-            total={unitCount[1]?.count|| 0}
+            total={countMapping['unit'] || 0}
 
 
             rate="0.43%"
@@ -84,7 +87,7 @@ const Chart = () => {
         <Link to={"/inventory/viewMaterialInventory"}>
           <CardDataStats
             title="Inventory"
-            total={unitCount[3]?.count|| 0}
+            total={countMapping['inventory'] || 0}
 
 
             rate="0.43%"
@@ -98,7 +101,7 @@ const Chart = () => {
         <Link to={"/material/viewPurchase"}>
           <CardDataStats
             title="Purchase"
-            total={unitCount[6]?.count|| 0}
+            total={countMapping['purchaseOrder'] || 0}
 
 
             rate="0.43%"
@@ -111,7 +114,7 @@ const Chart = () => {
         <Link to={"/material/addmaterial"}>
           <CardDataStats
             title="Material"
-            total={unitCount[4]?.count|| 0}
+            total={countMapping['material'] || 0}
 
 
             rate="0.43%"
@@ -128,7 +131,7 @@ const Chart = () => {
 
 
         <Link to={"/stockjournal/view"}>
-          <CardDataStats title="Stock Journal"  total={unitCount[5]?.count|| 0} rate="4.35%" levelUp>
+          <CardDataStats title="Stock Journal"   total={countMapping['stockJournal'] || 0} rate="4.35%" levelUp>
 
             <IoJournalOutline className='w-10 h-10' />
 
@@ -137,14 +140,14 @@ const Chart = () => {
 
 
         <Link to={"/configurator/location"}>
-          <CardDataStats title="Locations"  total={unitCount[2]?.count|| 0} rate="2.59%" levelUp>
+          <CardDataStats title="Locations"  total={countMapping['location'] || 0} rate="2.59%" levelUp>
             <IoLocationOutline className='w-10 h-10' />
 
           </CardDataStats>
         </Link>
 
         <Link to={"/auth/signup"}>
-          <CardDataStats title="Total Users"  total={unitCount[1]?.count|| 0} rate="0.95%" levelDown>
+          <CardDataStats title="Total Users"  total={countMapping['user'] || 0} rate="0.95%" levelDown>
             <FaRegUserCircle className='w-10 h-10' />
 
           </CardDataStats>
