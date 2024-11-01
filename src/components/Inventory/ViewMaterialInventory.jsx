@@ -32,14 +32,14 @@ const ViewMaterialInventoryMaterial = () => {
 
     const customStyles = createCustomStyles(theme?.mode);
 
-    const formatOptions = (data, labelKey, valueKey, objectKey) => {
-        return data ? data.map(item => ({
-            value: item[valueKey],
-            label: item[labelKey],
-            [objectKey]: item
-        })) : [];
+    const formatOptions = (data, labelKey, valueKey, objectKey, placeholder) => {
+        return [{ value: '', label: "Select" }]
+            .concat(data ? data.map(item => ({
+                value: item[valueKey],
+                label: item[labelKey],
+                [objectKey]: item
+            })) : []);
     };
-
     useEffect(() => {
         ViewInventory();
     }, []);

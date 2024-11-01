@@ -13,10 +13,11 @@ import { IoJournalOutline } from "react-icons/io5";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { Count } from '../Constants/utils';
 const Chart = () => {
 
   const [unitCount, setunitCount] = useState(0)
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state?.persisted?.user);
   const { token } = currentUser;
 
@@ -24,8 +25,34 @@ const Chart = () => {
 
 
   useEffect(() => {
-    dispatch(fetchunit(token));
-  }, [dispatch, token]);
+
+
+    const count =async()=>{
+
+      try {
+
+        const response = await fetch(Count,{
+          method:"GET",
+          headers:{
+            "content-type":"Application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        })
+
+        const count = await response.json();
+      
+        setunitCount(count)
+        
+      } catch (error) {
+        console.log(error);
+        
+      }
+
+    }
+
+    count();
+   
+  }, []);
 
   const units = useSelector((state) => state?.nonPersisted?.unit);
 
@@ -44,7 +71,7 @@ const Chart = () => {
         <Link to={"/configurator/addunit"}>
           <CardDataStats
             title="Units"
-            total={units?.data?.length || 0}
+            total={unitCount[1]?.count|| 0}
 
 
             rate="0.43%"
@@ -57,7 +84,7 @@ const Chart = () => {
         <Link to={"/inventory/viewMaterialInventory"}>
           <CardDataStats
             title="Inventory"
-            total={ 0}
+            total={unitCount[3]?.count|| 0}
 
 
             rate="0.43%"
@@ -71,7 +98,7 @@ const Chart = () => {
         <Link to={"/material/viewPurchase"}>
           <CardDataStats
             title="Purchase"
-            total={ 0}
+            total={unitCount[6]?.count|| 0}
 
 
             rate="0.43%"
@@ -84,7 +111,7 @@ const Chart = () => {
         <Link to={"/material/addmaterial"}>
           <CardDataStats
             title="Material"
-            total={ 0}
+            total={unitCount[4]?.count|| 0}
 
 
             rate="0.43%"
@@ -101,7 +128,7 @@ const Chart = () => {
 
 
         <Link to={"/stockjournal/view"}>
-          <CardDataStats title="Stock Journal"  total={ 0} rate="4.35%" levelUp>
+          <CardDataStats title="Stock Journal"  total={unitCount[5]?.count|| 0} rate="4.35%" levelUp>
 
             <IoJournalOutline className='w-10 h-10' />
 
@@ -110,14 +137,14 @@ const Chart = () => {
 
 
         <Link to={"/configurator/location"}>
-          <CardDataStats title="Locations"  total={ 0} rate="2.59%" levelUp>
+          <CardDataStats title="Locations"  total={unitCount[2]?.count|| 0} rate="2.59%" levelUp>
             <IoLocationOutline className='w-10 h-10' />
 
           </CardDataStats>
         </Link>
 
         <Link to={"/auth/signup"}>
-          <CardDataStats title="Total Users"  total={ 0} rate="0.95%" levelDown>
+          <CardDataStats title="Total Users"  total={unitCount[1]?.count|| 0} rate="0.95%" levelDown>
             <FaRegUserCircle className='w-10 h-10' />
 
           </CardDataStats>

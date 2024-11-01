@@ -66,9 +66,9 @@ export const GET_STOCKBYID_URL = `${BASE_URL}/stockjournal`
 export const UPDATE_STOCK_URL = `${BASE_URL}/stockjournal`
 export const DELETE_STOCK_URL = `${BASE_URL}/stockjournal/delete`
 
+//dahsboard
 
-
-
+export const Count = `${BASE_URL}/api/dashboard`
 
 export const options = {
     position: "top-center",
