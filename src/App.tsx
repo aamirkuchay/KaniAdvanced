@@ -6,7 +6,7 @@ import PageTitle from './components/PageTitle.js';
 import SignIn from './pages/Authentication/SignIn.jsx';
 import SignUp from './pages/Authentication/SignUp.jsx';
 import Calendar from './pages/Calendar.js';
-import Chart from './pages/Chart.js';
+import Chart from './pages/Chart.jsx';
 import Material from './components/Material/Material.jsx';
 import AddProduct from './components/Products/AddProduct.jsx';
 import FormLayout from './pages/Form/FormLayout.js';
