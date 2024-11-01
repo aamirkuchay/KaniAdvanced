@@ -49,36 +49,32 @@ const useSupplier = () => {
     });
 
     useEffect(() => {
-        getSupplier(pagination.currentPage || 1);
+        getSupplier(pagination?.currentPage || 1);
     }, []);
 
     const getSupplier = async (page) => {
         try {
           
-<<<<<<< HEAD
             const response = await fetch(
-              `${GET_SUPPLIER_URL}?page=${page || 0}`,
+              `${GET_SUPPLIER_URL}?page=${page || 1}`,
               {
                 method: 'GET',
-=======
-            const response = await fetch(`${GET_SUPPLIER_URL}?page=${page||1}`,  {
-                method: "GET",
->>>>>>> fcfa1e12303633f5a7647789fa751010a6ce53d4
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },
               },
             );
             const data = await response.json();
+            console.log(data, 'heyyyyy');
            
            
             setSupplier(data.content);
             setPagination({
-                totalItems: data.totalElements,
-                data: data.content,
-                totalPages: data.totalPages,
-                currentPage: data.number+1 ,
-                itemsPerPage: data.size,
+              totalItems: data?.totalElements,
+              data: data?.content,
+              totalPages: data?.totalPages,
+              currentPage: data?.number + 1,
+              itemsPerPage: data?.size,
             });
         } catch (error) {
             console.error(error);
