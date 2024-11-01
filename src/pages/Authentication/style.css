@@ -1,0 +1,34 @@
+.signin-container {
+    position: relative;
+    max-height: 99.9vh; /* Ensure it takes full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .signin-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/img/LOGINklc.jpg'); /* Update with the correct path */
+    background-size: cover; /* Ensure the image covers the entire area */
+    background-position: center; /* Center the image */
+    z-index: 1; /* Behind the content */
+  }
+  
+  .signin-form {
+    position: relative;
+    z-index: 2; /* Above the background */
+    background: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+    padding: 20px; /* Optional: padding */
+    box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
+    backdrop-filter: blur(10px); /* Apply blur to the form background */
+    border-radius: 10px; /* Optional: rounded corners */
+  }
+  
+  .signin-contt {
+    z-index: 5; /* Ensure content is above everything else */
+  }
+  
