@@ -52,15 +52,22 @@ import ViewStockJournel from './components/StockJournel/ViewStockJournel.jsx';
 
 import UpdateStockJournal from './components/StockJournel/UpdateStockJournal.jsx';
 
-
-AddStockJournel
+import useInactivity from './hooks/useInactivity';
+AddStockJournel;
 
 import 'react-toastify/dist/ReactToastify.css';
-
 
 function App() {
   const [loading, setLoading] = useState(true);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  // Logout function
+  const handleLogout = () => {
+    navigate('/auth/signin');
+  };
+
+  useInactivity(5 * 60 * 1000, handleLogout);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -69,12 +76,6 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
-
-  // useEffect(() => {
-  //   if (!currentUser) {
-  //     // Optionally clear any necessary state
-  //   }
-  // }, [currentUser]);
 
   return loading ? (
     <Loader />

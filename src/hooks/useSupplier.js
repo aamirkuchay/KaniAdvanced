@@ -55,24 +55,26 @@ const useSupplier = () => {
     const getSupplier = async (page) => {
         try {
           
-            const response = await fetch(`${GET_SUPPLIER_URL}?page=${page||1}`,  {
-                method: "GET",
+            const response = await fetch(
+              `${GET_SUPPLIER_URL}?page=${page || 1}`,
+              {
+                method: 'GET',
                 headers: {
-                    
-                    "Authorization": `Bearer ${token}`
-                }
-            });
+                  Authorization: `Bearer ${token}`,
+                },
+              },
+            );
             const data = await response.json();
-            console.log(data,"heyyyyy");
+            console.log(data, 'heyyyyy');
            
            
             setSupplier(data.content);
             setPagination({
-                totalItems: data?.totalElements,
-                data: data?.content,
-                totalPages: data?.totalPages,
-                currentPage: data?.number+1 ,
-                itemsPerPage: data?.size,
+              totalItems: data?.totalElements,
+              data: data?.content,
+              totalPages: data?.totalPages,
+              currentPage: data?.number + 1,
+              itemsPerPage: data?.size,
             });
         } catch (error) {
             console.error(error);

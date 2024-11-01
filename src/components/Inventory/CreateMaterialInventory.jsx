@@ -43,7 +43,7 @@ const CreateMaterialInventory = () => {
       }));
       setLocationSel(formattedOptions);
     }
-  }, [locations]); 
+  }, [locations]);
 
   useEffect(() => {
     if (materials.data) {
@@ -78,7 +78,6 @@ const CreateMaterialInventory = () => {
             materialId: '',
             quantity: '',
             minimum: 1,
-
           }}
           validationSchema={validationSchema} // Add Yup validation schema here
           onSubmit={(values, { setSubmitting, resetForm }) => {

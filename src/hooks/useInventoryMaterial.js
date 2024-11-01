@@ -9,8 +9,8 @@ import { fetchmaterial } from '../redux/Slice/MaterialSlice';
 
 const useInventoryMaterial = () => {
     const { currentUser } = useSelector((state) => state?.persisted?.user);
-   
- 
+    const { token } = currentUser;
+    console.log(token,"jujujujuj");
     const dispatch = useDispatch();
 
     const [inventoryMaterial, setInventoryMaterial] = useState([]);
@@ -18,8 +18,8 @@ const useInventoryMaterial = () => {
     const [inventoryItem, setInventoryItem] = useState(null);
 
     useEffect(() => {
-        dispatch(fetchlocation(currentUser?.token));
-        dispatch(fetchmaterial(currentUser?.token));
+        dispatch(fetchlocation(token));
+        dispatch(fetchmaterial(token));
     }, []);
 
     const [currentInventory, setCurrentInventory] = useState({
@@ -56,10 +56,10 @@ const useInventoryMaterial = () => {
     });
 
     useEffect(() => {
-        dispatch(fetchunit(currentUser?.token));
-        dispatch(fetchlocation(currentUser?.token));
-        dispatch(fetchmaterial(currentUser?.token));
-    }, [dispatch, currentUser?.token]);
+        dispatch(fetchunit(token));
+        dispatch(fetchlocation(token));
+        dispatch(fetchmaterial(token));
+    }, [dispatch, token]);
 
     const navigate = useNavigate();
 
@@ -69,7 +69,7 @@ const useInventoryMaterial = () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${currentUser?.token}`
+                    "Authorization": `Bearer ${token}`
                 }
             });
             const data = await response.json();
@@ -80,14 +80,13 @@ const useInventoryMaterial = () => {
     };
 
     const ViewInventory = async (page, location = '', description = '') => {
-        console.log(page,"shooooooo");
         try {
             console.log(location, description, "Fetching inventory with filters...");
             const response = await fetch(`${GET_INVENTORY_URL}?page=${page || 1}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${currentUser?.token}`
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     address: location,
@@ -117,7 +116,7 @@ const useInventoryMaterial = () => {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${currentUser?.token}`
+                    "Authorization": `Bearer ${token}`
                 }
             });
             const data = await response.json();
@@ -157,7 +156,7 @@ const useInventoryMaterial = () => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${currentUser?.token}`
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(values)
             });
@@ -185,7 +184,7 @@ const useInventoryMaterial = () => {
                 method: method,
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${currentUser?.token}`
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     id: currentInventory.id,
