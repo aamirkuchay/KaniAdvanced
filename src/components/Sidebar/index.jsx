@@ -666,7 +666,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                           }`}
                       >
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                          {/* <li>
+                          <li>
                             <NavLink
                               to="/configurator/addbudget"
                               className={({ isActive }) =>
@@ -676,7 +676,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             >
                               Budget
                             </NavLink>
-                          </li> */}
+                          </li>
                           <li>
                             <NavLink
                               to="/configurator/addunit"
@@ -700,7 +700,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             </NavLink>
                           </li>
 
-                          {/* <li>
+                          <li>
                             <NavLink
                               to="/configurator/addcurrency"
                               className={({ isActive }) =>
@@ -710,8 +710,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             >
                               Currency
                             </NavLink>
-                          </li> */}
-                          {/* <li>
+                          </li>
+                          <li>
                             <NavLink
                               to="/configurator/addSize"
                               className={({ isActive }) =>
@@ -721,9 +721,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             >
                               Size
                             </NavLink>
-                          </li> */}
+                          </li>
 
-                          {/* <li>
+                          <li>
                             <NavLink
                               to="/configurator/adddesign"
                               className={({ isActive }) =>
@@ -733,8 +733,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             >
                               Design
                             </NavLink>
-                          </li> */}
-                          {/* <li>
+                          </li>
+                          <li>
                             <NavLink
                               to="/configurator/addstyle"
                               className={({ isActive }) =>
@@ -744,8 +744,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             >
                               Style
                             </NavLink>
-                          </li> */}
-                          {/* <li>
+                          </li>
+                          <li>
                             <NavLink
                               to="/configurator/addproductgroup"
                               className={({ isActive }) =>
@@ -755,7 +755,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             >
                               Product Group
                             </NavLink>
-                          </li> */}
+                          </li>
                           <li>
                             <NavLink
                               to="/configurator/addcolorgroup"
@@ -767,7 +767,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                               Color Group
                             </NavLink>
                           </li>
-                          {/* <li>
+                          <li>
                             <NavLink
                               to="/configurator/addcolorgroup"
                               className={({ isActive }) =>
@@ -799,7 +799,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             >
                               Customer Group
                             </NavLink>
-                          </li> */}
+                          </li>
                         </ul>
                       </div>
 
