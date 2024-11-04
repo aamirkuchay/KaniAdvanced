@@ -6,7 +6,7 @@ const PrivateRoute = () => {
   const { currentUser } = useSelector((state) => state.persisted.user);
 
   useEffect(() => {
-    console.log('heyyyyyyyy');
+    
     if (!currentUser) {
       console.log('No user');
       // Optionally handle cleanup
