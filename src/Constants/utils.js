@@ -69,11 +69,11 @@ export const DELETE_STOCK_URL = `${BASE_URL}/stockjournal/delete`
 
 
 //product group 
-export const ADD_productGroup_URL = `${BASE_URL}/productgroup`;
-export const GET_productGroup_URL = `${BASE_URL}/productgroup`;
-export const UPDATE_productGroup_URL = `${BASE_URL}/productgroup`;
-export const VIEW_ALL_LproductGroup = `${BASE_URL}/productgroup/viewAll`;
-export const DELETE_productGroup_URL = `${BASE_URL}/productgroup/`;
+export const ADD_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup`;
+export const GET_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup`;
+export const UPDATE_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup`;
+export const VIEW_ALL_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup/viewAll`;
+export const DELETE_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup/`;
 
 //dahsboard
 
