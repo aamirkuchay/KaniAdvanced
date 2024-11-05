@@ -104,11 +104,11 @@ export const VIEW_ALL_PRODUCTCATEGORY = `${BASE_URL}/product-category/viewAll`;
 export const DELETE_PRODUCTCATEGORY_URL = `${BASE_URL}/product-category/`;
 
 //CUSTOMER GROUP
-export const ADD_CUSTOMERGROUP_URL = `${BASE_URL}/product-category`;
-export const GET_CUSTOMERGROUP_URL = `${BASE_URL}/product-category`;
-export const UPDATE_CUSTOMERGROUP_URL = `${BASE_URL}/product-category`;
-export const VIEW_ALL_CUSTOMERGROUP = `${BASE_URL}/product-category/viewAll`;
-export const DELETE_CUSTOMERGROUP_URL = `${BASE_URL}/product-category/`;
+export const ADD_CUSTOMERGROUP_URL = `${BASE_URL}/customer-group`;
+export const GET_CUSTOMERGROUP_URL = `${BASE_URL}/customer-group`;
+export const UPDATE_CUSTOMERGROUP_URL = `${BASE_URL}/customer-group`;
+export const VIEW_ALL_CUSTOMERGROUP = `${BASE_URL}/customer-group/viewAll`;
+export const DELETE_CUSTOMERGROUP_URL = `${BASE_URL}/customer-group/`;
 
 //STYLE
 export const ADD_STYLE_URL = `${BASE_URL}/style`;
