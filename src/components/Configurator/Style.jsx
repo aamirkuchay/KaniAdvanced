@@ -2,21 +2,27 @@ import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Pagination from '../Pagination/Pagination';
+import ViewTable from './ViewTable';
+import useStyle from '../../hooks/useStyle';
 
 const Style = () => {
-    const handleSubmit = (values, { setSubmitting }) => {
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-        }, 400);
-    };
-
+    const {
+        Style,
+        edit,
+        currentStyle,
+        pagination,
+        handleDelete,
+        handleUpdate,
+        handleSubmit,
+        handlePageChange,
+    } = useStyle();
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Configurator/Add Style" />
             <div>
                 <Formik
-                    initialValues={{ style: '' }}
+                    initialValues={currentStyle}
                     validate={values => {
                         const errors = {};
                        
@@ -34,7 +40,7 @@ const Style = () => {
                                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                     <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                                         <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
-                                            Add Style
+                                        {edit ? "UPDATE STYLE" : "ADD STYLE"}
                                         </h3>
                                     </div>
                                     <div className="p-6.5">
@@ -43,18 +49,39 @@ const Style = () => {
                                                 <label className="mb-2.5 block text-black dark:text-white"> Style Name</label>
                                                 <Field
                                                     type="text"
-                                                    name="style"
+                                                    name="styleName"
                                                     placeholder="Enter Style Name"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-black dark:focus:border-primary"
                                                 />
-                                                <ErrorMessage name="style" component="div" className="text-red-500" />
+                                                <ErrorMessage name="styleName" component="div" className="text-red-500" />
                                             </div>
                                         </div>
                                         <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                                            Add style
+                                        {edit ? "UPDATE STYLE" : "CREATE STYLE"}
                                         </button>
                                     </div>
                                 </div>
+                                {!edit && (
+                             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                                 <div className="border-b border-stroke py-4 px-2 dark:border-strokedark">
+                                     <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
+                                         <ViewTable
+                                             units={Style}
+                                             pagination={pagination}
+                                             totalItems={pagination.totalItems}
+                                             title={'Product Category'}
+                                             handleDelete={handleDelete}
+                                             handleUpdate={handleUpdate}
+                                         />
+                                         <Pagination
+                                             totalPages={pagination.totalPages}
+                                             currentPage={pagination.currentPage}
+                                             handlePageChange={handlePageChange}
+                                         />
+                                     </h3>
+                                 </div>
+                             </div>
+                         )}
                             </div>
                         </Form>
                     )}

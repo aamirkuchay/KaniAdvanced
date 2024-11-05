@@ -5,13 +5,23 @@ import * as Yup from 'yup';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import Pagination from '../Pagination/Pagination';
 import ViewTable from './ViewTable';
+import usecustomerGroup from '../../hooks/useCustomerGroup';
 
 const CustomerGroup = () => {
-
+    const {
+        customerGroup,
+        edit,
+        currentcustomerGroup,
+        pagination,
+        handleDelete,
+        handleUpdate,
+        handleSubmit,
+        handlePageChange,
+    } = usecustomerGroup();
 
     return (
         <DefaultLayout>
-        <Breadcrumb pageName="Configurator/Add Product Category" />
+        <Breadcrumb pageName="Configurator/Add Customer Group" />
         <div>
             <Formik
                 initialValues={currentcustomerGroup}
@@ -19,8 +29,8 @@ const CustomerGroup = () => {
                 validate={values => {
                     const errors = {};
                    
-                    if (!values.productCategoryName) {
-                        errors.productCategoryName = 'Required';
+                    if (!values.customerGroupName) {
+                        errors.customerGroupName = 'Required';
                     }
                     return errors;
                 }}
@@ -33,7 +43,7 @@ const CustomerGroup = () => {
                             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                 <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                                     <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
-                                    {edit ? "UPDATE PRODUCT CATEGORY" : "ADD PRODUCT CATEGORY"}
+                                    {edit ? "UPDATE CUSTOMER GROUP " : "ADD  CUSTOMER GROUP"}
                                     </h3>
                                 </div>
                                 <div className="p-6.5">
@@ -42,15 +52,15 @@ const CustomerGroup = () => {
                                             <label className="mb-2.5 block text-black dark:text-white"> Design Name</label>
                                             <Field
                                                 type="text"
-                                                name="productCategoryName"
+                                                name="customerGroupName"
                                                 placeholder="Enter product Category Name"
                                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
                                             />
-                                            <ErrorMessage name="productCategoryName" component="div" className="text-red-500" />
+                                            <ErrorMessage name="customerGroupName" component="div" className="text-red-500" />
                                         </div>
                                     </div>
                                     <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                                    {edit ? "UPDATE PRODUCT CATEGORY" : "CREATE PRODUCT CATEGORY"}
+                                    {edit ? "UPDATE CUSTOMER GROUP" : "CREATE CUSTOMER GROUP"}
                                     </button>
                                 </div>
                             </div>
@@ -62,7 +72,7 @@ const CustomerGroup = () => {
                                              units={customerGroup}
                                              pagination={pagination}
                                              totalItems={pagination.totalItems}
-                                             title={'Product Category'}
+                                             title={'Customer Group'}
                                              handleDelete={handleDelete}
                                              handleUpdate={handleUpdate}
                                          />
