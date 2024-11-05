@@ -22,7 +22,7 @@ const useSize = () => {
 
     useEffect(() => {
         getSize(pagination.currentPage);
-    }, [Size]);
+    }, [currentSize]);
 
     const getSize = async (page) => {
         

@@ -27,7 +27,7 @@ const useproductGroup = () => {
 
   useEffect(() => {
     getproductGroup(pagination.currentPage);
-  }, [productGroup]);
+  }, [currentproductGroup]);
 
   const getproductGroup = async (page) => {
     try {

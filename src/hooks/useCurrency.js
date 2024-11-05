@@ -22,7 +22,7 @@ const useCurrency = () => {
 
     useEffect(() => {
         getCurrency(pagination.currentPage);
-    }, [Currency]);
+    }, [currentCurrency]);
 
     const getCurrency = async (page) => {
         try {

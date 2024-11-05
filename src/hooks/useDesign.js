@@ -22,7 +22,7 @@ const useDesign = () => {
 
     useEffect(() => {
         getDesign(pagination.currentPage);
-    }, [Design]);
+    }, [currentDesign]);
 
     const getDesign = async (page) => {
         try {
@@ -84,7 +84,7 @@ const useDesign = () => {
     const handleUpdate = (e, item) => {
         e.preventDefault();
         setEdit(true);
-
+console.log(item,"hey");
         setCurrentDesign(item);
     };
 
