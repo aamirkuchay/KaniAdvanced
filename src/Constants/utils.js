@@ -82,6 +82,13 @@ export const UPDATE_CURRENCY_URL = `${BASE_URL}/currency`;
 export const VIEW_ALL_CURRENCY = `${BASE_URL}/currency/viewAll`;
 export const DELETE_CURRENCY_URL = `${BASE_URL}/currency/`;
 
+//Size
+export const ADD_SIZE_URL = `${BASE_URL}/sizes`;
+export const GET_SIZE_URL = `${BASE_URL}/sizes`;
+export const UPDATE_SIZE_URL = `${BASE_URL}/sizes`;
+export const VIEW_ALL_SIZE = `${BASE_URL}/sizes/viewAll`;
+export const DELETE_SIZE_URL = `${BASE_URL}/sizes/`;
+
 //dahsboard
 
 export const Count = `${BASE_URL}/api/dashboard`

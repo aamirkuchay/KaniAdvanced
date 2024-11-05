@@ -45,7 +45,7 @@ const Currency = () => {
                              <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                  <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                                      <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
-                                         {edit ? "Update Currency" : "Add Currency"}
+                                         {edit ? "UPDATE CURRENCY" : "ADD CURRENCY"}
                                      </h3>
                                  </div>
                                  <div className="p-6.5">
@@ -62,7 +62,7 @@ const Currency = () => {
                                          </div>
                                      </div>
                                      <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                                         {edit ? "Update Product Group" : "Create Product Group"}
+                                         {edit ? "UPDATE CURRENCY" : "CREATE CURRENCY"}
                                      </button>
                                  </div>
                              </div>

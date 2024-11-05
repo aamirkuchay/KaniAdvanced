@@ -2,26 +2,33 @@ import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import useSize from '../../hooks/useSize';
+import Pagination from '../Pagination/Pagination';
+import ViewTable from './ViewTable';
 
 const Size = () => {
-    const handleSubmit = (values, { setSubmitting }) => {
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-        }, 400);
-    };
+    const {
+        Size,
+        edit,
+        currentSize,
+        pagination,
+        handleDelete,
+        handleUpdate,
+        handleSubmit,
+        handlePageChange,
+    } = useSize();
 
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Configurator/Add Size" />
             <div>
                 <Formik
-                    initialValues={{ size: '' }}
+                    initialValues={currentSize}
                     validate={values => {
                         const errors = {};
                        
-                        if (!values.size) {
-                            errors.size = 'Required';
+                        if (!values.sizeName) {
+                            errors.sizeName = 'Required';
                         }
                         return errors;
                     }}
@@ -34,7 +41,7 @@ const Size = () => {
                                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                     <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                                         <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
-                                            Add Size
+                                        {edit ? "UPDATE SIZE" : "Add SIZE"}
                                         </h3>
                                     </div>
                                     <div className="p-6.5">
@@ -43,18 +50,39 @@ const Size = () => {
                                                 <label className="mb-2.5 block text-black dark:text-white"> Size</label>
                                                 <Field
                                                     type="text"
-                                                    name="size"
+                                                    name="sizeName"
                                                     placeholder="Enter size"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
                                                 />
-                                                <ErrorMessage name="size" component="div" className="text-red-500" />
+                                                <ErrorMessage name="sizeName" component="div" className="text-red-500" />
                                             </div>
                                         </div>
                                         <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                                            Add Size
+                                        {edit ? "UPDATE SIZE" : "Create SIZE"}
                                         </button>
                                     </div>
                                 </div>
+                                {!edit && (
+                                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                                     <div className="border-b border-stroke py-4 px-2 dark:border-strokedark">
+                                         <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
+                                             <ViewTable
+                                                 units={Size}
+                                                 pagination={pagination}
+                                                 totalItems={pagination.totalItems}
+                                                 title={'Size'}
+                                                 handleDelete={handleDelete}
+                                                 handleUpdate={handleUpdate}
+                                             />
+                                             <Pagination
+                                                 totalPages={pagination.totalPages}
+                                                 currentPage={pagination.currentPage}
+                                                 handlePageChange={handlePageChange}
+                                             />
+                                         </h3>
+                                     </div>
+                                 </div>
+                             )}
                             </div>
                         </Form>
                     )}
