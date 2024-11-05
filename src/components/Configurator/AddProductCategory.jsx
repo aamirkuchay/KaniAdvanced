@@ -9,7 +9,7 @@ const AddProductCategory = () => {
 
     const formik = useFormik({
         initialValues: {
-            name: '',
+            productCategoryName: '',
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Name is required'),

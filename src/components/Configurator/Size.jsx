@@ -24,6 +24,7 @@ const Size = () => {
             <div>
                 <Formik
                     initialValues={currentSize}
+                    enableReinitialize={true}
                     validate={values => {
                         const errors = {};
                        

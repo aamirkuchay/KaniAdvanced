@@ -24,6 +24,7 @@ const Design = () => {
             <div>
                 <Formik
                     initialValues={currentDesign}
+                    enableReinitialize={true}
                     validate={values => {
                         const errors = {};
                        
