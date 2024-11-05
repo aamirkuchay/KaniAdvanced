@@ -66,6 +66,15 @@ export const GET_STOCKBYID_URL = `${BASE_URL}/stockjournal`
 export const UPDATE_STOCK_URL = `${BASE_URL}/stockjournal`
 export const DELETE_STOCK_URL = `${BASE_URL}/stockjournal/delete`
 
+
+
+//product group 
+export const ADD_productGroup_URL = `${BASE_URL}/productgroup`;
+export const GET_productGroup_URL = `${BASE_URL}/productgroup`;
+export const UPDATE_productGroup_URL = `${BASE_URL}/productgroup`;
+export const VIEW_ALL_LproductGroup = `${BASE_URL}/productgroup/viewAll`;
+export const DELETE_productGroup_URL = `${BASE_URL}/productgroup/`;
+
 //dahsboard
 
 export const Count = `${BASE_URL}/api/dashboard`

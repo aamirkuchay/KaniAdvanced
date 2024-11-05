@@ -33,9 +33,9 @@ const ViewMaterialInventoryMaterial = () => {
     const customStyles = createCustomStyles(theme?.mode);
 
     const formatOptions = (data, labelKey, valueKey, objectKey, placeholder) => {
-        return [{ value: '', label: "Select" }]
+        return [{ label: "Select" , value: ''}]
             .concat(data ? data.map(item => ({
-                value: item[valueKey],
+                value: item[labelKey],
                 label: item[labelKey],
                 [objectKey]: item
             })) : []);
@@ -45,7 +45,13 @@ const ViewMaterialInventoryMaterial = () => {
     }, []);
 
     const handleSearchChange = () => {
-        ViewInventory(1, locationValue?.label, descriptionValue?.label);
+        // Get the selected values
+        const locationLabel = locationValue ? locationValue.value : null;
+        const descriptionLabel = descriptionValue ? descriptionValue.value : null;
+        
+        console.log(locationLabel,"hey");
+        // Call ViewInventory with the selected values, or no filter if both are null
+        ViewInventory(1, locationLabel, descriptionLabel);
     };
 
     const renderTableRows = () => {
