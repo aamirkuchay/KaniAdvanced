@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { GET_SIZE_URL, DELETE_SIZE_URL, UPDATE_SIZE_URL, ADD_SIZE_URL } from "../Constants/utils";
+import { GET_DESIGN_URL, DELETE_DESIGN_URL, UPDATE_DESIGN_URL, ADD_DESIGN_URL } from "../Constants/utils";
 
-const useSize = () => {
+const useDesign = () => {
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
-    const [Size, setSize] = useState([]);
+    const [Design, setDesign] = useState([]);
     const [edit, setEdit] = useState(false);
-    const [currentSize, setCurrentSize] = useState({
-        sizeName:"",
+    const [currentDesign, setCurrentDesign] = useState({
+        designName:"",
     });
 
     const [pagination, setPagination] = useState({
@@ -21,13 +21,12 @@ const useSize = () => {
     });
 
     useEffect(() => {
-        getSize(pagination.currentPage);
-    }, [Size]);
+        getDesign(pagination.currentPage);
+    }, [Design]);
 
-    const getSize = async (page) => {
-        
+    const getDesign = async (page) => {
         try {
-            const response = await fetch(`${GET_SIZE_URL}?page=${page}`, {
+            const response = await fetch(`${GET_DESIGN_URL}?page=${page}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,7 +34,7 @@ const useSize = () => {
                 }
             });
             const data = await response.json();
-            setSize(data?.content);
+            setDesign(data?.content);
             setPagination({
                 totalItems: data.totalElements,
                 pagUnitList: data.content,
@@ -45,14 +44,14 @@ const useSize = () => {
             });
         } catch (error) {
             console.error(error);
-            toast.error("Failed to fetch Size");
+            toast.error("Failed to fetch Design");
         }
     };
 
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
-            const response = await fetch(`${DELETE_SIZE_URL}${id}`, {
+            const response = await fetch(`${DELETE_DESIGN_URL}${id}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
@@ -62,16 +61,16 @@ const useSize = () => {
 
             const data = await response.json();
             if (response.ok) {
-                toast.success(`Size Deleted Successfully !!`);
+                toast.success(`Design Deleted Successfully !!`);
 
                 // Check if the current page becomes empty
-                const isCurrentPageEmpty = Size.length === 1;
+                const isCurrentPageEmpty = Design.length === 1;
 
                 if (isCurrentPageEmpty && pagination.currentPage > 1) {
                     const previousPage = pagination.currentPage - 1;
                     handlePageChange(previousPage);
                 } else {
-                    getSize(pagination.currentPage);
+                    getDesign(pagination.currentPage);
                 }
             } else {
                 toast.error(`${data.errorMessage}`);
@@ -85,15 +84,14 @@ const useSize = () => {
     const handleUpdate = (e, item) => {
         e.preventDefault();
         setEdit(true);
-      
 
-        setCurrentSize(item);
+        setCurrentDesign(item);
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         console.log(values, "logg");
         try {
-            const url = edit ? `${UPDATE_SIZE_URL}/${currentSize.id}` : ADD_SIZE_URL;
+            const url = edit ? `${UPDATE_DESIGN_URL}/${currentDesign.id}` : ADD_DESIGN_URL;
             const method = edit ? "PUT" : "POST";
 
             const response = await fetch(url, {
@@ -107,13 +105,13 @@ const useSize = () => {
 
             const data = await response.json();
             if (response.ok) {
-                toast.success(`Size ${edit ? 'updated' : 'added'} successfully`);
+                toast.success(`Design ${edit ? 'updated' : 'added'} successfully`);
                 resetForm();
                 setEdit(false);
-                setCurrentSize({
-                    SizeName: ""
+                setCurrentDesign({
+                    DesignName: ""
                 });
-                // getSize(pagination.currentPage); // Fetch updated Size
+                // getDesign(pagination.currentPage); // Fetch updated Design
             } else {
                 toast.error(`${data.errorMessage}`);
             }
@@ -128,13 +126,13 @@ const useSize = () => {
     const handlePageChange = (newPage) => {
 
         setPagination((prev) => ({ ...prev, currentPage: newPage }));
-        getSize(newPage); // API is 0-indexed for pages
+        getDesign(newPage); // API is 0-indexed for pages
     };
 
     return {
-        Size,
+        Design,
         edit,
-        currentSize,
+        currentDesign,
         pagination,
         handleDelete,
         handleUpdate,
@@ -143,4 +141,4 @@ const useSize = () => {
     };
 };
 
-export default useSize;
+export default useDesign;

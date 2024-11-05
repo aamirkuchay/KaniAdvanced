@@ -89,6 +89,13 @@ export const UPDATE_SIZE_URL = `${BASE_URL}/sizes`;
 export const VIEW_ALL_SIZE = `${BASE_URL}/sizes/viewAll`;
 export const DELETE_SIZE_URL = `${BASE_URL}/sizes/`;
 
+//Design
+export const ADD_DESIGN_URL = `${BASE_URL}/design`;
+export const GET_DESIGN_URL = `${BASE_URL}/design`;
+export const UPDATE_DESIGN_URL = `${BASE_URL}/design`;
+export const VIEW_ALL_DESIGN = `${BASE_URL}/design/viewAll`;
+export const DELETE_DESIGN_URL = `${BASE_URL}/design/`;
+
 //dahsboard
 
 export const Count = `${BASE_URL}/api/dashboard`
