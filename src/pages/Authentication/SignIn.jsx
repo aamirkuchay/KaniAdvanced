@@ -4,8 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signInFailure, signInSuccess, signinStart } from '../../redux/Slice/UserSlice';
 import { SIGNIN_URL } from '../../Constants/utils';
 import './style.css'; // Ensure custom styling if needed
-import backgroundImage from '../../../public/img/loginimg.jpg';
-import logoImage from '../../../public/img/bg123.png';
+import backgroundImage from '/img/loginimg.jpg';
+import logoImage from '/img/bg123.png';
 
 const SignIn = () => {
   const navigate = useNavigate();
