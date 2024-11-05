@@ -75,6 +75,13 @@ export const UPDATE_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup`;
 export const VIEW_ALL_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup/viewAll`;
 export const DELETE_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup/`;
 
+//Currency
+export const ADD_CURRENCY_URL = `${BASE_URL}/currency`;
+export const GET_CURRENCY_URL = `${BASE_URL}/currency`;
+export const UPDATE_CURRENCY_URL = `${BASE_URL}/currency`;
+export const VIEW_ALL_CURRENCY = `${BASE_URL}/currency/viewAll`;
+export const DELETE_CURRENCY_URL = `${BASE_URL}/currency/`;
+
 //dahsboard
 
 export const Count = `${BASE_URL}/api/dashboard`
