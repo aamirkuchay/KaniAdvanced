@@ -51,20 +51,27 @@ import AddStockJournel from './components/StockJournel/AddStockJournel.jsx';
 import ViewStockJournel from './components/StockJournel/ViewStockJournel.jsx';
 
 import UpdateStockJournal from './components/StockJournel/UpdateStockJournal.jsx';
+import { signoutSuccess } from './redux/Slice/UserSlice';
 
 import useInactivity from './hooks/useInactivity';
 AddStockJournel;
 
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+
 function App() {
   const [loading, setLoading] = useState(true);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Logout function
   const handleLogout = () => {
+    dispatch(signoutSuccess());
     navigate('/auth/signin');
+    toast.success('Logout:Session Expired ');
   };
 
   useInactivity(5 * 60 * 1000, handleLogout);
@@ -215,7 +222,6 @@ function App() {
               </>
             }
           />
-
 
           {/* configurator */}
           <Route
@@ -472,8 +478,8 @@ function App() {
               </>
             }
           />
-           <Route path="*" element={<PageNotFOund />} />
-    </Route >
+          <Route path="*" element={<PageNotFOund />} />
+        </Route>
       </Routes>
     </>
   );
