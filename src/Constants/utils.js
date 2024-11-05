@@ -96,6 +96,13 @@ export const UPDATE_DESIGN_URL = `${BASE_URL}/design`;
 export const VIEW_ALL_DESIGN = `${BASE_URL}/design/viewAll`;
 export const DELETE_DESIGN_URL = `${BASE_URL}/design/`;
 
+//pRODUCT CATEGORY
+export const ADD_PRODUCTCATEGORY_URL = `${BASE_URL}/product-category`;
+export const GET_PRODUCTCATEGORY_URL = `${BASE_URL}/product-category`;
+export const UPDATE_PRODUCTCATEGORY_URL = `${BASE_URL}/product-category`;
+export const VIEW_ALL_PRODUCTCATEGORY = `${BASE_URL}/product-category/viewAll`;
+export const DELETE_PRODUCTCATEGORY_URL = `${BASE_URL}/product-category/`;
+
 //dahsboard
 
 export const Count = `${BASE_URL}/api/dashboard`
