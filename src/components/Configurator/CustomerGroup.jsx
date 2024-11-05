@@ -5,9 +5,19 @@ import * as Yup from 'yup';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import Pagination from '../Pagination/Pagination';
 import ViewTable from './ViewTable';
+import usecustomerGroup from '../../hooks/useCustomerGroup';
 
 const CustomerGroup = () => {
-
+    const {
+        customerGroup,
+        edit,
+        currentcustomerGroup,
+        pagination,
+        handleDelete,
+        handleUpdate,
+        handleSubmit,
+        handlePageChange,
+    } = usecustomerGroup();
 
     return (
         <DefaultLayout>

@@ -110,6 +110,13 @@ export const UPDATE_CUSTOMERGROUP_URL = `${BASE_URL}/product-category`;
 export const VIEW_ALL_CUSTOMERGROUP = `${BASE_URL}/product-category/viewAll`;
 export const DELETE_CUSTOMERGROUP_URL = `${BASE_URL}/product-category/`;
 
+//STYLE
+export const ADD_STYLE_URL = `${BASE_URL}/style`;
+export const GET_STYLE_URL = `${BASE_URL}/style`;
+export const UPDATE_STYLE_URL = `${BASE_URL}/style`;
+export const VIEW_ALL_STYLE = `${BASE_URL}/style/viewAll`;
+export const DELETE_STYLE_URL = `${BASE_URL}/style/`;
+
 //dahsboard
 
 export const Count = `${BASE_URL}/api/dashboard`
