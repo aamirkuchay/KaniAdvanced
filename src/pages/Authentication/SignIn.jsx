@@ -5,6 +5,7 @@ import { signInFailure, signInSuccess, signinStart } from '../../redux/Slice/Use
 import { SIGNIN_URL } from '../../Constants/utils';
 import './style.css'; // Ensure custom styling if needed
 import backgroundImage from '../../../public/img/loginimg.jpg';
+import logoImage from '../../../public/img/bg123.png';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -58,9 +59,15 @@ const SignIn = () => {
       {/* Right Side - Login Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center bg-white p-8">
         <div className="w-full max-w-md">
-          <h2 className="text-3xl font-semibold text-primary text-center mb-8">
-            Sign In to Kashmir Loom
-          </h2>
+          <div className="flex justify-center text-center">
+            <img
+              src={`${logoImage}`}
+              alt="Logo_img"
+              className="mix-blend-multiply"
+            ></img>
+          </div>
+
+          <h2 className="text-xl font-semibold text-primary  mb-2">Sign In</h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
