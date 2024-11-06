@@ -9,7 +9,7 @@ const useStyle = () => {
     const [Style, setStyle] = useState([]);
     const [edit, setEdit] = useState(false);
     const [currentStyle, setCurrentStyle] = useState({
-        styleName:"",
+        stylesName:"",
     });
 
     const [pagination, setPagination] = useState({

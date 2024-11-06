@@ -23,11 +23,12 @@ const Style = () => {
             <div>
                 <Formik
                     initialValues={currentStyle}
+                    enableReinitialize={true}
                     validate={values => {
                         const errors = {};
                        
-                        if (!values.style) {
-                            errors.style = 'Required';
+                        if (!values.stylesName) {
+                            errors.stylesName = 'Required';
                         }
                         return errors;
                     }}
@@ -49,11 +50,11 @@ const Style = () => {
                                                 <label className="mb-2.5 block text-black dark:text-white"> Style Name</label>
                                                 <Field
                                                     type="text"
-                                                    name="styleName"
+                                                    name="stylesName"
                                                     placeholder="Enter Style Name"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-black dark:focus:border-primary"
                                                 />
-                                                <ErrorMessage name="styleName" component="div" className="text-red-500" />
+                                                <ErrorMessage name="stylesName" component="div" className="text-red-500" />
                                             </div>
                                         </div>
                                         <button type="submit" className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
@@ -69,7 +70,7 @@ const Style = () => {
                                              units={Style}
                                              pagination={pagination}
                                              totalItems={pagination.totalItems}
-                                             title={'Product Category'}
+                                             title={'Style'}
                                              handleDelete={handleDelete}
                                              handleUpdate={handleUpdate}
                                          />

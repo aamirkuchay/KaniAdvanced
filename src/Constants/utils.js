@@ -111,11 +111,11 @@ export const VIEW_ALL_CUSTOMERGROUP = `${BASE_URL}/customer-group/viewAll`;
 export const DELETE_CUSTOMERGROUP_URL = `${BASE_URL}/customer-group/`;
 
 //STYLE
-export const ADD_STYLE_URL = `${BASE_URL}/style`;
-export const GET_STYLE_URL = `${BASE_URL}/style`;
-export const UPDATE_STYLE_URL = `${BASE_URL}/style`;
-export const VIEW_ALL_STYLE = `${BASE_URL}/style/viewAll`;
-export const DELETE_STYLE_URL = `${BASE_URL}/style/`;
+export const ADD_STYLE_URL = `${BASE_URL}/styles`;
+export const GET_STYLE_URL = `${BASE_URL}/styles`;
+export const UPDATE_STYLE_URL = `${BASE_URL}/styles`;
+export const VIEW_ALL_STYLE = `${BASE_URL}/styles/viewAll`;
+export const DELETE_STYLE_URL = `${BASE_URL}/styles/`;
 
 //dahsboard
 
