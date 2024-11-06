@@ -117,6 +117,14 @@ export const UPDATE_STYLE_URL = `${BASE_URL}/styles`;
 export const VIEW_ALL_STYLE = `${BASE_URL}/styles/viewAll`;
 export const DELETE_STYLE_URL = `${BASE_URL}/styles/`;
 
+
+//STYLE
+export const ADD_ORDERTYPE_URL = `${BASE_URL}/orderType`;
+export const GET_ORDERTYPE_URL = `${BASE_URL}/orderType`;
+export const UPDATE_ORDERTYPE_URL = `${BASE_URL}/orderType`;
+export const VIEW_ALL_ORDERTYPE = `${BASE_URL}/orderType/viewAll`;
+export const DELETE_ORDERTYPE_URL = `${BASE_URL}/orderType/`;
+
 //dahsboard
 
 export const Count = `${BASE_URL}/api/dashboard`
