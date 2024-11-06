@@ -7,6 +7,9 @@ import LocationReducer from "./Slice/LocationSlice";
 import MaterialReducer from "./Slice/MaterialSlice";
 import SupplierReducer from "./Slice/SupplierSlice";
 import ColorReducer from "./Slice/ColorGroupSlice";
+import orderTypeReducer from "./Slice/OrderTypeSlice";
+import productGroupReducer from "./Slice/ProductGroup";
+
 
 
 
@@ -38,7 +41,9 @@ const rootReducer = combineReducers({
     location: LocationReducer,
     material: MaterialReducer,
     supplier: SupplierReducer,
-    color:ColorReducer
+    color:ColorReducer,
+    orderType:orderTypeReducer,
+    productGroup:productGroupReducer
 
   }),
 });

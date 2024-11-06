@@ -7,37 +7,6 @@ import flatpickr from 'flatpickr';
 
 const Budget = () => {
 
-    const [selectedOption, setSelectedOption] = useState('');
-    const [isOptionSelected, setIsOptionSelected] = useState('');
-    useEffect(() => {
-        // Init flatpickr
-        flatpickr('.form-datepicker', {
-            mode: 'single',
-            static: true,
-            monthSelectorType: 'static',
-            dateFormat: 'M j, Y',
-            prevArrow:
-                '<svg className="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
-            nextArrow:
-                '<svg className="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',
-        });
-    }, []);
-
-    const weaveremb = [
-        { value: 'BrandA', label: 'Brand A' },
-        { value: 'BrandB', label: 'Brand B' },
-        { value: 'BrandC', label: 'Brand C' }
-    ];
-    const productgrp = [
-        { value: 'BrandA', label: 'Brand A' },
-        { value: 'BrandB', label: 'Brand B' },
-        { value: 'BrandC', label: 'Brand C' }
-    ];
-    const colorgrp = [
-        { value: 'BrandA', label: 'Brand A' },
-        { value: 'BrandB', label: 'Brand B' },
-        { value: 'BrandC', label: 'Brand C' }
-    ];
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Configurator/Add Budget" />
