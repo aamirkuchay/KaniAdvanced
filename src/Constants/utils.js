@@ -125,6 +125,15 @@ export const UPDATE_ORDERTYPE_URL = `${BASE_URL}/orderType`;
 export const VIEW_ALL_ORDERTYPE = `${BASE_URL}/orderType/viewAll`;
 export const DELETE_ORDERTYPE_URL = `${BASE_URL}/orderType/`;
 
+
+
+//BUDGET
+export const ADD_BUDGET_URL = `${BASE_URL}/budget`;
+export const GET_BUDGET_URL = `${BASE_URL}/budget`;
+export const UPDATE_BUDGET_URL = `${BASE_URL}/budget`;
+export const VIEW_ALL_BUDGET = `${BASE_URL}/budget/viewAll`;
+export const DELETE_BUDGET_URL = `${BASE_URL}/budget/`;
+
 //dahsboard
 
 export const Count = `${BASE_URL}/api/dashboard`
