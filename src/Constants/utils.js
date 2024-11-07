@@ -134,6 +134,14 @@ export const UPDATE_BUDGET_URL = `${BASE_URL}/budget`;
 export const VIEW_ALL_BUDGET = `${BASE_URL}/budget/viewAll`;
 export const DELETE_BUDGET_URL = `${BASE_URL}/budget/`;
 
+
+//BUDGET
+export const ADD_CUSTOMER_URL = `${BASE_URL}/customer`;
+export const GET_CUSTOMER_URL = `${BASE_URL}/customer`;
+export const UPDATE_CUSTOMER_URL = `${BASE_URL}customert`;
+export const VIEW_ALL_CUSTOMER = `${BASE_URL}/customer/viewAll`;
+export const DELETE_CUSTOMER_URL = `${BASE_URL}/customer/`;
+
 //dahsboard
 
 export const Count = `${BASE_URL}/api/dashboard`

@@ -9,6 +9,7 @@ import SupplierReducer from "./Slice/SupplierSlice";
 import ColorReducer from "./Slice/ColorGroupSlice";
 import orderTypeReducer from "./Slice/OrderTypeSlice";
 import productGroupReducer from "./Slice/ProductGroup";
+import customerGroupReducer from "./Slice/CustomerGroupSlice";
 
 
 
@@ -43,7 +44,8 @@ const rootReducer = combineReducers({
     supplier: SupplierReducer,
     color:ColorReducer,
     orderType:orderTypeReducer,
-    productGroup:productGroupReducer
+    productGroup:productGroupReducer,
+    customerGroup:customerGroupReducer
 
   }),
 });

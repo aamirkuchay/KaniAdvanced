@@ -4,10 +4,17 @@ import { ErrorMessage, Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import ReactSelect from 'react-select';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import { useSelector } from 'react-redux';
 
 
 const AddCustomer = () => {
     const [selectedOption, setSelectedOption] = useState(null);
+
+
+
+    const customerGroup = useSelector(state => state?.nonPersisted?.customerGroup);
+
+    console.log(customerGroup);
     
 
     const productgrp = [
