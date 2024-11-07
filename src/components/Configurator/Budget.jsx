@@ -171,14 +171,20 @@ const Budget = () => {
                                                 </div>
                                                 <div className="flex-1 min-w-[300px]">
                                                     <label className="mb-2.5 block text-black dark:text-white"> Start Date</label>
-                                                    <input
+                                                    {/* <input
                                                     placeholder='Select  Date'
                                                     type="text"
                                                     name='startDate'
                                                     ref={flatpickrRef}
                                                     value={dateSelected}
                                                     className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                                />
+                                                /> */}
+                                                   <Field
+                                                        name='startDate'
+                                                        type="date"
+                                                        placeholder="Enter Start Date"
+                                                        className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="mb-4.5 flex flex-wrap gap-6">
