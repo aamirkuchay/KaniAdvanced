@@ -814,7 +814,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
               {/* customer */}
 
-              {/* <SidebarLinkGroup
+              <SidebarLinkGroup
                 activeCondition={
                   pathname === '/forms' || pathname.includes('forms')
                 }
@@ -888,7 +888,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     </React.Fragment>
                   );
                 }}
-              </SidebarLinkGroup> */}
+              </SidebarLinkGroup>
 
               {/* weaver embroider  */}
 

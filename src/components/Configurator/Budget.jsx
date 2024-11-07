@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Breadcrumb from '../Breadcrumbs/Breadcrumb'
 import DefaultLayout from '../../layout/DefaultLayout'
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -14,11 +14,14 @@ import BudgetTable from "./BudgetTable"
 
 const Budget = () => {
 
+
+
     const productGroup = useSelector(state => state?.nonPersisted?.productGroup);
     const orderType = useSelector(state => state?.nonPersisted?.orderType);
 
     const [productOptions, setproductOptions] = useState([])
     const [orderOptions, setorderOptions] = useState([])
+    const [dateSelected, setDateSelected] = useState('');
 
     console.log(productGroup, orderType, "heyproooo");
 
@@ -55,7 +58,22 @@ const Budget = () => {
     } = useBudget();
 
 
-
+    const flatpickrRef = useRef(null);
+    useEffect(() => {
+        if (flatpickrRef.current) {
+            flatpickr(flatpickrRef.current, {
+                mode: 'single',
+                static: true,
+                monthSelectorType: 'static',
+                dateFormat: 'Y-m-d\\TH:i:S.Z',
+                prevArrow: '<svg className="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
+                nextArrow: '<svg className="fill-current" width="7" height="11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',
+                onChange: (selectedDates, dateStr) => {
+                    setDateSelected(dateStr.split('T')[0]);
+                },
+            });
+        }
+    }, [flatpickrRef.current]);
     console.log(Budget, "jhhhh");
     const validationSchema = Yup.object({
         productGroup: Yup.object({
@@ -150,12 +168,14 @@ const Budget = () => {
                                                 </div>
                                                 <div className="flex-1 min-w-[300px]">
                                                     <label className="mb-2.5 block text-black dark:text-white"> Start Date</label>
-                                                    <Field
-                                                        name='startDate'
-                                                        type="date"
-                                                        placeholder="Enter Start Date"
-                                                        className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
-                                                    />
+                                                    <input
+                                                    placeholder='Select  Date'
+                                                    type="text"
+                                                    name='startDate'
+                                                    ref={flatpickrRef}
+                                                    value={dateSelected}
+                                                    className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                                />
                                                 </div>
                                             </div>
                                             <div className="mb-4.5 flex flex-wrap gap-6">
