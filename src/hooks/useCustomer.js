@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { GET_CUSTOMER_URL, DELETE_CUSTOMER_URL, UPDATE_CUSTOMER_URL, ADD_CUSTOMER_URL } from "../Constants/utils";
+import { GET_CUSTOMER_URL, DELETE_CUSTOMER_URL, UPDATE_CUSTOMER_URL, ADD_CUSTOMER_URL,GET_CUSTOMER_ID_URL } from "../Constants/utils";
 import { fetchCustomerGroup } from '../redux/Slice/CustomerGroupSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -102,7 +102,7 @@ const useCustomer = () => {
 
     const GetCustomerById = async (id) => {
         try {
-            const response = await fetch(`${GET_SUPPLIER_ID_URL}/${id}`, {
+            const response = await fetch(`${GET_CUSTOMER_ID_URL}/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -114,7 +114,7 @@ const useCustomer = () => {
             console.log(data + "xsdfghjkl")
             if (response.ok) {
                 console.log("get Material data", data);
-                setCurrentSupplier(data);
+                setCurrentCustomer(data);
                 return data; // Return the fetched data
             } else {
                 toast.error(`${data.errorMessage}`);
@@ -191,6 +191,7 @@ const useCustomer = () => {
         handleUpdate,
         handleSubmit,
         handlePageChange,
+        GetCustomerById
     };
 };
 
