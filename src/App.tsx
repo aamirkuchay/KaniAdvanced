@@ -152,7 +152,7 @@ function App() {
             path="/product/addProduct"
             element={
               <>
-                <PageTitle title="Add Material" />
+                <PageTitle title="Add Product" />
                 <AddProduct />
               </>
             }
@@ -341,7 +341,7 @@ function App() {
             path="/supplier/add"
             element={
               <>
-                <PageTitle title="Add Weaver Emb" />
+                <PageTitle title="Add Supplier" />
                 <AddSupplier />
               </>
             }
@@ -351,7 +351,7 @@ function App() {
             path="/supplier/view"
             element={
               <>
-                <PageTitle title="View Weaver Emb" />
+                <PageTitle title="View Supplier" />
                 <ViewSupplier />
               </>
             }
