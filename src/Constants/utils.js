@@ -107,6 +107,7 @@ export const DELETE_PRODUCTCATEGORY_URL = `${BASE_URL}/product-category/`;
 export const ADD_CUSTOMERGROUP_URL = `${BASE_URL}/customer-group`;
 export const GET_CUSTOMERGROUP_URL = `${BASE_URL}/customer-group`;
 export const UPDATE_CUSTOMERGROUP_URL = `${BASE_URL}/customer-group`;
+export const GET_CUSTOMER_ID_URL = `${BASE_URL}/customer`;
 export const VIEW_ALL_CUSTOMERGROUP = `${BASE_URL}/customer-group`;
 export const DELETE_CUSTOMERGROUP_URL = `${BASE_URL}/customer-group/`;
 
