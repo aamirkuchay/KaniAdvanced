@@ -74,8 +74,8 @@ const AddCustomer = () => {
       reference: '',
       billingAddress: '',
       shippingAddress: '',
-      gst: '',
-      iecNo: '',
+      gstin_vatno: '',
+      iecNumber: '',
       instaId: '',
       discountOffered: '',
       retailLocation: '',
@@ -99,8 +99,8 @@ const AddCustomer = () => {
       reference: Yup.string().required('Required'),
       billingAddress: Yup.string().required('Required'),
       shippingAddress: Yup.string().required('Required'),
-      gst: Yup.string().required('Required'),
-      iecNo: Yup.string().required('Required'),
+      gstin_vatno: Yup.string().required('Required'),
+      iecNumber: Yup.string().required('Required'),
       instaId: Yup.string().required('Required'),
       discountOffered: Yup.string().required('Required'),
     }),
@@ -365,16 +365,16 @@ const AddCustomer = () => {
                     </label>
                     <input
                       type="text"
-                      name="gst"
-                      placeholder="GSTIN/VAT No"
+                      name="gstin_vatno"
+                      placeholder="GstIN/VAT No"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.gst}
+                      value={formik.values.gstin_vatno}
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
-                    {formik.touched.gst && formik.errors.gst ? (
+                    {formik.touched.gstin_vatno && formik.errors.gstin_vatno ? (
                       <div className="text-red-600 text-sm">
-                        {formik.errors.gst}
+                        {formik.errors.gstin_vatno}
                       </div>
                     ) : null}
                   </div>
@@ -384,16 +384,16 @@ const AddCustomer = () => {
                     </label>
                     <input
                       type="text"
-                      name="iecNo"
+                      name="iecNumber"
                       placeholder="IEC No"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.iecNo}
+                      value={formik.values.iecNumber}
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
-                    {formik.touched.iecNo && formik.errors.iecNo ? (
+                    {formik.touched.iecNo && formik.errors.iecNumber ? (
                       <div className="text-red-600 text-sm">
-                        {formik.errors.iecNo}
+                        {formik.errors.iecNumber}
                       </div>
                     ) : null}
                   </div>
