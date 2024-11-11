@@ -82,7 +82,7 @@ const ViewCustomer = () => {
       <Breadcrumb pageName="Customer / View Customer" />
       <div className="container mx-auto px-4 sm:px-8 bg-white dark:bg-slate-800">
         <div className="pt-5">
-          <div className="flex justify-center items-center p-3">
+          {/* <div className="flex justify-center items-center p-3">
             <input
               type="text"
               name="search"
@@ -94,7 +94,7 @@ const ViewCustomer = () => {
             <button className="w-[80px] h-12 rounded-lg bg-blue-700 text-white dark:bg-blue-600 dark:text-slate-300  ml-4">
               Search
             </button>
-          </div>
+          </div> */}
           <div className="flex justify-between mt-10">
             <h2 className="text-xl font-semibold leading-tight">
               View Customer
@@ -102,7 +102,7 @@ const ViewCustomer = () => {
             <p
               className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium bg-success text-success  dark:bg-white dark:text-slate-800`}
             >
-              Total Customers: {pagination.totalItems}
+              Total Customer: {pagination.totalItems}
             </p>
           </div>
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
