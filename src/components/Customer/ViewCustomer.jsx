@@ -38,9 +38,10 @@ const ViewCustomer = () => {
     //   </tr>
     // );
 
-    const startingSerialNumber = (pagination.currentPage - 1) * pagination.itemsPerPage + 1;
+    const startingSerialNumber =
+      (pagination.currentPage - 1) * pagination.itemsPerPage + 1;
     return Customer.map((item, index) => (
-      <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
+      <tr key={index} className="bg-white dark:bg-slate-700 dark:text-white">
         <td className="px-5 py-5 border-b border-gray-200 text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
             {startingSerialNumber + index}
@@ -52,25 +53,39 @@ const ViewCustomer = () => {
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 text-sm">
+          <p className="text-gray-900 whitespace-no-wrap">{item.countryName}</p>
+        </td>
+        {/* <td className="px-5 py-5 border-b border-gray-200 text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-            {item.countryName}
+            {' '}
+            {item?.customerGroup?.customerGroupName}
+          </p>
+        </td> */}
+        <td className="px-5 py-5 border-b border-gray-200 text-sm">
+          <p className="text-gray-900 whitespace-no-wrap"> {item?.email}</p>
+        </td>
+        <td className="px-5 py-5 border-b border-gray-200 text-sm">
+          <p className="text-gray-900 whitespace-no-wrap">
+            {' '}
+            {item?.contactNumber}
           </p>
         </td>
-        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-          <p className="text-gray-900 whitespace-no-wrap"> {item?.customerGroup?.customerGroupName}</p>
-        </td>
-        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-          <p className="text-gray-900 whitespace-no-wrap"> {item?.retailLocation}</p>
-        </td>
-        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-          <p className="text-gray-900 whitespace-no-wrap"> {item?.shippingAddress}</p>
-        </td>
-
 
         <td className="px-5 py-5  border-b border-gray-200  text-sm">
           <p className="flex text-gray-900 whitespace-no-wrap">
-            <FiEdit size={17} className='text-teal-500 hover:text-teal-700 mx-2' onClick={(e) => handleUpdate(e, item)} title='Edit Customer' />  |
-            <FiTrash2 size={17} className='text-red-500  hover:text-red-700 mx-2' onClick={(e) => handleDelete(e, item?.id)} title='Delete Customer' />
+            <FiEdit
+              size={17}
+              className="text-teal-500 hover:text-teal-700 mx-2"
+              onClick={(e) => handleUpdate(e, item)}
+              title="Edit Customer"
+            />{' '}
+            |
+            <FiTrash2
+              size={17}
+              className="text-red-500  hover:text-red-700 mx-2"
+              onClick={(e) => handleDelete(e, item?.id)}
+              title="Delete Customer"
+            />
           </p>
         </td>
       </tr>
@@ -119,14 +134,15 @@ const ViewCustomer = () => {
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                       Country
                     </th>
-                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    {/* <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                       Customer Group
+                    </th> */}
+
+                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      Email
                     </th>
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                      Retail Location
-                    </th>
-                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                      Shipping Address
+                      Contact Number
                     </th>
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                       Action
