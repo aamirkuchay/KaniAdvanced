@@ -75,7 +75,7 @@ function App() {
     toast.success('Logout:Session Expired ');
   };
 
-  useInactivity(5 * 60 * 1000, handleLogout);
+  //useInactivity(5 * 60 * 1000, handleLogout);
 
   useEffect(() => {
     window.scrollTo(0, 0);
