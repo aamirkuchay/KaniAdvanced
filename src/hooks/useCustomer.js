@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { GET_CUSTOMER_URL, DELETE_CUSTOMER_URL, UPDATE_CUSTOMER_URL, ADD_CUSTOMER_URL } from "../Constants/utils";
 import { fetchCustomerGroup } from '../redux/Slice/CustomerGroupSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 const useCustomer = () => {
+    const navigate = useNavigate()
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
     const [Customer, setCustomer] = useState([]);
@@ -32,7 +34,7 @@ const useCustomer = () => {
 
     const getCustomer = async (page) => {
       try {
-        const response = await fetch(`${GET_CUSTOMER_URL}?page=${page}`, {
+        const response = await fetch(`${GET_CUSTOMER_URL}?page=${page||1}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -89,21 +91,46 @@ const useCustomer = () => {
     };
 
     const handleUpdate = (e, item) => {
-      e.preventDefault();
-      setEdit(true);
-      console.log(item, 'hey');
-      setCurrentCustomer(item);
+        e.preventDefault();
+        setEdit(true);
+        if (item && item.id) {
+            navigate(`/customer/updateCustomer/${item.id}`);
+        } else {
+            console.error("Item or its ID is missing");
+        }
+    };
+
+    const GetCustomerById = async (id) => {
+        try {
+            const response = await fetch(`${GET_SUPPLIER_ID_URL}/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            });
+
+            const data = await response.json();
+            console.log(data + "xsdfghjkl")
+            if (response.ok) {
+                console.log("get Material data", data);
+                setCurrentSupplier(data);
+                return data; // Return the fetched data
+            } else {
+                toast.error(`${data.errorMessage}`);
+                return null;
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred");
+            return null;
+        }
     };
 
     const handleSubmit = async (values) => {
       console.log(values, 'i am here');
       try {
-        // Manually structure productGroup and orderType to send just the required ID
-        // const formattedValues = {
-        //     ...values,
-        //     productGroup: values.productGroup ? { id: values.productGroup.id } : {}, // assuming productGroup is an object with an id
-        //     orderType: values.orderType ? { id: values.orderType.id } : {}, // assuming orderType is an object with an id
-        // };
+        
 
         const url = edit
           ? `${UPDATE_CUSTOMER_URL}/${currentCustomer.id}`
@@ -156,6 +183,7 @@ const useCustomer = () => {
 
     return {
         Customer,
+        getCustomer,
         edit,
         currentCustomer,
         pagination,

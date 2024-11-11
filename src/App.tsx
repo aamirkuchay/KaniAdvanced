@@ -43,7 +43,7 @@ import UpdateMaterialPo from './components/PuchaseOrder/UpdateMaterialPo.jsx';
 
 import AddCustomer from './components/Customer/AddCustomer';
 import ViewCustomer from './components/Customer/ViewCustomer';
-
+import UpdateCustomer from './components/Customer/UpdateCustomer';
 import CreateMaterialInventory from './components/Inventory/CreateMaterialInventory.jsx';
 import ViewMaterialInventory from './components/Inventory/ViewMaterialInventory.jsx';
 import UpdateInventoryMaterial from './components/Inventory/UpdateInventoryMaterial.jsx';
@@ -324,6 +324,7 @@ function App() {
               </>
             }
           />
+      
           <Route
             path="/configurator/addordertype"
             element={
@@ -371,6 +372,15 @@ function App() {
               <>
                 <PageTitle title="Add Weaver Emb" />
                 <ViewCustomer />
+              </>
+            }
+          />
+            <Route
+            path="/customer/updateCustomer/:id"
+            element={
+              <>
+                <PageTitle title="Add Weaver Emb" />
+                <UpdateCustomer />
               </>
             }
           />
