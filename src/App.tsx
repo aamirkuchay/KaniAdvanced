@@ -152,7 +152,7 @@ function App() {
             path="/product/addProduct"
             element={
               <>
-                <PageTitle title="Add Material" />
+                <PageTitle title="Add Product" />
                 <AddProduct />
               </>
             }
@@ -324,7 +324,7 @@ function App() {
               </>
             }
           />
-      
+
           <Route
             path="/configurator/addordertype"
             element={
@@ -341,7 +341,7 @@ function App() {
             path="/supplier/add"
             element={
               <>
-                <PageTitle title="Add Weaver Emb" />
+                <PageTitle title="Add Supplier" />
                 <AddSupplier />
               </>
             }
@@ -351,7 +351,7 @@ function App() {
             path="/supplier/view"
             element={
               <>
-                <PageTitle title="View Weaver Emb" />
+                <PageTitle title="View Supplier" />
                 <ViewSupplier />
               </>
             }
@@ -361,7 +361,7 @@ function App() {
             path="/customer/addCustomer"
             element={
               <>
-                <PageTitle title="Add Weaver Emb" />
+                <PageTitle title="Add Customer" />
                 <AddCustomer />
               </>
             }
@@ -370,16 +370,16 @@ function App() {
             path="/customer/viewCustomer"
             element={
               <>
-                <PageTitle title="Add Weaver Emb" />
+                <PageTitle title="View Customer" />
                 <ViewCustomer />
               </>
             }
           />
-            <Route
+          <Route
             path="/customer/updateCustomer/:id"
             element={
               <>
-                <PageTitle title="Add Weaver Emb" />
+                <PageTitle title="Update Customer" />
                 <UpdateCustomer />
               </>
             }
@@ -408,7 +408,7 @@ function App() {
             path="/material/addPurchase"
             element={
               <>
-                <PageTitle title="Add Customer Group" />
+                <PageTitle title="Add Purchase" />
                 <MaterialPo />
               </>
             }
@@ -417,7 +417,7 @@ function App() {
             path="/material/viewPurchase"
             element={
               <>
-                <PageTitle title="Add Customer Group" />
+                <PageTitle title="View Purchase" />
                 <ViewMaterialPo />
               </>
             }
@@ -426,7 +426,7 @@ function App() {
             path="/material/updatematerialPo/:id"
             element={
               <>
-                <PageTitle title="Update Customer Group" />
+                <PageTitle title="Update Material PO" />
                 <UpdateMaterialPo />
               </>
             }
@@ -435,7 +435,7 @@ function App() {
             path="/supplier/updateSupplier/:id"
             element={
               <>
-                <PageTitle title="Update Customer Group" />
+                <PageTitle title="Update Supplier" />
                 <UpdateSupplier />
               </>
             }
@@ -463,7 +463,7 @@ function App() {
             path="/stockjournal/add"
             element={
               <>
-                <PageTitle title="Update Customer Group" />
+                <PageTitle title="Add Stock Journal" />
                 <AddStockJournel />
               </>
             }
@@ -473,7 +473,7 @@ function App() {
             path="/stockjournal/view"
             element={
               <>
-                <PageTitle title="Update Customer Group" />
+                <PageTitle title="View Stock Journal" />
                 <ViewStockJournel />
               </>
             }
@@ -483,7 +483,7 @@ function App() {
             path="/inventory/updateInventoryMaterial/:id"
             element={
               <>
-                <PageTitle title="Update Customer Group" />
+                <PageTitle title="Update Inventory " />
                 <UpdateInventoryMaterial />
               </>
             }
@@ -493,7 +493,7 @@ function App() {
             path="/stockjournel/updateStockJournal/:id"
             element={
               <>
-                <PageTitle title="Update Stock Group" />
+                <PageTitle title="Update Stock Journal" />
                 <UpdateStockJournal />
               </>
             }
