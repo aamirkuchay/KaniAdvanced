@@ -57,7 +57,7 @@ const HsnCode = () => {
                                                 <ErrorMessage name="hsnCodesName" component="div" className="text-red-500" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> IGST %</label>
+                                                <label className="mb-2.5 block text-black dark:text-white"> IGST (%)</label>
                                                 <Field
                                                     type="number"
                                                     name="igst"
@@ -69,7 +69,7 @@ const HsnCode = () => {
                                         </div>
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> CGST %</label>
+                                                <label className="mb-2.5 block text-black dark:text-white"> CGST (%)</label>
                                                 <Field
                                                     type="number"
                                                     name="cgst"
@@ -79,7 +79,7 @@ const HsnCode = () => {
                                                 <ErrorMessage name="cgst" component="div" className="text-red-500" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> SGST %</label>
+                                                <label className="mb-2.5 block text-black dark:text-white"> SGST (%)</label>
                                                 <Field
                                                     type="number"
                                                     name="sgst"
