@@ -14,7 +14,7 @@ import productCategoryReducer from "./Slice/ProductCategory";
 import styleReducer from "./Slice//StyleSlice";
 import designReducer from "./Slice/DesignSlice";
 import sizeReducer from "./Slice/SizeSlice";
-
+import HsnReducer from "./Slice/HsnCodeSlice";
 
 import ThemeSlice from "./Slice/ThemeSlice";
 
@@ -51,7 +51,8 @@ const rootReducer = combineReducers({
     productCategory:productCategoryReducer,
     style:styleReducer,
     design:designReducer,
-    size:sizeReducer
+    size:sizeReducer,
+    hsn:HsnReducer
 
 
   }),

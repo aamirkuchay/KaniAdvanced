@@ -811,7 +811,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              HSN CODE
+                              Hsn Code
                             </NavLink>
                           </li>
                         </ul>
