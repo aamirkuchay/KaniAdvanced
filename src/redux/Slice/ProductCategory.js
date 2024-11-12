@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { GET_COLORAll_URL } from "../../Constants/utils";
+import { VIEW_ALL_PRODUCTCATEGORY } from "../../Constants/utils";
 
 
-export const fetchcolorGroup = createAsyncThunk(
-  "fetchcolorGroup",
+export const fetchProductCategory = createAsyncThunk(
+  "fetchProductCategory",
   async (accessToken) => {
-    const response = await fetch(GET_COLORAll_URL, {
+    const response = await fetch(VIEW_ALL_PRODUCTCATEGORY, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -14,8 +14,8 @@ export const fetchcolorGroup = createAsyncThunk(
   }
 );
 
-const colorGroupSLice = createSlice({
-  name: "colorGroup",
+const ProductCategorySLice = createSlice({
+  name: "ProductCategory",
   initialState: {
     loading: false,
     data: null,
@@ -23,18 +23,18 @@ const colorGroupSLice = createSlice({
   },
   //returned data is in action.payload
   extraReducers: (builder) => {
-    builder.addCase(fetchcolorGroup.fulfilled, (state, action) => {
+    builder.addCase(fetchProductCategory.fulfilled, (state, action) => {
       state.loading = false;
       state.data = action.payload;
       state.error = false;
     });
-    builder.addCase(fetchcolorGroup.pending, (state, action) => {
+    builder.addCase(fetchProductCategory.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(fetchcolorGroup.rejected, (state, action) => {
+    builder.addCase(fetchProductCategory.rejected, (state, action) => {
       state.loading = true;
       state.error = action.payload;
     });
   },
 });
-export default colorGroupSLice.reducer;
+export default ProductCategorySLice.reducer;

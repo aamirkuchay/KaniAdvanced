@@ -48,6 +48,7 @@ export const ADD_COLOR_URL = `${BASE_URL}/colors`
 export const DELETE_COLOR_URL = `${BASE_URL}/colors`
 export const UPDATE_COLOR_URL = `${BASE_URL}/colors`
 export const GET_COLOR_URL = `${BASE_URL}/colors`
+export const GET_COLORAll_URL = `${BASE_URL}/colors/viewAll`
 
 //create Inventory Material
 export const ADD_INVENTORY_URL = `${BASE_URL}/inventory`
@@ -142,6 +143,20 @@ export const GET_CUSTOMER_URL = `${BASE_URL}/customer`;
 export const UPDATE_CUSTOMER_URL = `${BASE_URL}customert`;
 export const VIEW_ALL_CUSTOMER = `${BASE_URL}/customer/viewAll`;
 export const DELETE_CUSTOMER_URL = `${BASE_URL}/customer/`;
+
+
+//PRODUCT
+export const ADD_PRODUCT_URL = `${BASE_URL}/products/add-product`;
+export const GET_PRODUCT_URL = `${BASE_URL}/products`;
+export const UPDATE_PRODUCT_URL = `${BASE_URL}/products/update-products`;
+export const VIEW_ALL_PRODUCT = `${BASE_URL}/products/viewAll`;
+export const DELETE_PRODUCT_URL = `${BASE_URL}/products/`;
+//PRODUCT
+export const ADD_HSNCODE_URL = `${BASE_URL}/hsncode`;
+export const GET_HSNCODE_URL = `${BASE_URL}/hsncode`;
+export const UPDATE_HSNCODE_URL = `${BASE_URL}/hsncode`;
+export const VIEW_ALL_HSNCODE = `${BASE_URL}/hsncode/viewAll`;
+export const DELETE_HSNCODE_URL = `${BASE_URL}/hsncode`;
 
 //dahsboard
 

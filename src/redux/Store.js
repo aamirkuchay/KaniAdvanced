@@ -10,8 +10,10 @@ import ColorReducer from "./Slice/ColorGroupSlice";
 import orderTypeReducer from "./Slice/OrderTypeSlice";
 import productGroupReducer from "./Slice/ProductGroup";
 import customerGroupReducer from "./Slice/CustomerGroupSlice";
-
-
+import productCategoryReducer from "./Slice/ProductCategory";
+import styleReducer from "./Slice//StyleSlice";
+import designReducer from "./Slice/DesignSlice";
+import sizeReducer from "./Slice/SizeSlice";
 
 
 import ThemeSlice from "./Slice/ThemeSlice";
@@ -45,7 +47,12 @@ const rootReducer = combineReducers({
     color:ColorReducer,
     orderType:orderTypeReducer,
     productGroup:productGroupReducer,
-    customerGroup:customerGroupReducer
+    customerGroup:customerGroupReducer,
+    productCategory:productCategoryReducer,
+    style:styleReducer,
+    design:designReducer,
+    size:sizeReducer
+
 
   }),
 });

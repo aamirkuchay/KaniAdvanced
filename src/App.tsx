@@ -30,6 +30,7 @@ import AddColorGroup from './components/Configurator/AddColorGroup.jsx';
 import AddProductCategory from './components/Configurator/AddProductCategory.jsx';
 import CustomerGroup from './components/Configurator/CustomerGroup.jsx';
 import OrderType from './components/Configurator/OrderType.jsx';
+import HsnCode from './components/Configurator/HsnCode.jsx';
 import Location from './components/Configurator/Location.jsx';
 import Supplier from './components/Configurator/Supplier.jsx';
 
@@ -331,6 +332,15 @@ function App() {
               <>
                 <PageTitle title="Add Order Type" />
                 <OrderType />
+              </>
+            }
+          />
+             <Route
+            path="/configurator/addhsncode"
+            element={
+              <>
+                <PageTitle title="Add Hsn Code" />
+                <HsnCode />
               </>
             }
           />
