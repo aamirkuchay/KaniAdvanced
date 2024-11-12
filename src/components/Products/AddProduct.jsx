@@ -502,7 +502,7 @@ const AddProduct = () => {
                                             <div className=" z-20 bg-transparent dark:bg-form-Field">
                                                 <ReactSelect
                                                     name="supplier"
-                                                    value={supplierNameOptions?.find(option => option.value === values.name?.id) || null}
+                                                    value={supplierNameOptions?.find(option => option.value === values.supplier?.id) || null}
                                                     onChange={(option) => setFieldValue('supplier', option ? option.supplierNameObject : null)}
                                                     options={supplierNameOptions}
                                                     styles={customStyles} // Pass custom styles here
