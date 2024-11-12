@@ -104,216 +104,267 @@ const MaterialPo = () => {
     });
 
     return (
-        <DefaultLayout>
-            <Breadcrumb pageName="Material/Material PO" />
-            <div>
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
+      <DefaultLayout>
+        <Breadcrumb pageName="Material/Material PO" />
+        <div>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={(values, actions) => {
+              values.date = dateSelected;
+              if (!dateSelected) {
+                toast.error('Please select a date');
+                return;
+              }
+              handleSubmit(values, actions);
+            }}
+          >
+            {({ setFieldValue, setValues, values }) => (
+              <Form>
+                <div className="flex flex-col gap-9">
+                  <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                    <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
+                      <h3 className="text-2xl font-semibold leading-tight text-center">
+                        Create Purchase Order
+                      </h3>
+                    </div>
+                    <div className="p-6.5">
+                      <div className="mb-4.5 flex flex-wrap gap-6">
+                        <div className="flex-1 min-w-[300px]">
+                          <label className="mb-2.5 block text-black dark:text-white">
+                            {' '}
+                            Date
+                          </label>
+                          <input
+                            placeholder="Select  Date"
+                            type="text"
+                            name="date"
+                            ref={flatpickrRef}
+                            value={dateSelected}
+                            className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          />
+                          <ErrorMessage
+                            name="date"
+                            component="div"
+                            className="text-red-500"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-[300px]">
+                          <label className="mb-2.5 block text-black dark:text-white">
+                            {' '}
+                            Location
+                          </label>
+                          <ReactSelect
+                            name="locationId"
+                            value={locationSel.find(
+                              (option) => option.value === values.locationId,
+                            )}
+                            onChange={(option) =>
+                              setFieldValue('locationId', option.value)
+                            }
+                            options={locationSel}
+                            styles={customStyles}
+                          />
+                          <ErrorMessage
+                            name="locationId"
+                            component="div"
+                            className="text-red-500"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-[300px]">
+                          <label className="mb-2.5 block text-black dark:text-white">
+                            {' '}
+                            Supplier
+                          </label>
+                          <ReactSelect
+                            name="supplierId"
+                            value={supplierSel.find(
+                              (option) => option.value === values.supplierId,
+                            )}
+                            onChange={(option) =>
+                              setFieldValue('supplierId', option.value)
+                            }
+                            options={supplierSel}
+                            styles={customStyles}
+                          />
+                          <ErrorMessage
+                            name="supplierId"
+                            component="div"
+                            className="text-red-500"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-[300px]"></div>
+                      </div>
 
-
-                    onSubmit={(values, actions) => {
-                        values.date = dateSelected;
-                        if (!dateSelected) {
-                            toast.error("Please select a date")
-                            return
-                        }
-                        handleSubmit(values, actions);
-                    }}
-                >
-                    {({ setFieldValue, setValues, values }) => (
-                        <Form>
-                            <div className="flex flex-col gap-9">
-                                <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                    <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
-                                        <h3 className="text-2xl font-semibold leading-tight text-center">
-                                            Create Purchase Order
-                                        </h3>
-                                    </div>
-                                    <div className="p-6.5">
-                                        <div className="mb-4.5 flex flex-wrap gap-6">
-                                            <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> Date</label>
-                                                <input
-                                                    placeholder='Select  Date'
-                                                    type="text"
-                                                    name='date'
-                                                    ref={flatpickrRef}
-                                                    value={dateSelected}
-                                                    className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                                />
-                                                <ErrorMessage name="date" component="div" className="text-red-500" />
-                                            </div>
-                                            <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> Location</label>
-                                                <ReactSelect
-                                                    name="locationId"
-                                                    value={locationSel.find(option => option.value === values.locationId)}
-                                                    onChange={option => setFieldValue('locationId', option.value)}
-                                                    options={locationSel}
-                                                    styles={customStyles}
-                                                />
-                                                <ErrorMessage name="locationId" component="div" className="text-red-500" />
-                                            </div>
-                                            <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> Supplier</label>
-                                                <ReactSelect
-                                                    name="supplierId"
-                                                    value={supplierSel.find(option => option.value === values.supplierId)}
-                                                    onChange={option => setFieldValue('supplierId', option.value)}
-                                                    options={supplierSel}
-                                                    styles={customStyles}
-                                                />
-                                                <ErrorMessage name="supplierId" component="div" className="text-red-500" />
-                                            </div>
-                                            <div className="flex-1 min-w-[300px]">
-
-                                            </div>
-                                        </div>
-
-                                        <div className="flex flex-col overflow-x-auto sm:overflow-hidden">
-                                            <div className="flex justify-between mt-15">
-                                                <h2 className='text-xl font-semibold leading-tight text-center'>
-                                                    Material PO Items
-                                                </h2>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => addRow(setValues, values)}
-                                                    className="flex items-center w-[100px] h-[50px] text-xs px-4 py-2 border border-transparent  font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                                                >
-                                                    <IoMdAdd className="mr-2" size={20} />
-                                                    Add Row
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-scroll sm:overflow-hidden ">
-                                            <div
-                                                className="inline-block min-w-full shadow-md rounded-lg "
-                                            >
-                                                <table className="min-w-full leading-normal overflow-auto">
-                                                    <thead>
-                                                        <tr className='px-5 py-3 bg-slate-300 dark:bg-slate-700 dark:text-white'>
-                                                            <th
-
-                                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                                                            >
-                                                                Material
-                                                            </th>
-                                                            <th
-
-                                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                                                            >
-                                                                Quantity
-                                                            </th>
-                                                            <th
-
-                                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                                                            >
-                                                                Cost Per Gram
-                                                            </th>
-                                                            <th
-
-                                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                                                            >
-                                                                Total
-                                                            </th>
-                                                            <th
-
-                                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                                                            >
-                                                                Actions
-                                                            </th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {values.materialPos.map((item, index) => (
-                                                            <tr key={item.id} className='bg-white dark:bg-slate-700 dark:text-white px-5 py-3'>
-                                                                <td className=" border-b border-gray-200  text-sm">
-
-                                                                    <div className="flex-1 min-w-[300px]">
-                                                                        {/* <label className="mb-2.5 block text-black dark:text-white"> Material</label> */}
-                                                                        <ReactSelect
-                                                                            name={`materialPos[${index}].materialId`}
-                                                                            value={materialSel.find(option => option.value === item.materialId)}
-                                                                            onChange={option => handleFieldChange(setFieldValue, index, 'materialId', option.value)}
-                                                                            options={materialSel}
-                                                                            styles={customStyles}
-                                                                        />
-                                                                        <ErrorMessage name={`materialPos[${index}].materialId`} component="div" className="text-red-500" />
-                                                                    </div>
-                                                                </td>
-                                                                <td className=" border-b border-gray-200  text-sm">
-
-                                                                    <div className="flex-1 min-w-[150px]">
-                                                                        {/* <label className="mb-2.5 block text-black dark:text-white"> Quantity</label> */}
-                                                                        <Field
-                                                                            type="number"
-                                                                            name={`materialPos[${index}].quantity`}
-                                                                            value={item.quantity}
-                                                                            onChange={(e) => handleFieldChange(setFieldValue, index, 'quantity', e.target.value)}
-                                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                                                        />
-                                                                        <ErrorMessage name={`materialPos[${index}].quantity`} component="div" className="text-red-500" />
-                                                                    </div>
-                                                                </td>
-                                                                <td className="border-b border-gray-200  text-sm">
-
-                                                                    <div className="flex-1 min-w-[150px]">
-                                                                        {/* <label className="mb-2.5 block text-black dark:text-white"> Cost Per Gram</label> */}
-                                                                        <Field
-                                                                            type="number"
-                                                                            name={`materialPos[${index}].costPerGram`}
-                                                                            value={item.costPerGram}
-                                                                            onChange={(e) => handleFieldChange(setFieldValue, index, 'costPerGram', e.target.value)}
-                                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                                                        />
-                                                                        <ErrorMessage name={`materialPos[${index}].costPerGram`} component="div" className="text-red-500" />
-                                                                    </div>
-                                                                </td>
-                                                                <td className=" border-b border-gray-200  text-sm">
-
-                                                                    <div className="flex-1 min-w-[150px]">
-                                                                        {/* <label className="mb-2.5 block text-black dark:text-white"> Total Price</label> */}
-                                                                        <Field
-                                                                            type="number"
-                                                                            name={`materialPos[${index}].totalPrice`}
-                                                                            value={item.totalPrice}
-                                                                            readOnly
-                                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                                                        />
-                                                                        <ErrorMessage name={`materialPos[${index}].totalPrice`} component="div" className="text-red-500" />
-                                                                    </div>
-                                                                </td>
-                                                                <td className="px-5 py-5 border-b border-gray-200  text-sm">
-
-                                                                    <div className="flex items-center justify-center">
-
-
-                                                                        <IoMdTrash type="button" className='text-red-700'
-                                                                            onClick={() => deleteRow(index, setValues, values)} size={20} />
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </table>
-
-                                            </div>
-                                        </div>
-                                        <div className="flex justify-center mt-4 items-center">
-                                        <button type="submit" className="flex sm:w-[300px] w-[150px] items-center justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4">
-                                            Save Purchase
-                                        </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Form>
-                    )}
-                </Formik>
-            </div>
-        </DefaultLayout >
+                      <div className="flex flex-col overflow-x-auto sm:overflow-hidden">
+                        <div className="flex justify-between mt-15">
+                          <h2 className="text-xl font-semibold leading-tight text-center">
+                            Material PO Items
+                          </h2>
+                          <button
+                            type="button"
+                            onClick={() => addRow(setValues, values)}
+                            className="flex items-center w-[100px] h-[20px] text-xs m-4 py-3 px-1 border border-transparent  font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                          >
+                            <IoMdAdd className="mr-2" size={20} />
+                            Add Row
+                          </button>
+                        </div>
+                      </div>
+                      {/* <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-scroll sm:overflow-hidden ">  */}
+                      <div className="inline-block min-w-full shadow-md rounded-lg ">
+                        <table className="min-w-full leading-normal overflow-auto">
+                          <thead>
+                            <tr className="px-5 py-3 bg-slate-300 dark:bg-slate-700 dark:text-white">
+                              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Material
+                              </th>
+                              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Quantity
+                              </th>
+                              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Cost Per Gram
+                              </th>
+                              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Total
+                              </th>
+                              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Actions
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {values.materialPos.map((item, index) => (
+                              <tr
+                                key={item.id}
+                                className="bg-white dark:bg-slate-700 dark:text-white px-5 py-3"
+                              >
+                                <td className=" border-b border-gray-200  text-sm">
+                                  <div className="flex-1 min-w-[300px]">
+                                    {/* <label className="mb-2.5 block text-black dark:text-white"> Material</label> */}
+                                    <ReactSelect
+                                      name={`materialPos[${index}].materialId`}
+                                      value={materialSel.find(
+                                        (option) =>
+                                          option.value === item.materialId,
+                                      )}
+                                      onChange={(option) =>
+                                        handleFieldChange(
+                                          setFieldValue,
+                                          index,
+                                          'materialId',
+                                          option.value,
+                                        )
+                                      }
+                                      options={materialSel}
+                                      styles={customStyles}
+                                    />
+                                    <ErrorMessage
+                                      name={`materialPos[${index}].materialId`}
+                                      component="div"
+                                      className="text-red-500"
+                                    />
+                                  </div>
+                                </td>
+                                <td className=" border-b border-gray-200  text-sm">
+                                  <div className="flex-1 min-w-[150px]">
+                                    {/* <label className="mb-2.5 block text-black dark:text-white"> Quantity</label> */}
+                                    <Field
+                                      type="number"
+                                      name={`materialPos[${index}].quantity`}
+                                      value={item.quantity}
+                                      onChange={(e) =>
+                                        handleFieldChange(
+                                          setFieldValue,
+                                          index,
+                                          'quantity',
+                                          e.target.value,
+                                        )
+                                      }
+                                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    />
+                                    <ErrorMessage
+                                      name={`materialPos[${index}].quantity`}
+                                      component="div"
+                                      className="text-red-500"
+                                    />
+                                  </div>
+                                </td>
+                                <td className="border-b border-gray-200  text-sm">
+                                  <div className="flex-1 min-w-[150px]">
+                                    {/* <label className="mb-2.5 block text-black dark:text-white"> Cost Per Gram</label> */}
+                                    <Field
+                                      type="number"
+                                      name={`materialPos[${index}].costPerGram`}
+                                      value={item.costPerGram}
+                                      onChange={(e) =>
+                                        handleFieldChange(
+                                          setFieldValue,
+                                          index,
+                                          'costPerGram',
+                                          e.target.value,
+                                        )
+                                      }
+                                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    />
+                                    <ErrorMessage
+                                      name={`materialPos[${index}].costPerGram`}
+                                      component="div"
+                                      className="text-red-500"
+                                    />
+                                  </div>
+                                </td>
+                                <td className=" border-b border-gray-200  text-sm">
+                                  <div className="flex-1 min-w-[150px]">
+                                    {/* <label className="mb-2.5 block text-black dark:text-white"> Total Price</label> */}
+                                    <Field
+                                      type="number"
+                                      name={`materialPos[${index}].totalPrice`}
+                                      value={item.totalPrice}
+                                      readOnly
+                                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    />
+                                    <ErrorMessage
+                                      name={`materialPos[${index}].totalPrice`}
+                                      component="div"
+                                      className="text-red-500"
+                                    />
+                                  </div>
+                                </td>
+                                <td className="px-5 py-5 border-b border-gray-200  text-sm">
+                                  <div className="flex items-center justify-center">
+                                    <IoMdTrash
+                                      type="button"
+                                      className="text-red-700"
+                                      onClick={() =>
+                                        deleteRow(index, setValues, values)
+                                      }
+                                      size={20}
+                                    />
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                      {/* </div> */}
+                      <div className="flex justify-center mt-4 items-center">
+                        <button
+                          type="submit"
+                          className="flex sm:w-[300px] w-[150px] items-center justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4"
+                        >
+                          Save Purchase
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </DefaultLayout>
     );
 };
 
