@@ -80,7 +80,7 @@ const useProduct = () => {
             const response = await fetch(`${GET_PRODUCT_URL}?page=${page}`, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                     "Authorization": `Bearer ${token}`
                 }
             });
@@ -152,7 +152,7 @@ const useProduct = () => {
             const response = await fetch(url, {
                 method: method,
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                     "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(product)

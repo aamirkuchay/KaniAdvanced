@@ -35,7 +35,7 @@ const AddProduct = () => {
     const design = useSelector(state => state?.nonPersisted?.design);
     const style = useSelector(state => state?.nonPersisted?.style);
     const size = useSelector(state => state?.nonPersisted?.size);
-    const hsn = useSelector(state => state?.nonPersisted?.hsn);
+    const hsnCode = useSelector(state => state?.nonPersisted?.hsn);
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
     const theme = useSelector(state => state?.persisted?.theme);
 
@@ -105,15 +105,15 @@ const AddProduct = () => {
     }, [size.data]);
 
     useEffect(() => {
-        if (hsn.data) {
-            const formattedOptions = hsn.data.map(hsn => ({
+        if (hsnCode.data) {
+            const formattedOptions = hsnCode.data.map(hsn => ({
                 value: hsn.id,
                 label: hsn?.hsnCodeName,
                 hsnObject: hsn,
             }));
             sethsnOptions(formattedOptions);
         }
-    }, [hsn.data]);
+    }, [hsnCode.data]);
     useEffect(() => {
         if (supplier.data) {
             const formattedOptions = supplier.data.map(supp => ({
@@ -285,8 +285,8 @@ const AddProduct = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> HSN Code</label>
                                                 <ReactSelect
-                                                    name="hsnCodeName"
-                                                    value={hsnOptions?.find(option => option.value === values.hsn?.id) || null}
+                                                    name="hsnCode"
+                                                    value={hsnOptions?.find(option => option.value === values.hsnCode?.id) || null}
                                                     onChange={(option) => setFieldValue('hsnCode', option ? option.hsnObject : null)}
                                                     options={hsnOptions}
                                                     styles={customStyles} // Pass custom styles here
@@ -502,7 +502,7 @@ const AddProduct = () => {
                                             <div className=" z-20 bg-transparent dark:bg-form-Field">
                                                 <ReactSelect
                                                     name="supplier"
-                                                    value={supplierNameOptions?.find(option => option.value === values.name?.id) || null}
+                                                    value={supplierNameOptions?.find(option => option.value === values.supplier?.id) || null}
                                                     onChange={(option) => setFieldValue('supplier', option ? option.supplierNameObject : null)}
                                                     options={supplierNameOptions}
                                                     styles={customStyles} // Pass custom styles here
