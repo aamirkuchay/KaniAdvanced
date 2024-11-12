@@ -9,6 +9,8 @@ import { fetchProductCategory } from '../redux/Slice/ProductCategory';
 import { fetchdesign } from '../redux/Slice/DesignSlice';
 import { fetchstyle } from '../redux/Slice/StyleSlice';
 import { fetchsize } from '../redux/Slice/SizeSlice';
+import { fetchHsnCode } from '../redux/Slice/HsnCodeSlice';
+import { fetchsupplier } from '../redux/Slice/SupplierSlice';
 
 const useProduct = () => {
     const { currentUser } = useSelector((state) => state?.persisted?.user);
@@ -26,7 +28,7 @@ const useProduct = () => {
       design: {
        
       },
-      hsnCode: "",
+      hsnCode: {},
       colorName: "",
       styles: {
        
@@ -38,7 +40,9 @@ const useProduct = () => {
       barcode: "",
       refrenceImage: "",
       actualImage: "",
-      productDescription: ""
+      productDescription: "",
+      supplier:{},
+      supplierCode:{}
     });
     const dispatch = useDispatch();
 
@@ -49,6 +53,8 @@ const useProduct = () => {
         dispatch(fetchdesign(token))
         dispatch(fetchstyle(token))
         dispatch(fetchsize(token))
+        dispatch(fetchHsnCode(token))
+        dispatch(fetchsupplier(token))
     }, []);
 
     const seloptions = [
@@ -138,7 +144,7 @@ const useProduct = () => {
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         console.log(values,"from useproduct");
-
+        const product = { Product:{...values} };
         try {
             const url = edit ? `${UPDATE_PRODUCT_URL}/${currentProduct.id}` : ADD_PRODUCT_URL;
             const method = edit ? "PUT" : "POST";
@@ -149,10 +155,8 @@ const useProduct = () => {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    ...values,
-                    ProductType: values.ProductType.value
-                })
+                body: JSON.stringify(product)
+                 
             });
 
             const data = await response.json();

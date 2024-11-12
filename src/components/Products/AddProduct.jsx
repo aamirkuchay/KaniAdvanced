@@ -18,6 +18,9 @@ const AddProduct = () => {
     const [designOptions, setdesignOptions] = useState([])
     const [styleOptions, setstyleOptions] = useState([])
     const [sizeOptions, setsizeOptions] = useState([])
+    const [hsnOptions, sethsnOptions] = useState([])
+    const [supplierNameOptions, setsupplierNameOptions] = useState([])
+    const [supplierCodeOptions, setsupplierCodeOptions] = useState([])
 
 
 
@@ -32,9 +35,11 @@ const AddProduct = () => {
     const design = useSelector(state => state?.nonPersisted?.design);
     const style = useSelector(state => state?.nonPersisted?.style);
     const size = useSelector(state => state?.nonPersisted?.size);
+    const hsn = useSelector(state => state?.nonPersisted?.hsn);
+    const supplier = useSelector(state => state?.nonPersisted?.supplier);
     const theme = useSelector(state => state?.persisted?.theme);
 
-    console.log(productGroup, colorGroup, productCategory, design, style, size, "proo");
+    console.log(supplier, "proo");
 
 
     useEffect(() => {
@@ -98,6 +103,37 @@ const AddProduct = () => {
             setsizeOptions(formattedOptions);
         }
     }, [size.data]);
+
+    useEffect(() => {
+        if (hsn.data) {
+            const formattedOptions = hsn.data.map(hsn => ({
+                value: hsn.id,
+                label: hsn?.hsnCodeName,
+                hsnObject: hsn,
+            }));
+            sethsnOptions(formattedOptions);
+        }
+    }, [hsn.data]);
+    useEffect(() => {
+        if (supplier.data) {
+            const formattedOptions = supplier.data.map(supp => ({
+                value: supp.id,
+                label: supp?.name,
+                supplierNameObject: supp,
+            }));
+            setsupplierNameOptions(formattedOptions);
+        }
+    }, [supplier.data]);
+    useEffect(() => {
+        if (supplier.data) {
+            const formattedOptions = supplier.data.map(supp => ({
+                value: supp.id,
+                label: supp?.supplierCode,
+                supplierCodeObject: supp,
+            }));
+            setsupplierCodeOptions(formattedOptions);
+        }
+    }, [supplier.data]);
 
 
     const customStyles = createCustomStyles(theme?.mode);
@@ -248,11 +284,15 @@ const AddProduct = () => {
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> HSN Code</label>
-                                                <Field
-                                                name='hsnCode'
-                                                    type="text"
-                                                    placeholder="Enter hsn Code"
-                                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
+                                                <ReactSelect
+                                                    name="hsnCodeName"
+                                                    value={hsnOptions?.find(option => option.value === values.hsn?.id) || null}
+                                                    onChange={(option) => setFieldValue('hsnCode', option ? option.hsnObject : null)}
+                                                    options={hsnOptions}
+                                                    styles={customStyles} // Pass custom styles here
+                                                    className="bg-white dark:bg-form-Field"
+                                                    classNamePrefix="react-select"
+                                                    placeholder="Select Hsn Code"
                                                 />
                                             </div>
                                         </div>
@@ -282,7 +322,7 @@ const AddProduct = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Color Name</label>
                                                 <Field
-                                                name='colorName'
+                                                    name='colorName'
                                                     type="text"
                                                     placeholder="Enter your first name"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
@@ -327,7 +367,7 @@ const AddProduct = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Product Id </label>
                                                 <Field
-                                                name='productId'
+                                                    name='productId'
                                                     type="text"
                                                     placeholder="Enter your first name"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
@@ -336,7 +376,7 @@ const AddProduct = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Barcode</label>
                                                 <Field
-                                                name='barcode'
+                                                    name='barcode'
                                                     type="text"
                                                     placeholder="Enter your last name"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
@@ -352,7 +392,7 @@ const AddProduct = () => {
                                                 </label>
                                                 <div className="relative w-full ">
                                                     <Field
-                                                    name='refrenceImage'
+                                                        name='refrenceImage'
                                                         type="file"
                                                         multiple
                                                         accept="image/*"
@@ -403,7 +443,7 @@ const AddProduct = () => {
                                                 </label>
                                                 <div className="relative w-full">
                                                     <Field
-                                                    name='actualImage'
+                                                        name='actualImage'
                                                         type="file"
                                                         multiple
                                                         accept="image/*"
@@ -451,32 +491,32 @@ const AddProduct = () => {
                                         <div className="mb-6">
                                             <label className="mb-2.5 block text-black dark:text-white"> Product Description </label>
                                             <textarea
-                                            name='productDescription'
+                                                name='productDescription'
                                                 rows={6}
                                                 placeholder="Type your message"
                                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                             ></textarea>
                                         </div>
                                         <div className="flex-1 min-w-[300px]">
-                                            <label className="mb-2.5 block text-black dark:text-white"> Weaver/Embroider </label>
+                                            <label className="mb-2.5 block text-black dark:text-white"> Supplier</label>
                                             <div className=" z-20 bg-transparent dark:bg-form-Field">
                                                 <ReactSelect
-                                                    value={selectedOption}
-                                                    onChange={(option) => {
-                                                        setSelectedOption(option);
-                                                        changeTextColor();
-                                                    }}
-                                                    options={productgrp}
+                                                    name="supplier"
+                                                    value={supplierNameOptions?.find(option => option.value === values.name?.id) || null}
+                                                    onChange={(option) => setFieldValue('supplier', option ? option.supplierNameObject : null)}
+                                                    options={supplierNameOptions}
+                                                    styles={customStyles} // Pass custom styles here
+                                                    className="bg-white dark:bg-form-Field"
                                                     classNamePrefix="react-select"
-                                                    placeholder="Weaver Code"
+                                                    placeholder="Select supplier Name"
                                                 />
-                                                <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
+                                                {/* <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
                                                     <svg className="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <g opacity="0.8">
                                                             <path fillRule="evenodd" clipRule="evenodd" d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z" fill=""></path>
                                                         </g>
                                                     </svg>
-                                                </span>
+                                                </span> */}
                                             </div>
                                         </div>
 
@@ -488,21 +528,19 @@ const AddProduct = () => {
 
 
                                         <div className="flex-1 min-w-[300px]">
-                                            <label className="mb-2.5 block text-black dark:text-white"> Weaver Code </label>
+                                            <label className="mb-2.5 block text-black dark:text-white"> Supplier Code </label>
                                             <div className=" bg-transparent dark:bg-form-Field">
 
 
                                                 <ReactSelect
-                                                    className=' dark:bg-slate-700'
-
-                                                    value={selectedOption}
-                                                    onChange={(option) => {
-                                                        setSelectedOption(option);
-                                                        changeTextColor();
-                                                    }}
-                                                    options={weaveremb}
+                                                    name="supplierCode"
+                                                    value={supplierCodeOptions?.find(option => option.value === values.supplierCode?.id) || null}
+                                                    onChange={(option) => setFieldValue('supplierCode', option ? option.supplierCodeObject : null)}
+                                                    options={supplierCodeOptions}
+                                                    styles={customStyles} // Pass custom styles here
+                                                    className="bg-white dark:bg-form-Field"
                                                     classNamePrefix="react-select"
-                                                    placeholder="Weaver Code"
+                                                    placeholder="Select supplier Code"
                                                 />
 
 
