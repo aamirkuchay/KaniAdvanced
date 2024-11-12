@@ -49,7 +49,7 @@ const HsnCode = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> HSN CODE</label>
                                                 <Field
-                                                    type="text"
+                                                    type="number"
                                                     name="hsnCodeName"
                                                     placeholder="Enter HsnCode Name"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-black dark:focus:border-primary"
@@ -57,9 +57,9 @@ const HsnCode = () => {
                                                 <ErrorMessage name="hsnCodesName" component="div" className="text-red-500" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> IGST</label>
+                                                <label className="mb-2.5 block text-black dark:text-white"> IGST %</label>
                                                 <Field
-                                                    type="text"
+                                                    type="number"
                                                     name="igst"
                                                     placeholder="Enter IGST Name"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-black dark:focus:border-primary"
@@ -69,9 +69,9 @@ const HsnCode = () => {
                                         </div>
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> CGST</label>
+                                                <label className="mb-2.5 block text-black dark:text-white"> CGST %</label>
                                                 <Field
-                                                    type="text"
+                                                    type="number"
                                                     name="cgst"
                                                     placeholder="Enter cgst Name"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-black dark:focus:border-primary"
@@ -79,9 +79,9 @@ const HsnCode = () => {
                                                 <ErrorMessage name="cgst" component="div" className="text-red-500" />
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white"> SGST</label>
+                                                <label className="mb-2.5 block text-black dark:text-white"> SGST %</label>
                                                 <Field
-                                                    type="text"
+                                                    type="number"
                                                     name="sgst"
                                                     placeholder="Enter SGST Name"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-black dark:focus:border-primary"
