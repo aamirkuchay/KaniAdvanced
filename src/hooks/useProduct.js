@@ -17,32 +17,33 @@ const useProduct = () => {
     const { token } = currentUser;
     const [Product, setProduct] = useState([]);
     const [edit, setEdit] = useState(false);
-    const [currentProduct, setCurrentProduct] = useState({productGroup:{},
-    
-      colors: {
-       
-      },
-      productCategory: {
-    
-      },
-      design: {
-       
-      },
-      hsnCode: {},
-      colorName: "",
-      styles: {
-       
-      },
-      sizes: {
-      
-      },
-      productId: 0,
-      barcode: "",
-      refrenceImage: "",
-      actualImage: "",
-      productDescription: "",
-      supplier:{},
-      supplierCode:{}
+    const [currentProduct, setCurrentProduct] = useState({
+        productGroup: {},
+
+        colors: {
+
+        },
+        productCategory: {
+
+        },
+        design: {
+
+        },
+        hsnCode: {},
+        colorName: "",
+        styles: {
+
+        },
+        sizes: {
+
+        },
+        productId: 0,
+        barcode: "",
+        refrenceImage: "",
+        actualImage: "",
+        productDescription: "",
+        supplier: {},
+        supplierCode: {}
     });
     const dispatch = useDispatch();
 
@@ -142,41 +143,112 @@ const useProduct = () => {
         });
     };
 
+    // const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    //     console.log(values,"from useproduct");
+    //     const product = { Product:{...values} };
+    //     try {
+    //         const url = edit ? `${UPDATE_PRODUCT_URL}/${currentProduct.id}` : ADD_PRODUCT_URL;
+    //         const method = edit ? "PUT" : "POST";
+
+    //         const response = await fetch(url, {
+    //             method: method,
+    //             headers: {
+    //                 "Content-Type": "multipart/form-data",
+    //                 "Authorization": `Bearer ${token}`
+    //             },
+    //             body: JSON.stringify(product)
+
+    //         });
+
+    //         const data = await response.json();
+    //         //  console.log(data)
+    //         if (response.ok) {
+    //             toast.success(`Product ${edit ? 'updated' : 'added'} successfully`);
+    //             resetForm();
+    //             setEdit(false);
+    //             setCurrentProduct({ description: '', unit: { id: '', name: '' }, grade: '', ProductType: null });
+    //             getProduct(pagination.currentPage || 1); // Fetch updated Product
+    //         } else {
+    //             toast.error(`${data.errorMessage}`);
+    //         }
+    //     } catch (error) {
+    //         console.log(error)
+    //         toast.error("An error occurred");
+    //     } finally {
+    //         setSubmitting(false);
+    //     }
+    // };
+
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        console.log(values,"from useproduct");
-        const product = { Product:{...values} };
+        console.log('Form values:', values);  // Debugging to check structure of `values`
+    
+        const formData = new FormData();
+    
+        // Access the product object if nested in `values.Product`
+        const product = values;  // Assuming `Product` is nested inside `values`
+        console.log('Product object:', product);  // Debugging line
+    
+        if (product) {
+            formData.append('product', JSON.stringify(product));  // Append the product as JSON
+        } else {
+            console.error('Product is missing');
+        }
+    
+        // Check if file inputs are populated and append them
+        if (values.refrenceImage && values.refrenceImage[0]) {
+            console.log('Appending refrenceImage:', values.refrenceImage[0]);  // Debug line
+            formData.append('refrenceImage', values.refrenceImage[0]);  // Append file
+        } else {
+            console.error('Reference image is missing or empty');
+        }
+    
+        if (values.actualImage && values.actualImage[0]) {
+            console.log('Appending actualImage:', values.actualImage[0]);  // Debug line
+            formData.append('actualImage', values.actualImage[0]);  // Append file
+        } else {
+            console.error('Actual image is missing or empty');
+        }
+    
+        // Log FormData content before sending the request
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);  // Logs the keys and values in FormData
+        }
+    
         try {
             const url = edit ? `${UPDATE_PRODUCT_URL}/${currentProduct.id}` : ADD_PRODUCT_URL;
             const method = edit ? "PUT" : "POST";
-
+    
             const response = await fetch(url, {
                 method: method,
                 headers: {
-                    "Content-Type": "multipart/form-data",
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${token}`,  // Include authorization token if necessary
                 },
-                body: JSON.stringify(product)
-                 
+                body: formData,  // Send the FormData as the body of the request
             });
-
+    
             const data = await response.json();
-            //  console.log(data)
+    
             if (response.ok) {
                 toast.success(`Product ${edit ? 'updated' : 'added'} successfully`);
                 resetForm();
                 setEdit(false);
                 setCurrentProduct({ description: '', unit: { id: '', name: '' }, grade: '', ProductType: null });
-                getProduct(pagination.currentPage || 1); // Fetch updated Product
+                getProduct(pagination.currentPage || 1);  // Refresh the list of products
             } else {
                 toast.error(`${data.errorMessage}`);
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
             toast.error("An error occurred");
         } finally {
             setSubmitting(false);
         }
     };
+    
+    
+
+
+
 
     const handlePageChange = (newPage) => {
         setPagination((prev) => ({ ...prev, currentPage: newPage }));

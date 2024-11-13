@@ -120,6 +120,7 @@ const AddProduct = () => {
                 value: supp.id,
                 label: supp?.name,
                 supplierNameObject: supp,
+                suplierid: { id: supp.id }
             }));
             setsupplierNameOptions(formattedOptions);
         }
@@ -130,10 +131,12 @@ const AddProduct = () => {
                 value: supp.id,
                 label: supp?.supplierCode,
                 supplierCodeObject: supp,
+                suplieridd: { id: supp.id }
             }));
             setsupplierCodeOptions(formattedOptions);
         }
     }, [supplier.data]);
+    
 
 
     const customStyles = createCustomStyles(theme?.mode);
@@ -503,7 +506,7 @@ const AddProduct = () => {
                                                 <ReactSelect
                                                     name="supplier"
                                                     value={supplierNameOptions?.find(option => option.value === values.supplier?.id) || null}
-                                                    onChange={(option) => setFieldValue('supplier', option ? option.supplierNameObject : null)}
+                                                    onChange={(option) => setFieldValue('supplier', option ? option.suplierid : null)}
                                                     options={supplierNameOptions}
                                                     styles={customStyles} // Pass custom styles here
                                                     className="bg-white dark:bg-form-Field"
@@ -535,8 +538,8 @@ const AddProduct = () => {
                                                 <ReactSelect
                                                     name="supplierCode"
                                                     value={supplierCodeOptions?.find(option => option.value === values.supplierCode?.id) || null}
-                                                    onChange={(option) => setFieldValue('supplierCode', option ? option.supplierCodeObject : null)}
-                                                    options={supplierCodeOptions}
+                                                    onChange={(option) => setFieldValue('supplierCode', option ? option?.suplieridd : null)}
+                                                    options={supplierCodeOptions} 
                                                     styles={customStyles} // Pass custom styles here
                                                     className="bg-white dark:bg-form-Field"
                                                     classNamePrefix="react-select"
