@@ -299,10 +299,14 @@ const AddProduct = () => {
                                                 />
                                             </div>
                                         </div>
+
+
+
+
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Design Name </label>
-                                                <div className="relative z-20 bg-transparent dark:bg-form-Field">
+                                                <div className=" z-20 bg-transparent dark:bg-form-Field">
                                                     <ReactSelect
                                                         name="design"
                                                         value={designOptions?.find(option => option.value === values.design?.id) || null}
@@ -332,6 +336,11 @@ const AddProduct = () => {
                                                 />
                                             </div>
                                         </div>
+
+
+
+
+
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Style </label>
@@ -341,7 +350,13 @@ const AddProduct = () => {
                                                         value={styleOptions?.find(option => option.value === values.styles?.id) || null}
                                                         onChange={(option) => setFieldValue('styles', option ? option.styleObject : null)}
                                                         options={styleOptions}
-                                                        styles={customStyles} // Pass custom styles here
+                                                        styles={{
+                                                            ...customStyles,
+                                                            menuPortal: (base) => ({
+                                                                ...base,
+                                                                zIndex: 9999,  // Set high z-index to make sure the dropdown appears above other components
+                                                            }),
+                                                        }} // Pass custom styles here
                                                         className="bg-white dark:bg-form-Field"
                                                         classNamePrefix="react-select"
                                                         placeholder="Select Style"
