@@ -346,6 +346,11 @@ const AddProduct = () => {
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+
+                                        
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Product Category </label>
@@ -382,7 +387,20 @@ const AddProduct = () => {
                                                     placeholder="Select Hsn Code"
                                                 />
                                             </div>
-                                        </div>  
+                                        </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -485,6 +503,11 @@ const AddProduct = () => {
                                                 />
                                             </div>
                                         </div>
+
+
+
+
+
                                         {values.productGroup?.productGroupName === "Contemporary Pashmina" && (
                                             <>
                                                 <div className="mb-4.5 flex flex-wrap gap-6">
