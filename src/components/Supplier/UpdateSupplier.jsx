@@ -496,7 +496,7 @@ const UpdateSupplier = () => {
                   )}
                   <button
                     type="submit"
-                    className="bg-primary w-[300px] sm:w-[840px]  sm:ml-[20px] mb-4 text-white py-2 px-4 rounded hover:bg-primary-dark  mt-3 ml-5 mr-10 z-[3000]"
+                    className="bg-primary w-[140px] sm:w-[150px] flex  float-end text-center sm:ml-[20px] mb-4 text-white py-2 px-4 rounded hover:bg-primary-dark  mt-3 ml-5 mr-10 z-[3000]"
                   >
                     Update Supplier
                   </button>

@@ -358,7 +358,7 @@ const AddProduct = () => {
                                                     placeholder="Select Hsn Code"
                                                 />
                                             </div>
-                                        </div>
+                                        </div>  
 
 
 

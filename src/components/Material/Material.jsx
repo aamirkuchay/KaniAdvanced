@@ -15,32 +15,30 @@ const Material = () => {
     const units = useSelector(state => state?.nonPersisted?.unit);
     const theme = useSelector(state => state?.persisted?.theme);
     const colorGroup = useSelector(state => state?.nonPersisted?.color);
-
-
-
+    console.log(colorGroup, 'colors');
 
     const [options, setOptions] = useState([]);
-    const [colorOption, setcolorOption] = useState([])
+    const [colorOption, setcolorOption] = useState([]);
 
     useEffect(() => {
-        if (units.data) {
-            const formattedOptions = units.data.map(unit => ({
-                value: unit.id,
-                label: unit.name,
-                unitObject: unit,
-            }));
-            setOptions(formattedOptions);
-        }
+      if (units.data) {
+        const formattedOptions = units.data.map((unit) => ({
+          value: unit.id,
+          label: unit.name,
+          unitObject: unit,
+        }));
+        setOptions(formattedOptions);
+      }
     }, [units.data]);
     useEffect(() => {
-        if (colorGroup.data) {
-            const formattedcolorOptions = colorGroup?.data?.content?.map(color => ({
-                value: color?.id,
-                label: color?.colorName,
-                colorObject: color,
-            }));
-            setcolorOption(formattedcolorOptions);
-        }
+      if (colorGroup.data) {
+        const formattedcolorOptions = colorGroup?.data?.map((color) => ({
+          value: color?.id,
+          label: color?.colorName,
+          colorObject: color,
+        }));
+        setcolorOption(formattedcolorOptions);
+      }
     }, [colorGroup.data]);
 
     const {
