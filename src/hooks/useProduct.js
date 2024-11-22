@@ -21,15 +21,16 @@ const useProduct = () => {
         productGroup: {},
 
         colors: {
-
-        },
+            id: 0, // Default value
+          },
         productCategory: {
 
         },
         design: {
 
         },
-        hsnCode: {},
+        hsnCode: { id: 0 },
+        
         colorName: "",
         styles: {
 
@@ -39,11 +40,43 @@ const useProduct = () => {
         },
         productId: 0,
         barcode: "",
-        refrenceImage: "",
-        actualImage: "",
+        images: [ 
+            {
+                id: 0,
+                referenceImage: "",
+                actualImage: "",
+                product: "" 
+            }
+        ],      
         productDescription: "",
         supplier: {},
-        supplierCode: {}
+         supplierCode: {},
+        warpColors: "",
+    weftColors: "",
+    warpYarn: "",
+    weftYarn: "",
+    weave: "",
+    weight: 0,
+    pixAndReed: "",
+    cost: 0,
+    dyeingCost: 0,
+    baseColour: "",
+    embroideryColors: "",
+    fabricWeave: "",
+    fabricCode: "",
+    fabricCost: 0,
+    embroideryCost: 0,
+    totalCost: 0,
+    kaniColors: "",
+    mrp: 0,
+    wholesalePrice: 0,
+    description: "",
+    patternColor: "",
+    usdPrice: 0,
+    euroPrice: 0,
+    gbpPrice: 0,
+    rmbPrice: 0,
+    units:""
     });
     const dispatch = useDispatch();
 
@@ -179,74 +212,279 @@ const useProduct = () => {
     //     }
     // };
 
+    // const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    //     console.log('Form values:', values);  // Debugging to check structure of `values`
+    
+    //     const formData = new FormData();
+    
+    //     // Access the product object if nested in `values.Product`
+    //     const product = values;  // Assuming `Product` is nested inside `values`
+    //     console.log('Product object:', product);  // Debugging line
+    
+    //     if (product) {
+    //         formData.append('product', JSON.stringify(product));  // Append the product as JSON
+    //     } else {
+    //         console.error('Product is missing');
+    //     }
+    
+    //     // Check if file inputs are populated and append them
+    //     if (values.refrenceImage && values.refrenceImage[0]) {
+    //         console.log('Appending refrenceImage:', values.refrenceImage[0]);  // Debug line
+    //         formData.append('refrenceImage', values.refrenceImage[0]);  // Append file
+    //     } else {
+    //         console.error('Reference image is missing or empty');
+    //     }
+    
+    //     if (values.actualImage && values.actualImage[0]) {
+    //         console.log('Appending actualImage:', values.actualImage[0]);  // Debug line
+    //         formData.append('actualImage', values.actualImage[0]);  // Append file
+    //     } else {
+    //         console.error('Actual image is missing or empty');
+    //     }
+    
+    //     // Log FormData content before sending the request
+    //     for (let pair of formData.entries()) {
+    //         console.log(pair[0] + ', ' + pair[1]);  // Logs the keys and values in FormData
+    //     }
+    
+    //     try {
+    //         const url = edit ? `${UPDATE_PRODUCT_URL}/${currentProduct.id}` : ADD_PRODUCT_URL;
+    //         const method = edit ? "PUT" : "POST";
+    
+    //         const response = await fetch(url, {
+    //             method: method,
+    //             headers: {
+    //                 "Authorization": `Bearer ${token}`,  // Include authorization token if necessary
+    //             },
+    //             body: formData,  // Send the FormData as the body of the request
+    //         });
+    
+    //         const data = await response.json();
+    
+    //         if (response.ok) {
+    //             toast.success(`Product ${edit ? 'updated' : 'added'} successfully`);
+    //             resetForm();
+    //             setEdit(false);
+    //             setCurrentProduct({ description: '', unit: { id: '', name: '' }, grade: '', ProductType: null });
+    //             getProduct(pagination.currentPage || 1);  // Refresh the list of products
+    //         } else {
+    //             toast.error(`${data.errorMessage}`);
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error("An error occurred");
+    //     } finally {
+    //         setSubmitting(false);
+    //     }
+    // };
+    
+    
+    // const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    //     console.log('Form values:', values);  // Debugging to check structure of `values`
+        
+    //     const formData = new FormData();
+        
+    //     // Access the product object from values
+    //     const product = values;  // Assuming `Product` is nested inside `values`
+    //     console.log('Product object:', product);  // Debugging line
+        
+    //     if (product) {
+    //         formData.append('product', JSON.stringify(product));  // Append product object as JSON
+    //     } else {
+    //         console.error('Product is missing');
+    //     }
+        
+    //     // Handle image arrays (referenceImage and actualImage)
+    //     // if (values.refrenceImage && Array.isArray(values.refrenceImage) && values.refrenceImage.length > 0) {
+    //     //     values.refrenceImage.forEach((image, index) => {
+    //     //         if (image) {
+    //     //             console.log(`Appending refrenceImage[${index}]:`, image);
+    //     //             formData.append(`refrenceImage[${index}]`, image);  // Append each referenceImage
+    //     //         }
+    //     //     });
+    //     // } else {
+    //     //     console.error('Reference images are missing or empty');
+    //     // }
+        
+    //     // if (values.actualImage && Array.isArray(values.actualImage) && values.actualImage.length > 0) {
+    //     //     values.actualImage.forEach((image, index) => {
+    //     //         if (image) {
+    //     //             console.log(`Appending actualImage[${index}]:`, image);
+    //     //             formData.append(`actualImage[${index}]`, image);  // Append each actualImage
+    //     //         }
+    //     //     });
+    //     // } else {
+    //     //     console.error('Actual images are missing or empty');
+    //     // }
+    
+    //     // Log FormData content before sending the request
+    //     for (let pair of formData.entries()) {
+    //         console.log(pair[0] + ', ' + pair[1]);  // Logs the keys and values in FormData
+    //     }
+    
+    //     try {
+    //         const url = edit ? `${UPDATE_PRODUCT_URL}/${currentProduct.id}` : ADD_PRODUCT_URL;
+    //         const method = edit ? "PUT" : "POST";
+    
+    //         const response = await fetch(url, {
+    //             method: method,
+    //             headers: {
+    //                 "Authorization": `Bearer ${token}`,  // Include authorization token if necessary
+    //             },
+    //             body: formData,  // Send the FormData as the body of the request
+    //         });
+    
+    //         const data = await response.json();
+    
+    //         if (response.ok) {
+    //             toast.success(`Product ${edit ? 'updated' : 'added'} successfully`);
+    //             resetForm();
+    //             setEdit(false);
+    //             // setCurrentProduct({ description: '', unit: { id: '', name: '' }, grade: '', ProductType: null });
+    //             getProduct(pagination.currentPage || 1);  // Refresh the list of products
+    //         } else {
+    //             toast.error(`${data.errorMessage}`);
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error("An error occurred");
+    //     } finally {
+    //         setSubmitting(false);
+    //     }
+    // };
+
+    // const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    //     console.log('Form values:', values); // Debugging purposes
+    
+    //     const formData = new FormData();
+    //     const product = values;
+    
+    //     if (product) {
+    //         formData.append('product', JSON.stringify(product)); // Append the product object as JSON
+    //     } else {
+    //         console.error('Product is missing');
+    //     }
+    
+    //     // Append images array
+    //     if (product.images && Array.isArray(product.images)) {
+    //         product.images.forEach((image, index) => {
+    //             if (image.referenceImage) {
+    //                 formData.append(`images[${index}].referenceImage`, image.referenceImage);
+    //             }
+    //             if (image.actualImage) {
+    //                 formData.append(`images[${index}].actualImage`, image.actualImage);
+    //             }
+    //         });
+    //     } else {
+    //         console.error('Images array is missing or not an array');
+    //     }
+    
+    //     // Debug FormData entries
+    //     if (process.env.NODE_ENV === 'development') {
+    //         for (let pair of formData.entries()) {
+    //             console.log(pair[0], pair[1]);
+    //         }
+    //     }
+    
+    //     try {
+    //         const url = edit ? `${UPDATE_PRODUCT_URL}/${currentProduct.id}` : ADD_PRODUCT_URL;
+    //         const method = edit ? "PUT" : "POST";
+    
+    //         const response = await fetch(url, {
+    //             method,
+    //             headers: {
+    //                 "Authorization": `Bearer ${token}`,
+    //             },
+    //             body: formData,
+    //         });
+    
+    //         const data = await response.json();
+    
+    //         if (response.ok) {
+    //             toast.success(`Product ${edit ? 'updated' : 'added'} successfully`);
+    //             resetForm();
+    //             setEdit(false);
+    //             getProduct(pagination.currentPage || 1); // Refresh product list
+    //         } else {
+    //             toast.error(data.errorMessage || "An error occurred");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error submitting form:", error);
+    //         toast.error("An error occurred. Please try again.");
+    //     } finally {
+    //         setSubmitting(false);
+    //     }
+    // };
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        console.log('Form values:', values);  // Debugging to check structure of `values`
+        console.log("Form values:", values); // Debugging purposes
     
         const formData = new FormData();
     
-        // Access the product object if nested in `values.Product`
-        const product = values;  // Assuming `Product` is nested inside `values`
-        console.log('Product object:', product);  // Debugging line
-    
-        if (product) {
-            formData.append('product', JSON.stringify(product));  // Append the product as JSON
-        } else {
-            console.error('Product is missing');
-        }
-    
-        // Check if file inputs are populated and append them
-        if (values.refrenceImage && values.refrenceImage[0]) {
-            console.log('Appending refrenceImage:', values.refrenceImage[0]);  // Debug line
-            formData.append('refrenceImage', values.refrenceImage[0]);  // Append file
-        } else {
-            console.error('Reference image is missing or empty');
-        }
-    
-        if (values.actualImage && values.actualImage[0]) {
-            console.log('Appending actualImage:', values.actualImage[0]);  // Debug line
-            formData.append('actualImage', values.actualImage[0]);  // Append file
-        } else {
-            console.error('Actual image is missing or empty');
-        }
-    
-        // Log FormData content before sending the request
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);  // Logs the keys and values in FormData
-        }
-    
         try {
+            // Prepare the product object without images
+            const product = { ...values };
+            delete product.images; // Remove images from the product object
+    
+            // Append the product details as JSON
+            formData.append("product", JSON.stringify(product));
+    
+            // Append images to FormData
+            if (values.images && Array.isArray(values.images)) {
+                values.images.forEach((image, index) => {
+                    if (image.referenceImage) {
+                        formData.append(`images[${index}][referenceImage]`, image.referenceImage);
+                    }
+                    if (image.actualImage) {
+                        formData.append(`images[${index}][actualImage]`, image.actualImage);
+                    }
+                });
+            } else {
+                console.warn("No images found in the form data.");
+            }
+    
+            // Debugging FormData
+            if (process.env.NODE_ENV === "development") {
+                for (let pair of formData.entries()) {
+                    console.log(pair[0], pair[1]);
+                }
+            }
+    
+            // Determine the API URL and method
             const url = edit ? `${UPDATE_PRODUCT_URL}/${currentProduct.id}` : ADD_PRODUCT_URL;
             const method = edit ? "PUT" : "POST";
     
+            // Submit the form data
             const response = await fetch(url, {
-                method: method,
+                method,
                 headers: {
-                    "Authorization": `Bearer ${token}`,  // Include authorization token if necessary
+                    "Authorization": `Bearer ${token}`,
                 },
-                body: formData,  // Send the FormData as the body of the request
+                body: formData,
             });
     
             const data = await response.json();
     
             if (response.ok) {
-                toast.success(`Product ${edit ? 'updated' : 'added'} successfully`);
-                resetForm();
-                setEdit(false);
-                setCurrentProduct({ description: '', unit: { id: '', name: '' }, grade: '', ProductType: null });
-                getProduct(pagination.currentPage || 1);  // Refresh the list of products
+                toast.success(`Product ${edit ? "updated" : "added"} successfully`);
+                resetForm(); // Reset form fields
+                setEdit(false); // Reset edit state
+                getProduct(pagination.currentPage || 1); // Refresh product list
             } else {
-                toast.error(`${data.errorMessage}`);
+                toast.error(data.errorMessage || "An error occurred while saving the product.");
             }
         } catch (error) {
-            console.log(error);
-            toast.error("An error occurred");
+            console.error("Error submitting form:", error);
+            toast.error("An error occurred. Please try again.");
         } finally {
-            setSubmitting(false);
+            setSubmitting(false); // Stop the form submission spinner
         }
     };
     
     
+    
 
+  
+    
 
 
 
