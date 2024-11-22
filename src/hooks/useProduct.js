@@ -431,6 +431,7 @@ const useProduct = () => {
             // Append images to FormData
             if (values.images && Array.isArray(values.images)) {
                 values.images.forEach((image, index) => {
+                    console.log(image,"imagessss")
                     if (image.referenceImage) {
                         formData.append(`images[${index}][referenceImage]`, image.referenceImage);
                     }
