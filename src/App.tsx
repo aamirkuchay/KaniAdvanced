@@ -121,7 +121,7 @@ function App() {
             }
           />
           <Route
-            index
+             path="/"
             element={
               <>
                 <PageTitle title="Dashboard" />
