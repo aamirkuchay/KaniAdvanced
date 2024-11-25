@@ -57,51 +57,32 @@ const AddProduct = () => {
 
     const [previews, setPreviews] = useState([]);
     const [previewsActual, setPreviewsActual] = useState([]);
-    const [fieldValues,setFieldValue] =useState([
-        
-    ]);
 
-    // const handleFileChange = (event) => {
-    //     const files = Array.from(event.target.files);
-    //     const newPreviews = files.map((file) => ({
-    //         file,
-    //         url: URL.createObjectURL(file),
-    //     }));
-
-    //     setPreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
-    // };
 
     const handleFileChange = (event) => {
         const files = Array.from(event.target.files);
-    
-        // Update previews
         const newPreviews = files.map((file) => ({
             file,
             url: URL.createObjectURL(file),
+            referenceImage: file,  // Or actualImage depending on the logic
+            actualImage: file,     // Or referenceImage depending on the logic
         }));
-        setPreviews((prev) => [...prev, ...newPreviews]);
     
-        // Update field values
-        setFieldValue((prev) => [...prev, ...files]);
-        console.log(files,"filessssssssssssssssssss")
+        setPreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
     };
     
-    
-    // const handleRemoveImage = (index) => {
-    //     setPreviews((prev) => prev.filter((_, i) => i !== index));
-    //     setFieldValue((prev) => prev.filter((_, i) => i !== index));
-    // };
     const handleFileChangeActual = (event) => {
         const files = Array.from(event.target.files);
-        console.log(files,"dfghjkl.......");
         const newPreviewsActual = files.map((file) => ({
             file,
             url: URL.createObjectURL(file),
+            referenceImage: file,  // Or actualImage depending on the logic
+            actualImage: file,     // Or referenceImage depending on the logic
         }));
-
+    
         setPreviewsActual((prevPreviewsActual) => [...prevPreviewsActual, ...newPreviewsActual]);
     };
-
+    
 
     useEffect(() => {
         return () => {
@@ -346,11 +327,6 @@ const AddProduct = () => {
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
-                                        
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Product Category </label>
@@ -387,20 +363,7 @@ const AddProduct = () => {
                                                     placeholder="Select Hsn Code"
                                                 />
                                             </div>
-                                        </div> 
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                        </div>  
 
 
 
@@ -503,11 +466,6 @@ const AddProduct = () => {
                                                 />
                                             </div>
                                         </div>
-
-
-
-
-
                                         {values.productGroup?.productGroupName === "Contemporary Pashmina" && (
                                             <>
                                                 <div className="mb-4.5 flex flex-wrap gap-6">
