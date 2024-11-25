@@ -12,7 +12,8 @@ import { fetchsize } from '../redux/Slice/SizeSlice';
 import { fetchHsnCode } from '../redux/Slice/HsnCodeSlice';
 import { fetchsupplier } from '../redux/Slice/SupplierSlice';
 
-const useProduct = () => {
+const useProduct = ({referenceImages,actualImages}) => {
+   
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
     const [Product, setProduct] = useState([]);
@@ -40,14 +41,14 @@ const useProduct = () => {
         },
         productId: 0,
         barcode: "",
-        images: [ 
-            {
-                id: 0,
-                referenceImage: "",
-                actualImage: "",
-                product: "" 
-            }
-        ],      
+        // images: [ 
+        //     {
+        //         id: 0,
+        //         referenceImage: "",
+        //         actualImage: "",
+        //         product: "" 
+        //     }
+        // ],      
         productDescription: "",
         supplier: {},
          supplierCode: {},
@@ -56,7 +57,24 @@ const useProduct = () => {
     warpYarn: "",
     weftYarn: "",
     weave: "",
-    weight: 0,
+    finishedWeight:"",
+    materialWeight:"",
+
+
+    gstDetails:"",
+ 
+hsnCodes:"",
+ 
+    hsn_Sac:"",
+    
+    gstDescription:"",
+    
+    taxationType:"",
+    
+    gstRate:"",
+    
+    typeOfSupply:"",
+ 
     pixAndReed: "",
     cost: 0,
     dyeingCost: 0,
@@ -76,7 +94,9 @@ const useProduct = () => {
     euroPrice: 0,
     gbpPrice: 0,
     rmbPrice: 0,
-    units:""
+    units:"",
+    gstDetails:"",
+
     });
     const dispatch = useDispatch();
 
@@ -111,10 +131,10 @@ const useProduct = () => {
 
     const getProduct = async (page) => {
         try {
-            const response = await fetch(`${GET_PRODUCT_URL}?page=${page}`, {
+            const response = await fetch(`${GET_PRODUCT_URL}?page=${page||1}`, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    // "Content-Type": "multipart/form-data",
                     "Authorization": `Bearer ${token}`
                 }
             });
@@ -427,38 +447,41 @@ const useProduct = () => {
     
             // Append the product details as JSON
             formData.append("product", JSON.stringify(product));
+           
+
+            Array.from(referenceImages).forEach((file) => formData.append('referenceImages', file)); // Add files
+            Array.from(actualImages).forEach((file) => formData.append('actualImages', file));
+
+
+
+
     
-            // Append images to FormData
-            if (values.images && Array.isArray(values.images)) {
-                values.images.forEach((image, index) => {
-                    if (image.referenceImage) {
-                        formData.append(`images[${index}][referenceImage]`, image.referenceImage);
-                    }
-                    if (image.actualImage) {
-                        formData.append(`images[${index}][actualImage]`, image.actualImage);
-                    }
-                });
-            } else {
-                console.warn("No images found in the form data.");
-            }
-    
-            // Debugging FormData
+            // Debugging: Check FormData contents
             if (process.env.NODE_ENV === "development") {
                 for (let pair of formData.entries()) {
                     console.log(pair[0], pair[1]);
                 }
             }
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value,"heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+              }
+
+              console.log(formData,"formmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
     
-            // Determine the API URL and method
+            // Submit the form data
             const url = edit ? `${UPDATE_PRODUCT_URL}/${currentProduct.id}` : ADD_PRODUCT_URL;
             const method = edit ? "PUT" : "POST";
     
-            // Submit the form data
             const response = await fetch(url, {
                 method,
                 headers: {
+                //    "Content-Type":"multipart/form-data",
+                    
+                    // "Content-Type":"multipart/form-data",
                     "Authorization": `Bearer ${token}`,
+                    // "Content-Type":"multipart/form-data",
                 },
+                
                 body: formData,
             });
     

@@ -22,6 +22,15 @@ const AddProduct = () => {
     const [supplierNameOptions, setsupplierNameOptions] = useState([])
     const [supplierCodeOptions, setsupplierCodeOptions] = useState([])
 
+    const [referenceImages, setrefImage] = useState({})
+    const [actualImages, setactualImage] = useState({})
+    // const [images, setimages] = useState([])
+
+
+
+
+
+
 
 
 
@@ -59,23 +68,28 @@ const AddProduct = () => {
     const [previewsActual, setPreviewsActual] = useState([]);
 
 
-    const handleFileChange = (event) => {
+    const handleFileChange = async (event) => {
         const files = Array.from(event.target.files);
         const newPreviews = files.map((file) => ({
             file,
             url: URL.createObjectURL(file),
         }));
+        await setrefImage(files)
 
         setPreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
     };
-    const handleFileChangeActual = (event) => {
+
+
+    const handleFileChangeActual = async (event) => {
         const files = Array.from(event.target.files);
+        console.log(files, "actuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         const newPreviewsActual = files.map((file) => ({
             file,
             url: URL.createObjectURL(file),
         }));
-
         setPreviewsActual((prevPreviewsActual) => [...prevPreviewsActual, ...newPreviewsActual]);
+        await setactualImage(files)
+
     };
 
 
@@ -84,6 +98,20 @@ const AddProduct = () => {
             previews.forEach((url) => URL.revokeObjectURL(url));
         };
     }, [previews]);
+
+
+    // useEffect(() => {
+    //     if (referenceImages&& actualImages) {
+    //         setimages((prevImages) => [
+    //             ...prevImages,
+    //             { referenceImages, actualImages }, // Combine both images into one object
+    //         ]);
+    //     }
+    // }, [referenceImages, actualImages]);
+
+
+
+
 
     const handleRemoveImage = (indexToRemove) => {
         setPreviews((prevPreviews) => {
@@ -233,6 +261,14 @@ const AddProduct = () => {
     ];
 
 
+    const gstOptions = [
+
+        { value: 'Applicable', label: 'Applicable' },
+        { value: 'NotApplicable', label: 'NotApplicable' },
+
+    ]
+
+
     const changeTextColor = () => {
         setIsOptionSelected(true);
     };
@@ -241,15 +277,12 @@ const AddProduct = () => {
         Product,
         edit,
         currentProduct,
-        pagination,
-        handleDelete,
-        handleUpdate,
-        handleSubmit,
-        handlePageChange,
-        seloptions
-    } = useProduct();
 
-    console.log(designOptions, colorGroupOptions, "hyebro");
+        handleSubmit,
+
+    } = useProduct({ referenceImages, actualImages });
+
+
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Products / AddProducts" />
@@ -268,7 +301,7 @@ const AddProduct = () => {
                     onSubmit={handleSubmit}
                 >
 
-                    {({ setFieldValue, values }) => (
+                    {({ setFieldValue, values, refImage }) => (
                         <Form>
 
                             <div className="flex flex-col gap-9">
@@ -326,7 +359,7 @@ const AddProduct = () => {
 
 
 
-                                        
+
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Product Category </label>
@@ -341,13 +374,8 @@ const AddProduct = () => {
                                                         classNamePrefix="react-select"
                                                         placeholder="Select Product Category"
                                                     />
-                                                    {/* <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
-                                                        <svg className="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <g opacity="0.8">
-                                                                <path fillRule="evenodd" clipRule="evenodd" d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z" fill=""></path>
-                                                            </g>
-                                                        </svg>
-                                                    </span> */}
+
+
                                                 </div>
                                             </div>
                                             <div className="flex-1 min-w-[300px]">
@@ -363,7 +391,103 @@ const AddProduct = () => {
                                                     placeholder="Select Hsn Code"
                                                 />
                                             </div>
-                                        </div> 
+                                        </div>
+
+
+
+
+
+
+
+                                        <div className="mb-4.5 flex flex-wrap gap-6">
+                                            {/* GST DETAILS Select */}
+                                            <div className="flex-1 min-w-[300px]">
+                                                <label className="mb-2.5 block text-black dark:text-white">GST DETAILS</label>
+                                                <div className="z-20 bg-transparent dark:bg-form-Field">
+                                                <ReactSelect
+                                        name="gstDetails"
+                                        options={gstOptions}
+                                        value={gstOptions.find(option => option.value === values.gstDetails)}
+                                        onChange={(option) => setFieldValue("gstDetails", option?.value)}
+                                        styles={customStyles}
+                                        className="bg-white dark:bg-form-Field"
+                                        classNamePrefix="react-select"
+                                        placeholder="Select GST details"
+                                    />
+                                                </div>
+                                            </div>
+
+                                            {/* Conditional Fields based on gstDetails */}
+                                            {values.gstDetails === "Applicable" && (
+                                                <>
+                                                    {/* HSN Codes Field */}
+                                                    <div className="flex-1 min-w-[300px]">
+                                                        <label className="mb-2.5 block text-black dark:text-white">HSN Codes</label>
+                                                        <Field
+                                                            name="hsnCodes"
+                                                            type="text"
+                                                            placeholder="Enter HSN Code"
+                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
+                                                        />
+                                                    </div>
+
+                                                    {/* HSN/SAC Field */}
+                                                    <div className="flex-1 min-w-[300px]">
+                                                        <label className="mb-2.5 block text-black dark:text-white">HSN/SAC</label>
+                                                        <Field
+                                                            name="hsn_Sac"
+                                                            type="text"
+                                                            placeholder="Enter HSN/SAC"
+                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
+                                                        />
+                                                    </div>
+
+                                                    {/* GST Description Field */}
+                                                    <div className="flex-1 min-w-[300px]">
+                                                        <label className="mb-2.5 block text-black dark:text-white">GST Description</label>
+                                                        <Field
+                                                            name="gstDescription"
+                                                            type="text"
+                                                            placeholder="Enter GST Description"
+                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
+                                                        />
+                                                    </div>
+
+                                                    {/* Taxation Type Field */}
+                                                    <div className="flex-1 min-w-[300px]">
+                                                        <label className="mb-2.5 block text-black dark:text-white">Taxation Type</label>
+                                                        <Field
+                                                            name="taxationType"
+                                                            type="text"
+                                                            placeholder="Enter Taxation Type"
+                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
+                                                        />
+                                                    </div>
+
+                                                    {/* GST Rate Field */}
+                                                    <div className="flex-1 min-w-[300px]">
+                                                        <label className="mb-2.5 block text-black dark:text-white">GST Rate</label>
+                                                        <Field
+                                                            name="gstRate"
+                                                            type="text"
+                                                            placeholder="Enter GST Rate"
+                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
+                                                        />
+                                                    </div>
+
+                                                    {/* Type of Supply Field */}
+                                                    <div className="flex-1 min-w-[300px]">
+                                                        <label className="mb-2.5 block text-black dark:text-white">Type of Supply</label>
+                                                        <Field
+                                                            name="typeOfSupply"
+                                                            type="text"
+                                                            placeholder="Enter Type of Supply"
+                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
+                                                        />
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
 
 
 
@@ -481,6 +605,28 @@ const AddProduct = () => {
                                         </div>
 
 
+                                        <div className="mb-4.5 flex flex-wrap gap-6">
+                                            <div className="flex-1 min-w-[300px]">
+                                                <label className="mb-2.5 block text-black dark:text-white"> Finished Weight </label>
+                                                <Field
+                                                    name='finishedWeight'
+                                                    type="number"
+                                                    placeholder="Enter Finished Weight"
+                                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
+                                                />
+                                            </div>
+                                            <div className="flex-1 min-w-[300px]">
+                                                <label className="mb-2.5 block text-black dark:text-white"> Material Weight</label>
+                                                <Field
+                                                    name='materialWeight'
+                                                    type="numer"
+                                                    placeholder="Enter material Weight"
+                                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
+                                                />
+                                            </div>
+                                        </div>
+
+
 
 
 
@@ -556,15 +702,7 @@ const AddProduct = () => {
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
                                                     </div>
-                                                    <div className="flex-1 min-w-[300px]">
-                                                        <label className="mb-2.5 block text-black dark:text-white"> Weight(gms)</label>
-                                                        <Field
-                                                            name='weight'
-                                                            type="text"
-                                                            placeholder="Enter your last name"
-                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
-                                                        />
-                                                    </div>
+
                                                     <div className="flex-1 min-w-[300px]">
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units </label>
                                                         <Field
@@ -744,7 +882,7 @@ const AddProduct = () => {
 
 
                                                 <div className="mb-4.5 flex flex-wrap gap-6">
-                                                    <div className="flex-1 min-w-[300px]">
+                                                    {/* <div className="flex-1 min-w-[300px]">
                                                         <label className="mb-2.5 block text-black dark:text-white"> Weight(gms) </label>
                                                         <Field
                                                             name='weight'
@@ -752,7 +890,7 @@ const AddProduct = () => {
                                                             placeholder="Enter your first name"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
-                                                    </div>
+                                                    </div> */}
                                                     <div className="flex-1 min-w-[300px]">
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units</label>
                                                         <Field
@@ -880,7 +1018,7 @@ const AddProduct = () => {
                                                 </div>
 
                                                 <div className="mb-4.5 flex flex-wrap gap-6">
-                                                    <div className="flex-1 min-w-[300px]">
+                                                    {/* <div className="flex-1 min-w-[300px]">
                                                         <label className="mb-2.5 block text-black dark:text-white"> Weight(gms) </label>
                                                         <Field
                                                             name='weight'
@@ -888,7 +1026,7 @@ const AddProduct = () => {
                                                             placeholder="Enter your first name"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
-                                                    </div>
+                                                    </div> */}
                                                     <div className="flex-1 min-w-[300px]">
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units</label>
                                                         <Field
@@ -1047,7 +1185,7 @@ const AddProduct = () => {
                                                 <div className="mb-4.5 flex flex-wrap gap-6">
 
 
-                                                    <div className="flex-1 min-w-[300px]">
+                                                    {/* <div className="flex-1 min-w-[300px]">
                                                         <label className="mb-2.5 block text-black dark:text-white"> Weight(gms)</label>
                                                         <Field
                                                             name='weight'
@@ -1055,7 +1193,7 @@ const AddProduct = () => {
                                                             placeholder="Enter your last name"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
-                                                    </div>
+                                                    </div> */}
                                                     <div className="flex-1 min-w-[300px]">
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units </label>
                                                         <Field
@@ -1236,7 +1374,7 @@ const AddProduct = () => {
 
 
                                                 <div className="mb-4.5 flex flex-wrap gap-6">
-                                                    <div className="flex-1 min-w-[300px]">
+                                                    {/* <div className="flex-1 min-w-[300px]">
                                                         <label className="mb-2.5 block text-black dark:text-white"> Weight(gms) </label>
                                                         <Field
                                                             name='weight'
@@ -1244,7 +1382,7 @@ const AddProduct = () => {
                                                             placeholder="Enter your first name"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
-                                                    </div>
+                                                    </div> */}
                                                     <div className="flex-1 min-w-[300px]">
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units</label>
                                                         <Field
@@ -1379,26 +1517,18 @@ const AddProduct = () => {
 
 
 
-                                                
 
 
 
 
-                                              
+
+
 
 
 
 
                                                 <div className="mb-4.5 flex flex-wrap gap-6">
-                                                    <div className="flex-1 min-w-[300px]">
-                                                        <label className="mb-2.5 block text-black dark:text-white"> Weight(gms) </label>
-                                                        <Field
-                                                            name='weight'
-                                                            type="text"
-                                                            placeholder="Enter your first name"
-                                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
-                                                        />
-                                                    </div>
+
                                                     <div className="flex-1 min-w-[300px]">
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units</label>
                                                         <Field
@@ -1559,7 +1689,7 @@ const AddProduct = () => {
                                                     </div>
                                                 </div>
 
-                                               
+
                                                 {previews.length > 0 && (
                                                     <div className="mt-4">
                                                         <label className="mb-2.5 block text-black dark:text-white">
@@ -1573,10 +1703,10 @@ const AddProduct = () => {
                                                                     <div key={index} className="relative group">
                                                                         {/* Image Preview */}
                                                                         <img
-                                                                     src={preview.url}
-                                                                     alt={`Preview ${index + 1}`}
-                                                                     className="h-20 border rounded object-cover min-w-[100px] max-w-[100px] transition-transform duration-200 hover:scale-110"
-                                                                   />
+                                                                            src={preview.url}
+                                                                            alt={`Preview ${index + 1}`}
+                                                                            className="h-20 border rounded object-cover min-w-[100px] max-w-[100px] transition-transform duration-200 hover:scale-110"
+                                                                        />
                                                                         {/* Cancel Button */}
                                                                         <button
                                                                             onClick={() => handleRemoveImage(index)}
@@ -1649,7 +1779,7 @@ const AddProduct = () => {
                                                     </div>
                                                 </div>
 
-                                               
+
                                                 {previewsActual.length > 0 && (
                                                     <div className="mt-4">
                                                         <label className="mb-2.5 block text-black dark:text-white">
@@ -1663,10 +1793,10 @@ const AddProduct = () => {
                                                                     <div key={index} className="relative group">
                                                                         {/* Image Preview */}
                                                                         <img
-                                                                     src={previewActual.url}
-                                                                     alt={`Preview ${index + 1}`}
-                                                                     className="h-20 border rounded object-cover min-w-[100px] max-w-[100px] transition-transform duration-200 hover:scale-110"
-                                                                   />
+                                                                            src={previewActual.url}
+                                                                            alt={`Preview ${index + 1}`}
+                                                                            className="h-20 border rounded object-cover min-w-[100px] max-w-[100px] transition-transform duration-200 hover:scale-110"
+                                                                        />
                                                                         {/* Cancel Button */}
                                                                         <button
                                                                             onClick={() => handleRemoveActual(index)}
