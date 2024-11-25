@@ -73,6 +73,8 @@ const AddProduct = () => {
         const newPreviews = files.map((file) => ({
             file,
             url: URL.createObjectURL(file),
+            referenceImage: file,  // Or actualImage depending on the logic
+            actualImage: file,     // Or referenceImage depending on the logic
         }));
         await setrefImage(files)
 
@@ -86,12 +88,14 @@ const AddProduct = () => {
         const newPreviewsActual = files.map((file) => ({
             file,
             url: URL.createObjectURL(file),
+            referenceImage: file,  // Or actualImage depending on the logic
+            actualImage: file,     // Or referenceImage depending on the logic
         }));
         setPreviewsActual((prevPreviewsActual) => [...prevPreviewsActual, ...newPreviewsActual]);
         await setactualImage(files)
 
     };
-
+    
 
     useEffect(() => {
         return () => {
