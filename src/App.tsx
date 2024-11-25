@@ -174,7 +174,7 @@ function App() {
             }
           />
              <Route
-            path="/product/updateProduct"
+            path="/product/updateProduct/:id"
             element={
               <>
                 <PageTitle title="Update Product" />
