@@ -10,6 +10,8 @@ import Chart from './pages/Chart.jsx';
 import Material from './components/Material/Material.jsx';
 import AddProduct from './components/Products/AddProduct.jsx';
 import ViewProduct from './components/Products/ViewProduct.jsx';
+import UpdateProduct from './components/Products/UpdateProduct.jsx';
+
 
 
 
@@ -166,8 +168,17 @@ function App() {
             path="/product/viewProducts"
             element={
               <>
-                <PageTitle title="Add Product" />
+                <PageTitle title="View Product" />
                 <ViewProduct />
+              </>
+            }
+          />
+             <Route
+            path="/product/updateProduct"
+            element={
+              <>
+                <PageTitle title="Update Product" />
+                <UpdateProduct />
               </>
             }
           />
