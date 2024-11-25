@@ -11,9 +11,12 @@ import { fetchstyle } from '../redux/Slice/StyleSlice';
 import { fetchsize } from '../redux/Slice/SizeSlice';
 import { fetchHsnCode } from '../redux/Slice/HsnCodeSlice';
 import { fetchsupplier } from '../redux/Slice/SupplierSlice';
+import { useNavigate } from 'react-router-dom';
 
 const useProduct = ({referenceImages,actualImages}) => {
    
+
+    const navigate = useNavigate();
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
     const [Product, setProduct] = useState([]);
@@ -130,6 +133,7 @@ hsnCodes:"",
     }, []);
 
     const getProduct = async (page) => {
+        console.log("iam here");
         try {
             const response = await fetch(`${GET_PRODUCT_URL}?page=${page||1}`, {
                 method: "GET",
@@ -139,7 +143,7 @@ hsnCodes:"",
                 }
             });
             const data = await response.json();
-            console.log(data)
+            console.log(data,"pr datatata")
 
             setProduct(data?.content);
             setPagination({
@@ -188,12 +192,13 @@ hsnCodes:"",
     };
 
     const handleUpdate = (e, item) => {
+       
         e.preventDefault();
-        setEdit(true);
-        setCurrentProduct({
-            ...item,
-            ProductType: seloptions.find(option => option.value === item.ProductType) || null
-        });
+        if (item && item.id) {
+            navigate(`/product/updateProduct/${item.id}`);
+        } else {
+            console.error("Item or its ID is missing");
+        }
     };
 
     // const handleSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -525,7 +530,8 @@ hsnCodes:"",
         handleUpdate,
         handleSubmit,
         handlePageChange,
-        seloptions
+        seloptions,
+        getProduct
     };
 };
 

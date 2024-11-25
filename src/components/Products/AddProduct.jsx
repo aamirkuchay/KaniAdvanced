@@ -76,7 +76,7 @@ const AddProduct = () => {
             referenceImage: file,  // Or actualImage depending on the logic
             actualImage: file,     // Or referenceImage depending on the logic
         }));
-        await setrefImage(files)
+        await setrefImage(files||"")
 
         setPreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
     };
@@ -92,7 +92,7 @@ const AddProduct = () => {
             actualImage: file,     // Or referenceImage depending on the logic
         }));
         setPreviewsActual((prevPreviewsActual) => [...prevPreviewsActual, ...newPreviewsActual]);
-        await setactualImage(files)
+        await setactualImage(files||"")
 
     };
     
