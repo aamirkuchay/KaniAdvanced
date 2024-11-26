@@ -72,6 +72,7 @@ export const DELETE_STOCK_URL = `${BASE_URL}/stockjournal/delete`
 //product group 
 export const ADD_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup`;
 export const GET_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup`;
+
 export const UPDATE_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup`;
 export const VIEW_ALL_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup/viewAll`;
 export const DELETE_PRODUCT_GROUP_URL = `${BASE_URL}/productgroup/`;
@@ -148,6 +149,7 @@ export const DELETE_CUSTOMER_URL = `${BASE_URL}/customer/`;
 //PRODUCT
 export const ADD_PRODUCT_URL = `${BASE_URL}/products/add-product`;
 export const GET_PRODUCT_URL = `${BASE_URL}/products`;
+export const GET_PRODUCTBYID_URL = `${BASE_URL}/products`;
 export const UPDATE_PRODUCT_URL = `${BASE_URL}/products/update-products`;
 export const VIEW_ALL_PRODUCT = `${BASE_URL}/products/viewAll`;
 export const DELETE_PRODUCT_URL = `${BASE_URL}/products/`;

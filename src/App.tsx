@@ -58,6 +58,8 @@ import UpdateInventoryMaterial from './components/Inventory/UpdateInventoryMater
 import AddStockJournel from './components/StockJournel/AddStockJournel.jsx';
 import ViewStockJournel from './components/StockJournel/ViewStockJournel.jsx';
 
+// import UpdateProduct from './components/Products/UpdateProduct';
+
 import UpdateStockJournal from './components/StockJournel/UpdateStockJournal.jsx';
 import { signoutSuccess } from './redux/Slice/UserSlice';
 
