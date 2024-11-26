@@ -162,6 +162,10 @@ export const DELETE_HSNCODE_URL = `${BASE_URL}/hsncode`;
 
 //dahsboard
 
+//images
+
+export const GET_IMAGE = `${BASE_URL}`;
+
 export const Count = `${BASE_URL}/api/dashboard`
 
 export const options = {

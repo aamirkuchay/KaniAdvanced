@@ -42,7 +42,7 @@ const useProduct = ({referenceImages,actualImages}) => {
         sizes: {
 
         },
-        productId: 0,
+        productId: "",
         barcode: "",
         // images: [ 
         //     {
@@ -132,6 +132,11 @@ hsnCodes:"",
         getProduct(pagination.currentPage || 1);
     }, []);
 
+
+
+
+
+   
     const getProduct = async (page) => {
         console.log("iam here");
         try {
@@ -201,7 +206,7 @@ hsnCodes:"",
         }
     };
 
-
+ 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         console.log("Form values:", values); // Debugging purposes
     
@@ -293,7 +298,8 @@ hsnCodes:"",
         handleSubmit,
         handlePageChange,
         seloptions,
-        getProduct
+        getProduct,
+      
     };
 };
 

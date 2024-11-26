@@ -24,6 +24,10 @@ const AddProduct = () => {
 
     const [referenceImages, setrefImage] = useState({})
     const [actualImages, setactualImage] = useState({})
+
+
+
+    const [vaaluee, setvaaluee] = useState({})
     // const [images, setimages] = useState([])
 
 
@@ -48,7 +52,7 @@ const AddProduct = () => {
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
     const theme = useSelector(state => state?.persisted?.theme);
 
-    console.log(supplier, "proo");
+   
 
 
 
@@ -281,11 +285,41 @@ const AddProduct = () => {
         Product,
         edit,
         currentProduct,
-
+       
         handleSubmit,
 
     } = useProduct({ referenceImages, actualImages });
 
+   const [productIdField, setproductIdField] = useState("")
+
+    useEffect(() => {
+        updateProductId()
+    }, [vaaluee])
+    const updateProductId = () => {
+
+        console.log(vaaluee,"heyyy");
+
+        
+        const designValue = vaaluee.design ? vaaluee.design.designName : '';
+        const colorNameValue = vaaluee.colorName || '';
+
+        const styleValue = vaaluee.styles ? vaaluee.styles.stylesName : '';
+        const sizeValue = vaaluee.sizes ? vaaluee.sizes.sizeName : '';
+    
+        // Concatenate the selected values for the productId
+        const productId = `${designValue} ${colorNameValue} ${styleValue} ${sizeValue}`;
+    
+        // Set the productId field value
+       
+        setproductIdField(productId);
+      
+        
+        // Trim to remove any excess spaces
+    };
+    
+
+
+    
 
     return (
         <DefaultLayout>
@@ -293,20 +327,23 @@ const AddProduct = () => {
             <div>
                 <Formik
                     initialValues={currentProduct}
+                    
+                    
+                    validate={values => {
+                        if(values){
 
-                    // validate={values => {
-                    //     const errors = {};
-                    //     if (!values.name) {
-                    //         errors.name = 'Required';
-                    //     }
+                            setvaaluee(values)
+                        }
 
-                    //     return errors;
-                    // }}
+                        
+                    }}
+                  
                     onSubmit={handleSubmit}
                 >
 
                     {({ setFieldValue, values, refImage }) => (
                         <Form>
+                            
 
                             <div className="flex flex-col gap-9">
                                 {/* <!-- Contact Form --> */}
@@ -516,7 +553,13 @@ const AddProduct = () => {
                                                     <ReactSelect
                                                         name="design"
                                                         value={designOptions?.find(option => option.value === values.design?.id) || null}
-                                                        onChange={(option) => setFieldValue('design', option ? option.designObject : null)}
+                                                        onChange={(option) => {setFieldValue('design', option ? option.designObject : null)
+                                                        updateProductId();
+                                                    
+                                                    }
+                                                    
+                                                    
+                                                    }
                                                         options={designOptions}
                                                         styles={customStyles} // Pass custom styles here
                                                         className="bg-white dark:bg-form-Field"
@@ -537,6 +580,10 @@ const AddProduct = () => {
                                                 <Field
                                                     name='colorName'
                                                     type="text"
+                                                    onChange={e => {
+                                                        setFieldValue('colorName', e.target.value);
+                                                        updateProductId();
+                                                    }}
                                                     placeholder="Enter your first name"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                 />
@@ -554,7 +601,9 @@ const AddProduct = () => {
                                                     <ReactSelect
                                                         name="styles"
                                                         value={styleOptions?.find(option => option.value === values.styles?.id) || null}
-                                                        onChange={(option) => setFieldValue('styles', option ? option.styleObject : null)}
+                                                        onChange={(option) => {setFieldValue('styles', option ? option.styleObject : null)
+                                                        updateProductId();
+                                                    }}
                                                         options={styleOptions}
                                                         styles={{
                                                             ...customStyles,
@@ -576,7 +625,9 @@ const AddProduct = () => {
                                                     <ReactSelect
                                                         name="sizes"
                                                         value={sizeOptions?.find(option => option.value === values.sizes?.id) || null}
-                                                        onChange={(option) => setFieldValue('sizes', option ? option.sizeObject : null)}
+                                                        onChange={(option) => {setFieldValue('sizes', option ? option.sizeObject : null)
+                                                        updateProductId();
+                                                    }}
                                                         options={sizeOptions}
                                                         // styles={customStyles} // Pass custom styles here
                                                         className="bg-white dark:bg-form-Field"
@@ -593,7 +644,11 @@ const AddProduct = () => {
                                                 <Field
                                                     name='productId'
                                                     type="text"
-                                                    placeholder="Enter your first name"
+                                                    // value={values.productId || ''}
+                                                    // onChange={setFieldValue('productId', productIdField)}
+                                                    value={productIdField}
+                                                    readonly
+                                                    placeholder="Enter Product Id"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                 />
                                             </div>
@@ -607,6 +662,10 @@ const AddProduct = () => {
                                                 />
                                             </div>
                                         </div>
+
+
+
+
 
 
                                         <div className="mb-4.5 flex flex-wrap gap-6">
