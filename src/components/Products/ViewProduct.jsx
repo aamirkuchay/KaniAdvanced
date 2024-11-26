@@ -6,35 +6,43 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Pagination from '../Pagination/Pagination';
 import { useSelector } from 'react-redux';
 import ReactSelect from 'react-select';
-import { customStyles as createCustomStyles } from '../../Constants/utils';
+import { GET_IMAGE, customStyles as createCustomStyles } from '../../Constants/utils';
+
+
 
 
 const ViewProduct = () => {
 
-    const referenceImages=[]
-    const actualImages=[]
 
 
 
-   
+    const { currentUser } = useSelector((state) => state?.persisted?.user);
+    const { token } = currentUser;
+
+    const referenceImages = []
+    const actualImages = []
+
+
+
+
     const theme = useSelector(state => state?.persisted?.theme);
 
-    
-    
-    const {Product , handleDelete, handleUpdate, handlePageChange, pagination,getProduct } = useProduct({referenceImages,actualImages});
+
+
+    const { Product, handleDelete, handleUpdate, handlePageChange, pagination, getProduct } = useProduct({ referenceImages, actualImages });
     useEffect(() => {
-      getProduct()
+        getProduct()
     }, [])
 
-console.log(Product,"prrrrrrrrrrrrrrr");
+    console.log(Product, "prrrrrrrrrrrrrrr");
 
 
 
     const customStyles = createCustomStyles(theme?.mode);
 
-  
 
- 
+
+
 
     const renderTableRows = () => {
         if (!Product || !Product.length) {
@@ -57,6 +65,15 @@ console.log(Product,"prrrrrrrrrrrrrrr");
                     </p>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                    <img
+                        className="h-10 w-10 rounded-full"
+                        crossOrigin="use-credentials"
+                        src={`${GET_IMAGE}/products/getimages/${item?.images[1]?.actualImage}?token=Bearer ${token}`}
+                        alt="Product Image"
+                    />
+
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
                         {item.productId}
                     </p>
@@ -71,7 +88,7 @@ console.log(Product,"prrrrrrrrrrrrrrr");
                         {item.productCategory?.productCategoryName}
                     </p>
                 </td>
-              
+
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
                     <p className="flex text-gray-900 whitespace-no-wrap">
                         <FiEdit size={17} className='text-teal-500 hover:text-teal-700 mx-2' onClick={(e) => handleUpdate(e, item)} title='Edit Product' />  |
@@ -93,46 +110,37 @@ console.log(Product,"prrrrrrrrrrrrrrr");
                             Total PO: {pagination.totalItems}
                         </p>
                     </div>
-                    {/* <div className='items-center justify-center'>
+                    <div className='items-center justify-center'>
                         <div className="mb-4.5 flex flex-wrap gap-6 mt-12">
                             <div className="flex-1 min-w-[300px]">
-                                <label className="mb-2.5 block text-black dark:text-white">Location</label>
+                                <label className="mb-2.5 block text-black dark:text-white">Product Id</label>
                                 <ReactSelect
                                     name="locationId"
-                                    value={locationValue}
-                                    onChange={option => setLocationValue(option)}
-                                    options={locationSel}
+                                    // value={locationValue}
+                                    // onChange={option => setLocationValue(option)}
+                                    // options={locationSel}
                                     styles={customStyles}
-                                    placeholder="Select Location"
+                                    placeholder="Select Product Id"
                                 />
                             </div>
-                            <div className="flex-1 min-w-[300px]">
-                                <label className="mb-2.5 block text-black dark:text-white">Description</label>
-                                <ReactSelect
-                                    name="description"
-                                    value={descriptionValue}
-                                    onChange={option => setDescriptionValue(option)}
-                                    options={descriptionSel}
-                                    styles={customStyles}
-                                    placeholder="Select Description"
-                                />
-                            </div>
+                          
                         </div>
                         <div className="flex justify-center">
                             <button
-                                onClick={handleSearchChange}
+                                // onClick={handleSearchChange}
                                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold h-12 w-[150px] rounded-lg"
                             >
                                 Search
                             </button>
                         </div>
-                    </div> */}
+                    </div>
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                         <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
                             <table className="min-w-full leading-normal">
                                 <thead>
                                     <tr className='bg-slate-300 dark:bg-slate-700 dark:text-white'>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">SNO</th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">IMAGE</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PRODUCT ID</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PRODUCT GROUP</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">CATEGORY</th>
