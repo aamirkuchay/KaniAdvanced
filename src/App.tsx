@@ -58,6 +58,8 @@ import UpdateInventoryMaterial from './components/Inventory/UpdateInventoryMater
 import AddStockJournel from './components/StockJournel/AddStockJournel.jsx';
 import ViewStockJournel from './components/StockJournel/ViewStockJournel.jsx';
 
+import UpdateProduct from './components/Products/UpdateProduct';
+
 import UpdateStockJournal from './components/StockJournel/UpdateStockJournal.jsx';
 import { signoutSuccess } from './redux/Slice/UserSlice';
 
@@ -164,6 +166,7 @@ function App() {
               </>
             }
           />
+<<<<<<< Updated upstream
             <Route
             path="/product/viewProducts"
             element={
@@ -178,10 +181,21 @@ function App() {
             element={
               <>
                 <PageTitle title="Update Product" />
+=======
+           <Route
+            path="/product/updateProduct/:id"
+            element={
+              <>
+                <PageTitle title="Update Product " />
+>>>>>>> Stashed changes
                 <UpdateProduct />
               </>
             }
           />
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
           <Route
             path="/material/addMaterial"
