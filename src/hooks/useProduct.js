@@ -325,7 +325,7 @@ hsnCodes:"",
         handleDelete,
         handleUpdate,
         handleSubmit,
-        handleUpdateSubmit,
+        
         handlePageChange,
         seloptions,
         getProduct,
