@@ -72,12 +72,14 @@ const ViewProduct = () => {
                     </p>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                <div className="relative group">
                     <img
-                        className="h-10 w-10 rounded-full"
+                        className="h-10 w-10 rounded-full transition-transform duration-500 ease-in-out transform group-hover:scale-150 group-hover:shadow-xl"
                         crossOrigin="use-credentials"
                         src={`${GET_IMAGE}/products/getimages/${item?.images[0]?.referenceImage}`}
                         alt="Product Image"
                     />
+                    </div>
 
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
