@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DefaultLayout from '../../layout/DefaultLayout'
-import { ErrorMessage, Field, Form, Formik, useFormik } from 'formik';
+import { ErrorMessage, Field, Form, Formik, useFormik, useFormikContext } from 'formik';
 import * as Yup from 'yup';
 import useColorMode from '../../hooks/useColorMode';
 import ReactSelect from 'react-select';
@@ -52,7 +52,7 @@ const AddProduct = () => {
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
     const theme = useSelector(state => state?.persisted?.theme);
 
-   
+
 
 
 
@@ -80,7 +80,7 @@ const AddProduct = () => {
             referenceImage: file,  // Or actualImage depending on the logic
             actualImage: file,     // Or referenceImage depending on the logic
         }));
-        await setrefImage(files||"")
+        await setrefImage(files || "")
 
         setPreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
     };
@@ -96,10 +96,10 @@ const AddProduct = () => {
             actualImage: file,     // Or referenceImage depending on the logic
         }));
         setPreviewsActual((prevPreviewsActual) => [...prevPreviewsActual, ...newPreviewsActual]);
-        await setactualImage(files||"")
+        await setactualImage(files || "")
 
     };
-    
+
 
     useEffect(() => {
         return () => {
@@ -281,45 +281,56 @@ const AddProduct = () => {
         setIsOptionSelected(true);
     };
 
+    const [productIdField, setproductIdField] = useState("")
     const {
         Product,
         edit,
         currentProduct,
-       
+        
         handleSubmit,
 
-    } = useProduct({ referenceImages, actualImages });
+    } = useProduct({ referenceImages, actualImages,productIdField });
 
-   const [productIdField, setproductIdField] = useState("")
+
+   
+
 
     useEffect(() => {
         updateProductId()
-    }, [vaaluee])
-    const updateProductId = () => {
 
-        console.log(vaaluee,"heyyy");
+
 
         
-        const designValue = vaaluee.design ? vaaluee.design.designName : '';
-        const colorNameValue = vaaluee.colorName || '';
+    }, [vaaluee])
 
-        const styleValue = vaaluee.styles ? vaaluee.styles.stylesName : '';
-        const sizeValue = vaaluee.sizes ? vaaluee.sizes.sizeName : '';
+    const updateProductId = () => {
+        
     
+        
+        
+        const designValue = vaaluee.design ? vaaluee.design.designName : 'select Design';
+        const colorNameValue = vaaluee?.colorName || 'select Color';
+        
+        const styleValue = vaaluee?.styles?.stylesName || 'select Style';
+        const sizeValue = vaaluee?.sizes?.sizeName || 'select Size';
+        
         // Concatenate the selected values for the productId
         const productId = `${designValue} ${colorNameValue} ${styleValue} ${sizeValue}`;
-    
+        
         // Set the productId field value
-       
+        
         setproductIdField(productId);
       
         
+        
+        
         // Trim to remove any excess spaces
     };
+   
     
 
 
-    
+
 
     return (
         <DefaultLayout>
@@ -327,23 +338,29 @@ const AddProduct = () => {
             <div>
                 <Formik
                     initialValues={currentProduct}
-                    
-                    
+
+
                     validate={values => {
-                        if(values){
+                        if (values) {
+                            
 
                             setvaaluee(values)
+                            // setFieldValue('productId', productIdField);
                         }
 
-                        
+
                     }}
-                  
+
                     onSubmit={handleSubmit}
                 >
 
-                    {({ setFieldValue, values, refImage }) => (
+{({ setFieldValue, values }) => {
+                    // We call updateProductId every time Formik's `values` change
+                   // Trigger when values change (e.g., size, color, etc.)
+
+                    return (
                         <Form>
-                            
+
 
                             <div className="flex flex-col gap-9">
                                 {/* <!-- Contact Form --> */}
@@ -445,16 +462,16 @@ const AddProduct = () => {
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">GST DETAILS</label>
                                                 <div className="z-20 bg-transparent dark:bg-form-Field">
-                                                <ReactSelect
-                                        name="gstDetails"
-                                        options={gstOptions}
-                                        value={gstOptions.find(option => option.value === values.gstDetails)}
-                                        onChange={(option) => setFieldValue("gstDetails", option?.value)}
-                                        styles={customStyles}
-                                        className="bg-white dark:bg-form-Field"
-                                        classNamePrefix="react-select"
-                                        placeholder="Select GST details"
-                                    />
+                                                    <ReactSelect
+                                                        name="gstDetails"
+                                                        options={gstOptions}
+                                                        value={gstOptions.find(option => option.value === values.gstDetails)}
+                                                        onChange={(option) => setFieldValue("gstDetails", option?.value)}
+                                                        styles={customStyles}
+                                                        className="bg-white dark:bg-form-Field"
+                                                        classNamePrefix="react-select"
+                                                        placeholder="Select GST details"
+                                                    />
                                                 </div>
                                             </div>
 
@@ -510,7 +527,7 @@ const AddProduct = () => {
                                                         <label className="mb-2.5 block text-black dark:text-white">GST Rate</label>
                                                         <Field
                                                             name="gstRate"
-                                                            type="text"
+                                                            type="number"
                                                             placeholder="Enter GST Rate"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
@@ -553,13 +570,14 @@ const AddProduct = () => {
                                                     <ReactSelect
                                                         name="design"
                                                         value={designOptions?.find(option => option.value === values.design?.id) || null}
-                                                        onChange={(option) => {setFieldValue('design', option ? option.designObject : null)
-                                                        updateProductId();
-                                                    
-                                                    }
-                                                    
-                                                    
-                                                    }
+                                                        onChange={(option) => {
+                                                            setFieldValue('design', option ? option.designObject : null)
+                                                            updateProductId();
+
+                                                        }
+
+
+                                                        }
                                                         options={designOptions}
                                                         styles={customStyles} // Pass custom styles here
                                                         className="bg-white dark:bg-form-Field"
@@ -601,9 +619,10 @@ const AddProduct = () => {
                                                     <ReactSelect
                                                         name="styles"
                                                         value={styleOptions?.find(option => option.value === values.styles?.id) || null}
-                                                        onChange={(option) => {setFieldValue('styles', option ? option.styleObject : null)
-                                                        updateProductId();
-                                                    }}
+                                                        onChange={(option) => {
+                                                            setFieldValue('styles', option ? option.styleObject : null)
+                                                            updateProductId();
+                                                        }}
                                                         options={styleOptions}
                                                         styles={{
                                                             ...customStyles,
@@ -625,9 +644,10 @@ const AddProduct = () => {
                                                     <ReactSelect
                                                         name="sizes"
                                                         value={sizeOptions?.find(option => option.value === values.sizes?.id) || null}
-                                                        onChange={(option) => {setFieldValue('sizes', option ? option.sizeObject : null)
-                                                        updateProductId();
-                                                    }}
+                                                        onChange={(option) => {
+                                                            setFieldValue('sizes', option ? option.sizeObject : null)
+                                                            updateProductId();
+                                                        }}
                                                         options={sizeOptions}
                                                         // styles={customStyles} // Pass custom styles here
                                                         className="bg-white dark:bg-form-Field"
@@ -651,7 +671,9 @@ const AddProduct = () => {
                                                     placeholder="Enter Product Id"
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                 />
+                                                {/* <input type='hidden ' value={productIdField} name='productId'  /> */}
                                             </div>
+                                            
                                             <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white"> Barcode</label>
                                                 <Field
@@ -770,7 +792,7 @@ const AddProduct = () => {
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units </label>
                                                         <Field
                                                             name='units'
-                                                            type="text"
+                                                            type="number"
                                                             placeholder="Enter your first name"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
@@ -2014,7 +2036,8 @@ const AddProduct = () => {
                                 </div>
                             </div>
                         </Form>
-                    )}
+                    )
+}}
 
 
                 </Formik>

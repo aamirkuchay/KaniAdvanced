@@ -13,7 +13,7 @@ import { fetchHsnCode } from '../redux/Slice/HsnCodeSlice';
 import { fetchsupplier } from '../redux/Slice/SupplierSlice';
 import { useNavigate } from 'react-router-dom';
 
-const useProduct = ({referenceImages,actualImages}) => {
+const useProduct = ({referenceImages,actualImages,productIdField}) => {
    
 
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ const useProduct = ({referenceImages,actualImages}) => {
         sizes: {
 
         },
-        productId: "",
+        
         barcode: "",
         // images: [ 
         //     {
@@ -250,8 +250,13 @@ hsnCodes:"",
     
         try {
             // Prepare the product object without images
-            const product = { ...values };
+            const product = { 
+                ...values, 
+                productId: productIdField // Add productId directly while spreading
+            };
             delete product.images; // Remove images from the product object
+
+            // product.productId = productIdField;
     
             // Append the product details as JSON
             formData.append("product", JSON.stringify(product));
