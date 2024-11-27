@@ -7,6 +7,7 @@ import { GET_PRODUCTBYID_URL } from '../../Constants/utils';
 import { useSelector } from 'react-redux';
 import ReactSelect from 'react-select';
 import { customStyles as createCustomStyles } from '../../Constants/utils';
+import useProduct from '../../hooks/useProduct';
 
 const UpdateProduct = () => {
     const [product, setProduct] = useState(null); // To store fetched product data
@@ -28,6 +29,7 @@ const UpdateProduct = () => {
  const [supplierNameOptions, setsupplierNameOptions] = useState([])
     const [supplierCodeOptions, setsupplierCodeOptions] = useState([])
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
+    const {  handleUpdateSubmit } = useProduct();
 
 
 
@@ -154,88 +156,147 @@ const UpdateProduct = () => {
     }
 
 
-    const formattedValues = {
-        productGroup: {},
+//     const formattedValues = {
+//         productGroup: {},
 
-        colors: {
-            id: 0, // Default value
-          },
-        productCategory: {
+//         colors: {
+//             id: 0, // Default value
+//           },
+//         productCategory: {
 
-        },
-        design: {
+//         },
+//         design: {
 
-        },
-        hsnCode: { id: 0 },
+//         },
+//         hsnCode: { id: 0 },
         
-        colorName: "",
-        styles: {
+//         colorName: "",
+//         styles: {
 
-        },
-        sizes: {
+//         },
+//         sizes: {
 
-        },
-        productId: 0,
-        barcode: "",
-        // images: [ 
-        //     {
-        //         id: 0,
-        //         referenceImage: "",
-        //         actualImage: "",
-        //         product: "" 
-        //     }
-        // ],      
-        productDescription: "",
-        supplier: {},
-         supplierCode: {},
-        warpColors: "",
-    weftColors: "",
-    warpYarn: "",
-    weftYarn: "",
-    weave: "",
-    finishedWeight:"",
-    materialWeight:"",
+//         },
+//         productId: 0,
+//         barcode: "",
+        
+//         productDescription: "",
+//         supplier: {},
+//          supplierCode: {},
+//         warpColors: "",
+//     weftColors: "",
+//     warpYarn: "",
+//     weftYarn: "",
+//     weave: "",
+//     finishedWeight:"",
+//     materialWeight:"",
 
 
-    gstDetails:"",
+//     gstDetails:"",
  
-hsnCodes:"",
+// hsnCodes:"",
  
-    hsn_Sac:"",
+//     hsn_Sac:"",
     
-    gstDescription:"",
+//     gstDescription:"",
     
-    taxationType:"",
+//     taxationType:"",
     
-    gstRate:"",
+//     gstRate:"",
     
-    typeOfSupply:"",
+//     typeOfSupply:"",
  
-    pixAndReed: "",
-    cost: 0,
-    dyeingCost: 0,
-    baseColour: "",
-    embroideryColors: "",
-    fabricWeave: "",
-    fabricCode: "",
-    fabricCost: 0,
-    embroideryCost: 0,
-    totalCost: 0,
-    kaniColors: "",
-    mrp: 0,
-    wholesalePrice: 0,
-    description: "",
-    patternColor: "",
-    usdPrice: 0,
-    euroPrice: 0,
-    gbpPrice: 0,
-    rmbPrice: 0,
-    units:"",
-    gstDetails:"",
+//     pixAndReed: "",
+//     cost: 0,
+//     dyeingCost: 0,
+//     baseColour: "",
+//     embroideryColors: "",
+//     fabricWeave: "",
+//     fabricCode: "",
+//     fabricCost: 0,
+//     embroideryCost: 0,
+//     totalCost: 0,
+//     kaniColors: "",
+//     mrp: 0,
+//     wholesalePrice: 0,
+//     description: "",
+//     patternColor: "",
+//     usdPrice: 0,
+//     euroPrice: 0,
+//     gbpPrice: 0,
+//     rmbPrice: 0,
+//     units:"",
+//     gstDetails:"",
 
-      };
+//       };
     //   handleUpdateSubmit(formattedValues);
-  
+
+
+    const onSubmit = async (values) => {
+        console.log("Form submission triggered");
+        console.log(values, "Received values from frontend");
+    
+        const formattedValues = {
+            productGroup: { id: values.productGroup?.id || null, productGroupName: values.productGroup?.productGroupName || "" },
+            colors: { id: values.colors?.id || null, colorName: values.colors?.colorName || "" },
+            productCategory: { id: values.productCategory?.id || null, productCategoryName: values.productCategory?.productCategoryName || "" },
+            design: { id: values.design?.id || null, designName: values.design?.designName || "" },
+            hsnCode: { 
+                id: values.hsnCode?.id || 0,
+                hsnCodeName: values.hsnCode?.hsnCodeName || "",
+                sgst: values.hsnCode?.sgst || null,
+                igst: values.hsnCode?.igst || null,
+                cgst: values.hsnCode?.cgst || null
+            },
+            warpColors: values.warpColors || "",
+            weftColors: values.weftColors || "",
+            warpYarn: values.warpYarn || "",
+            weftYarn: values.weftYarn || "",
+            weave: values.weave || "",
+            finishedWeight: values.finishedWeight || null,
+            materialWeight: values.materialWeight || null,
+            gstDetails: values.gstDetails || "",
+            gstDescription: values.gstDescription || "",
+            gstRate: values.gstRate || null,
+            taxationType: values.taxationType || "",
+            pixAndReed: values.pixAndReed || "",
+            cost: values.cost || 0,
+            dyeingCost: values.dyeingCost || 0,
+            baseColour: values.baseColour || "",
+            embroideryColors: values.embroideryColors || "",
+            fabricWeave: values.fabricWeave || "",
+            fabricCode: values.fabricCode || "",
+            fabricCost: values.fabricCost || 0,
+            embroideryCost: values.embroideryCost || 0,
+            totalCost: values.totalCost || 0,
+            kaniColors: values.kaniColors || "",
+            mrp: values.mrp || 0,
+            wholesalePrice: values.wholesalePrice || 0,
+            usdPrice: values.usdPrice || 0,
+            euroPrice: values.euroPrice || 0,
+            gbpPrice: values.gbpPrice || 0,
+            rmbPrice: values.rmbPrice || 0,
+            units: values.units || "",
+            productDescription: values.productDescription || "",
+            supplier: {
+                id: values.supplier?.id || null,
+                name: values.supplier?.name || "",
+                phoneNumber: values.supplier?.phoneNumber || "",
+                supplierCode: values.supplier?.supplierCode || "",
+                address: values.supplier?.address || ""
+            },
+            supplierCode: {
+                id: values.supplierCode?.id || null,
+                name: values.supplierCode?.name || "",
+                supplierCode: values.supplierCode?.supplierCode || ""
+            }
+        };
+    
+        console.log(formattedValues, "Formatted values");
+        handleUpdateSubmit(formattedValues);
+    };
+    
+   
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Products / UpdateProduct" />
@@ -281,10 +342,11 @@ hsnCodes:"",
 
 
                     }}
-                    onSubmit={(values) => {
-                        console.log('Submitted values:', values);
-                        // Add API call for updating the product here
-                    }}
+                    // onSubmit={(values) => {
+                    //     console.log('Submitted values:', values);
+                    //     // Add API call for updating the product here
+                    // }}
+                    onSubmit={onSubmit}
                 >
                     {({ setFieldValue, values }) => (
                         <form>
