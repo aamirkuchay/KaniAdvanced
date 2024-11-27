@@ -164,6 +164,42 @@ hsnCodes:"",
         }
     };
 
+
+
+    const handleUpdateSubmit = async (values) => {
+  
+        console.log(values,"jujujuju");
+// try {
+//     const url = `${UPDATE_STOCK_URL }/${values?.stockId}`;
+
+//     const response = await fetch(url, {
+//         method: "PUT",
+//         headers: {
+//             "Content-Type": "application/json",
+//             "Authorization": `Bearer ${token}`
+//         },
+//         body: JSON.stringify(values)
+//     });
+
+//     const data = await response.json();
+//     if (response.ok) {
+//      console.log(data,"coming ");
+    
+//         toast.success(`Stock Updated successfully`);
+//         // navigate('/inventory/viewMaterialInventory');
+
+//     } else {
+//         toast.error(`${data.errorMessage}`);
+//     }
+// } catch (error) {
+//     console.error(error);
+//     toast.error("An error occurred");
+// } finally {
+ 
+// }
+
+};
+
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
@@ -296,6 +332,7 @@ hsnCodes:"",
         handleDelete,
         handleUpdate,
         handleSubmit,
+        handleUpdateSubmit,
         handlePageChange,
         seloptions,
         getProduct,
