@@ -150,7 +150,7 @@ const ViewProduct = () => {
                 <Field
                   name="ProductId"
                   component={ReactSelect}
-                  options={formattedProductId}
+                  options={[{ label: 'View All Products', value: null }, ...formattedProductId]}
                   styles={customStyles}
                   placeholder="Select Product Id"
                   value={formattedProductId.find(option => option.value === values.ProductId)} // Set the selected value

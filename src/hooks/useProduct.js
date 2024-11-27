@@ -294,10 +294,12 @@ hsnCodes:"",
                 setEdit(false); // Reset edit state
                 getProduct(pagination.currentPage || 1); // Refresh product list
             } else {
-                toast.error(data.errorMessage || "An error occurred while saving the product.");
+                
+                
+                toast.error(data.message || "An error occurred while saving the product.");
             }
         } catch (error) {
-            console.error("Error submitting form:", error);
+            
             toast.error("An error occurred. Please try again.");
         } finally {
             setSubmitting(false); // Stop the form submission spinner
