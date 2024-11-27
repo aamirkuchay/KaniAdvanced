@@ -68,7 +68,7 @@ const ViewProduct = () => {
                     <img
                         className="h-10 w-10 rounded-full"
                         crossOrigin="use-credentials"
-                        src={`${GET_IMAGE}/products/getimages/${item?.images[1]?.actualImage}?token=Bearer ${token}`}
+                        src={`${GET_IMAGE}/products/getimages/${item?.images[0]?.referenceImage}`}
                         alt="Product Image"
                     />
 
