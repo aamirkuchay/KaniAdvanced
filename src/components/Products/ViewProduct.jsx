@@ -7,6 +7,7 @@ import Pagination from '../Pagination/Pagination';
 import { useSelector } from 'react-redux';
 import ReactSelect from 'react-select';
 import { GET_IMAGE, customStyles as createCustomStyles } from '../../Constants/utils';
+import { Field, Form, Formik } from 'formik';
 
 
 
@@ -29,12 +30,18 @@ const ViewProduct = () => {
 
 
 
-    const { Product, handleDelete, handleUpdate, handlePageChange, pagination, getProduct } = useProduct({ referenceImages, actualImages });
+    const { Product, handleDelete, handleUpdate, handlePageChange, pagination, getProduct,productId,getProductId } = useProduct({ referenceImages, actualImages });
     useEffect(() => {
         getProduct()
+        getProductId()
     }, [])
 
-    console.log(Product, "prrrrrrrrrrrrrrr");
+    console.log(productId, "prrrrrrrrrrrrrrr");
+
+    const formattedProductId = productId.map(id => ({
+        label: id,
+        value: id
+      }));
 
 
 
@@ -99,6 +106,18 @@ const ViewProduct = () => {
         ));
     };
 
+    const handleSubmit = (values) => {
+        console.log(values, "logggingggggggg");
+        const filters = {
+            productId: values.ProductId || undefined,
+           
+        };
+        getProduct(pagination.currentPage, filters)
+
+
+        // ViewMaterialPo(pagination.currentPage, filters);
+    };
+
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Products/ View Products" />
@@ -110,30 +129,50 @@ const ViewProduct = () => {
                             Total PO: {pagination.totalItems}
                         </p>
                     </div>
+
+
+
+
                     <div className='items-center justify-center'>
-                        <div className="mb-4.5 flex flex-wrap gap-6 mt-12">
-                            <div className="flex-1 min-w-[300px]">
-                                <label className="mb-2.5 block text-black dark:text-white">Product Id</label>
-                                <ReactSelect
-                                    name="locationId"
-                                    // value={locationValue}
-                                    // onChange={option => setLocationValue(option)}
-                                    // options={locationSel}
-                                    styles={customStyles}
-                                    placeholder="Select Product Id"
-                                />
-                            </div>
-                          
-                        </div>
-                        <div className="flex justify-center">
-                            <button
-                                // onClick={handleSearchChange}
-                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold h-12 w-[150px] rounded-lg"
-                            >
-                                Search
-                            </button>
-                        </div>
-                    </div>
+      <Formik
+        initialValues={{
+          ProductId: '', // ProductId will store the selected value from ReactSelect
+        }}
+        onSubmit={handleSubmit}
+      >
+        {({ setFieldValue, values }) => (
+          <Form>
+            <div className="mb-4.5 flex flex-wrap gap-6 mt-12">
+              <div className="flex-1 min-w-[300px]">
+                <label className="mb-2.5 block text-black dark:text-white">Product Id</label>
+                <Field
+                  name="ProductId"
+                  component={ReactSelect}
+                  options={formattedProductId}
+                  styles={customStyles}
+                  placeholder="Select Product Id"
+                  value={formattedProductId.find(option => option.value === values.ProductId)} // Set the selected value
+                  onChange={option => setFieldValue('ProductId', option ? option.value : '')} // Update Formik's state when a selection is made
+                />
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold h-12 w-[150px] rounded-lg"
+              >
+                Search
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
+
+
+
+
+
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                         <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
                             <table className="min-w-full leading-normal">

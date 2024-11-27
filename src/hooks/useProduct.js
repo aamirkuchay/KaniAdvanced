@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { ADD_PRODUCT_URL, DELETE_PRODUCT_URL, GET_PRODUCT_URL, UPDATE_PRODUCT_URL } from '../Constants/utils';
+import { ADD_PRODUCT_URL, DELETE_PRODUCT_URL, GET_PRODUCT_URL, UPDATE_PRODUCT_URL,GET_PRODUCTID_URL } from '../Constants/utils';
 import { fetchunit } from '../redux/Slice/UnitSlice';
 import { fetchcolorGroup } from '../redux/Slice/ColorGroupSlice';
 import ProductGroup, { fetchProductGroup } from '../redux/Slice/ProductGroup';
@@ -21,6 +21,7 @@ const useProduct = ({referenceImages,actualImages,productIdField}) => {
     const { token } = currentUser;
     const [Product, setProduct] = useState([]);
     const [edit, setEdit] = useState(false);
+    const [productId, setproductId] = useState([])
     const [currentProduct, setCurrentProduct] = useState({
         productGroup: {},
 
@@ -137,15 +138,17 @@ hsnCodes:"",
 
 
    
-    const getProduct = async (page) => {
+    const getProduct = async (page, filters = {}) => {
         console.log("iam here");
+        console.log(filters,"filllllllll");
         try {
             const response = await fetch(`${GET_PRODUCT_URL}?page=${page||1}`, {
-                method: "GET",
+                method: "POST",
                 headers: {
-                    // "Content-Type": "multipart/form-data",
+                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
-                }
+                },
+                body: JSON.stringify(filters)
             });
             const data = await response.json();
             console.log(data,"pr datatata")
@@ -158,6 +161,27 @@ hsnCodes:"",
                 currentPage: data?.number + 1,
                 itemsPerPage: data.size
             });
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to fetch Product");
+        }
+    };
+
+    const getProductId = async () => {
+        console.log("iam here");
+        try {
+            const response = await fetch(`${GET_PRODUCTID_URL}/processProductIds`, {
+                method: "GET",
+                headers: {
+                    // "Content-Type": "multipart/form-data",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            console.log(data,"pr datatata")
+
+            setproductId(data);
+         
         } catch (error) {
             console.error(error);
             toast.error("Failed to fetch Product");
@@ -304,6 +328,8 @@ hsnCodes:"",
         handlePageChange,
         seloptions,
         getProduct,
+        productId,
+        getProductId
       
     };
 };
