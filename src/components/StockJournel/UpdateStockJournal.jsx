@@ -19,7 +19,12 @@ const UpdateStockJournal = () => {
   const material = useSelector(state => state?.nonPersisted?.material);
   const location = useSelector(state => state?.nonPersisted?.location);
   const [initialStatus, setInitialStatus] = useState('');
+
+
   const { typeValues, handleUpdateSubmit } = useStockJournel();
+
+
+  
   const stockId = id;
   const [stockJournal, setStockJournal] = useState(null);
   const [sourceOptions, setSourceOptions] = useState([]);
