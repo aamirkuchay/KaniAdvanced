@@ -56,7 +56,7 @@ const ViewProduct = () => {
             return (
                 <tr className='bg-white dark:bg-slate-700 dark:text-white'>
                     <td colSpan="6" className="px-5 py-5 border-b border-gray-200 text-sm">
-                        <p className="text-gray-900 whitespace-no-wrap text-center">No Data Found</p>
+                        <p className="text-gray-900 whitespace-no-wrap text-center">No Products Found</p>
                     </td>
                 </tr>
             );
@@ -128,7 +128,7 @@ const ViewProduct = () => {
                     <div className='flex justify-between'>
                         <h2 className="text-xl font-semibold leading-tight">View Products</h2>
                         <p className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium bg-success text-success dark:bg-white dark:text-slate-800`}>
-                            Total PO: {pagination.totalItems}
+                            TOTAL PRODUCTS: {pagination.totalItems}
                         </p>
                     </div>
 
