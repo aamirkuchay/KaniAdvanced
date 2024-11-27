@@ -153,6 +153,89 @@ const UpdateProduct = () => {
         return <div>Loading...</div>;
     }
 
+
+    const formattedValues = {
+        productGroup: {},
+
+        colors: {
+            id: 0, // Default value
+          },
+        productCategory: {
+
+        },
+        design: {
+
+        },
+        hsnCode: { id: 0 },
+        
+        colorName: "",
+        styles: {
+
+        },
+        sizes: {
+
+        },
+        productId: 0,
+        barcode: "",
+        // images: [ 
+        //     {
+        //         id: 0,
+        //         referenceImage: "",
+        //         actualImage: "",
+        //         product: "" 
+        //     }
+        // ],      
+        productDescription: "",
+        supplier: {},
+         supplierCode: {},
+        warpColors: "",
+    weftColors: "",
+    warpYarn: "",
+    weftYarn: "",
+    weave: "",
+    finishedWeight:"",
+    materialWeight:"",
+
+
+    gstDetails:"",
+ 
+hsnCodes:"",
+ 
+    hsn_Sac:"",
+    
+    gstDescription:"",
+    
+    taxationType:"",
+    
+    gstRate:"",
+    
+    typeOfSupply:"",
+ 
+    pixAndReed: "",
+    cost: 0,
+    dyeingCost: 0,
+    baseColour: "",
+    embroideryColors: "",
+    fabricWeave: "",
+    fabricCode: "",
+    fabricCost: 0,
+    embroideryCost: 0,
+    totalCost: 0,
+    kaniColors: "",
+    mrp: 0,
+    wholesalePrice: 0,
+    description: "",
+    patternColor: "",
+    usdPrice: 0,
+    euroPrice: 0,
+    gbpPrice: 0,
+    rmbPrice: 0,
+    units:"",
+    gstDetails:"",
+
+      };
+    //   handleUpdateSubmit(formattedValues);
+  
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Products / UpdateProduct" />
@@ -161,7 +244,7 @@ const UpdateProduct = () => {
                     enableReinitialize // Update initial values when product data changes
                     initialValues={{
                         productGroup: product?.productGroup?.productGroupName || '',
-                        colors: null, // Default for ReactSelect
+
                         colorName: product?.colorName || '',
                         barcode:product?.barcode || '',
                         finishedWeight:product?.finishedWeight || '',
@@ -382,6 +465,7 @@ const UpdateProduct = () => {
                                                     name='productId'
                                                     type="text"
                                                     placeholder="Enter your first name"
+                                                    readOnly
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                 />
                                             </div>
