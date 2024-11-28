@@ -10,6 +10,10 @@ import { customStyles as createCustomStyles } from '../../Constants/utils';
 import useProduct from '../../hooks/useProduct';
 
 const UpdateProduct = () => {
+    
+    const referenceImages="";
+    const actualImages="";
+     const productIdField="";
     const [product, setProduct] = useState(null); // To store fetched product data
     const [colorGroupOptions, setColorGroupOptions] = useState([]); // Color group options for ReactSelect
     const [isLoading, setIsLoading] = useState(true); // Loader state
@@ -29,13 +33,15 @@ const UpdateProduct = () => {
  const [supplierNameOptions, setsupplierNameOptions] = useState([])
     const [supplierCodeOptions, setsupplierCodeOptions] = useState([])
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
-    const {  handleUpdateSubmit } = useProduct();
+ 
 
+    const {  handleUpdateSubmit } = useProduct({referenceImages,actualImages,productIdField});
 
+   
 
     const { token } = currentUser;
     const { id } = useParams();
-
+    const productId = id;
     // Fetch product by ID
     const getProductById = async () => {
         try {
@@ -72,6 +78,7 @@ const UpdateProduct = () => {
                 value: color.id,
                 label: color.colorName,
                 colorGroupObject: color,
+                color:{id:color.id}
             }));
             setColorGroupOptions(formattedOptions);
         }
@@ -82,6 +89,8 @@ const UpdateProduct = () => {
                 value: prodCat.id,
                 label: prodCat?.productCategoryName,
                 productCategoryObject: prodCat,
+                productCategoryid: {id:prodCat.id},
+                
             }));
             setproductCategoryOptions(formattedOptions);
         }
@@ -92,6 +101,7 @@ const UpdateProduct = () => {
                 value: hsn.id,
                 label: hsn?.hsnCodeName,
                 hsnObject: hsn,
+                hsnCode: { id: hsn.id }
             }));
             sethsnOptions(formattedOptions);
         }
@@ -102,6 +112,7 @@ const UpdateProduct = () => {
                 value: design.id,
                 label: design?.designName,
                 designObject: design,
+                designid:{id: design.id}
             }));
             setdesignOptions(formattedOptions);
         }
@@ -112,6 +123,7 @@ const UpdateProduct = () => {
                 value: style.id,
                 label: style?.stylesName,
                 styleObject: style,
+                styleid: {id : style.id}
             }));
             setstyleOptions(formattedOptions);
         }
@@ -122,6 +134,7 @@ const UpdateProduct = () => {
                 value: size.id,
                 label: size?.sizeName,
                 sizeObject: size,
+                sizeid: {id : size.id}
             }));
             setsizeOptions(formattedOptions);
         }
@@ -156,98 +169,44 @@ const UpdateProduct = () => {
     }
 
 
-//     const formattedValues = {
-//         productGroup: {},
-
-//         colors: {
-//             id: 0, // Default value
-//           },
-//         productCategory: {
-
-//         },
-//         design: {
-
-//         },
-//         hsnCode: { id: 0 },
-        
-//         colorName: "",
-//         styles: {
-
-//         },
-//         sizes: {
-
-//         },
-//         productId: 0,
-//         barcode: "",
-        
-//         productDescription: "",
-//         supplier: {},
-//          supplierCode: {},
-//         warpColors: "",
-//     weftColors: "",
-//     warpYarn: "",
-//     weftYarn: "",
-//     weave: "",
-//     finishedWeight:"",
-//     materialWeight:"",
 
 
-//     gstDetails:"",
- 
-// hsnCodes:"",
- 
-//     hsn_Sac:"",
-    
-//     gstDescription:"",
-    
-//     taxationType:"",
-    
-//     gstRate:"",
-    
-//     typeOfSupply:"",
- 
-//     pixAndReed: "",
-//     cost: 0,
-//     dyeingCost: 0,
-//     baseColour: "",
-//     embroideryColors: "",
-//     fabricWeave: "",
-//     fabricCode: "",
-//     fabricCost: 0,
-//     embroideryCost: 0,
-//     totalCost: 0,
-//     kaniColors: "",
-//     mrp: 0,
-//     wholesalePrice: 0,
-//     description: "",
-//     patternColor: "",
-//     usdPrice: 0,
-//     euroPrice: 0,
-//     gbpPrice: 0,
-//     rmbPrice: 0,
-//     units:"",
-//     gstDetails:"",
 
-//       };
-    //   handleUpdateSubmit(formattedValues);
-
-
-    const onSubmit = async (values) => {
+    const onSubmit = async (values,e) => {
         console.log("Form submission triggered");
         console.log(values, "Received values from frontend");
     
         const formattedValues = {
-            productGroup: { id: values.productGroup?.id || null, productGroupName: values.productGroup?.productGroupName || "" },
-            colors: { id: values.colors?.id || null, colorName: values.colors?.colorName || "" },
-            productCategory: { id: values.productCategory?.id || null, productCategoryName: values.productCategory?.productCategoryName || "" },
-            design: { id: values.design?.id || null, designName: values.design?.designName || "" },
-            hsnCode: { 
-                id: values.hsnCode?.id || 0,
-                hsnCodeName: values.hsnCode?.hsnCodeName || "",
-                sgst: values.hsnCode?.sgst || null,
-                igst: values.hsnCode?.igst || null,
-                cgst: values.hsnCode?.cgst || null
+            // productId: id, // Assuming `id` is defined and corresponds to the product being updated
+            // productId: productId,
+            productGroup: { 
+                id: values.productGroup?.id , 
+                
+                // productGroupName: values.productGroup?.productGroupName || "" 
             },
+            colors: { 
+                // id: values.colors?.id || { id: 1 }, 
+                 id: values.colors?.id , 
+                 
+            },
+            //colors: product?.colors || { id: 1, colorName: "green" },
+            productCategory: { 
+                 id: values.productCategory?.id , 
+                // productCategoryName: values.productCategory?.productCategoryName || "" 
+            },
+            design: { 
+                id: values.design?.id , 
+                // designName: values.design?.designName || "" 
+            },
+            // hsnCode: { 
+            //     id: values.hsnCode?.id , 
+            //     // hsnCodeName: values.hsnCode?.hsnCodeName || "" 
+            // },
+            hsnCode: { 
+
+                id: values.hsnCode?.id , // Only the `id` is sent
+            },
+            
             warpColors: values.warpColors || "",
             weftColors: values.weftColors || "",
             warpYarn: values.warpYarn || "",
@@ -279,21 +238,17 @@ const UpdateProduct = () => {
             units: values.units || "",
             productDescription: values.productDescription || "",
             supplier: {
-                id: values.supplier?.id || null,
-                name: values.supplier?.name || "",
-                phoneNumber: values.supplier?.phoneNumber || "",
-                supplierCode: values.supplier?.supplierCode || "",
-                address: values.supplier?.address || ""
+                // name: values.supplier?.name || ""
+                id: values.supplier?.id ,
             },
             supplierCode: {
-                id: values.supplierCode?.id || null,
-                name: values.supplierCode?.name || "",
-                supplierCode: values.supplierCode?.supplierCode || ""
+                // supplierCode: values.supplierCode?.supplierCode || ""
+                id: values.supplierCode?.id,
             }
         };
     
-        console.log(formattedValues, "Formatted values");
-        handleUpdateSubmit(formattedValues);
+        console.log(JSON.stringify(formattedValues, null, 2), "Formatted Values");
+        handleUpdateSubmit(formattedValues,e);
     };
     
    
@@ -304,8 +259,16 @@ const UpdateProduct = () => {
                 <Formik
                     enableReinitialize // Update initial values when product data changes
                     initialValues={{
+                        id: product?.id || "",
                         productGroup: product?.productGroup?.productGroupName || '',
-
+                          colors: product?.colors || { id: 0  },
+                        // colors: product?.colors?.id || '',
+                        
+                        productCategory: product?.productCategory || {id:0} ,
+                        hsnCode: product?.hsnCode || { id:0},
+                        design: product?.design || { id: 0 },
+                        styles: product?.styles || { id: 0},
+                        sizes: product?.sizes || { id: 1, sizeName: "3l" },
                         colorName: product?.colorName || '',
                         barcode:product?.barcode || '',
                         finishedWeight:product?.finishedWeight || '',
@@ -331,7 +294,8 @@ const UpdateProduct = () => {
                          fabricWeave:product?.fabricWeave || '',
                          fabricCode:product?.fabricCode || '',
                          fabricCost:product?.fabricCost || '',
-
+                         supplier: product?.supplier || { id: 0 },
+                         supplierCode: product?.supplierCode || { id:  0},
                          embroideryCost:product?.embroideryCost || '',
                          totalCost:product?.totalCost || '',
 
@@ -346,7 +310,8 @@ const UpdateProduct = () => {
                     //     console.log('Submitted values:', values);
                     //     // Add API call for updating the product here
                     // }}
-                    onSubmit={onSubmit}
+                    // onSubmit={onSubmit}
+                    onSubmit={handleUpdateSubmit}
                 >
                     {({ setFieldValue, values }) => (
                         <form>
@@ -375,20 +340,14 @@ const UpdateProduct = () => {
                                             </div>
 
                                             {/* Color Group Field */}
-                                            <div className="flex-1 min-w-[300px]">
+                                            {/* <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">
                                                     Color Group
                                                 </label>
                                                 <div className="z-20 bg-transparent dark:bg-form-field">
                                                     <ReactSelect
                                                         name="colors"
-                                                        value={
-                                                            colorGroupOptions.find(
-                                                                (option) =>
-                                                                    option.value ===
-                                                                    values.colors?.id
-                                                            ) || null
-                                                        }
+                                                        value={product.colors.id}
                                                         onChange={(option) =>
                                                             setFieldValue(
                                                                 'colors',
@@ -404,7 +363,36 @@ const UpdateProduct = () => {
                                                         placeholder="Select Color Group"
                                                     />
                                                 </div>
-                                            </div>
+                                            </div> */}
+                                            <div className="flex-1 min-w-[300px]">
+    <label className="mb-2.5 block text-black dark:text-white">
+        Color Group
+    </label>
+    <div className="z-20 bg-transparent dark:bg-form-field">
+        <ReactSelect
+            name="colors"
+            value={
+                colorGroupOptions.find(option => option.value === values.colors?.id) || null
+            } // Match the current value
+            // onChange={(option) => {
+            //     setFieldValue(
+            //         'colors',
+            //         option
+            //             ? { id: option.value, colorName: option.label }
+            //             : null
+            //     ); // Update the formik state
+            // }}
+            onChange={(option) => setFieldValue('colors', option ? option.color : null)}
+            options={colorGroupOptions}
+            styles={customStyles} // Apply custom styles
+            className="bg-white dark:bg-form-field"
+            classNamePrefix="react-select"
+            placeholder="Select Color Group" // Static placeholder
+        />
+    </div>
+</div>
+
+
                                         </div>
 
                                         <div className="mb-4.5 flex flex-wrap gap-6">
@@ -414,7 +402,7 @@ const UpdateProduct = () => {
                                                     <ReactSelect
                                                         name="productCategory"
                                                         value={productCategoryOptions?.find(option => option.value === values.productCategory?.id) || null}
-                                                        onChange={(option) => setFieldValue('productCategory', option ? option.productCategoryObject : null)}
+                                                        onChange={(option) => setFieldValue('productCategory', option ? option.productCategoryid : null)}
                                                         options={productCategoryOptions}
                                                         styles={customStyles} // Pass custom styles here
                                                         className="bg-white dark:bg-form-Field"
@@ -430,12 +418,15 @@ const UpdateProduct = () => {
                                                 <ReactSelect
                                                     name="hsnCode"
                                                     value={hsnOptions?.find(option => option.value === values.hsnCode?.id) || null}
-                                                    onChange={(option) => setFieldValue('hsnCode', option ? option.hsnObject : null)}
+                                                    // onChange={(option) => setFieldValue('supplier', option ? option.suplierid : null)}
+                                                    onChange={(option) => setFieldValue('hsnCode', option ? option.hsnCode : null)}
                                                     options={hsnOptions}
                                                     styles={customStyles} // Pass custom styles here
                                                     className="bg-white dark:bg-form-Field"
                                                     classNamePrefix="react-select"
                                                     placeholder="Select Hsn Code"
+
+                                                    
                                                 />
                                             </div>
                                         </div>
@@ -448,7 +439,7 @@ const UpdateProduct = () => {
                                                     <ReactSelect
                                                         name="design"
                                                         value={designOptions?.find(option => option.value === values.design?.id) || null}
-                                                        onChange={(option) => setFieldValue('design', option ? option.designObject : null)}
+                                                        onChange={(option) => setFieldValue('design', option ? option.designid : null)}
                                                         options={designOptions}
                                                         styles={customStyles} // Pass custom styles here
                                                         className="bg-white dark:bg-form-Field"
@@ -470,7 +461,7 @@ const UpdateProduct = () => {
                                                     name='colorName'
                                                     type="text"
                                                     placeholder="Enter your first name"
-                                                    value={values.colorName}
+                                                  
                                                     readOnly // Make the field read-only
 
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
@@ -485,7 +476,7 @@ const UpdateProduct = () => {
                                                     <ReactSelect
                                                         name="styles"
                                                         value={styleOptions?.find(option => option.value === values.styles?.id) || null}
-                                                        onChange={(option) => setFieldValue('styles', option ? option.styleObject : null)}
+                                                        onChange={(option) => setFieldValue('styles', option ? option.styleid : null)}
                                                         options={styleOptions}
                                                         styles={{
                                                             ...customStyles,
@@ -507,7 +498,7 @@ const UpdateProduct = () => {
                                                     <ReactSelect
                                                         name="sizes"
                                                         value={sizeOptions?.find(option => option.value === values.sizes?.id) || null}
-                                                        onChange={(option) => setFieldValue('sizes', option ? option.sizeObject : null)}
+                                                        onChange={(option) => setFieldValue('sizes', option ? option.sizeid : null)}
                                                         options={sizeOptions}
                                                         // styles={customStyles} // Pass custom styles here
                                                         className="bg-white dark:bg-form-Field"
@@ -537,7 +528,7 @@ const UpdateProduct = () => {
                                                     name='barcode'
                                                     type="text"
                                                     placeholder="Enter your last name"
-                                                    value={values.barcode}
+                                                    // value={product.barcode}
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                 />
                                             </div>
@@ -1627,12 +1618,20 @@ const UpdateProduct = () => {
 
 
                                         <div className="flex justify-end mt-4">
-                                            <button
+                                            {/* <button
                                                 type="submit"
                                                 className="px-6 py-2 text-white bg-primary rounded-lg shadow hover:bg-primary-dark focus:outline-none"
                                             >
                                                 Update
-                                            </button>
+                                            </button> */}
+                                            <button
+  type="button" // Ensures the button does not trigger the form submission
+  onClick={(e) => handleUpdateSubmit(values, e)}
+  className="px-6 py-2 text-white bg-primary rounded-lg shadow hover:bg-primary-dark focus:outline-none"
+>
+  Update
+</button>
+
                                         </div>
                                     </div>
                                 </div>

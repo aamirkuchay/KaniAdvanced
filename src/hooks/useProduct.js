@@ -166,39 +166,131 @@ hsnCodes:"",
 
 
 
-    const handleUpdateSubmit = async (values) => {
+//    const handleUpdateSubmit = async (values, e) => {
+//   e.preventDefault(); // Prevent the form from reloading the page
   
-        console.log(values,"jujujuju");
-// try {
-//     const url = `${UPDATE_STOCK_URL }/${values?.stockId}`;
+//   console.log(values, "aaaaaaaaaa");
 
+//   try {
+//     const url = `${UPDATE_PRODUCT_URL}/${values?.id}`;
 //     const response = await fetch(url, {
-//         method: "PUT",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Authorization": `Bearer ${token}`
-//         },
-//         body: JSON.stringify(values)
+//       method: "PUT",
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Authorization": `Bearer ${token}`
+//       },
+//       body: JSON.stringify(values)
 //     });
 
 //     const data = await response.json();
 //     if (response.ok) {
-//      console.log(data,"coming ");
-    
-//         toast.success(`Stock Updated successfully`);
-//         // navigate('/inventory/viewMaterialInventory');
-
+//       console.log(data, "coming ");
+//       toast.success(`Product Updated successfully`);
+//       navigate('/inventory/viewMaterialInventory');
 //     } else {
-//         toast.error(`${data.errorMessage}`);
+//       toast.error(`${data.errorMessage}`);
 //     }
-// } catch (error) {
+//   } catch (error) {
 //     console.error(error);
 //     toast.error("An error occurred");
-// } finally {
- 
-// }
+//   }
+// };
 
+
+// const handleUpdateSubmit = async (values, e) => {
+//     e.preventDefault(); // Prevent the form from reloading the page
+
+//     console.log(values, "Submitted values:");
+
+//     // Ensure `id` exists
+//     if (!values?.id) {
+//         console.error("ID is missing. Cannot update product.");
+//         toast.error("Product ID is required for updating.");
+//         return;
+//     }
+
+//     const url = `${UPDATE_PRODUCT_URL}/${values.id}`;
+//     console.log("Update URL:", url);
+
+//     try {
+//         const response = await fetch(url, {
+//             method: "PUT",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 "Authorization": `Bearer ${token}`
+//             },
+//             body: JSON.stringify(values),
+//         });
+
+//         const data = await response.json();
+//         if (response.ok) {
+//             console.log(data, "Update response:");
+//             toast.success(`Product Updated successfully`);
+//             navigate('/inventory/viewMaterialInventory');
+//         } else {
+//             console.error("Update failed:", data.errorMessage);
+//             toast.error(`${data.errorMessage}`);
+//         }
+//     } catch (error) {
+//         console.error("Error during update:", error);
+//         toast.error("An error occurred while updating the product.");
+//     }
+// };
+
+const handleUpdateSubmit = async (values, { setSubmitting }) => {
+    console.log(values, "Submitted values:");
+
+    // Ensure `id` exists
+    if (!values?.id) {
+        console.error("ID is missing. Cannot update product.");
+        toast.error("Product ID is required for updating.");
+        return;
+    }
+
+    const formData = new FormData();
+
+    try {
+        // Prepare the product object
+        const product = { 
+            ...values, 
+            // id: values.id 
+        };
+
+        // Append the product details as JSON
+        formData.append("product", JSON.stringify(product));
+
+        
+       
+
+        const url = `${UPDATE_PRODUCT_URL}/${values.id}`;
+        console.log("Update URL:", url);
+
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`, // No Content-Type header for FormData
+            },
+            body: formData,
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            console.log(data, "Update response:");
+            toast.success(`Product updated successfully`);
+            navigate('/inventory/viewMaterialInventory');
+        } else {
+            console.error("Update failed:", data.errorMessage);
+            toast.error(data.errorMessage || "An error occurred while updating the product.");
+        }
+    } catch (error) {
+        console.error("Error during update:", error);
+        toast.error("An error occurred while updating the product.");
+    } finally {
+        if (setSubmitting) setSubmitting(false); // Stop any loading spinner
+    }
 };
+
 
     const handleDelete = async (e, id) => {
         e.preventDefault();
