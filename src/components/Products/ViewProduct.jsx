@@ -28,6 +28,7 @@ const ViewProduct = () => {
         getProduct();
         getProductId();
     }, []);
+console.log(productId,"lo");
 
     const formattedProductId = productId.map(id => ({
         label: id,

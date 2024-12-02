@@ -156,6 +156,7 @@ export const GET_PRODUCTBYID_URL = `${BASE_URL}/products`;
 export const UPDATE_PRODUCT_URL = `${BASE_URL}/products/update-product`;
 export const VIEW_ALL_PRODUCT = `${BASE_URL}/products/viewAll`;
 export const DELETE_PRODUCT_URL = `${BASE_URL}/products/`;
+export const GET_PRODUCTID_URL = `${BASE_URL}/products`;
 //PRODUCT
 export const ADD_HSNCODE_URL = `${BASE_URL}/hsncode`;
 export const GET_HSNCODE_URL = `${BASE_URL}/hsncode`;

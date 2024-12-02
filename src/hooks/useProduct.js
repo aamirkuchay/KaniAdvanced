@@ -190,6 +190,8 @@ hsnCodes:"",
         }
     };
 
+  
+
     const getProductList = async () => {
         console.log("iam here");
         try {
@@ -203,172 +205,13 @@ hsnCodes:"",
             const data = await response.json();
             console.log(data,"pr datatata")
 
-
-//    const handleUpdateSubmit = async (values, e) => {
-//   e.preventDefault(); // Prevent the form from reloading the page
-  
-//   console.log(values, "aaaaaaaaaa");
-
-//   try {
-//     const url = `${UPDATE_PRODUCT_URL}/${values?.id}`;
-//     const response = await fetch(url, {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json",
-//         "Authorization": `Bearer ${token}`
-//       },
-//       body: JSON.stringify(values)
-//     });
-
-//     const data = await response.json();
-//     if (response.ok) {
-//       console.log(data, "coming ");
-//       toast.success(`Product Updated successfully`);
-//       navigate('/inventory/viewMaterialInventory');
-//     } else {
-//       toast.error(`${data.errorMessage}`);
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     toast.error("An error occurred");
-//   }
-// };
-
-
-// const handleUpdateSubmit = async (values, e) => {
-//     e.preventDefault(); // Prevent the form from reloading the page
-
-//     console.log(values, "Submitted values:");
-
-//     // Ensure `id` exists
-//     if (!values?.id) {
-//         console.error("ID is missing. Cannot update product.");
-//         toast.error("Product ID is required for updating.");
-//         return;
-//     }
-
-//     const url = `${UPDATE_PRODUCT_URL}/${values.id}`;
-//     console.log("Update URL:", url);
-
-//     try {
-//         const response = await fetch(url, {
-//             method: "PUT",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "Authorization": `Bearer ${token}`
-//             },
-//             body: JSON.stringify(values),
-//         });
-
-//         const data = await response.json();
-//         if (response.ok) {
-//             console.log(data, "Update response:");
-//             toast.success(`Product Updated successfully`);
-//             navigate('/inventory/viewMaterialInventory');
-//         } else {
-//             console.error("Update failed:", data.errorMessage);
-//             toast.error(`${data.errorMessage}`);
-//         }
-//     } catch (error) {
-//         console.error("Error during update:", error);
-//         toast.error("An error occurred while updating the product.");
-//     }
-// };
-
-const handleUpdateSubmit = async (values, { setSubmitting }) => {
-    console.log(values, "Submitted values:");
-
-    // Ensure `id` exists
-    if (!values?.id) {
-        console.error("ID is missing. Cannot update product.");
-        toast.error("Product ID is required for updating.");
-        return;
-    }
-
-    const formData = new FormData();
-
-    try {
-        // Prepare the product object
-        const product = { 
-            ...values, 
-            // id: values.id 
-        };
-
-        // Append the product details as JSON
-        formData.append("product", JSON.stringify(product));
-
-        
-       
-
-        const url = `${UPDATE_PRODUCT_URL}/${values.id}`;
-        console.log("Update URL:", url);
-
-        const response = await fetch(url, {
-            method: "PUT",
-            headers: {
-                "Authorization": `Bearer ${token}`, // No Content-Type header for FormData
-            },
-            body: formData,
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            console.log(data, "Update response:");
-            toast.success(`Product updated successfully`);
-            navigate('/inventory/viewMaterialInventory');
-        } else {
-            console.error("Update failed:", data.errorMessage);
-            toast.error(data.errorMessage || "An error occurred while updating the product.");
+            setproductList(data);
+         
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to fetch Product");
         }
-    } catch (error) {
-        console.error("Error during update:", error);
-        toast.error("An error occurred while updating the product.");
-    } finally {
-        if (setSubmitting) setSubmitting(false); // Stop any loading spinner
-    }
-};
-// const handleUpdateSubmit = async (values, { setSubmitting }) => {
-//     console.log(values, "Submitted values:");
-
-//     // Ensure `id` exists
-//     if (!values?.id) {
-//         console.error("ID is missing. Cannot update product.");
-//         toast.error("Product ID is required for updating.");
-//         return;
-//     }
-
-//     const requestData = {
-//         ...values, // Include the values from the form in the request payload
-//     };
-
-//     try {
-//         const response = await fetch(`http://localhost:8081/products/update-product/${values.id}`, {
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 "Authorization": `Bearer ${token}`
-//             },
-//             body: JSON.stringify(requestData),
-//         });
-
-//         if (!response.ok) {
-//             const errorText = await response.text();
-//             throw new Error(`Server error: ${errorText}`);
-//         }
-
-//         const result = await response.json();
-//         console.log("Update successful:", result);
-//         toast.success("Product updated successfully.");
-//     } catch (error) {
-//         console.error("Error during update:", error.message);
-//         toast.error("Failed to update product.");
-//     } finally {
-//         setSubmitting(false); // Ensure submission state is reset
-//     }
-// };
-
-
+    };
 
     const handleDelete = async (e, id) => {
         e.preventDefault();
@@ -487,11 +330,59 @@ const handleUpdateSubmit = async (values, { setSubmitting }) => {
             setSubmitting(false); // Stop the form submission spinner
         }
     };
-    
-    
-    
 
-  
+
+    
+    // const handleUpdateSubmit = async (values, { setSubmitting }) => {
+    //     console.log(values, "Submitted values:");
+    
+    //     // Ensure `id` exists
+    //     if (!values?.id) {
+    //         console.error("ID is missing. Cannot update product.");
+    //         toast.error("Product ID is required for updating.");
+    //         return;
+    //     }
+    
+    //     try {
+    //         const product = { 
+    //             ...values, 
+    //             // Add or modify any fields needed by the API
+    //         };
+    
+    //         const url = `${UPDATE_PRODUCT_URL}/${values.id}`;
+    //         console.log("Update URL:", url);
+    
+    //         const response = await fetch(url, {
+    //             method: "PUT",
+    //             headers: {
+    //                 "Content-Type": "application/json", // Set correct content type
+    //                 "Authorization": `Bearer ${token}`, // Include token if required
+    //             },
+    //             body: JSON.stringify(product), // Send raw JSON
+    //         });
+    
+    //         const data = await response.json();
+    
+    //         if (response.ok) {
+    //             console.log(data, "Update response:");
+    //             toast.success("Product updated successfully");
+    //             navigate('/inventory/viewMaterialInventory');
+    //         } else {
+    //             console.error("Update failed:", data.errorMessage);
+    //             toast.error(data.errorMessage || "An error occurred while updating the product.");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error during update:", error);
+    //         toast.error("An error occurred while updating the product.");
+    //     } finally {
+    //         if (setSubmitting) setSubmitting(false); // Stop any loading spinner
+    //     }
+    // };
+
+    
+    
+    
+    
     
 
 
@@ -509,7 +400,7 @@ const handleUpdateSubmit = async (values, { setSubmitting }) => {
         handleDelete,
         handleUpdate,
         handleSubmit,
-        
+        // handleUpdateSubmit,
         handlePageChange,
         seloptions,
         getProduct,

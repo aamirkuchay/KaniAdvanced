@@ -3,17 +3,20 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { Field, Formik } from 'formik';
 import { useParams } from 'react-router-dom';
-import { GET_PRODUCTBYID_URL } from '../../Constants/utils';
+import { GET_PRODUCTBYID_URL, UPDATE_PRODUCT_URL } from '../../Constants/utils';
 import { useSelector } from 'react-redux';
 import ReactSelect from 'react-select';
 import { customStyles as createCustomStyles } from '../../Constants/utils';
 import useProduct from '../../hooks/useProduct';
+import { toast } from 'react-toastify';
+
 
 const UpdateProduct = () => {
     
     const referenceImages="";
     const actualImages="";
      const productIdField="";
+     
     const [product, setProduct] = useState(null); // To store fetched product data
     const [colorGroupOptions, setColorGroupOptions] = useState([]); // Color group options for ReactSelect
     const [isLoading, setIsLoading] = useState(true); // Loader state
@@ -33,9 +36,11 @@ const UpdateProduct = () => {
  const [supplierNameOptions, setsupplierNameOptions] = useState([])
     const [supplierCodeOptions, setsupplierCodeOptions] = useState([])
     const supplier = useSelector(state => state?.nonPersisted?.supplier);
+    const [productGroupOption, setproductGroupOption] = useState([])
+    const productGroup = useSelector(state => state?.nonPersisted?.productGroup);
  
 
-    const {  handleUpdateSubmit } = useProduct({referenceImages,actualImages,productIdField});
+    // const {  handleUpdateSubmit } = useProduct({referenceImages,actualImages,productIdField});
 
    
 
@@ -43,6 +48,58 @@ const UpdateProduct = () => {
     const { id } = useParams();
     const productId = id;
     // Fetch product by ID
+
+    const handleUpdateSubmit = async (values, { setSubmitting }) => {
+        console.log(values, "Submitted values:");
+    
+        // Ensure `id` exists
+      
+
+
+        
+
+    
+        // Explicitly map only the `id` of the supplier and supplierCode
+        const product = {
+            ...values,
+            productGroup: { id: values.productGroup?.id || 0 }, 
+            supplier: { id: values.supplier?.id || 0 },  // Ensure that only `id` is included
+            supplierCode: { id: values.supplierCode?.id || 0 },  // Ensure only `id` of supplierCode
+        };
+    
+        // Log to ensure the product object looks as expected
+        console.log("Product object to send:", JSON.stringify(product, null, 2));
+    
+        try {
+            const url = `${UPDATE_PRODUCT_URL}/${id}`;
+            console.log("Update URL:", url);
+    
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json", // Set correct content type
+                    "Authorization": `Bearer ${token}`, // Include token if required
+                },
+                body: JSON.stringify(product), // Send raw JSON
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                console.log(data, "Update response:");
+                toast.success("Product updated successfully");
+                navigate('/inventory/viewMaterialInventory');
+            } else {
+                console.error("Update failed:", data.errorMessage);
+                toast.error(data.errorMessage || "An error occurred while updating the product.");
+            }
+        } catch (error) {
+            console.error("Error during update:", error);
+            toast.error("An error occurred while updating the product.");
+        } finally {
+            if (setSubmitting) setSubmitting(false); // Stop any loading spinner
+        }
+    };
     const getProductById = async () => {
         try {
             const response = await fetch(`${GET_PRODUCTBYID_URL}/${id}`, {
@@ -163,6 +220,20 @@ const UpdateProduct = () => {
         }
     }, [supplier.data]);
 
+
+    useEffect(() => {
+        if (productGroup.data) {
+            const formattedOptions = productGroup.data.map(product => ({
+                value: product.id,
+                label: product.productGroupName,
+                productGroupObject: product,
+            }));
+            setproductGroupOption(formattedOptions);
+        }
+    }, [productGroup.data]);
+
+
+
     // Show loader until product data is fetched
     if (isLoading) {
         return <div>Loading...</div>;
@@ -259,8 +330,8 @@ const UpdateProduct = () => {
                 <Formik
                     enableReinitialize // Update initial values when product data changes
                     initialValues={{
-                        id: product?.id || "",
-                        productGroup: product?.productGroup?.productGroupName || '',
+                        // id: product?.id || "",
+                        productGroup: product?.productGroup ||{id:0} ,
                           colors: product?.colors || { id: 0  },
                         // colors: product?.colors?.id || '',
                         
@@ -325,7 +396,7 @@ const UpdateProduct = () => {
                                     <div className="p-6.5">
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             {/* Product Group Field */}
-                                            <div className="flex-1 min-w-[300px]">
+                                            {/* <div className="flex-1 min-w-[300px]">
                                                 <label className="mb-2.5 block text-black dark:text-white">
                                                     Product Group
                                                 </label>
@@ -335,35 +406,28 @@ const UpdateProduct = () => {
                                                     readOnly
                                                     placeholder="Product Group"
                                                     value={values.productGroup}
+                                                     onChange={(option) => setFieldValue('productGroup', option ? option.productGroup : null)}
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-white dark:border-form-strokedark dark:bg-form-field dark:text-white dark:focus:border-primary"
                                                 />
-                                            </div>
-
-                                            {/* Color Group Field */}
-                                            {/* <div className="flex-1 min-w-[300px]">
-                                                <label className="mb-2.5 block text-black dark:text-white">
-                                                    Color Group
-                                                </label>
-                                                <div className="z-20 bg-transparent dark:bg-form-field">
+                                            </div> */}
+                                            <div className="flex-1 min-w-[300px]">
+                                                <label className="mb-2.5 block text-black dark:text-white">Product Group</label>
+                                                <div className="bg-white dark:bg-form-Field">
                                                     <ReactSelect
-                                                        name="colors"
-                                                        value={product.colors.id}
-                                                        onChange={(option) =>
-                                                            setFieldValue(
-                                                                'colors',
-                                                                option
-                                                                    ? option.colorGroupObject
-                                                                    : null
-                                                            )
-                                                        }
-                                                        options={colorGroupOptions}
-                                                        styles={customStyles} // Apply custom styles
-                                                        className="bg-white dark:bg-form-field"
+                                                        name="productGroup"
+                                                        value={productGroupOption?.find(option => option.value === values.productGroup?.id) || null}
+                                                        onChange={(option) => setFieldValue('productGroup', option ? option.productGroupObject : null)}
+                                                        options={productGroupOption}
+                                                        styles={customStyles}
+                                                        className="bg-white dark:bg-form-Field"
                                                         classNamePrefix="react-select"
-                                                        placeholder="Select Color Group"
+                                                        placeholder="Select Product Group"
+                                                        isDisabled={true}  // This makes the select readonly
                                                     />
                                                 </div>
-                                            </div> */}
+                                            </div>
+
+
                                             <div className="flex-1 min-w-[300px]">
     <label className="mb-2.5 block text-black dark:text-white">
         Color Group
