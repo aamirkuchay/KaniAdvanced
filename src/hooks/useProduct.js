@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { ADD_PRODUCT_URL, DELETE_PRODUCT_URL, GET_PRODUCT_URL, UPDATE_PRODUCT_URL } from '../Constants/utils';
+import { ADD_PRODUCT_URL, DELETE_PRODUCT_URL, GET_PRODUCT_URL, UPDATE_PRODUCT_URL,GET_PRODUCTID_URL } from '../Constants/utils';
 import { fetchunit } from '../redux/Slice/UnitSlice';
 import { fetchcolorGroup } from '../redux/Slice/ColorGroupSlice';
 import ProductGroup, { fetchProductGroup } from '../redux/Slice/ProductGroup';
@@ -21,6 +21,9 @@ const useProduct = ({referenceImages,actualImages,productIdField}) => {
     const { token } = currentUser;
     const [Product, setProduct] = useState([]);
     const [edit, setEdit] = useState(false);
+    const [productId, setproductId] = useState([])
+
+    const [productList, setproductList] = useState([])
     const [currentProduct, setCurrentProduct] = useState({
         productGroup: {},
 
@@ -91,7 +94,7 @@ hsnCodes:"",
     kaniColors: "",
     mrp: 0,
     wholesalePrice: 0,
-    description: "",
+    productDescription: "",
     patternColor: "",
     usdPrice: 0,
     euroPrice: 0,
@@ -137,15 +140,17 @@ hsnCodes:"",
 
 
    
-    const getProduct = async (page) => {
+    const getProduct = async (page, filters = {}) => {
         console.log("iam here");
+        console.log(filters,"filllllllll");
         try {
             const response = await fetch(`${GET_PRODUCT_URL}?page=${page||1}`, {
-                method: "GET",
+                method: "POST",
                 headers: {
-                    // "Content-Type": "multipart/form-data",
+                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
-                }
+                },
+                body: JSON.stringify(filters)
             });
             const data = await response.json();
             console.log(data,"pr datatata")
@@ -159,11 +164,44 @@ hsnCodes:"",
                 itemsPerPage: data.size
             });
         } catch (error) {
+            console.log(error);
+            toast.error("Failed to fetch Product");
+        }
+    };
+
+    const getProductId = async () => {
+        console.log("iam here");
+        try {
+            const response = await fetch(`${GET_PRODUCTID_URL}/processProductIds`, {
+                method: "GET",
+                headers: {
+                    // "Content-Type": "multipart/form-data",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            console.log(data,"pr datatata")
+
+            setproductId(data);
+         
+        } catch (error) {
             console.error(error);
             toast.error("Failed to fetch Product");
         }
     };
 
+    const getProductList = async () => {
+        console.log("iam here");
+        try {
+            const response = await fetch(`${GET_PRODUCTID_URL}/all-products`, {
+                method: "GET",
+                headers: {
+                    // "Content-Type": "multipart/form-data",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            console.log(data,"pr datatata")
 
 
 //    const handleUpdateSubmit = async (values, e) => {
@@ -438,10 +476,12 @@ const handleUpdateSubmit = async (values, { setSubmitting }) => {
                 setEdit(false); // Reset edit state
                 getProduct(pagination.currentPage || 1); // Refresh product list
             } else {
-                toast.error(data.errorMessage || "An error occurred while saving the product.");
+                
+                
+                toast.error(data.message || "An error occurred while saving the product.");
             }
         } catch (error) {
-            console.error("Error submitting form:", error);
+            
             toast.error("An error occurred. Please try again.");
         } finally {
             setSubmitting(false); // Stop the form submission spinner
@@ -469,10 +509,14 @@ const handleUpdateSubmit = async (values, { setSubmitting }) => {
         handleDelete,
         handleUpdate,
         handleSubmit,
-        handleUpdateSubmit,
+        
         handlePageChange,
         seloptions,
         getProduct,
+        productId,
+        getProductId,
+        getProductList,
+        productList
       
     };
 };

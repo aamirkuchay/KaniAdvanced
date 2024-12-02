@@ -7,49 +7,54 @@ import Pagination from '../Pagination/Pagination';
 import { useSelector } from 'react-redux';
 import ReactSelect from 'react-select';
 import { GET_IMAGE, customStyles as createCustomStyles } from '../../Constants/utils';
-
-
-
+import { Field, Form, Formik } from 'formik';
+import { IoIosAdd } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 
 const ViewProduct = () => {
-
-
-
-
+    const navigate = useNavigate();
     const { currentUser } = useSelector((state) => state?.persisted?.user);
     const { token } = currentUser;
-
-    const referenceImages = []
-    const actualImages = []
-
-
-
+    const referenceImages = [];
+    const actualImages = [];
 
     const theme = useSelector(state => state?.persisted?.theme);
+    const { Product, handleDelete, handleUpdate, handlePageChange, pagination, getProduct, productId, getProductId, getBOMData } = useProduct({ referenceImages, actualImages });
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedBOMData, setSelectedBOMData] = useState(null);
 
-
-    const { Product, handleDelete, handleUpdate, handlePageChange, pagination, getProduct } = useProduct({ referenceImages, actualImages });
     useEffect(() => {
-        getProduct()
-    }, [])
+        getProduct();
+        getProductId();
+    }, []);
 
-    console.log(Product, "prrrrrrrrrrrrrrr");
-
-
-
+    const formattedProductId = productId.map(id => ({
+        label: id,
+        value: id
+    }));
+    // console.log(Product,"lololo");
     const customStyles = createCustomStyles(theme?.mode);
 
+    const openBOMModal = (bomData) => {
 
+        console.log(bomData, "siriiiiiii");
+        setSelectedBOMData(bomData);
+        setIsModalOpen(true);
+    };
+    console.log(selectedBOMData, "jijiji");
 
-
+    const closeBOMModal = () => {
+        setIsModalOpen(false);
+        setSelectedBOMData(null);
+    };
 
     const renderTableRows = () => {
         if (!Product || !Product.length) {
             return (
                 <tr className='bg-white dark:bg-slate-700 dark:text-white'>
                     <td colSpan="6" className="px-5 py-5 border-b border-gray-200 text-sm">
-                        <p className="text-gray-900 whitespace-no-wrap text-center">No Data Found</p>
+                        <p className="text-gray-900 whitespace-no-wrap text-center">No Products Found</p>
                     </td>
                 </tr>
             );
@@ -60,34 +65,46 @@ const ViewProduct = () => {
         return Product.map((item, index) => (
             <tr key={index} className='bg-white dark:bg-slate-700 dark:text-white'>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                    <p className="text-gray-900 whitespace-no-wrap">
-                        {startingSerialNumber + index}
-                    </p>
+                    <p className="text-gray-900 whitespace-no-wrap">{startingSerialNumber + index}</p>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                    <img
-                        className="h-10 w-10 rounded-full"
-                        crossOrigin="use-credentials"
-                        src={`${GET_IMAGE}/products/getimages/${item?.images[0]?.referenceImage}`}
-                        alt="Product Image"
-                    />
+                    <div className="relative group">
+                        <img
+                            className="h-10 w-10 rounded-full transition-transform duration-500 ease-in-out transform group-hover:scale-[2] group-hover:shadow-2xl"
+                            crossOrigin="use-credentials"
+                            src={`${GET_IMAGE}/products/getimages/${item?.images[0]?.referenceImage}`}
+                            alt="Product Image"
+                        />
+                    </div>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                    <p className="text-gray-900 whitespace-no-wrap">{item.productId}</p>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                    <p className="text-gray-900 whitespace-no-wrap">{item.productGroup?.productGroupName}</p>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                    <p className="text-gray-900 whitespace-no-wrap">{item.productCategory?.productCategoryName}</p>
+                </td>
 
-                </td>
-                <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                    <p className="text-gray-900 whitespace-no-wrap">
-                        {item.productId}
-                    </p>
-                </td>
-                <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                    <p className="text-gray-900 whitespace-no-wrap">
-                        {item.productGroup?.productGroupName}
-                    </p>
-                </td>
-                <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                    <p className="text-gray-900 whitespace-no-wrap">
-                        {item.productCategory?.productCategoryName}
-                    </p>
-                </td>
+                {/* BOM View Button */}
+                {
+                    item?.bom ?
+                        <td className=" py-5 border-b border-gray-200 text-sm">
+                            {/* <button
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold h-10 w-[100px] rounded-lg"
+                                onClick={() => openBOMModal(item.bom)}
+                            > */}
+
+                            <span onClick={() => openBOMModal(item.bom)} class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 cursor-pointer"> VIEW BOM</span>
+                            <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">UPDATE BOM</span>
+                            {/* </button> */}
+                        </td>
+                        :
+                        <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                            <IoIosAdd size={30} onClick={(e) => navigate(`/product/addBom/${item.id}`)} />
+                        </td>
+                }
 
                 <td className="px-5 py-5 border-b border-gray-200 text-sm">
                     <p className="flex text-gray-900 whitespace-no-wrap">
@@ -99,6 +116,13 @@ const ViewProduct = () => {
         ));
     };
 
+    const handleSubmit = (values) => {
+        const filters = {
+            productId: values.ProductId || undefined,
+        };
+        getProduct(pagination.currentPage, filters);
+    };
+
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Products/ View Products" />
@@ -107,33 +131,98 @@ const ViewProduct = () => {
                     <div className='flex justify-between'>
                         <h2 className="text-xl font-semibold leading-tight">View Products</h2>
                         <p className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium bg-success text-success dark:bg-white dark:text-slate-800`}>
-                            Total PO: {pagination.totalItems}
+                            TOTAL PRODUCTS: {pagination.totalItems}
                         </p>
                     </div>
-                    <div className='items-center justify-center'>
-                        <div className="mb-4.5 flex flex-wrap gap-6 mt-12">
-                            <div className="flex-1 min-w-[300px]">
-                                <label className="mb-2.5 block text-black dark:text-white">Product Id</label>
-                                <ReactSelect
-                                    name="locationId"
-                                    // value={locationValue}
-                                    // onChange={option => setLocationValue(option)}
-                                    // options={locationSel}
-                                    styles={customStyles}
-                                    placeholder="Select Product Id"
-                                />
+
+                    {/* BOM Modal */}
+                    {isModalOpen && (
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-95 flex justify-center items-center  z-50">
+                            <div className="bg-white rounded p-6 shadow-lg  w-[700px] h-[500px] mt-[50px]">
+                                <div className="text-right">
+                                    <button onClick={closeBOMModal} className="text-xl font-bold">&times;</button>
+                                </div>
+                                <h2 className="text-xl mb-4">BOM Details</h2>
+                                <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
+                                    <table className="min-w-full leading-normal">
+                                        <thead>
+                                            <tr className='px-5 py-3 bg-slate-300 dark:bg-slate-700 dark:text-white'>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" style={{ minWidth: '250px' }}>PRODUCT LIST</th>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">UNIT OF MEASURE</th>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">QUANTITY</th>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                            {selectedBOMData?.productMaterials?.map((row, index) => (
+                                                <tr key={row.id}>
+                                                    <td className="px-2 py-2 border-b">
+                                                        <p>{row?.products?.productDescription}</p>
+
+                                                    </td>
+                                                    <td className="px-2 py-2 border-b">
+                                                        {row.unitOfMeasurement}
+                                                    </td>
+                                                    <td className="px-2 py-2 border-b">
+                                                        {row.quantity}
+
+                                                    </td>
+                                                    <td className="px-2 py-2 border-b">
+                                                        <FiTrash2 size={17} className='text-red-500 hover:text-red-700 mx-2' title='Delete BOM' />
+
+                                                    </td>
+
+                                                </tr>
+                                            ))}
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {/* <pre>{JSON.stringify(selectedBOMData, null, 2)}</pre> */}
                             </div>
-                          
                         </div>
-                        <div className="flex justify-center">
-                            <button
-                                // onClick={handleSearchChange}
-                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold h-12 w-[150px] rounded-lg"
-                            >
-                                Search
-                            </button>
-                        </div>
+                    )}
+
+                    <div className='items-center justify-center'>
+                        <Formik
+                            initialValues={{
+                                ProductId: '',
+                            }}
+                            onSubmit={handleSubmit}
+                        >
+                            {({ setFieldValue, values }) => (
+                                <Form>
+                                    <div className="mb-4.5 flex flex-wrap gap-6 mt-12">
+                                        <div className="flex-1 min-w-[300px]">
+                                            <label className="mb-2.5 block text-black dark:text-white">Product Id</label>
+                                            <Field
+                                                name="ProductId"
+                                                component={ReactSelect}
+                                                options={[{ label: 'View All Products', value: null }, ...formattedProductId]}
+                                                styles={customStyles}
+                                                placeholder="Select Product Id"
+                                                value={formattedProductId.find(option => option.value === values.ProductId)}
+                                                onChange={option => setFieldValue('ProductId', option ? option.value : '')}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-center">
+                                        <button
+                                            type="submit"
+                                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold h-12 w-[150px] rounded-lg"
+                                        >
+                                            Search
+                                        </button>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
                     </div>
+
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                         <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
                             <table className="min-w-full leading-normal">
@@ -144,7 +233,7 @@ const ViewProduct = () => {
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PRODUCT ID</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PRODUCT GROUP</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">CATEGORY</th>
-
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">ADD BOM </th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>

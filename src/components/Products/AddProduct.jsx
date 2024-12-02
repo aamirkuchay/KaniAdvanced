@@ -980,7 +980,7 @@ const AddProduct = () => {
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units</label>
                                                         <Field
                                                             name='units'
-                                                            type="text"
+                                                            type="number"
                                                             placeholder="Enter your last name"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
@@ -1116,7 +1116,7 @@ const AddProduct = () => {
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units</label>
                                                         <Field
                                                             name='units'
-                                                            type="text"
+                                                            type="number"
                                                             placeholder="Enter your last name"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
@@ -1283,7 +1283,7 @@ const AddProduct = () => {
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units </label>
                                                         <Field
                                                             name='units'
-                                                            type="text"
+                                                            type="number"
                                                             placeholder="Enter your first name"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
@@ -1472,7 +1472,7 @@ const AddProduct = () => {
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units</label>
                                                         <Field
                                                             name='units'
-                                                            type="text"
+                                                            type="number"
                                                             placeholder="Enter your last name"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
@@ -1618,7 +1618,7 @@ const AddProduct = () => {
                                                         <label className="mb-2.5 block text-black dark:text-white"> Units</label>
                                                         <Field
                                                             name='units'
-                                                            type="text"
+                                                            type="number"
                                                             placeholder="Enter your last name"
                                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                         />
@@ -1958,12 +1958,13 @@ const AddProduct = () => {
                                         </div>
                                         <div className="mb-6">
                                             <label className="mb-2.5 block text-black dark:text-white"> Product Description </label>
-                                            <textarea
+                                            <Field
                                                 name='productDescription'
+                                                component="textarea"
                                                 rows={6}
                                                 placeholder="Type your message"
                                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
-                                            ></textarea>
+                                            />
                                         </div>
                                         <div className="flex-1 min-w-[300px]">
                                             <label className="mb-2.5 block text-black dark:text-white"> Supplier</label>

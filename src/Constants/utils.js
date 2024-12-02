@@ -8,6 +8,9 @@ export const UPDATE_UNIT_URL = `${BASE_URL}/unit/updateUnit`;
 export const VIEW_ALL_UNITS = `${BASE_URL}/unit/viewAll`;
 export const DELETE_UNIT_URL = `${BASE_URL}/unit/deleteUnit/`;
 
+
+export const ADDBOM=`${BASE_URL}/bom`
+
 //Location Url's
 export const ADD_LOCATION_URL = `${BASE_URL}/location/add`;
 export const GET_LOCATION_URL = `${BASE_URL}/location/all`;
@@ -148,7 +151,7 @@ export const DELETE_CUSTOMER_URL = `${BASE_URL}/customer/`;
 
 //PRODUCT
 export const ADD_PRODUCT_URL = `${BASE_URL}/products/add-product`;
-export const GET_PRODUCT_URL = `${BASE_URL}/products`;
+export const GET_PRODUCT_URL = `${BASE_URL}/products/search`;
 export const GET_PRODUCTBYID_URL = `${BASE_URL}/products`;
 export const UPDATE_PRODUCT_URL = `${BASE_URL}/products/update-product`;
 export const VIEW_ALL_PRODUCT = `${BASE_URL}/products/viewAll`;
