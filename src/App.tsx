@@ -10,6 +10,9 @@ import Chart from './pages/Chart.jsx';
 import Material from './components/Material/Material.jsx';
 import AddProduct from './components/Products/AddProduct.jsx';
 import ViewProduct from './components/Products/ViewProduct.jsx';
+import AddBom from './components/Products/AddBom.jsx';
+
+
 import UpdateProduct from './components/Products/UpdateProduct.jsx';
 
 
@@ -129,7 +132,7 @@ function App() {
             }
           />
           <Route
-             path="/"
+            path="/"
             element={
               <>
                 <PageTitle title="Dashboard" />
@@ -166,7 +169,7 @@ function App() {
               </>
             }
           />
-            <Route
+          <Route
             path="/product/viewProducts"
             element={
               <>
@@ -175,7 +178,17 @@ function App() {
               </>
             }
           />
-             <Route
+
+          <Route
+            path="/product/addBom/:id"
+            element={
+              <>
+                <PageTitle title="View B.O.M" />
+                <AddBom />
+              </>
+            }
+          />
+          <Route
             path="/product/updateProduct/:id"
             element={
               <>
@@ -361,7 +374,7 @@ function App() {
               </>
             }
           />
-             <Route
+          <Route
             path="/configurator/addhsncode"
             element={
               <>

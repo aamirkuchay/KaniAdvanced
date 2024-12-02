@@ -22,6 +22,8 @@ const useProduct = ({referenceImages,actualImages,productIdField}) => {
     const [Product, setProduct] = useState([]);
     const [edit, setEdit] = useState(false);
     const [productId, setproductId] = useState([])
+
+    const [productList, setproductList] = useState([])
     const [currentProduct, setCurrentProduct] = useState({
         productGroup: {},
 
@@ -92,7 +94,7 @@ hsnCodes:"",
     kaniColors: "",
     mrp: 0,
     wholesalePrice: 0,
-    description: "",
+    productDescription: "",
     patternColor: "",
     usdPrice: 0,
     euroPrice: 0,
@@ -162,7 +164,7 @@ hsnCodes:"",
                 itemsPerPage: data.size
             });
         } catch (error) {
-            console.error(error);
+            console.log(error);
             toast.error("Failed to fetch Product");
         }
     };
@@ -181,6 +183,27 @@ hsnCodes:"",
             console.log(data,"pr datatata")
 
             setproductId(data);
+         
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to fetch Product");
+        }
+    };
+
+    const getProductList = async () => {
+        console.log("iam here");
+        try {
+            const response = await fetch(`${GET_PRODUCTID_URL}/all-products`, {
+                method: "GET",
+                headers: {
+                    // "Content-Type": "multipart/form-data",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            console.log(data,"pr datatata")
+
+            setproductList(data);
          
         } catch (error) {
             console.error(error);
@@ -332,7 +355,9 @@ hsnCodes:"",
         seloptions,
         getProduct,
         productId,
-        getProductId
+        getProductId,
+        getProductList,
+        productList
       
     };
 };

@@ -229,6 +229,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                               View Products
                             </NavLink>
                           </li>
+                         
                         </ul>
                       </div>
                     </React.Fragment>

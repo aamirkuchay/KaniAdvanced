@@ -8,6 +8,9 @@ export const UPDATE_UNIT_URL = `${BASE_URL}/unit/updateUnit`;
 export const VIEW_ALL_UNITS = `${BASE_URL}/unit/viewAll`;
 export const DELETE_UNIT_URL = `${BASE_URL}/unit/deleteUnit/`;
 
+
+export const ADDBOM=`${BASE_URL}/bom`
+
 //Location Url's
 export const ADD_LOCATION_URL = `${BASE_URL}/location/add`;
 export const GET_LOCATION_URL = `${BASE_URL}/location/all`;

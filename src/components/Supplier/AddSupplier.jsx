@@ -273,6 +273,8 @@ const AddSupplier = () => {
 
                                             {values.supplierType?.value === "PRODUCT" && (
                                                 <>
+
+                                                
                                                     <div className='text-center flex justify-between'>
                                                         <h2 className='text-2xl'>Groups</h2>
 
