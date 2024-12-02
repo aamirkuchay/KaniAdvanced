@@ -290,6 +290,46 @@ const handleUpdateSubmit = async (values, { setSubmitting }) => {
         if (setSubmitting) setSubmitting(false); // Stop any loading spinner
     }
 };
+// const handleUpdateSubmit = async (values, { setSubmitting }) => {
+//     console.log(values, "Submitted values:");
+
+//     // Ensure `id` exists
+//     if (!values?.id) {
+//         console.error("ID is missing. Cannot update product.");
+//         toast.error("Product ID is required for updating.");
+//         return;
+//     }
+
+//     const requestData = {
+//         ...values, // Include the values from the form in the request payload
+//     };
+
+//     try {
+//         const response = await fetch(`http://localhost:8081/products/update-product/${values.id}`, {
+//             method: 'PUT',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 "Authorization": `Bearer ${token}`
+//             },
+//             body: JSON.stringify(requestData),
+//         });
+
+//         if (!response.ok) {
+//             const errorText = await response.text();
+//             throw new Error(`Server error: ${errorText}`);
+//         }
+
+//         const result = await response.json();
+//         console.log("Update successful:", result);
+//         toast.success("Product updated successfully.");
+//     } catch (error) {
+//         console.error("Error during update:", error.message);
+//         toast.error("Failed to update product.");
+//     } finally {
+//         setSubmitting(false); // Ensure submission state is reset
+//     }
+// };
+
 
 
     const handleDelete = async (e, id) => {
