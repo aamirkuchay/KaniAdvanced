@@ -158,7 +158,7 @@ const ViewProduct = () => {
                                                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" style={{ minWidth: '250px' }}>PRODUCT LIST</th>
                                                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">UNIT OF MEASURE</th>
                                                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">QUANTITY</th>
-                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Action</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -177,10 +177,10 @@ const ViewProduct = () => {
                                                         {row.quantity}
 
                                                     </td>
-                                                    <td className="px-2 py-2 border-b">
+                                                    {/* <td className="px-2 py-2 border-b">
                                                         <FiTrash2 size={17} className='text-red-500 hover:text-red-700 mx-2' title='Delete BOM' />
 
-                                                    </td>
+                                                    </td> */}
 
                                                 </tr>
                                             ))}
