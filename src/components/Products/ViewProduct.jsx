@@ -103,14 +103,38 @@ const ViewProduct = () => {
                                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold h-10 w-[100px] rounded-lg"
                                 onClick={() => openBOMModal(item.bom)}
                             > */}
+                            <div className='flex flex-col gap-2'>
+                                <span onClick={() => openBOMModal(item.bom)} className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 cursor-pointer"> VIEW BOM</span>
+                                <span onClick={() => handleUpdateBom(item?.bom?.id)} className=" bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400 cursor-pointer">UPDATE BOM</span>
+                            </div>
 
-                            <span onClick={() => openBOMModal(item.bom)} className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 cursor-pointer"> VIEW BOM</span>
-                            <span onClick={() => handleUpdateBom(item?.bom?.id)} className=" bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400 cursor-pointer">UPDATE BOM</span>
                             {/* </button> */}
                         </td>
                         :
                         <td className="px-5 py-5 border-b border-gray-200 text-sm">
                             <IoIosAdd size={30} onClick={(e) => navigate(`/product/addBom/${item.id}`)} />
+                        </td>
+                }
+
+
+
+{
+                    item?.location ?
+                        <td className=" py-5 border-b border-gray-200 text-sm">
+                            {/* <button
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold h-10 w-[100px] rounded-lg"
+                                onClick={() => openBOMModal(item.bom)}
+                            > */}
+                            <div className='flex flex-col gap-2'>
+                                <span onClick={() => openBOMModal(item.bom)} className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 cursor-pointer"> VIEW BOM</span>
+                                <span onClick={() => handleUpdateBom(item?.bom?.id)} className=" bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400 cursor-pointer">UPDATE BOM</span>
+                            </div>
+
+                            {/* </button> */}
+                        </td>
+                        :
+                        <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                            <IoIosAdd size={30} onClick={(e) => navigate(`/product/addInventoryLocation/${item.id}`)} />
                         </td>
                 }
 
@@ -242,6 +266,7 @@ const ViewProduct = () => {
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PRODUCT GROUP</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">CATEGORY</th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">ADD BOM </th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">ADD INVENTORY </th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>

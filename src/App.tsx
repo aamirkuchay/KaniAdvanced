@@ -11,7 +11,7 @@ import Material from './components/Material/Material.jsx';
 import AddProduct from './components/Products/AddProduct.jsx';
 import ViewProduct from './components/Products/ViewProduct.jsx';
 import AddBom from './components/Products/AddBom.jsx';
-
+import AddLocationInventory from './components/Products/AddLoctionInventory.jsx';
 
 import UpdateBom from './components/Products/UpdateBom.jsx';
 import UpdateProduct from './components/Products/UpdateProduct.jsx';
@@ -59,6 +59,17 @@ import CreateMaterialInventory from './components/Inventory/CreateMaterialInvent
 import ViewMaterialInventory from './components/Inventory/ViewMaterialInventory.jsx';
 import UpdateInventoryMaterial from './components/Inventory/UpdateInventoryMaterial.jsx';
 
+
+
+//productInventory
+
+
+import AddProductInventory from './components/ProductsInventory/AddProductInventory.jsx';
+import ViewProductsInventory from './components/ProductsInventory/ViewProductsInventory.jsx';
+
+
+
+
 import AddStockJournel from './components/StockJournel/AddStockJournel.jsx';
 import ViewStockJournel from './components/StockJournel/ViewStockJournel.jsx';
 
@@ -67,8 +78,8 @@ import ViewStockJournel from './components/StockJournel/ViewStockJournel.jsx';
 import UpdateStockJournal from './components/StockJournel/UpdateStockJournal.jsx';
 import { signoutSuccess } from './redux/Slice/UserSlice';
 
-import useInactivity from './hooks/useInactivity';
-AddStockJournel;
+// import useInactivity from './hooks/useInactivity';
+
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -186,6 +197,15 @@ function App() {
               <>
                 <PageTitle title="View B.O.M" />
                 <AddBom />
+              </>
+            }
+          />
+             <Route
+            path="/product/addInventoryLocation/:id"
+            element={
+              <>
+                <PageTitle title="Add Location Inventory" />
+                <AddLocationInventory />
               </>
             }
           />
@@ -515,6 +535,30 @@ function App() {
               <>
                 <PageTitle title="Inventory" />
                 <ViewMaterialInventory />
+              </>
+            }
+          />
+
+
+
+
+
+<Route
+            path="/inventory/addProductInventory"
+            element={
+              <>
+                <PageTitle title="Inventory" />
+                <AddProductInventory />
+              </>
+            }
+          />
+
+          <Route
+            path="/inventory/viewProductInventory"
+            element={
+              <>
+                <PageTitle title="Inventory" />
+                <ViewProductsInventory />
               </>
             }
           />

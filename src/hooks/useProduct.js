@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { ADD_PRODUCT_URL, DELETE_PRODUCT_URL, GET_PRODUCT_URL, UPDATE_PRODUCT_URL,GET_PRODUCTID_URL } from '../Constants/utils';
+import { ADD_PRODUCT_URL, DELETE_PRODUCT_URL, GET_PRODUCT_URL, UPDATE_PRODUCT_URL,GET_PRODUCTID_URL, VIEW_ALL_LOCATIONS } from '../Constants/utils';
 import { fetchunit } from '../redux/Slice/UnitSlice';
 import { fetchcolorGroup } from '../redux/Slice/ColorGroupSlice';
 import ProductGroup, { fetchProductGroup } from '../redux/Slice/ProductGroup';
@@ -24,6 +24,7 @@ const useProduct = ({referenceImages,actualImages,productIdField}) => {
     const [productId, setproductId] = useState([])
 
     const [productList, setproductList] = useState([])
+    const [Location, setLocation] = useState([])
     const [currentProduct, setCurrentProduct] = useState({
         productGroup: {},
 
@@ -183,6 +184,27 @@ hsnCodes:"",
             console.log(data,"pr datatata")
 
             setproductId(data);
+         
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to fetch Product");
+        }
+    };
+
+    const getLocation = async () => {
+        console.log("iam here");
+        try {
+            const response = await fetch(`${VIEW_ALL_LOCATIONS}`, {
+                method: "GET",
+                headers: {
+                    // "Content-Type": "multipart/form-data",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            console.log(data,"pr datatata")
+
+            setLocation(data);
          
         } catch (error) {
             console.error(error);
@@ -359,7 +381,9 @@ hsnCodes:"",
         productId,
         getProductId,
         getProductList,
-        productList
+        productList,
+        getLocation,
+        Location
       
     };
 };
