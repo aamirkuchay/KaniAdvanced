@@ -352,11 +352,59 @@ hsnCodes:"",
             setSubmitting(false); // Stop the form submission spinner
         }
     };
-    
-    
-    
 
-  
+
+    
+    // const handleUpdateSubmit = async (values, { setSubmitting }) => {
+    //     console.log(values, "Submitted values:");
+    
+    //     // Ensure `id` exists
+    //     if (!values?.id) {
+    //         console.error("ID is missing. Cannot update product.");
+    //         toast.error("Product ID is required for updating.");
+    //         return;
+    //     }
+    
+    //     try {
+    //         const product = { 
+    //             ...values, 
+    //             // Add or modify any fields needed by the API
+    //         };
+    
+    //         const url = `${UPDATE_PRODUCT_URL}/${values.id}`;
+    //         console.log("Update URL:", url);
+    
+    //         const response = await fetch(url, {
+    //             method: "PUT",
+    //             headers: {
+    //                 "Content-Type": "application/json", // Set correct content type
+    //                 "Authorization": `Bearer ${token}`, // Include token if required
+    //             },
+    //             body: JSON.stringify(product), // Send raw JSON
+    //         });
+    
+    //         const data = await response.json();
+    
+    //         if (response.ok) {
+    //             console.log(data, "Update response:");
+    //             toast.success("Product updated successfully");
+    //             navigate('/inventory/viewMaterialInventory');
+    //         } else {
+    //             console.error("Update failed:", data.errorMessage);
+    //             toast.error(data.errorMessage || "An error occurred while updating the product.");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error during update:", error);
+    //         toast.error("An error occurred while updating the product.");
+    //     } finally {
+    //         if (setSubmitting) setSubmitting(false); // Stop any loading spinner
+    //     }
+    // };
+
+    
+    
+    
+    
     
 
 
@@ -374,7 +422,7 @@ hsnCodes:"",
         handleDelete,
         handleUpdate,
         handleSubmit,
-        
+        // handleUpdateSubmit,
         handlePageChange,
         seloptions,
         getProduct,
