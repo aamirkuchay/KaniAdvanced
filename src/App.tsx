@@ -10,6 +10,7 @@ import Chart from './pages/Chart.jsx';
 import Material from './components/Material/Material.jsx';
 import AddProduct from './components/Products/AddProduct.jsx';
 import ViewProduct from './components/Products/ViewProduct.jsx';
+
 import AddBom from './components/Products/AddBom.jsx';
 import AddLocationInventory from './components/Products/AddLoctionInventory.jsx';
 
@@ -190,6 +191,15 @@ function App() {
               </>
             }
           />
+            <Route
+            path="/product/updateProduct/:id"
+            element={
+              <>
+                <PageTitle title="View Product" />
+                <UpdateProduct />
+              </>
+            }
+          />
 
           <Route
             path="/product/addBom/:id"
@@ -200,7 +210,7 @@ function App() {
               </>
             }
           />
-             <Route
+          <Route
             path="/product/addInventoryLocation/:id"
             element={
               <>
@@ -209,7 +219,7 @@ function App() {
               </>
             }
           />
-             <Route
+          <Route
             path="/product/updateproduct/:id"
             element={
               <>
@@ -543,7 +553,7 @@ function App() {
 
 
 
-<Route
+          <Route
             path="/inventory/addProductInventory"
             element={
               <>

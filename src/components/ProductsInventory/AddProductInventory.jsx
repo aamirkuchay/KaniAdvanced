@@ -94,42 +94,18 @@ const AddProductInventory = () => {
                       Create Product Inventory
                     </h3>
                   </div>
+
+
                   <div className="p-6.5 flex flex-wrap gap-6">
-                    <div className="w-full sm:w-[48%]">
-                      <label className="mb-2.5 block text-black dark:text-white">
-                        Location
-                      </label>
-                      <ReactSelect
-                        name="locationId"
-                        placeholder="Select location..."
-                        styles={customStyles}
-                        options={locationSel}
-                        value={locationSel.find(option => option.value === values.locationId) || ''}
-                        onChange={option => setFieldValue('locationId', option.value)}
-                      />
-                      <ErrorMessage name="locationId" component="div" className="text-red-500" />
-                    </div>
-                    <div className="w-full sm:w-[48%]">
-                      <label className="mb-2.5 block text-black dark:text-white">
-                        Material
-                      </label>
-                      <ReactSelect
-                        name="materialId"
-                        placeholder="Select material..."
-                        styles={customStyles}
-                        options={materialSel} // Ensure this is populated correctly
-                        value={materialSel.find(option => option.value === values.materialId) || ''}
-                        onChange={option => setFieldValue('materialId', option.value)}
-                      />
-                      <ErrorMessage name="materialId" component="div" className="text-red-500" />
-                    </div>
+                  
+                   
 
                     <div className="flex-1 min-w-[300px]">
                       <label className="mb-2.5 block text-black dark:text-white">Quantity</label>
                       <Field
-                        type="text"
-                        name="quantity"
-                        placeholder="Enter Quantity"
+                        type="number"
+                        name="purchase"
+                        placeholder="Enter Purchase"
                         className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
                       />
                       <ErrorMessage name="quantity" component="div" className="text-red-500" />
@@ -137,14 +113,48 @@ const AddProductInventory = () => {
                     <div className="flex-1 min-w-[300px]">
                       <label className="mb-2.5 block text-black dark:text-white">Minimum Quantity</label>
                       <Field
-                        type="text"
-                        name="minimum"
-                        placeholder="Enter minimum"
+                        type="number"
+                        name="saleInward"
+                        placeholder="Sale (Branch Transfer Inwards"
                         className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
                       />
                       <ErrorMessage name="minimum" component="div" className="text-red-500" />
                     </div>
                   </div>
+
+
+                  <div className="p-6.5 flex flex-wrap gap-6">
+                  
+                   
+
+                  <div className="flex-1 min-w-[300px]">
+                    <label className="mb-2.5 block text-black dark:text-white">Quantity</label>
+                    <Field
+                      type="number"
+                      name="purchase"
+                      placeholder="Enter Purchase"
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                    />
+                    <ErrorMessage name="quantity" component="div" className="text-red-500" />
+                  </div>
+                  <div className="flex-1 min-w-[300px]">
+                    <label className="mb-2.5 block text-black dark:text-white">Minimum Quantity</label>
+                    <Field
+                      type="number"
+                      name="saleInward"
+                      placeholder="Sale (Branch Transfer Inwards"
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                    />
+                    <ErrorMessage name="minimum" component="div" className="text-red-500" />
+                  </div>
+                </div>
+
+                  
+                  
+
+
+
+
                     <div className="flex justify-center mt-4 mb-4 items-center">
                     <button
                       type="submit"
