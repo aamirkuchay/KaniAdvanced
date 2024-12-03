@@ -13,6 +13,7 @@ import ViewProduct from './components/Products/ViewProduct.jsx';
 import AddBom from './components/Products/AddBom.jsx';
 
 
+import UpdateBom from './components/Products/UpdateBom.jsx';
 import UpdateProduct from './components/Products/UpdateProduct.jsx';
 
 
@@ -185,6 +186,15 @@ function App() {
               <>
                 <PageTitle title="View B.O.M" />
                 <AddBom />
+              </>
+            }
+          />
+             <Route
+            path="/product/updateproduct/:id"
+            element={
+              <>
+                <PageTitle title="View B.O.M" />
+                <UpdateBom />
               </>
             }
           />
