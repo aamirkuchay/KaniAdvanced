@@ -49,26 +49,89 @@ const UpdateProduct = () => {
     const productId = id;
     // Fetch product by ID
 
-    const handleUpdateSubmit = async (values, { setSubmitting }) => {
-        console.log(values, "Submitted values:");
+    // const handleUpdateSubmit = async (values, { setSubmitting }) => {
+    //     console.log(values, "Submitted values:");
     
-        // Ensure `id` exists
+    //     // Ensure `id` exists
       
 
 
         
 
     
-        // Explicitly map only the `id` of the supplier and supplierCode
+    //     // Explicitly map only the `id` of the supplier and supplierCode
+    //     const product = {
+    //         ...values,
+    //         productGroup: { id: values.productGroup?.id || 0 }, 
+    //         supplier: { id: values.supplier?.id || 0 },  // Ensure that only `id` is included
+    //         supplierCode: { id: values.supplierCode?.id || 0 },  // Ensure only `id` of supplierCode
+    //     };
+    
+    //     // Log to ensure the product object looks as expected
+    //     console.log("Product object to send:", JSON.stringify(product, null, 2));
+    
+    //     try {
+    //         const url = `${UPDATE_PRODUCT_URL}/${id}`;
+    //         console.log("Update URL:", url);
+    
+    //         const response = await fetch(url, {
+    //             method: "PUT",
+    //             headers: {
+    //                 "Content-Type": "application/json", // Set correct content type
+    //                 "Authorization": `Bearer ${token}`, // Include token if required
+    //             },
+    //             body: JSON.stringify(product), // Send raw JSON
+    //         });
+    
+    //         const data = await response.json();
+    
+    //         if (response.ok) {
+    //             console.log(data, "Update response:");
+    //             toast.success("Product updated successfully");
+    //             navigate('/inventory/viewMaterialInventory');
+    //         } else {
+    //             console.error("Update failed:", data.errorMessage);
+    //             toast.error(data.errorMessage || "An error occurred while updating the product.");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error during update:", error);
+    //         toast.error("An error occurred while updating the product.");
+    //     } finally {
+    //         if (setSubmitting) setSubmitting(false); // Stop any loading spinner
+    //     }
+    // };
+
+
+    const handleUpdateSubmit = async (values, { setSubmitting }) => {
+        console.log(values, "Submitted values:");
+    
+        // Ensure `id` exists
+
+    
+        // Create FormData instance
+        const formData = new FormData();
+    
+        // Map the necessary fields to create the product object
         const product = {
             ...values,
-            productGroup: { id: values.productGroup?.id || 0 }, 
-            supplier: { id: values.supplier?.id || 0 },  // Ensure that only `id` is included
-            supplierCode: { id: values.supplierCode?.id || 0 },  // Ensure only `id` of supplierCode
+            productGroup: { id: values.productGroup?.id || 0 },
+            supplier: { id: values.supplier?.id || 0 },
+            supplierCode: { id: values.supplierCode?.id || 0 },
         };
     
-        // Log to ensure the product object looks as expected
-        console.log("Product object to send:", JSON.stringify(product, null, 2));
+        // Append product data as JSON
+        formData.append("product", JSON.stringify(product));
+    
+        // Append file if provided
+        if (values.file) {
+            formData.append("file", values.file); // Replace "file" with the appropriate field name
+        }
+    
+        // Log the FormData content (for debugging)
+        console.log("FormData content:");
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
     
         try {
             const url = `${UPDATE_PRODUCT_URL}/${id}`;
@@ -77,29 +140,36 @@ const UpdateProduct = () => {
             const response = await fetch(url, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json", // Set correct content type
-                    "Authorization": `Bearer ${token}`, // Include token if required
+                    "Authorization": `Bearer ${token}`,
                 },
-                body: JSON.stringify(product), // Send raw JSON
+                body: formData,
             });
-    
-            const data = await response.json();
-    
+        
+            let data;
+            try {
+                data = await response.json();
+            } catch {
+                data = await response.text();
+            }
+        
             if (response.ok) {
                 console.log(data, "Update response:");
                 toast.success("Product updated successfully");
                 navigate('/inventory/viewMaterialInventory');
             } else {
-                console.error("Update failed:", data.errorMessage);
-                toast.error(data.errorMessage || "An error occurred while updating the product.");
+                console.error("Update failed. Status:", response.status, response.statusText);
+                console.error("Raw response:", data);
+                toast.error(data || "A conflict occurred while updating the product.");
             }
         } catch (error) {
             console.error("Error during update:", error);
             toast.error("An error occurred while updating the product.");
         } finally {
-            if (setSubmitting) setSubmitting(false); // Stop any loading spinner
+            if (setSubmitting) setSubmitting(false);
         }
+        
     };
+    
     const getProductById = async () => {
         try {
             const response = await fetch(`${GET_PRODUCTBYID_URL}/${id}`, {
@@ -1681,22 +1751,16 @@ const UpdateProduct = () => {
                                         </div>
 
 
-                                        <div className="flex justify-end mt-4">
-                                            {/* <button
-                                                type="submit"
-                                                className="px-6 py-2 text-white bg-primary rounded-lg shadow hover:bg-primary-dark focus:outline-none"
-                                            >
-                                                Update
-                                            </button> */}
-                                            <button
-  type="button" // Ensures the button does not trigger the form submission
-  onClick={(e) => handleUpdateSubmit(values, e)}
-  className="px-6 py-2 text-white bg-primary rounded-lg shadow hover:bg-primary-dark focus:outline-none"
->
-  Update
-</button>
+                                        <div className="flex justify-center mt-4"> {/* Centering the button */}
+    <button
+        type="button" // Ensures the button does not trigger the form submission
+        onClick={(e) => handleUpdateSubmit(values, e)}
+        className="w-1/3 px-6 py-2 text-white bg-primary rounded-lg shadow hover:bg-primary-dark focus:outline-none" // Increased width
+    >
+        Update
+    </button>
+</div>
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
