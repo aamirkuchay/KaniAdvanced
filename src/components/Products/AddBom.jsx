@@ -223,7 +223,7 @@ console.log(productList,"puuuuu");
                                                                         </td>
                                                                         <td className="px-2 py-2 border-b">
                                                                             <Field
-                                                                                type="number"
+                                                                                type="text"
                                                                                 name={`rows[${index}].numOfLoomss`}
                                                                                 placeholder="Enter Unit Of Measure"
                                                                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
