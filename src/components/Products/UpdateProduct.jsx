@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { Field, Formik } from 'formik';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { GET_PRODUCTBYID_URL, UPDATE_PRODUCT_URL } from '../../Constants/utils';
 import { useSelector } from 'react-redux';
 import ReactSelect from 'react-select';
 import { customStyles as createCustomStyles } from '../../Constants/utils';
 import useProduct from '../../hooks/useProduct';
 import { toast } from 'react-toastify';
+
 
 
 const UpdateProduct = () => {
@@ -39,7 +40,7 @@ const UpdateProduct = () => {
     const [productGroupOption, setproductGroupOption] = useState([])
     const productGroup = useSelector(state => state?.nonPersisted?.productGroup);
  
-
+    const navigate = useNavigate(); // Initialize navigate
     // const {  handleUpdateSubmit } = useProduct({referenceImages,actualImages,productIdField});
 
    
@@ -155,7 +156,7 @@ const UpdateProduct = () => {
             if (response.ok) {
                 console.log(data, "Update response:");
                 toast.success("Product updated successfully");
-                navigate('/inventory/viewMaterialInventory');
+                 navigate('/product/viewProducts');
             } else {
                 console.error("Update failed. Status:", response.status, response.statusText);
                 console.error("Raw response:", data);
