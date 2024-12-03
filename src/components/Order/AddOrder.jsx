@@ -3,7 +3,7 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import ReactSelect from 'react-select';
-import Flatpickr from 'react-flatpickr';
+import flatpickr from 'flatpickr';
 import 'flatpickr/dist/themes/material_blue.css'; // Import a Flatpickr theme
 import Modal from './Modal';
 import * as Yup from 'yup';
@@ -126,7 +126,7 @@ const AddOrder = () => {
                         <label className="mb-2.5 block text-black dark:text-white">Order Date</label>
                         <Field name="orderDate">
                           {({ field, form }) => (
-                            <Flatpickr
+                            <flatpickr
                               {...field}
                               placeholder="Enter Order Date"
                               options={{ dateFormat: 'Y-m-d' }}
@@ -169,7 +169,7 @@ const AddOrder = () => {
                         <label className="mb-2.5 block text-black dark:text-white">PO Date</label>
                         <Field name="poDate">
                           {({ field, form }) => (
-                            <Flatpickr
+                            <flatpickr
                               {...field}
                               placeholder="Enter Po Date"
                               options={{ dateFormat: 'Y-m-d' }}
@@ -189,7 +189,7 @@ const AddOrder = () => {
                         <label className="mb-2.5 block text-black dark:text-white">Shipping Date</label>
                         <Field name="shippingDate">
                           {({ field, form }) => (
-                            <Flatpickr
+                            <flatpickr
                               {...field}
                               placeholder="Enter Shipping Date"
                               options={{ dateFormat: 'Y-m-d' }}

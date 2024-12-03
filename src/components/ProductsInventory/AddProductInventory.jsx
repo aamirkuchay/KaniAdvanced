@@ -70,7 +70,7 @@ const AddProductInventory = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Material Inventory/Create Material Inventory" />
+      <Breadcrumb pageName="Inventory/Create Inventory" />
       <div>
         <Formik
           initialValues={{
@@ -87,21 +87,21 @@ const AddProductInventory = () => {
         >
           {({ isSubmitting, values, setFieldValue }) => (
             <Form>
-              <div className="flex flex-col gap-9">
+              <div className="flex flex-col gap-5">
                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                   <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                     <h3 className="font-medium text-slate-500 text-center text-xl dark:text-white">
-                      Create Product Inventory
+                      Create Inventory
                     </h3>
                   </div>
 
 
                   <div className="p-6.5 flex flex-wrap gap-6">
-                  
-                   
+
+
 
                     <div className="flex-1 min-w-[300px]">
-                      <label className="mb-2.5 block text-black dark:text-white">Quantity</label>
+                      <label className="mb-2.5 block text-black dark:text-white">Purchase</label>
                       <Field
                         type="number"
                         name="purchase"
@@ -111,11 +111,11 @@ const AddProductInventory = () => {
                       <ErrorMessage name="quantity" component="div" className="text-red-500" />
                     </div>
                     <div className="flex-1 min-w-[300px]">
-                      <label className="mb-2.5 block text-black dark:text-white">Minimum Quantity</label>
+                      <label className="mb-2.5 block text-black dark:text-white"> Branch Transfer Inward</label>
                       <Field
                         type="number"
-                        name="saleInward"
-                        placeholder="Sale (Branch Transfer Inwards"
+                        name="branchTransferInwards"
+                        placeholder="Branch Transfer Inwards"
                         className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
                       />
                       <ErrorMessage name="minimum" component="div" className="text-red-500" />
@@ -124,46 +124,75 @@ const AddProductInventory = () => {
 
 
                   <div className="p-6.5 flex flex-wrap gap-6">
-                  
-                   
 
-                  <div className="flex-1 min-w-[300px]">
-                    <label className="mb-2.5 block text-black dark:text-white">Quantity</label>
-                    <Field
-                      type="number"
-                      name="purchase"
-                      placeholder="Enter Purchase"
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
-                    />
-                    <ErrorMessage name="quantity" component="div" className="text-red-500" />
+
+
+                    <div className="flex-1 min-w-[300px]">
+                      <label className="mb-2.5 block text-black dark:text-white">Sale </label>
+                      <Field
+                        type="number"
+                        name="sale"
+                        placeholder="Enter Sale"
+                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                      />
+                      <ErrorMessage name="quantity" component="div" className="text-red-500" />
+                    </div>
+                    <div className="flex-1 min-w-[300px]">
+                      <label className="mb-2.5 block text-black dark:text-white">Branch Transfer Outward</label>
+                      <Field
+                        type="number"
+                        name="branchTransferOutwards"
+                        placeholder="Branch Transfer Outwards"
+                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                      />
+                      <ErrorMessage name="minimum" component="div" className="text-red-500" />
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-[300px]">
-                    <label className="mb-2.5 block text-black dark:text-white">Minimum Quantity</label>
-                    <Field
-                      type="number"
-                      name="saleInward"
-                      placeholder="Sale (Branch Transfer Inwards"
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
-                    />
-                    <ErrorMessage name="minimum" component="div" className="text-red-500" />
+
+
+                  <div className="p-6.5 flex flex-wrap gap-6">
+
+
+
+                    <div className="flex-1 min-w-[300px]">
+                      <label className="mb-2.5 block text-black dark:text-white">Closing Balance  </label>
+                      <Field
+                        type="number"
+                        name="closingBalance"
+                        placeholder="Enter Closing Balance"
+                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                      />
+                      <ErrorMessage name="quantity" component="div" className="text-red-500" />
+                    </div>
+                    <div className="flex-1 min-w-[300px]">
+                      <label className="mb-2.5 block text-black dark:text-white">In Progress Orders</label>
+                      <Field
+                        type="number"
+                        name="inProgressOrders"
+                        placeholder="Branch Transfer Outwards"
+                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-slate-700 dark:text-white dark:focus:border-primary"
+                      />
+                      <ErrorMessage name="minimum" component="div" className="text-red-500" />
+                    </div>
                   </div>
-                </div>
-
-                  
-                  
 
 
 
 
-                    <div className="flex justify-center mt-4 mb-4 items-center">
+
+
+
+
+
+                  <div className="flex justify-center mt-4 mb-4 items-center">
                     <button
                       type="submit"
                       className="flex w-[300px] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 mt-4"
                       disabled={isSubmitting}
                     >
-                      Create Material
+                      Create Inventory
                     </button>
-                    </div>
+                  </div>
                 </div>
               </div>
             </Form>
