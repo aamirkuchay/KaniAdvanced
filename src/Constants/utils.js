@@ -25,6 +25,16 @@ export const DELETE_LOCATION_URL = `${BASE_URL}/location/delete/`;
 
 export const ADD_LOCATIONINVENTORY_URL = `${BASE_URL}/productInventory`;
 
+export const GET_INVENTORYLOCATION = `${BASE_URL}/productInventory/getByProduct`;
+
+
+//inventory
+
+export const GET_INVENTORY = `${BASE_URL}/productInventory/getAll`;
+
+
+
+
 // Supplier Urls's
 export const ADD_SUPPLIER_URL = `${BASE_URL}/supplier/addSupplier`;
 export const GET_SUPPLIER_URL = `${BASE_URL}/supplier/viewAll`;

@@ -6,10 +6,11 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Pagination from '../Pagination/Pagination';
 import { useSelector } from 'react-redux';
 import ReactSelect from 'react-select';
-import { GET_IMAGE, customStyles as createCustomStyles } from '../../Constants/utils';
+import { GET_IMAGE, GET_INVENTORYLOCATION, customStyles as createCustomStyles } from '../../Constants/utils';
 import { Field, Form, Formik } from 'formik';
 import { IoIosAdd } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const ViewProduct = () => {
     const navigate = useNavigate();
@@ -24,11 +25,29 @@ const ViewProduct = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedBOMData, setSelectedBOMData] = useState(null);
 
+
+
+
+
+
+
+
+    const [isINVENTORYModalOpen, setIsINVENTORYModalOpen] = useState(false);
+    const [selectedINVENTORYData, setSelectedINVENTORYData] = useState(null);
+
+
+
+   
+
+
+    
+    
+
     useEffect(() => {
         getProduct();
         getProductId();
     }, []);
-console.log(productId,"lo");
+    console.log(productId, "lo");
 
     const formattedProductId = productId.map(id => ({
         label: id,
@@ -50,6 +69,53 @@ console.log(productId,"lo");
         setSelectedBOMData(null);
     };
 
+
+    const openINVENTORYModal = (id) => {
+
+       
+        const getInventory = async () => {
+            console.log("iam here");
+            try {
+                const response = await fetch(`${GET_INVENTORYLOCATION}/${id}`, {
+                    method: "GET",
+                    headers: {
+                        // "Content-Type": "multipart/form-data",
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+                const data = await response.json();
+                console.log(data,"pr")
+    
+                // setLocation(data);
+                setSelectedINVENTORYData(data);
+                
+             
+            } catch (error) {
+                console.error(error);
+                toast.error("Failed to fetch Product");
+            }
+        };
+
+        getInventory()
+        // useEffect(() => {
+        //     getInventory()
+        // }, [])
+
+
+
+
+     ;
+        setIsINVENTORYModalOpen(true);
+    };
+
+    
+    // console.log(selectedBOMData, "jijiji");
+
+    const closeINVENTORYModal = () => {
+        setIsINVENTORYModalOpen(false);
+        setSelectedINVENTORYData(null);
+    };
+
     const renderTableRows = () => {
         if (!Product || !Product.length) {
             return (
@@ -68,6 +134,7 @@ console.log(productId,"lo");
 
 
         }
+        console.log(Product[0].inventoryStatus,"inventtttttttt");
 
 
 
@@ -119,16 +186,16 @@ console.log(productId,"lo");
 
 
 
-{
-                    item?.location ?
+                {
+                   item?.inventoryStatus?
                         <td className=" py-5 border-b border-gray-200 text-sm">
                             {/* <button
                                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold h-10 w-[100px] rounded-lg"
                                 onClick={() => openBOMModal(item.bom)}
                             > */}
                             <div className='flex flex-col gap-2'>
-                                <span onClick={() => openBOMModal(item.bom)} className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 cursor-pointer"> VIEW BOM</span>
-                                <span onClick={() => handleUpdateBom(item?.bom?.id)} className=" bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400 cursor-pointer">UPDATE BOM</span>
+                                <span onClick={() => openINVENTORYModal(item.id)} className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 cursor-pointer"> VIEW INVENTORY</span>
+                                <span onClick={() => handleUpdateBom(item?.id)} className=" bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400 cursor-pointer">UPDATE INVENTORY</span>
                             </div>
 
                             {/* </button> */}
@@ -220,6 +287,82 @@ console.log(productId,"lo");
                         </div>
                     )}
 
+
+                    {/* Inventory Modal */}
+                    {isINVENTORYModalOpen && (
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-95 flex justify-center items-center  z-50">
+                            <div className="bg-white rounded p-6 shadow-lg ml-[200px]  w-[870px] h-[400px] mt-[120px]">
+                                <div className="text-right">
+                                    <button onClick={closeINVENTORYModal} className="text-xl font-bold">&times;</button>
+                                </div>
+                                <h2 className="text-xl mb-4">Inventory  Details</h2>
+                                <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
+                                    <table className="min-w-full leading-normal">
+                                        <thead>
+                                            <tr className='px-5 py-3 bg-slate-300 dark:bg-slate-700 dark:text-white'>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" >LOCATION</th>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">OPENING BALANCE</th>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">BRANCH TRANSFER (INWARDS)</th>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">BRANCH TRANSFER (OUTWARDS)</th>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">CLOSING BALANCE</th>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PURCHASE</th>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">SALE</th>
+                                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">IN PROGRESS ORDERS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                            {selectedINVENTORYData?.map((row, index) => (
+                                                <tr key={row.id}>
+                                                    <td className="px-2 py-2 border-b">
+                                                        <p>{row?.location?.address}</p>
+
+                                                    </td>
+                                                    <td className="px-2 py-2 border-b">
+                                                        <p>{row?.openingBalance}</p>
+
+                                                    </td>
+                                                    <td className="px-2 py-2 border-b">
+                                                        {row.branchTransferInwards}
+                                                    </td>
+                                                    <td className="px-2 py-2 border-b">
+                                                        {row.branchTransferOutwards}
+
+                                                    </td>
+                                                    <td className="px-2 py-2 border-b">
+                                                        {row.closingBalance}
+                                                    </td>
+                                                    <td className="px-2 py-2 border-b">
+                                                        {row.purchase}
+
+                                                    </td>
+                                                    <td className="px-2 py-2 border-b">
+                                                        {row.sale}
+
+                                                    </td>
+                                                    <td className="px-2 py-2 border-b">
+                                                        {row.inProgressOrders}
+
+                                                    </td>
+                                                    {/* <td className="px-2 py-2 border-b">
+                                                        <FiTrash2 size={17} className='text-red-500 hover:text-red-700 mx-2' title='Delete BOM' />
+
+                                                    </td> */}
+
+                                                </tr>
+                                            ))}
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {/* <pre>{JSON.stringify(selectedBOMData, null, 2)}</pre> */}
+                            </div>
+                        </div>
+                    )}
+
                     <div className='items-center justify-center'>
                         <Formik
                             initialValues={{
@@ -261,12 +404,12 @@ console.log(productId,"lo");
                             <table className="min-w-full leading-normal">
                                 <thead>
                                     <tr className='bg-slate-300 dark:bg-slate-700 dark:text-white'>
-                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">SNO</th>
-                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">IMAGE</th>
-                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PRODUCT ID</th>
-                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PRODUCT GROUP</th>
-                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">CATEGORY</th>
-                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">ADD BOM </th>
+                                        <th className="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" >SNO</th>
+                                        <th className="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">IMAGE</th>
+                                        <th className="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PRODUCT ID</th>
+                                        <th className="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PRODUCT GROUP</th>
+                                        <th className="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">CATEGORY</th>
+                                        <th className="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">ADD BOM </th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">ADD INVENTORY </th>
                                         <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
                                     </tr>

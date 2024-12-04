@@ -53,6 +53,11 @@ import MaterialPo from './components/PuchaseOrder/MaterialPo';
 import ViewMaterialPo from './components/PuchaseOrder/ViewMaterialPo';
 import UpdateMaterialPo from './components/PuchaseOrder/UpdateMaterialPo.jsx';
 
+import AddOrder from './components/Order/AddOrder.jsx';
+import ViewOrder from './components/Order/ViewOrder.jsx';
+
+
+
 import AddCustomer from './components/Customer/AddCustomer';
 import ViewCustomer from './components/Customer/ViewCustomer';
 import UpdateCustomer from './components/Customer/UpdateCustomer';
@@ -171,6 +176,31 @@ function App() {
               </>
             }
           />
+{/* Order */}
+
+<Route
+            path="/Order/addOrder"
+            element={
+              <>
+                <PageTitle title="Calendar " />
+                <AddOrder />
+              </>
+            }
+          />
+          <Route
+            path="/Order/viewOrder"
+            element={
+              <>
+                <PageTitle title="Profile " />
+                <ViewOrder />
+              </>
+            }
+          />
+
+
+
+
+
           {/*  Products realted routes  */}
 
           <Route

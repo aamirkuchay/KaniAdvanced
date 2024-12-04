@@ -86,7 +86,7 @@ const AddLocationInventory = () => {
 
             if (response.ok) {
 
-                toast.success(`BOM added successfully`);
+                toast.success(`Location added successfully`);
                 navigate("/product/viewProducts")
                 // Call resetForm and setCurrentSupplier with proper state updates
             } else {
