@@ -43,7 +43,8 @@ const UpdateProduct = () => {
     const navigate = useNavigate(); // Initialize navigate
     // const {  handleUpdateSubmit } = useProduct({referenceImages,actualImages,productIdField});
 
-   
+    const [previews, setPreviews] = useState([]);
+    const [previewsActual, setPreviewsActual] = useState([]);
 
     const { token } = currentUser;
     const { id } = useParams();
@@ -411,6 +412,7 @@ const UpdateProduct = () => {
                         design: product?.design || { id: 0 },
                         styles: product?.styles || { id: 0},
                         sizes: product?.sizes || { id: 1, sizeName: "3l" },
+                        productId:product?.productId || '',
                         colorName: product?.colorName || '',
                         barcode:product?.barcode || '',
                         finishedWeight:product?.finishedWeight || '',
@@ -660,7 +662,8 @@ const UpdateProduct = () => {
                                                 <Field
                                                     name='productId'
                                                     type="text"
-                                                    placeholder="Enter your first name"
+                                                    placeholder="Enter Product id"
+                                                     value={values.productId}
                                                     readOnly
                                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-Field dark:text-white dark:focus:border-primary"
                                                 />
@@ -1711,10 +1714,11 @@ const UpdateProduct = () => {
                                         
 
 
+                                      
                                         <div className="mb-4.5 flex flex-wrap gap-6">
                                             <div className="flex flex-col space-y-4">
                                                 {/* Upload Field */}
-                                                <div className="flex-1 min-w-[400px] max-w-[500px]">
+                                                <div className="flex-1 min-w-[500px] max-w-[600px]">
                                                     <label className="mb-2.5 block text-black dark:text-white">
                                                         Reference Image <span className="text-meta-1">*</span>
                                                     </label>
@@ -1757,17 +1761,46 @@ const UpdateProduct = () => {
                                                                     />
                                                                 </svg>
                                                             </span>
-                                                            {/* <p>
+                                                            <p>
                                                                 <span className="text-primary">Click to upload</span> or drag and drop
-                                                            </p> */}
-                                                            {/* <p className="mt-1.5">SVG, PNG, JPG or GIF</p>
-                                                            <p>(max, 800 X 800px)</p> */}
+                                                            </p>
+                                                            <p className="mt-1.5">SVG, PNG, JPG or GIF</p>
+                                                            <p>(max, 800 X 800px)</p>
                                                         </div>
                                                     </div>
                                                 </div>
 
 
-                            
+                                                {previews.length > 0 && (
+                                                    <div className="mt-4">
+                                                        <label className="mb-2.5 block text-black dark:text-white">
+                                                            Image Previews
+                                                        </label>
+                                                        {/* Box Wrapper */}
+                                                        <div className="p-4 border-2 border-dashed rounded-md bg-gray-50 dark:bg-boxdark dark:border-strokedark">
+                                                            {/* Grid Layout */}
+                                                            <div className="grid grid-cols-4 gap-4">
+                                                                {previews.map((preview, index) => (
+                                                                    <div key={index} className="relative group">
+                                                                        {/* Image Preview */}
+                                                                        <img
+                                                                            src={preview.url}
+                                                                            alt={`Preview ${index + 1}`}
+                                                                            className="h-20 border rounded object-cover min-w-[100px] max-w-[100px] transition-transform duration-200 hover:scale-110"
+                                                                        />
+                                                                        {/* Cancel Button */}
+                                                                        <button
+                                                                            // onClick={() => handleRemoveImage(index)}
+                                                                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                                                        >
+                                                                            &times;
+                                                                        </button>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
 
 
 
@@ -1775,7 +1808,7 @@ const UpdateProduct = () => {
 
                                             <div className="flex-1 min-w-[300px]">
                                                 {/* Upload Field */}
-                                                <div className="flex-1 min-w-[400px] max-w-[500px]">
+                                                <div className="flex-1 min-w-[500px] max-w-[600px]">
                                                     <label className="mb-2.5 block text-black dark:text-white">
                                                         Actual Image <span className="text-meta-1">*</span>
                                                     </label>
@@ -1828,13 +1861,40 @@ const UpdateProduct = () => {
                                                 </div>
 
 
+                                                {previewsActual.length > 0 && (
+                                                    <div className="mt-4">
+                                                        <label className="mb-2.5 block text-black dark:text-white">
+                                                            Image Previews
+                                                        </label>
+                                                        {/* Box Wrapper */}
+                                                        <div className="p-4 border-2 border-dashed rounded-md bg-gray-50 dark:bg-boxdark dark:border-strokedark">
+                                                            {/* Grid Layout */}
+                                                            <div className="grid grid-cols-4 gap-4">
+                                                                {previewsActual.map((previewActual, index) => (
+                                                                    <div key={index} className="relative group">
+                                                                        {/* Image Preview */}
+                                                                        <img
+                                                                            src={previewActual.url}
+                                                                            alt={`Preview ${index + 1}`}
+                                                                            className="h-20 border rounded object-cover min-w-[100px] max-w-[100px] transition-transform duration-200 hover:scale-110"
+                                                                        />
+                                                                        {/* Cancel Button */}
+                                                                        <button
+                                                                            // onClick={() => handleRemoveActual(index)}
+                                                                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                                                        >
+                                                                            &times;
+                                                                        </button>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
 
 
 
                                             </div>
-
-
-
 
 
 
