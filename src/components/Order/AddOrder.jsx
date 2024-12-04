@@ -66,11 +66,13 @@ const AddOrder = () => {
     setIsModalOpen(true);
   };
   const handleSubmit = (values, { setSubmitting }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-      console.log('Form Submitted:', values);
-    }, 400);
+
+    console.log(values,"kiki");
+    // setTimeout(() => {
+    //   alert(JSON.stringify(values, null, 2));
+    //   setSubmitting(false);
+    //   console.log('Form Submitted:', values);
+    // }, 400);
   };
 
   return (
