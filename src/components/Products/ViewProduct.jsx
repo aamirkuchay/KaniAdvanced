@@ -47,22 +47,20 @@ const ViewProduct = () => {
         getProduct();
         getProductId();
     }, []);
-    console.log(productId, "lo");
+
 
     const formattedProductId = productId.map(id => ({
         label: id,
         value: id
     }));
-    // console.log(Product,"lololo");
+   
     const customStyles = createCustomStyles(theme?.mode);
 
     const openBOMModal = (bomData) => {
-
-        console.log(bomData, "siriiiiiii");
         setSelectedBOMData(bomData);
         setIsModalOpen(true);
     };
-    // console.log(selectedBOMData, "jijiji");
+
 
     const closeBOMModal = () => {
         setIsModalOpen(false);
@@ -74,7 +72,7 @@ const ViewProduct = () => {
 
        
         const getInventory = async () => {
-            console.log("iam here");
+            
             try {
                 const response = await fetch(`${GET_INVENTORYLOCATION}/${id}`, {
                     method: "GET",
@@ -84,7 +82,7 @@ const ViewProduct = () => {
                     }
                 });
                 const data = await response.json();
-                console.log(data,"pr")
+               
     
                 // setLocation(data);
                 setSelectedINVENTORYData(data);
@@ -242,7 +240,7 @@ const ViewProduct = () => {
                                 <div className="text-right">
                                     <button onClick={closeBOMModal} className="text-xl font-bold">&times;</button>
                                 </div>
-                                <h2 className="text-xl mb-4">BOM Details</h2>
+                                <h2 className="text-xl mb-4 text-center text-black ">Bill Of Material</h2>
                                 <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
                                     <table className="min-w-full leading-normal">
                                         <thead>
