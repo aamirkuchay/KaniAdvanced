@@ -132,7 +132,7 @@ const ViewProduct = () => {
 
 
         }
-        console.log(Product[0].inventoryStatus,"inventtttttttt");
+        
 
 
 
